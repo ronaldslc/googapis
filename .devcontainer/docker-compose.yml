@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  vscode:
+    image: gr8ninja/rust
+    container_name: googapis
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker-host.sock
+      - type: bind
+        source: ../
+        target: /workspaces/googapis
+    init: true
+    cap_add: 
+      - SYS_PTRACE
+    security_opt: 
+      - seccomp:unconfined
+    networks:
+      - devenv
+networks:
+  devenv:
