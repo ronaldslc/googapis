@@ -4,7 +4,7 @@
 pub struct Document {
     /// Required. If the type is not set or is `TYPE_UNSPECIFIED`,
     /// returns an `INVALID_ARGUMENT` error.
-    #[prost(enumeration = "document::Type", tag = "1")]
+    #[prost(enumeration="document::Type", tag="1")]
     pub r#type: i32,
     /// The language of the document (if not specified, the language is
     /// automatically detected). Both ISO and BCP-47 language codes are
@@ -14,11 +14,11 @@ pub struct Document {
     /// currently supported languages for each API method. If the language (either
     /// specified by the caller or automatically detected) is not supported by the
     /// called API method, an `INVALID_ARGUMENT` error is returned.
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub language: ::prost::alloc::string::String,
     /// The source of the document: a string containing the content or a
     /// Google Cloud Storage URI.
-    #[prost(oneof = "document::Source", tags = "2, 3")]
+    #[prost(oneof="document::Source", tags="2, 3")]
     pub source: ::core::option::Option<document::Source>,
 }
 /// Nested message and enum types in `Document`.
@@ -34,19 +34,32 @@ pub mod document {
         /// HTML
         Html = 2,
     }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Type::Unspecified => "TYPE_UNSPECIFIED",
+                Type::PlainText => "PLAIN_TEXT",
+                Type::Html => "HTML",
+            }
+        }
+    }
     /// The source of the document: a string containing the content or a
     /// Google Cloud Storage URI.
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// The content of the input in string format.
         /// Cloud audit logging exempt since it is based on user data.
-        #[prost(string, tag = "2")]
+        #[prost(string, tag="2")]
         Content(::prost::alloc::string::String),
         /// The Google Cloud Storage URI where the file content is located.
         /// This URI must be of the form: gs://bucket_name/object_name. For more
         /// details, see <https://cloud.google.com/storage/docs/reference-uris.>
         /// NOTE: Cloud Storage object versioning is not supported.
-        #[prost(string, tag = "3")]
+        #[prost(string, tag="3")]
         GcsContentUri(::prost::alloc::string::String),
     }
 }
@@ -54,12 +67,12 @@ pub mod document {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Sentence {
     /// The sentence text.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub text: ::core::option::Option<TextSpan>,
     /// For calls to \[AnalyzeSentiment][\] or if
     /// \[AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v1beta2.AnnotateTextRequest.Features.extract_document_sentiment\] is set to
     /// true, this field will contain the sentiment for the sentence.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub sentiment: ::core::option::Option<Sentiment>,
 }
 /// Represents a phrase in the text that is a known entity, such as
@@ -68,36 +81,35 @@ pub struct Sentence {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Entity {
     /// The representative name for the entity.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// The entity type.
-    #[prost(enumeration = "entity::Type", tag = "2")]
+    #[prost(enumeration="entity::Type", tag="2")]
     pub r#type: i32,
     /// Metadata associated with the entity.
     ///
     /// For most entity types, the metadata is a Wikipedia URL (`wikipedia_url`)
     /// and Knowledge Graph MID (`mid`), if they are available. For the metadata
     /// associated with other entity types, see the Type table below.
-    #[prost(map = "string, string", tag = "3")]
-    pub metadata:
-        ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map="string, string", tag="3")]
+    pub metadata: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
     /// The salience score associated with the entity in the [0, 1.0] range.
     ///
     /// The salience score for an entity provides information about the
     /// importance or centrality of that entity to the entire document text.
     /// Scores closer to 0 are less salient, while scores closer to 1.0 are highly
     /// salient.
-    #[prost(float, tag = "4")]
+    #[prost(float, tag="4")]
     pub salience: f32,
     /// The mentions of this entity in the input document. The API currently
     /// supports proper noun mentions.
-    #[prost(message, repeated, tag = "5")]
+    #[prost(message, repeated, tag="5")]
     pub mentions: ::prost::alloc::vec::Vec<EntityMention>,
     /// For calls to \[AnalyzeEntitySentiment][\] or if
     /// \[AnnotateTextRequest.Features.extract_entity_sentiment][google.cloud.language.v1beta2.AnnotateTextRequest.Features.extract_entity_sentiment\] is set to
     /// true, this field will contain the aggregate sentiment expressed for this
     /// entity in the provided document.
-    #[prost(message, optional, tag = "6")]
+    #[prost(message, optional, tag="6")]
     pub sentiment: ::core::option::Option<Sentiment>,
 }
 /// Nested message and enum types in `Entity`.
@@ -170,21 +182,44 @@ pub mod entity {
         /// The metadata identifies the `value` and `currency`.
         Price = 13,
     }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Type::Unknown => "UNKNOWN",
+                Type::Person => "PERSON",
+                Type::Location => "LOCATION",
+                Type::Organization => "ORGANIZATION",
+                Type::Event => "EVENT",
+                Type::WorkOfArt => "WORK_OF_ART",
+                Type::ConsumerGood => "CONSUMER_GOOD",
+                Type::Other => "OTHER",
+                Type::PhoneNumber => "PHONE_NUMBER",
+                Type::Address => "ADDRESS",
+                Type::Date => "DATE",
+                Type::Number => "NUMBER",
+                Type::Price => "PRICE",
+            }
+        }
+    }
 }
 /// Represents the smallest syntactic building block of the text.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Token {
     /// The token text.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub text: ::core::option::Option<TextSpan>,
     /// Parts of speech tag for this token.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub part_of_speech: ::core::option::Option<PartOfSpeech>,
     /// Dependency tree parse for this token.
-    #[prost(message, optional, tag = "3")]
+    #[prost(message, optional, tag="3")]
     pub dependency_edge: ::core::option::Option<DependencyEdge>,
     /// \[Lemma\](<https://en.wikipedia.org/wiki/Lemma_%28morphology%29>) of the token.
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub lemma: ::prost::alloc::string::String,
 }
 /// Represents the feeling associated with the entire text or entities in
@@ -195,51 +230,51 @@ pub struct Sentiment {
     /// A non-negative number in the [0, +inf) range, which represents
     /// the absolute magnitude of sentiment regardless of score (positive or
     /// negative).
-    #[prost(float, tag = "2")]
+    #[prost(float, tag="2")]
     pub magnitude: f32,
     /// Sentiment score between -1.0 (negative sentiment) and 1.0
     /// (positive sentiment).
-    #[prost(float, tag = "3")]
+    #[prost(float, tag="3")]
     pub score: f32,
 }
 /// Represents part of speech information for a token.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PartOfSpeech {
     /// The part of speech tag.
-    #[prost(enumeration = "part_of_speech::Tag", tag = "1")]
+    #[prost(enumeration="part_of_speech::Tag", tag="1")]
     pub tag: i32,
     /// The grammatical aspect.
-    #[prost(enumeration = "part_of_speech::Aspect", tag = "2")]
+    #[prost(enumeration="part_of_speech::Aspect", tag="2")]
     pub aspect: i32,
     /// The grammatical case.
-    #[prost(enumeration = "part_of_speech::Case", tag = "3")]
+    #[prost(enumeration="part_of_speech::Case", tag="3")]
     pub case: i32,
     /// The grammatical form.
-    #[prost(enumeration = "part_of_speech::Form", tag = "4")]
+    #[prost(enumeration="part_of_speech::Form", tag="4")]
     pub form: i32,
     /// The grammatical gender.
-    #[prost(enumeration = "part_of_speech::Gender", tag = "5")]
+    #[prost(enumeration="part_of_speech::Gender", tag="5")]
     pub gender: i32,
     /// The grammatical mood.
-    #[prost(enumeration = "part_of_speech::Mood", tag = "6")]
+    #[prost(enumeration="part_of_speech::Mood", tag="6")]
     pub mood: i32,
     /// The grammatical number.
-    #[prost(enumeration = "part_of_speech::Number", tag = "7")]
+    #[prost(enumeration="part_of_speech::Number", tag="7")]
     pub number: i32,
     /// The grammatical person.
-    #[prost(enumeration = "part_of_speech::Person", tag = "8")]
+    #[prost(enumeration="part_of_speech::Person", tag="8")]
     pub person: i32,
     /// The grammatical properness.
-    #[prost(enumeration = "part_of_speech::Proper", tag = "9")]
+    #[prost(enumeration="part_of_speech::Proper", tag="9")]
     pub proper: i32,
     /// The grammatical reciprocity.
-    #[prost(enumeration = "part_of_speech::Reciprocity", tag = "10")]
+    #[prost(enumeration="part_of_speech::Reciprocity", tag="10")]
     pub reciprocity: i32,
     /// The grammatical tense.
-    #[prost(enumeration = "part_of_speech::Tense", tag = "11")]
+    #[prost(enumeration="part_of_speech::Tense", tag="11")]
     pub tense: i32,
     /// The grammatical voice.
-    #[prost(enumeration = "part_of_speech::Voice", tag = "12")]
+    #[prost(enumeration="part_of_speech::Voice", tag="12")]
     pub voice: i32,
 }
 /// Nested message and enum types in `PartOfSpeech`.
@@ -277,6 +312,30 @@ pub mod part_of_speech {
         /// Affix
         Affix = 13,
     }
+    impl Tag {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Tag::Unknown => "UNKNOWN",
+                Tag::Adj => "ADJ",
+                Tag::Adp => "ADP",
+                Tag::Adv => "ADV",
+                Tag::Conj => "CONJ",
+                Tag::Det => "DET",
+                Tag::Noun => "NOUN",
+                Tag::Num => "NUM",
+                Tag::Pron => "PRON",
+                Tag::Prt => "PRT",
+                Tag::Punct => "PUNCT",
+                Tag::Verb => "VERB",
+                Tag::X => "X",
+                Tag::Affix => "AFFIX",
+            }
+        }
+    }
     /// The characteristic of a verb that expresses time flow during an event.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
     #[repr(i32)]
@@ -289,6 +348,20 @@ pub mod part_of_speech {
         Imperfective = 2,
         /// Progressive
         Progressive = 3,
+    }
+    impl Aspect {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Aspect::Unknown => "ASPECT_UNKNOWN",
+                Aspect::Perfective => "PERFECTIVE",
+                Aspect::Imperfective => "IMPERFECTIVE",
+                Aspect::Progressive => "PROGRESSIVE",
+            }
+        }
     }
     /// The grammatical function performed by a noun or pronoun in a phrase,
     /// clause, or sentence. In some languages, other parts of speech, such as
@@ -327,6 +400,31 @@ pub mod part_of_speech {
         /// Vocative
         Vocative = 14,
     }
+    impl Case {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Case::Unknown => "CASE_UNKNOWN",
+                Case::Accusative => "ACCUSATIVE",
+                Case::Adverbial => "ADVERBIAL",
+                Case::Complementive => "COMPLEMENTIVE",
+                Case::Dative => "DATIVE",
+                Case::Genitive => "GENITIVE",
+                Case::Instrumental => "INSTRUMENTAL",
+                Case::Locative => "LOCATIVE",
+                Case::Nominative => "NOMINATIVE",
+                Case::Oblique => "OBLIQUE",
+                Case::Partitive => "PARTITIVE",
+                Case::Prepositional => "PREPOSITIONAL",
+                Case::ReflexiveCase => "REFLEXIVE_CASE",
+                Case::RelativeCase => "RELATIVE_CASE",
+                Case::Vocative => "VOCATIVE",
+            }
+        }
+    }
     /// Depending on the language, Form can be categorizing different forms of
     /// verbs, adjectives, adverbs, etc. For example, categorizing inflected
     /// endings of verbs and adjectives or distinguishing between short and long
@@ -359,6 +457,28 @@ pub mod part_of_speech {
         /// Specific form
         Specific = 11,
     }
+    impl Form {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Form::Unknown => "FORM_UNKNOWN",
+                Form::Adnomial => "ADNOMIAL",
+                Form::Auxiliary => "AUXILIARY",
+                Form::Complementizer => "COMPLEMENTIZER",
+                Form::FinalEnding => "FINAL_ENDING",
+                Form::Gerund => "GERUND",
+                Form::Realis => "REALIS",
+                Form::Irrealis => "IRREALIS",
+                Form::Short => "SHORT",
+                Form::Long => "LONG",
+                Form::Order => "ORDER",
+                Form::Specific => "SPECIFIC",
+            }
+        }
+    }
     /// Gender classes of nouns reflected in the behaviour of associated words.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
     #[repr(i32)]
@@ -371,6 +491,20 @@ pub mod part_of_speech {
         Masculine = 2,
         /// Neuter
         Neuter = 3,
+    }
+    impl Gender {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Gender::Unknown => "GENDER_UNKNOWN",
+                Gender::Feminine => "FEMININE",
+                Gender::Masculine => "MASCULINE",
+                Gender::Neuter => "NEUTER",
+            }
+        }
     }
     /// The grammatical feature of verbs, used for showing modality and attitude.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -391,6 +525,23 @@ pub mod part_of_speech {
         /// Subjunctive
         Subjunctive = 6,
     }
+    impl Mood {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Mood::Unknown => "MOOD_UNKNOWN",
+                Mood::ConditionalMood => "CONDITIONAL_MOOD",
+                Mood::Imperative => "IMPERATIVE",
+                Mood::Indicative => "INDICATIVE",
+                Mood::Interrogative => "INTERROGATIVE",
+                Mood::Jussive => "JUSSIVE",
+                Mood::Subjunctive => "SUBJUNCTIVE",
+            }
+        }
+    }
     /// Count distinctions.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
     #[repr(i32)]
@@ -403,6 +554,20 @@ pub mod part_of_speech {
         Plural = 2,
         /// Dual
         Dual = 3,
+    }
+    impl Number {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Number::Unknown => "NUMBER_UNKNOWN",
+                Number::Singular => "SINGULAR",
+                Number::Plural => "PLURAL",
+                Number::Dual => "DUAL",
+            }
+        }
     }
     /// The distinction between the speaker, second person, third person, etc.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -419,6 +584,21 @@ pub mod part_of_speech {
         /// Reflexive
         ReflexivePerson = 4,
     }
+    impl Person {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Person::Unknown => "PERSON_UNKNOWN",
+                Person::First => "FIRST",
+                Person::Second => "SECOND",
+                Person::Third => "THIRD",
+                Person::ReflexivePerson => "REFLEXIVE_PERSON",
+            }
+        }
+    }
     /// This category shows if the token is part of a proper name.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
     #[repr(i32)]
@@ -429,6 +609,19 @@ pub mod part_of_speech {
         Proper = 1,
         /// Not proper
         NotProper = 2,
+    }
+    impl Proper {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Proper::Unknown => "PROPER_UNKNOWN",
+                Proper::Proper => "PROPER",
+                Proper::NotProper => "NOT_PROPER",
+            }
+        }
     }
     /// Reciprocal features of a pronoun.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -441,6 +634,19 @@ pub mod part_of_speech {
         Reciprocal = 1,
         /// Non-reciprocal
         NonReciprocal = 2,
+    }
+    impl Reciprocity {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Reciprocity::Unknown => "RECIPROCITY_UNKNOWN",
+                Reciprocity::Reciprocal => "RECIPROCAL",
+                Reciprocity::NonReciprocal => "NON_RECIPROCAL",
+            }
+        }
     }
     /// Time reference.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -461,6 +667,23 @@ pub mod part_of_speech {
         /// Pluperfect
         Pluperfect = 6,
     }
+    impl Tense {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Tense::Unknown => "TENSE_UNKNOWN",
+                Tense::ConditionalTense => "CONDITIONAL_TENSE",
+                Tense::Future => "FUTURE",
+                Tense::Past => "PAST",
+                Tense::Present => "PRESENT",
+                Tense::Imperfect => "IMPERFECT",
+                Tense::Pluperfect => "PLUPERFECT",
+            }
+        }
+    }
     /// The relationship between the action that a verb expresses and the
     /// participants identified by its arguments.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -475,6 +698,20 @@ pub mod part_of_speech {
         /// Passive
         Passive = 3,
     }
+    impl Voice {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Voice::Unknown => "VOICE_UNKNOWN",
+                Voice::Active => "ACTIVE",
+                Voice::Causative => "CAUSATIVE",
+                Voice::Passive => "PASSIVE",
+            }
+        }
+    }
 }
 /// Represents dependency parse tree information for a token.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -484,10 +721,10 @@ pub struct DependencyEdge {
     /// The index is the position of the token in the array of tokens returned
     /// by the API method. If this token is a root token, then the
     /// `head_token_index` is its own index.
-    #[prost(int32, tag = "1")]
+    #[prost(int32, tag="1")]
     pub head_token_index: i32,
     /// The parse label for the token.
-    #[prost(enumeration = "dependency_edge::Label", tag = "2")]
+    #[prost(enumeration="dependency_edge::Label", tag="2")]
     pub label: i32,
 }
 /// Nested message and enum types in `DependencyEdge`.
@@ -663,22 +900,115 @@ pub mod dependency_edge {
         /// Nominal complement of a noun
         Ncomp = 82,
     }
+    impl Label {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Label::Unknown => "UNKNOWN",
+                Label::Abbrev => "ABBREV",
+                Label::Acomp => "ACOMP",
+                Label::Advcl => "ADVCL",
+                Label::Advmod => "ADVMOD",
+                Label::Amod => "AMOD",
+                Label::Appos => "APPOS",
+                Label::Attr => "ATTR",
+                Label::Aux => "AUX",
+                Label::Auxpass => "AUXPASS",
+                Label::Cc => "CC",
+                Label::Ccomp => "CCOMP",
+                Label::Conj => "CONJ",
+                Label::Csubj => "CSUBJ",
+                Label::Csubjpass => "CSUBJPASS",
+                Label::Dep => "DEP",
+                Label::Det => "DET",
+                Label::Discourse => "DISCOURSE",
+                Label::Dobj => "DOBJ",
+                Label::Expl => "EXPL",
+                Label::Goeswith => "GOESWITH",
+                Label::Iobj => "IOBJ",
+                Label::Mark => "MARK",
+                Label::Mwe => "MWE",
+                Label::Mwv => "MWV",
+                Label::Neg => "NEG",
+                Label::Nn => "NN",
+                Label::Npadvmod => "NPADVMOD",
+                Label::Nsubj => "NSUBJ",
+                Label::Nsubjpass => "NSUBJPASS",
+                Label::Num => "NUM",
+                Label::Number => "NUMBER",
+                Label::P => "P",
+                Label::Parataxis => "PARATAXIS",
+                Label::Partmod => "PARTMOD",
+                Label::Pcomp => "PCOMP",
+                Label::Pobj => "POBJ",
+                Label::Poss => "POSS",
+                Label::Postneg => "POSTNEG",
+                Label::Precomp => "PRECOMP",
+                Label::Preconj => "PRECONJ",
+                Label::Predet => "PREDET",
+                Label::Pref => "PREF",
+                Label::Prep => "PREP",
+                Label::Pronl => "PRONL",
+                Label::Prt => "PRT",
+                Label::Ps => "PS",
+                Label::Quantmod => "QUANTMOD",
+                Label::Rcmod => "RCMOD",
+                Label::Rcmodrel => "RCMODREL",
+                Label::Rdrop => "RDROP",
+                Label::Ref => "REF",
+                Label::Remnant => "REMNANT",
+                Label::Reparandum => "REPARANDUM",
+                Label::Root => "ROOT",
+                Label::Snum => "SNUM",
+                Label::Suff => "SUFF",
+                Label::Tmod => "TMOD",
+                Label::Topic => "TOPIC",
+                Label::Vmod => "VMOD",
+                Label::Vocative => "VOCATIVE",
+                Label::Xcomp => "XCOMP",
+                Label::Suffix => "SUFFIX",
+                Label::Title => "TITLE",
+                Label::Advphmod => "ADVPHMOD",
+                Label::Auxcaus => "AUXCAUS",
+                Label::Auxvv => "AUXVV",
+                Label::Dtmod => "DTMOD",
+                Label::Foreign => "FOREIGN",
+                Label::Kw => "KW",
+                Label::List => "LIST",
+                Label::Nomc => "NOMC",
+                Label::Nomcsubj => "NOMCSUBJ",
+                Label::Nomcsubjpass => "NOMCSUBJPASS",
+                Label::Numc => "NUMC",
+                Label::Cop => "COP",
+                Label::Dislocated => "DISLOCATED",
+                Label::Asp => "ASP",
+                Label::Gmod => "GMOD",
+                Label::Gobj => "GOBJ",
+                Label::Infmod => "INFMOD",
+                Label::Mes => "MES",
+                Label::Ncomp => "NCOMP",
+            }
+        }
+    }
 }
 /// Represents a mention for an entity in the text. Currently, proper noun
 /// mentions are supported.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EntityMention {
     /// The mention text.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub text: ::core::option::Option<TextSpan>,
     /// The type of the entity mention.
-    #[prost(enumeration = "entity_mention::Type", tag = "2")]
+    #[prost(enumeration="entity_mention::Type", tag="2")]
     pub r#type: i32,
     /// For calls to \[AnalyzeEntitySentiment][\] or if
     /// \[AnnotateTextRequest.Features.extract_entity_sentiment][google.cloud.language.v1beta2.AnnotateTextRequest.Features.extract_entity_sentiment\] is set to
     /// true, this field will contain the sentiment expressed for this mention of
     /// the entity in the provided document.
-    #[prost(message, optional, tag = "3")]
+    #[prost(message, optional, tag="3")]
     pub sentiment: ::core::option::Option<Sentiment>,
 }
 /// Nested message and enum types in `EntityMention`.
@@ -694,16 +1024,29 @@ pub mod entity_mention {
         /// Common noun (or noun compound)
         Common = 2,
     }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Type::Unknown => "TYPE_UNKNOWN",
+                Type::Proper => "PROPER",
+                Type::Common => "COMMON",
+            }
+        }
+    }
 }
 /// Represents an output piece of text.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextSpan {
     /// The content of the output text.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub content: ::prost::alloc::string::String,
     /// The API calculates the beginning offset of the content in the original
     /// document according to the \[EncodingType][google.cloud.language.v1beta2.EncodingType\] specified in the API request.
-    #[prost(int32, tag = "2")]
+    #[prost(int32, tag="2")]
     pub begin_offset: i32,
 }
 /// Represents a category returned from the text classifier.
@@ -711,120 +1054,120 @@ pub struct TextSpan {
 pub struct ClassificationCategory {
     /// The name of the category representing the document, from the [predefined
     /// taxonomy](<https://cloud.google.com/natural-language/docs/categories>).
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// The classifier's confidence of the category. Number represents how certain
     /// the classifier is that this category represents the given text.
-    #[prost(float, tag = "2")]
+    #[prost(float, tag="2")]
     pub confidence: f32,
 }
 /// The sentiment analysis request message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeSentimentRequest {
     /// Required. Input document.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub document: ::core::option::Option<Document>,
     /// The encoding type used by the API to calculate sentence offsets for the
     /// sentence sentiment.
-    #[prost(enumeration = "EncodingType", tag = "2")]
+    #[prost(enumeration="EncodingType", tag="2")]
     pub encoding_type: i32,
 }
 /// The sentiment analysis response message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeSentimentResponse {
     /// The overall sentiment of the input document.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub document_sentiment: ::core::option::Option<Sentiment>,
     /// The language of the text, which will be the same as the language specified
     /// in the request or, if not specified, the automatically-detected language.
     /// See \[Document.language][google.cloud.language.v1beta2.Document.language\] field for more details.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub language: ::prost::alloc::string::String,
     /// The sentiment for all the sentences in the document.
-    #[prost(message, repeated, tag = "3")]
+    #[prost(message, repeated, tag="3")]
     pub sentences: ::prost::alloc::vec::Vec<Sentence>,
 }
 /// The entity-level sentiment analysis request message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeEntitySentimentRequest {
     /// Required. Input document.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub document: ::core::option::Option<Document>,
     /// The encoding type used by the API to calculate offsets.
-    #[prost(enumeration = "EncodingType", tag = "2")]
+    #[prost(enumeration="EncodingType", tag="2")]
     pub encoding_type: i32,
 }
 /// The entity-level sentiment analysis response message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeEntitySentimentResponse {
     /// The recognized entities in the input document with associated sentiments.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub entities: ::prost::alloc::vec::Vec<Entity>,
     /// The language of the text, which will be the same as the language specified
     /// in the request or, if not specified, the automatically-detected language.
     /// See \[Document.language][google.cloud.language.v1beta2.Document.language\] field for more details.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub language: ::prost::alloc::string::String,
 }
 /// The entity analysis request message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeEntitiesRequest {
     /// Required. Input document.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub document: ::core::option::Option<Document>,
     /// The encoding type used by the API to calculate offsets.
-    #[prost(enumeration = "EncodingType", tag = "2")]
+    #[prost(enumeration="EncodingType", tag="2")]
     pub encoding_type: i32,
 }
 /// The entity analysis response message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeEntitiesResponse {
     /// The recognized entities in the input document.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub entities: ::prost::alloc::vec::Vec<Entity>,
     /// The language of the text, which will be the same as the language specified
     /// in the request or, if not specified, the automatically-detected language.
     /// See \[Document.language][google.cloud.language.v1beta2.Document.language\] field for more details.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub language: ::prost::alloc::string::String,
 }
 /// The syntax analysis request message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeSyntaxRequest {
     /// Required. Input document.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub document: ::core::option::Option<Document>,
     /// The encoding type used by the API to calculate offsets.
-    #[prost(enumeration = "EncodingType", tag = "2")]
+    #[prost(enumeration="EncodingType", tag="2")]
     pub encoding_type: i32,
 }
 /// The syntax analysis response message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalyzeSyntaxResponse {
     /// Sentences in the input document.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub sentences: ::prost::alloc::vec::Vec<Sentence>,
     /// Tokens, along with their syntactic information, in the input document.
-    #[prost(message, repeated, tag = "2")]
+    #[prost(message, repeated, tag="2")]
     pub tokens: ::prost::alloc::vec::Vec<Token>,
     /// The language of the text, which will be the same as the language specified
     /// in the request or, if not specified, the automatically-detected language.
     /// See \[Document.language][google.cloud.language.v1beta2.Document.language\] field for more details.
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub language: ::prost::alloc::string::String,
 }
 /// The document classification request message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClassifyTextRequest {
     /// Required. Input document.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub document: ::core::option::Option<Document>,
 }
 /// The document classification response message.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ClassifyTextResponse {
     /// Categories representing the input document.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub categories: ::prost::alloc::vec::Vec<ClassificationCategory>,
 }
 /// The request message for the text annotation API, which can perform multiple
@@ -832,13 +1175,13 @@ pub struct ClassifyTextResponse {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnnotateTextRequest {
     /// Required. Input document.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub document: ::core::option::Option<Document>,
     /// Required. The enabled features.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub features: ::core::option::Option<annotate_text_request::Features>,
     /// The encoding type used by the API to calculate offsets.
-    #[prost(enumeration = "EncodingType", tag = "3")]
+    #[prost(enumeration="EncodingType", tag="3")]
     pub encoding_type: i32,
 }
 /// Nested message and enum types in `AnnotateTextRequest`.
@@ -849,22 +1192,22 @@ pub mod annotate_text_request {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Features {
         /// Extract syntax information.
-        #[prost(bool, tag = "1")]
+        #[prost(bool, tag="1")]
         pub extract_syntax: bool,
         /// Extract entities.
-        #[prost(bool, tag = "2")]
+        #[prost(bool, tag="2")]
         pub extract_entities: bool,
         /// Extract document-level sentiment.
-        #[prost(bool, tag = "3")]
+        #[prost(bool, tag="3")]
         pub extract_document_sentiment: bool,
         /// Extract entities and their associated sentiment.
-        #[prost(bool, tag = "4")]
+        #[prost(bool, tag="4")]
         pub extract_entity_sentiment: bool,
         /// Classify the full document into categories. If this is true,
         /// the API will use the default model which classifies into a
         /// [predefined
         /// taxonomy](<https://cloud.google.com/natural-language/docs/categories>).
-        #[prost(bool, tag = "6")]
+        #[prost(bool, tag="6")]
         pub classify_text: bool,
     }
 }
@@ -873,29 +1216,29 @@ pub mod annotate_text_request {
 pub struct AnnotateTextResponse {
     /// Sentences in the input document. Populated if the user enables
     /// \[AnnotateTextRequest.Features.extract_syntax][google.cloud.language.v1beta2.AnnotateTextRequest.Features.extract_syntax\].
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub sentences: ::prost::alloc::vec::Vec<Sentence>,
     /// Tokens, along with their syntactic information, in the input document.
     /// Populated if the user enables
     /// \[AnnotateTextRequest.Features.extract_syntax][google.cloud.language.v1beta2.AnnotateTextRequest.Features.extract_syntax\].
-    #[prost(message, repeated, tag = "2")]
+    #[prost(message, repeated, tag="2")]
     pub tokens: ::prost::alloc::vec::Vec<Token>,
     /// Entities, along with their semantic information, in the input document.
     /// Populated if the user enables
     /// \[AnnotateTextRequest.Features.extract_entities][google.cloud.language.v1beta2.AnnotateTextRequest.Features.extract_entities\].
-    #[prost(message, repeated, tag = "3")]
+    #[prost(message, repeated, tag="3")]
     pub entities: ::prost::alloc::vec::Vec<Entity>,
     /// The overall sentiment for the document. Populated if the user enables
     /// \[AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v1beta2.AnnotateTextRequest.Features.extract_document_sentiment\].
-    #[prost(message, optional, tag = "4")]
+    #[prost(message, optional, tag="4")]
     pub document_sentiment: ::core::option::Option<Sentiment>,
     /// The language of the text, which will be the same as the language specified
     /// in the request or, if not specified, the automatically-detected language.
     /// See \[Document.language][google.cloud.language.v1beta2.Document.language\] field for more details.
-    #[prost(string, tag = "5")]
+    #[prost(string, tag="5")]
     pub language: ::prost::alloc::string::String,
     /// Categories identified in the input document.
-    #[prost(message, repeated, tag = "6")]
+    #[prost(message, repeated, tag="6")]
     pub categories: ::prost::alloc::vec::Vec<ClassificationCategory>,
 }
 /// Represents the text encoding that the caller uses to process the output.
@@ -922,12 +1265,27 @@ pub enum EncodingType {
     /// that uses this encoding natively.
     Utf32 = 3,
 }
-#[doc = r" Generated client implementations."]
+impl EncodingType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            EncodingType::None => "NONE",
+            EncodingType::Utf8 => "UTF8",
+            EncodingType::Utf16 => "UTF16",
+            EncodingType::Utf32 => "UTF32",
+        }
+    }
+}
+/// Generated client implementations.
 pub mod language_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    #[doc = " Provides text analysis operations such as sentiment analysis and entity"]
-    #[doc = " recognition."]
+    use tonic::codegen::http::Uri;
+    /// Provides text analysis operations such as sentiment analysis and entity
+    /// recognition.
     #[derive(Debug, Clone)]
     pub struct LanguageServiceClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -935,12 +1293,16 @@ pub mod language_service_client {
     impl<T> LanguageServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::ResponseBody: Body + Send + 'static,
         T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
         <T::ResponseBody as Body>::Error: Into<StdError> + Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
             Self { inner }
         }
         pub fn with_interceptor<F>(
@@ -949,132 +1311,157 @@ pub mod language_service_client {
         ) -> LanguageServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
             T: tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
                 Response = http::Response<
                     <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
         {
             LanguageServiceClient::new(InterceptedService::new(inner, interceptor))
         }
-        #[doc = r" Compress requests with `gzip`."]
-        #[doc = r""]
-        #[doc = r" This requires the server to support it otherwise it might respond with an"]
-        #[doc = r" error."]
-        pub fn send_gzip(mut self) -> Self {
-            self.inner = self.inner.send_gzip();
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
             self
         }
-        #[doc = r" Enable decompressing responses with `gzip`."]
-        pub fn accept_gzip(mut self) -> Self {
-            self.inner = self.inner.accept_gzip();
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
             self
         }
-        #[doc = " Analyzes the sentiment of the provided text."]
+        /// Analyzes the sentiment of the provided text.
         pub async fn analyze_sentiment(
             &mut self,
             request: impl tonic::IntoRequest<super::AnalyzeSentimentRequest>,
         ) -> Result<tonic::Response<super::AnalyzeSentimentResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.language.v1beta2.LanguageService/AnalyzeSentiment",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Finds named entities (currently proper names and common nouns) in the text"]
-        #[doc = " along with entity types, salience, mentions for each entity, and"]
-        #[doc = " other properties."]
+        /// Finds named entities (currently proper names and common nouns) in the text
+        /// along with entity types, salience, mentions for each entity, and
+        /// other properties.
         pub async fn analyze_entities(
             &mut self,
             request: impl tonic::IntoRequest<super::AnalyzeEntitiesRequest>,
         ) -> Result<tonic::Response<super::AnalyzeEntitiesResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.language.v1beta2.LanguageService/AnalyzeEntities",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Finds entities, similar to [AnalyzeEntities][google.cloud.language.v1beta2.LanguageService.AnalyzeEntities] in the text and analyzes"]
-        #[doc = " sentiment associated with each entity and its mentions."]
+        /// Finds entities, similar to [AnalyzeEntities][google.cloud.language.v1beta2.LanguageService.AnalyzeEntities] in the text and analyzes
+        /// sentiment associated with each entity and its mentions.
         pub async fn analyze_entity_sentiment(
             &mut self,
             request: impl tonic::IntoRequest<super::AnalyzeEntitySentimentRequest>,
-        ) -> Result<tonic::Response<super::AnalyzeEntitySentimentResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+        ) -> Result<
+            tonic::Response<super::AnalyzeEntitySentimentResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.language.v1beta2.LanguageService/AnalyzeEntitySentiment",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Analyzes the syntax of the text and provides sentence boundaries and"]
-        #[doc = " tokenization along with part-of-speech tags, dependency trees, and other"]
-        #[doc = " properties."]
+        /// Analyzes the syntax of the text and provides sentence boundaries and
+        /// tokenization along with part-of-speech tags, dependency trees, and other
+        /// properties.
         pub async fn analyze_syntax(
             &mut self,
             request: impl tonic::IntoRequest<super::AnalyzeSyntaxRequest>,
         ) -> Result<tonic::Response<super::AnalyzeSyntaxResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.language.v1beta2.LanguageService/AnalyzeSyntax",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Classifies a document into categories."]
+        /// Classifies a document into categories.
         pub async fn classify_text(
             &mut self,
             request: impl tonic::IntoRequest<super::ClassifyTextRequest>,
         ) -> Result<tonic::Response<super::ClassifyTextResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.language.v1beta2.LanguageService/ClassifyText",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " A convenience method that provides all syntax, sentiment, entity, and"]
-        #[doc = " classification features in one call."]
+        /// A convenience method that provides all syntax, sentiment, entity, and
+        /// classification features in one call.
         pub async fn annotate_text(
             &mut self,
             request: impl tonic::IntoRequest<super::AnnotateTextRequest>,
         ) -> Result<tonic::Response<super::AnnotateTextResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.language.v1beta2.LanguageService/AnnotateText",

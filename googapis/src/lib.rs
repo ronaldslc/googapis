@@ -8,9 +8,9 @@
 //! [dependencies]
 //! googapis = { version = "0.5", features = ["google-spanner-admin-database-v1"] }
 //! gouth = { version = "0.2" }
-//! tonic = { version = "0.5", features = ["tls"] }
-//! prost = "0.8"
-//! prost-types = "0.8"
+//! tonic = { version = "0.8", features = ["tls"] }
+//! prost = "0.11"
+//! prost-types = "0.11"
 //! tokio = { version = "1.9", features = ["rt-multi-thread", "time", "fs", "macros"] }
 //! ```
 //!
@@ -28,6 +28,7 @@
 //!     transport::{Certificate, Channel, ClientTlsConfig},
 //!     Request,
 //! };
+//! use std::convert::TryFrom;
 //!
 //! #[tokio::main]
 //! async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -46,7 +47,7 @@
 //!
 //!     let mut service = DatabaseAdminClient::with_interceptor(channel, move |mut req: Request<()>| {
 //!         let token = &*token.header_value().unwrap();
-//!         let meta = MetadataValue::from_str(token).unwrap();
+//!         let meta = MetadataValue::try_from(token).unwrap();
 //!         req.metadata_mut().insert("authorization", meta);
 //!         Ok(req)
 //!     });

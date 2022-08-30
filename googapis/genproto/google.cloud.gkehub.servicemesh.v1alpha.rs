@@ -3,7 +3,7 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FeatureState {
     /// Output only. Results of running Service Mesh analyzers.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub analysis_messages: ::prost::alloc::vec::Vec<AnalysisMessage>,
 }
 /// **Service Mesh**: State for a single Membership, as analyzed by the Service
@@ -11,7 +11,7 @@ pub struct FeatureState {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MembershipState {
     /// Output only. Results of running Service Mesh analyzers.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub analysis_messages: ::prost::alloc::vec::Vec<AnalysisMessage>,
 }
 /// AnalysisMessageBase describes some common information that is
@@ -19,14 +19,14 @@ pub struct MembershipState {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalysisMessageBase {
     /// Represents the specific type of a message.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub r#type: ::core::option::Option<analysis_message_base::Type>,
     /// Represents how severe a message is.
-    #[prost(enumeration = "analysis_message_base::Level", tag = "2")]
+    #[prost(enumeration="analysis_message_base::Level", tag="2")]
     pub level: i32,
     /// A url pointing to the Service Mesh or Istio documentation for this specific
     /// error type.
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub documentation_url: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `AnalysisMessageBase`.
@@ -41,12 +41,12 @@ pub mod analysis_message_base {
         /// A human-readable name for the message type. e.g. "InternalError",
         /// "PodMissingProxy". This should be the same for all messages of the same
         /// type. (This corresponds to the `name` field in open-source Istio.)
-        #[prost(string, tag = "1")]
+        #[prost(string, tag="1")]
         pub display_name: ::prost::alloc::string::String,
         /// A 7 character code matching `^IST\[0-9\]{4}$` or `^ASM\[0-9\]{4}$`, intended
         /// to uniquely identify the message type. (e.g. "IST0001" is mapped to the
         /// "InternalError" message type.)
-        #[prost(string, tag = "2")]
+        #[prost(string, tag="2")]
         pub code: ::prost::alloc::string::String,
     }
     /// The values here are chosen so that more severe messages get sorted higher,
@@ -64,6 +64,20 @@ pub mod analysis_message_base {
         /// INFO represents an informational finding.
         Info = 12,
     }
+    impl Level {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Level::Unspecified => "LEVEL_UNSPECIFIED",
+                Level::Error => "ERROR",
+                Level::Warning => "WARNING",
+                Level::Info => "INFO",
+            }
+        }
+    }
 }
 /// AnalysisMessage is a single message produced by an analyzer, and
 /// it used to communicate to the end user about the state of their Service
@@ -71,11 +85,11 @@ pub mod analysis_message_base {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnalysisMessage {
     /// Details common to all types of Istio and ServiceMesh analysis messages.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub message_base: ::core::option::Option<AnalysisMessageBase>,
     /// A human readable description of what the error means. It is suitable for
     /// non-internationalize display purposes.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub description: ::prost::alloc::string::String,
     /// A list of strings specifying the resource identifiers that were the cause
     /// of message generation.
@@ -83,10 +97,10 @@ pub struct AnalysisMessage {
     /// * MEMBERSHIP_ID if the cause is a specific member cluster
     /// * MEMBERSHIP_ID/(NAMESPACE\/)?RESOURCETYPE/NAME if the cause is a resource
     /// in a cluster
-    #[prost(string, repeated, tag = "3")]
+    #[prost(string, repeated, tag="3")]
     pub resource_paths: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// A UI can combine these args with a template (based on message_base.type)
     /// to produce an internationalized message.
-    #[prost(message, optional, tag = "4")]
+    #[prost(message, optional, tag="4")]
     pub args: ::core::option::Option<::prost_types::Struct>,
 }

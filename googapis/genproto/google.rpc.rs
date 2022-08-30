@@ -8,16 +8,16 @@
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Status {
     /// The status code, which should be an enum value of \[google.rpc.Code][google.rpc.Code\].
-    #[prost(int32, tag = "1")]
+    #[prost(int32, tag="1")]
     pub code: i32,
     /// A developer-facing error message, which should be in English. Any
     /// user-facing error message should be localized and sent in the
     /// \[google.rpc.Status.details][google.rpc.Status.details\] field, or localized by the client.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub message: ::prost::alloc::string::String,
     /// A list of messages that carry the error details.  There is a common set of
     /// message types for APIs to use.
-    #[prost(message, repeated, tag = "3")]
+    #[prost(message, repeated, tag="3")]
     pub details: ::prost::alloc::vec::Vec<::prost_types::Any>,
 }
 /// The canonical error codes for gRPC APIs.
@@ -104,15 +104,15 @@ pub enum Code {
     ///
     /// Service implementors can use the following guidelines to decide
     /// between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`:
-    ///  (a) Use `UNAVAILABLE` if the client can retry just the failing call.
-    ///  (b) Use `ABORTED` if the client should retry at a higher level
-    ///      (e.g., when a client-specified test-and-set fails, indicating the
-    ///      client should restart a read-modify-write sequence).
-    ///  (c) Use `FAILED_PRECONDITION` if the client should not retry until
-    ///      the system state has been explicitly fixed.  E.g., if an "rmdir"
-    ///      fails because the directory is non-empty, `FAILED_PRECONDITION`
-    ///      should be returned since the client should not retry unless
-    ///      the files are deleted from the directory.
+    ///   (a) Use `UNAVAILABLE` if the client can retry just the failing call.
+    ///   (b) Use `ABORTED` if the client should retry at a higher level
+    ///       (e.g., when a client-specified test-and-set fails, indicating the
+    ///       client should restart a read-modify-write sequence).
+    ///   (c) Use `FAILED_PRECONDITION` if the client should not retry until
+    ///       the system state has been explicitly fixed.  E.g., if an "rmdir"
+    ///       fails because the directory is non-empty, `FAILED_PRECONDITION`
+    ///       should be returned since the client should not retry unless
+    ///       the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
     FailedPrecondition = 9,
@@ -168,6 +168,33 @@ pub enum Code {
     /// HTTP Mapping: 500 Internal Server Error
     DataLoss = 15,
 }
+impl Code {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Code::Ok => "OK",
+            Code::Cancelled => "CANCELLED",
+            Code::Unknown => "UNKNOWN",
+            Code::InvalidArgument => "INVALID_ARGUMENT",
+            Code::DeadlineExceeded => "DEADLINE_EXCEEDED",
+            Code::NotFound => "NOT_FOUND",
+            Code::AlreadyExists => "ALREADY_EXISTS",
+            Code::PermissionDenied => "PERMISSION_DENIED",
+            Code::Unauthenticated => "UNAUTHENTICATED",
+            Code::ResourceExhausted => "RESOURCE_EXHAUSTED",
+            Code::FailedPrecondition => "FAILED_PRECONDITION",
+            Code::Aborted => "ABORTED",
+            Code::OutOfRange => "OUT_OF_RANGE",
+            Code::Unimplemented => "UNIMPLEMENTED",
+            Code::Internal => "INTERNAL",
+            Code::Unavailable => "UNAVAILABLE",
+            Code::DataLoss => "DATA_LOSS",
+        }
+    }
+}
 /// Describes when the clients can retry a failed request. Clients could ignore
 /// the recommendation here or retry when this information is missing from error
 /// responses.
@@ -184,17 +211,17 @@ pub enum Code {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RetryInfo {
     /// Clients should wait at least this long between retrying the same request.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub retry_delay: ::core::option::Option<::prost_types::Duration>,
 }
 /// Describes additional debugging info.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DebugInfo {
     /// The stack trace entries indicating where the error occurred.
-    #[prost(string, repeated, tag = "1")]
+    #[prost(string, repeated, tag="1")]
     pub stack_entries: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Additional debugging information provided by the server.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub detail: ::prost::alloc::string::String,
 }
 /// Describes how a quota check failed.
@@ -211,7 +238,7 @@ pub struct DebugInfo {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QuotaFailure {
     /// Describes all quota violations.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub violations: ::prost::alloc::vec::Vec<quota_failure::Violation>,
 }
 /// Nested message and enum types in `QuotaFailure`.
@@ -223,7 +250,7 @@ pub mod quota_failure {
         /// The subject on which the quota check failed.
         /// For example, "clientip:<ip address of client>" or "project:<Google
         /// developer project id>".
-        #[prost(string, tag = "1")]
+        #[prost(string, tag="1")]
         pub subject: ::prost::alloc::string::String,
         /// A description of how the quota check failed. Clients can use this
         /// description to find more about the quota configuration in the service's
@@ -232,7 +259,7 @@ pub mod quota_failure {
         ///
         /// For example: "Service disabled" or "Daily Limit for read operations
         /// exceeded".
-        #[prost(string, tag = "2")]
+        #[prost(string, tag="2")]
         pub description: ::prost::alloc::string::String,
     }
 }
@@ -241,32 +268,32 @@ pub mod quota_failure {
 /// Example of an error when contacting the "pubsub.googleapis.com" API when it
 /// is not enabled:
 ///
-///     { "reason": "API_DISABLED"
-///       "domain": "googleapis.com"
-///       "metadata": {
-///         "resource": "projects/123",
-///         "service": "pubsub.googleapis.com"
-///       }
-///     }
+///      { "reason": "API_DISABLED"
+///        "domain": "googleapis.com"
+///        "metadata": {
+///          "resource": "projects/123",
+///          "service": "pubsub.googleapis.com"
+///        }
+///      }
 ///
 /// This response indicates that the pubsub.googleapis.com API is not enabled.
 ///
 /// Example of an error that is returned when attempting to create a Spanner
 /// instance in a region that is out of stock:
 ///
-///     { "reason": "STOCKOUT"
-///       "domain": "spanner.googleapis.com",
-///       "metadata": {
-///         "availableRegions": "us-central1,us-east2"
-///       }
-///     }
+///      { "reason": "STOCKOUT"
+///        "domain": "spanner.googleapis.com",
+///        "metadata": {
+///          "availableRegions": "us-central1,us-east2"
+///        }
+///      }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ErrorInfo {
     /// The reason of the error. This is a constant value that identifies the
     /// proximate cause of the error. Error reasons are unique within a particular
     /// domain of errors. This should be at most 63 characters and match
     /// /\[A-Z0-9_\]+/.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub reason: ::prost::alloc::string::String,
     /// The logical grouping to which the "reason" belongs. The error domain
     /// is typically the registered service name of the tool or product that
@@ -274,7 +301,7 @@ pub struct ErrorInfo {
     /// generated by some common infrastructure, the error domain must be a
     /// globally unique value that identifies the infrastructure. For Google API
     /// infrastructure, the error domain is "googleapis.com".
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub domain: ::prost::alloc::string::String,
     /// Additional structured details about this error.
     ///
@@ -284,9 +311,8 @@ pub struct ErrorInfo {
     /// {"instanceLimit": "100/request"}, should be returned as,
     /// {"instanceLimitPerRequest": "100"}, if the client exceeds the number of
     /// instances that can be created in a single (batch) request.
-    #[prost(map = "string, string", tag = "3")]
-    pub metadata:
-        ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map="string, string", tag="3")]
+    pub metadata: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
 }
 /// Describes what preconditions have failed.
 ///
@@ -296,7 +322,7 @@ pub struct ErrorInfo {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PreconditionFailure {
     /// Describes all precondition violations.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub violations: ::prost::alloc::vec::Vec<precondition_failure::Violation>,
 }
 /// Nested message and enum types in `PreconditionFailure`.
@@ -307,18 +333,18 @@ pub mod precondition_failure {
         /// The type of PreconditionFailure. We recommend using a service-specific
         /// enum type to define the supported precondition violation subjects. For
         /// example, "TOS" for "Terms of Service violation".
-        #[prost(string, tag = "1")]
+        #[prost(string, tag="1")]
         pub r#type: ::prost::alloc::string::String,
         /// The subject, relative to the type, that failed.
         /// For example, "google.com/cloud" relative to the "TOS" type would indicate
         /// which terms of service is being referenced.
-        #[prost(string, tag = "2")]
+        #[prost(string, tag="2")]
         pub subject: ::prost::alloc::string::String,
         /// A description of how the precondition failed. Developers can use this
         /// description to understand how to fix the failure.
         ///
         /// For example: "Terms of service not accepted".
-        #[prost(string, tag = "3")]
+        #[prost(string, tag="3")]
         pub description: ::prost::alloc::string::String,
     }
 }
@@ -327,7 +353,7 @@ pub mod precondition_failure {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BadRequest {
     /// Describes all violations in a client request.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub field_violations: ::prost::alloc::vec::Vec<bad_request::FieldViolation>,
 }
 /// Nested message and enum types in `BadRequest`.
@@ -338,10 +364,10 @@ pub mod bad_request {
         /// A path leading to a field in the request body. The value will be a
         /// sequence of dot-separated identifiers that identify a protocol buffer
         /// field. E.g., "field_violations.field" would identify this field.
-        #[prost(string, tag = "1")]
+        #[prost(string, tag="1")]
         pub field: ::prost::alloc::string::String,
         /// A description of why the request element is bad.
-        #[prost(string, tag = "2")]
+        #[prost(string, tag="2")]
         pub description: ::prost::alloc::string::String,
     }
 }
@@ -351,11 +377,11 @@ pub mod bad_request {
 pub struct RequestInfo {
     /// An opaque string that should only be interpreted by the service generating
     /// it. For example, it can be used to identify requests in the service's logs.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub request_id: ::prost::alloc::string::String,
     /// Any data that was used to serve this request. For example, an encrypted
     /// stack trace that can be sent back to the service provider for debugging.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub serving_data: ::prost::alloc::string::String,
 }
 /// Describes the resource that is being accessed.
@@ -364,22 +390,22 @@ pub struct ResourceInfo {
     /// A name for the type of resource being accessed, e.g. "sql table",
     /// "cloud storage bucket", "file", "Google calendar"; or the type URL
     /// of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub resource_type: ::prost::alloc::string::String,
     /// The name of the resource being accessed.  For example, a shared calendar
     /// name: "example.com_4fghdhgsrgh@group.calendar.google.com", if the current
     /// error is \[google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED\].
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub resource_name: ::prost::alloc::string::String,
     /// The owner of the resource (optional).
     /// For example, "user:<owner email>" or "project:<Google developer project
     /// id>".
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub owner: ::prost::alloc::string::String,
     /// Describes what error is encountered when accessing this resource.
     /// For example, updating a cloud project may require the `writer` permission
     /// on the developer console project.
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub description: ::prost::alloc::string::String,
 }
 /// Provides links to documentation or for performing an out of band action.
@@ -390,7 +416,7 @@ pub struct ResourceInfo {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Help {
     /// URL(s) pointing to additional information on handling the current error.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub links: ::prost::alloc::vec::Vec<help::Link>,
 }
 /// Nested message and enum types in `Help`.
@@ -399,10 +425,10 @@ pub mod help {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Link {
         /// Describes what the link offers.
-        #[prost(string, tag = "1")]
+        #[prost(string, tag="1")]
         pub description: ::prost::alloc::string::String,
         /// The URL of the link.
-        #[prost(string, tag = "2")]
+        #[prost(string, tag="2")]
         pub url: ::prost::alloc::string::String,
     }
 }
@@ -413,9 +439,9 @@ pub struct LocalizedMessage {
     /// The locale used following the specification defined at
     /// <http://www.rfc-editor.org/rfc/bcp/bcp47.txt.>
     /// Examples are: "en-US", "fr-CH", "es-MX"
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub locale: ::prost::alloc::string::String,
     /// The localized error message in the above locale.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub message: ::prost::alloc::string::String,
 }

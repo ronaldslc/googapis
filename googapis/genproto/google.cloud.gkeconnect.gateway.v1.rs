@@ -1,12 +1,13 @@
-#[doc = r" Generated client implementations."]
+/// Generated client implementations.
 pub mod gateway_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    #[doc = " Gateway service is a public API which works as a Kubernetes resource model"]
-    #[doc = " proxy between end users and registered Kubernetes clusters. Each RPC in this"]
-    #[doc = " service matches with an HTTP verb. End user will initiate kubectl commands"]
-    #[doc = " against the Gateway service, and Gateway service will forward user requests"]
-    #[doc = " to clusters."]
+    use tonic::codegen::http::Uri;
+    /// Gateway service is a public API which works as a Kubernetes resource model
+    /// proxy between end users and registered Kubernetes clusters. Each RPC in this
+    /// service matches with an HTTP verb. End user will initiate kubectl commands
+    /// against the Gateway service, and Gateway service will forward user requests
+    /// to clusters.
     #[derive(Debug, Clone)]
     pub struct GatewayServiceClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -14,12 +15,16 @@ pub mod gateway_service_client {
     impl<T> GatewayServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::ResponseBody: Body + Send + 'static,
         T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
         <T::ResponseBody as Body>::Error: Into<StdError> + Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
             Self { inner }
         }
         pub fn with_interceptor<F>(
@@ -28,28 +33,32 @@ pub mod gateway_service_client {
         ) -> GatewayServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
             T: tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
                 Response = http::Response<
                     <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
         {
             GatewayServiceClient::new(InterceptedService::new(inner, interceptor))
         }
-        #[doc = r" Compress requests with `gzip`."]
-        #[doc = r""]
-        #[doc = r" This requires the server to support it otherwise it might respond with an"]
-        #[doc = r" error."]
-        pub fn send_gzip(mut self) -> Self {
-            self.inner = self.inner.send_gzip();
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
             self
         }
-        #[doc = r" Enable decompressing responses with `gzip`."]
-        pub fn accept_gzip(mut self) -> Self {
-            self.inner = self.inner.accept_gzip();
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
             self
         }
     }

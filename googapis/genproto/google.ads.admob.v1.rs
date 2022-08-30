@@ -4,88 +4,88 @@
 pub struct PublisherAccount {
     /// Resource name of this account.
     /// Format is accounts/{publisher_id}.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// The unique ID by which this publisher account can be identified
     /// in the API requests (for example, pub-1234567890).
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub publisher_id: ::prost::alloc::string::String,
     /// The time zone that is used in reports that are generated for this account.
     /// The value is a time-zone ID as specified by the CLDR project,
     /// for example, "America/Los_Angeles".
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub reporting_time_zone: ::prost::alloc::string::String,
     /// Currency code of the earning-related metrics, which is the 3-letter code
     /// defined in ISO 4217. The daily average rate is used for the currency
     /// conversion.
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub currency_code: ::prost::alloc::string::String,
 }
 /// The specification for generating an AdMob Network report.
 /// For example, the specification to get clicks and estimated earnings for only
 /// the 'US' and 'CN' countries can look like the following example:
 ///
-///     {
-///       'date_range': {
-///         'start_date': {'year': 2018, 'month': 9, 'day': 1},
-///         'end_date': {'year': 2018, 'month': 9, 'day': 30}
-///       },
-///       'dimensions': ['DATE', 'APP', 'COUNTRY'],
-///       'metrics': ['CLICKS', 'ESTIMATED_EARNINGS'],
-///       'dimension_filters': [
-///         {
-///           'dimension': 'COUNTRY',
-///           'matches_any': {'values': [{'value': 'US', 'value': 'CN'}]}
-///         }
-///       ],
-///       'sort_conditions': [
-///         {'dimension':'APP', order: 'ASCENDING'},
-///         {'metric':'CLICKS', order: 'DESCENDING'}
-///       ],
-///       'localization_settings': {
-///         'currency_code': 'USD',
-///         'language_code': 'en-US'
-///       }
-///     }
+///      {
+///        'date_range': {
+///          'start_date': {'year': 2018, 'month': 9, 'day': 1},
+///          'end_date': {'year': 2018, 'month': 9, 'day': 30}
+///        },
+///        'dimensions': ['DATE', 'APP', 'COUNTRY'],
+///        'metrics': ['CLICKS', 'ESTIMATED_EARNINGS'],
+///        'dimension_filters': [
+///          {
+///            'dimension': 'COUNTRY',
+///            'matches_any': {'values': [{'value': 'US', 'value': 'CN'}]}
+///          }
+///        ],
+///        'sort_conditions': [
+///          {'dimension':'APP', order: 'ASCENDING'},
+///          {'metric':'CLICKS', order: 'DESCENDING'}
+///        ],
+///        'localization_settings': {
+///          'currency_code': 'USD',
+///          'language_code': 'en-US'
+///        }
+///      }
 ///
 /// For a better understanding, you can treat the preceding specification like
 /// the following pseudo SQL:
 ///
-///     SELECT DATE, APP, COUNTRY, CLICKS, ESTIMATED_EARNINGS
-///     FROM NETWORK_REPORT
-///     WHERE DATE >= '2018-09-01' AND DATE <= '2018-09-30'
-///         AND COUNTRY IN ('US', 'CN')
-///     GROUP BY DATE, APP, COUNTRY
-///     ORDER BY APP ASC, CLICKS DESC;
+///      SELECT DATE, APP, COUNTRY, CLICKS, ESTIMATED_EARNINGS
+///      FROM NETWORK_REPORT
+///      WHERE DATE >= '2018-09-01' AND DATE <= '2018-09-30'
+///          AND COUNTRY IN ('US', 'CN')
+///      GROUP BY DATE, APP, COUNTRY
+///      ORDER BY APP ASC, CLICKS DESC;
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NetworkReportSpec {
     /// The date range for which the report is generated.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub date_range: ::core::option::Option<DateRange>,
     /// List of dimensions of the report. The value combination of these dimensions
     /// determines the row of the report. If no dimensions are specified, the
     /// report returns a single row of requested metrics for the entire account.
-    #[prost(enumeration = "network_report_spec::Dimension", repeated, tag = "2")]
+    #[prost(enumeration="network_report_spec::Dimension", repeated, tag="2")]
     pub dimensions: ::prost::alloc::vec::Vec<i32>,
     /// List of metrics of the report. A report must specify at least one metric.
-    #[prost(enumeration = "network_report_spec::Metric", repeated, tag = "3")]
+    #[prost(enumeration="network_report_spec::Metric", repeated, tag="3")]
     pub metrics: ::prost::alloc::vec::Vec<i32>,
     /// Describes which report rows to match based on their dimension values.
-    #[prost(message, repeated, tag = "4")]
+    #[prost(message, repeated, tag="4")]
     pub dimension_filters: ::prost::alloc::vec::Vec<network_report_spec::DimensionFilter>,
     /// Describes the sorting of report rows. The order of the condition in the
     /// list defines its precedence; the earlier the condition, the higher its
     /// precedence. If no sort conditions are specified, the row ordering is
     /// undefined.
-    #[prost(message, repeated, tag = "5")]
+    #[prost(message, repeated, tag="5")]
     pub sort_conditions: ::prost::alloc::vec::Vec<network_report_spec::SortCondition>,
     /// Localization settings of the report.
-    #[prost(message, optional, tag = "6")]
+    #[prost(message, optional, tag="6")]
     pub localization_settings: ::core::option::Option<LocalizationSettings>,
     /// Maximum number of report data rows to return. If the value is not set, the
     /// API returns as many rows as possible, up to 100000. Acceptable values are
     /// 1-100000, inclusive. Any other values are treated as 100000.
-    #[prost(int32, tag = "7")]
+    #[prost(int32, tag="7")]
     pub max_report_rows: i32,
     /// A report time zone. Accepts an IANA TZ name values, such as
     /// "America/Los_Angeles."  If no time zone is defined, the account default
@@ -93,7 +93,7 @@ pub struct NetworkReportSpec {
     ///
     /// **Warning:** The "America/Los_Angeles" is the only supported value at
     /// the moment.
-    #[prost(string, tag = "8")]
+    #[prost(string, tag="8")]
     pub time_zone: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `NetworkReportSpec`.
@@ -102,10 +102,10 @@ pub mod network_report_spec {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct DimensionFilter {
         /// Applies the filter criterion to the specified dimension.
-        #[prost(enumeration = "Dimension", tag = "1")]
+        #[prost(enumeration="Dimension", tag="1")]
         pub dimension: i32,
         /// Filter operator to be applied.
-        #[prost(oneof = "dimension_filter::Operator", tags = "2")]
+        #[prost(oneof="dimension_filter::Operator", tags="2")]
         pub operator: ::core::option::Option<dimension_filter::Operator>,
     }
     /// Nested message and enum types in `DimensionFilter`.
@@ -115,7 +115,7 @@ pub mod network_report_spec {
         pub enum Operator {
             /// Matches a row if its value for the specified dimension is in one of the
             /// values specified in this condition.
-            #[prost(message, tag = "2")]
+            #[prost(message, tag="2")]
             MatchesAny(super::super::StringList),
         }
     }
@@ -123,10 +123,10 @@ pub mod network_report_spec {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SortCondition {
         /// Sorting order of the dimension or metric.
-        #[prost(enumeration = "super::SortOrder", tag = "3")]
+        #[prost(enumeration="super::SortOrder", tag="3")]
         pub order: i32,
         /// Identifies which values to sort on.
-        #[prost(oneof = "sort_condition::SortOn", tags = "1, 2")]
+        #[prost(oneof="sort_condition::SortOn", tags="1, 2")]
         pub sort_on: ::core::option::Option<sort_condition::SortOn>,
     }
     /// Nested message and enum types in `SortCondition`.
@@ -135,10 +135,10 @@ pub mod network_report_spec {
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum SortOn {
             /// Sort by the specified dimension.
-            #[prost(enumeration = "super::Dimension", tag = "1")]
+            #[prost(enumeration="super::Dimension", tag="1")]
             Dimension(i32),
             /// Sort by the specified metric.
-            #[prost(enumeration = "super::Metric", tag = "2")]
+            #[prost(enumeration="super::Metric", tag="2")]
             Metric(i32),
         }
     }
@@ -182,6 +182,26 @@ pub mod network_report_spec {
         Format = 8,
         /// Mobile OS platform of the app (for example, "Android" or "iOS").
         Platform = 9,
+    }
+    impl Dimension {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Dimension::Unspecified => "DIMENSION_UNSPECIFIED",
+                Dimension::Date => "DATE",
+                Dimension::Month => "MONTH",
+                Dimension::Week => "WEEK",
+                Dimension::AdUnit => "AD_UNIT",
+                Dimension::App => "APP",
+                Dimension::AdType => "AD_TYPE",
+                Dimension::Country => "COUNTRY",
+                Dimension::Format => "FORMAT",
+                Dimension::Platform => "PLATFORM",
+            }
+        }
     }
     /// The metrics of the network report. Metrics are quantitative measurements
     /// indicating how the publisher business is performing. They are aggregated
@@ -229,71 +249,91 @@ pub mod network_report_spec {
         /// (approximate) decimal value.
         ShowRate = 9,
     }
+    impl Metric {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Metric::Unspecified => "METRIC_UNSPECIFIED",
+                Metric::AdRequests => "AD_REQUESTS",
+                Metric::Clicks => "CLICKS",
+                Metric::EstimatedEarnings => "ESTIMATED_EARNINGS",
+                Metric::Impressions => "IMPRESSIONS",
+                Metric::ImpressionCtr => "IMPRESSION_CTR",
+                Metric::ImpressionRpm => "IMPRESSION_RPM",
+                Metric::MatchedRequests => "MATCHED_REQUESTS",
+                Metric::MatchRate => "MATCH_RATE",
+                Metric::ShowRate => "SHOW_RATE",
+            }
+        }
+    }
 }
 /// The specification for generating an AdMob Mediation report.
 /// For example, the specification to get observed ECPM sliced by ad source and
 /// app for the 'US' and 'CN' countries can look like the following example:
 ///
-///     {
-///       "date_range": {
-///         "start_date": {"year": 2018, "month": 9, "day": 1},
-///         "end_date": {"year": 2018, "month": 9, "day": 30}
-///       },
-///       "dimensions": ["AD_SOURCE", "APP", "COUNTRY"],
-///       "metrics": \["OBSERVED_ECPM"\],
-///       "dimension_filters": [
-///         {
-///           "dimension": "COUNTRY",
-///           "matches_any": {"values": [{"value": "US", "value": "CN"}]}
-///         }
-///       ],
-///       "sort_conditions": [
-///         {"dimension":"APP", order: "ASCENDING"}
-///       ],
-///       "localization_settings": {
-///         "currency_code": "USD",
-///         "language_code": "en-US"
-///       }
-///     }
+///      {
+///        "date_range": {
+///          "start_date": {"year": 2018, "month": 9, "day": 1},
+///          "end_date": {"year": 2018, "month": 9, "day": 30}
+///        },
+///        "dimensions": ["AD_SOURCE", "APP", "COUNTRY"],
+///        "metrics": \["OBSERVED_ECPM"\],
+///        "dimension_filters": [
+///          {
+///            "dimension": "COUNTRY",
+///            "matches_any": {"values": [{"value": "US", "value": "CN"}]}
+///          }
+///        ],
+///        "sort_conditions": [
+///          {"dimension":"APP", order: "ASCENDING"}
+///        ],
+///        "localization_settings": {
+///          "currency_code": "USD",
+///          "language_code": "en-US"
+///        }
+///      }
 ///
 /// For a better understanding, you can treat the preceding specification like
 /// the following pseudo SQL:
 ///
-///     SELECT AD_SOURCE, APP, COUNTRY, OBSERVED_ECPM
-///     FROM MEDIATION_REPORT
-///     WHERE DATE >= '2018-09-01' AND DATE <= '2018-09-30'
-///         AND COUNTRY IN ('US', 'CN')
-///     GROUP BY AD_SOURCE, APP, COUNTRY
-///     ORDER BY APP ASC;
+///      SELECT AD_SOURCE, APP, COUNTRY, OBSERVED_ECPM
+///      FROM MEDIATION_REPORT
+///      WHERE DATE >= '2018-09-01' AND DATE <= '2018-09-30'
+///          AND COUNTRY IN ('US', 'CN')
+///      GROUP BY AD_SOURCE, APP, COUNTRY
+///      ORDER BY APP ASC;
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MediationReportSpec {
     /// The date range for which the report is generated.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub date_range: ::core::option::Option<DateRange>,
     /// List of dimensions of the report. The value combination of these dimensions
     /// determines the row of the report. If no dimensions are specified, the
     /// report returns a single row of requested metrics for the entire account.
-    #[prost(enumeration = "mediation_report_spec::Dimension", repeated, tag = "2")]
+    #[prost(enumeration="mediation_report_spec::Dimension", repeated, tag="2")]
     pub dimensions: ::prost::alloc::vec::Vec<i32>,
     /// List of metrics of the report. A report must specify at least one metric.
-    #[prost(enumeration = "mediation_report_spec::Metric", repeated, tag = "3")]
+    #[prost(enumeration="mediation_report_spec::Metric", repeated, tag="3")]
     pub metrics: ::prost::alloc::vec::Vec<i32>,
     /// Describes which report rows to match based on their dimension values.
-    #[prost(message, repeated, tag = "4")]
+    #[prost(message, repeated, tag="4")]
     pub dimension_filters: ::prost::alloc::vec::Vec<mediation_report_spec::DimensionFilter>,
     /// Describes the sorting of report rows. The order of the condition in the
     /// list defines its precedence; the earlier the condition, the higher its
     /// precedence. If no sort conditions are specified, the row ordering is
     /// undefined.
-    #[prost(message, repeated, tag = "5")]
+    #[prost(message, repeated, tag="5")]
     pub sort_conditions: ::prost::alloc::vec::Vec<mediation_report_spec::SortCondition>,
     /// Localization settings of the report.
-    #[prost(message, optional, tag = "6")]
+    #[prost(message, optional, tag="6")]
     pub localization_settings: ::core::option::Option<LocalizationSettings>,
     /// Maximum number of report data rows to return. If the value is not set, the
     /// API returns as many rows as possible, up to 100000. Acceptable values are
     /// 1-100000, inclusive. Any other values are treated as 100000.
-    #[prost(int32, tag = "7")]
+    #[prost(int32, tag="7")]
     pub max_report_rows: i32,
     /// A report time zone. Accepts an IANA TZ name values, such as
     /// "America/Los_Angeles."  If no time zone is defined, the account default
@@ -301,7 +341,7 @@ pub struct MediationReportSpec {
     ///
     /// **Warning:** The "America/Los_Angeles" is the only supported value at
     /// the moment.
-    #[prost(string, tag = "8")]
+    #[prost(string, tag="8")]
     pub time_zone: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `MediationReportSpec`.
@@ -310,10 +350,10 @@ pub mod mediation_report_spec {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct DimensionFilter {
         /// Applies the filter criterion to the specified dimension.
-        #[prost(enumeration = "Dimension", tag = "1")]
+        #[prost(enumeration="Dimension", tag="1")]
         pub dimension: i32,
         /// Filter operator to be applied.
-        #[prost(oneof = "dimension_filter::Operator", tags = "2")]
+        #[prost(oneof="dimension_filter::Operator", tags="2")]
         pub operator: ::core::option::Option<dimension_filter::Operator>,
     }
     /// Nested message and enum types in `DimensionFilter`.
@@ -323,7 +363,7 @@ pub mod mediation_report_spec {
         pub enum Operator {
             /// Matches a row if its value for the specified dimension is in one of the
             /// values specified in this condition.
-            #[prost(message, tag = "2")]
+            #[prost(message, tag="2")]
             MatchesAny(super::super::StringList),
         }
     }
@@ -331,10 +371,10 @@ pub mod mediation_report_spec {
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SortCondition {
         /// Sorting order of the dimension or metric.
-        #[prost(enumeration = "super::SortOrder", tag = "3")]
+        #[prost(enumeration="super::SortOrder", tag="3")]
         pub order: i32,
         /// Identifies which values to sort on.
-        #[prost(oneof = "sort_condition::SortOn", tags = "1, 2")]
+        #[prost(oneof="sort_condition::SortOn", tags="1, 2")]
         pub sort_on: ::core::option::Option<sort_condition::SortOn>,
     }
     /// Nested message and enum types in `SortCondition`.
@@ -343,10 +383,10 @@ pub mod mediation_report_spec {
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum SortOn {
             /// Sort by the specified dimension.
-            #[prost(enumeration = "super::Dimension", tag = "1")]
+            #[prost(enumeration="super::Dimension", tag="1")]
             Dimension(i32),
             /// Sort by the specified metric.
-            #[prost(enumeration = "super::Metric", tag = "2")]
+            #[prost(enumeration="super::Metric", tag="2")]
             Metric(i32),
         }
     }
@@ -392,6 +432,28 @@ pub mod mediation_report_spec {
         /// Mobile OS platform of the app (for example, "Android" or "iOS").
         Platform = 10,
     }
+    impl Dimension {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Dimension::Unspecified => "DIMENSION_UNSPECIFIED",
+                Dimension::Date => "DATE",
+                Dimension::Month => "MONTH",
+                Dimension::Week => "WEEK",
+                Dimension::AdSource => "AD_SOURCE",
+                Dimension::AdSourceInstance => "AD_SOURCE_INSTANCE",
+                Dimension::AdUnit => "AD_UNIT",
+                Dimension::App => "APP",
+                Dimension::MediationGroup => "MEDIATION_GROUP",
+                Dimension::Country => "COUNTRY",
+                Dimension::Format => "FORMAT",
+                Dimension::Platform => "PLATFORM",
+            }
+        }
+    }
     /// The metrics of the mediation report. Metrics are quantitative measurements
     /// indicating how the publisher business is performing. They are aggregated
     /// from the individual ad events and grouped by the report dimensions. The
@@ -435,20 +497,37 @@ pub mod mediation_report_spec {
         /// average eCPM will show 0 for dates prior to October 20, 2019.
         ObservedEcpm = 8,
     }
+    impl Metric {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Metric::Unspecified => "METRIC_UNSPECIFIED",
+                Metric::AdRequests => "AD_REQUESTS",
+                Metric::Clicks => "CLICKS",
+                Metric::EstimatedEarnings => "ESTIMATED_EARNINGS",
+                Metric::Impressions => "IMPRESSIONS",
+                Metric::ImpressionCtr => "IMPRESSION_CTR",
+                Metric::MatchedRequests => "MATCHED_REQUESTS",
+                Metric::MatchRate => "MATCH_RATE",
+                Metric::ObservedEcpm => "OBSERVED_ECPM",
+            }
+        }
+    }
 }
 /// A row of the returning report.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReportRow {
     /// Map of dimension values in a row, with keys as enum name of the dimensions.
-    #[prost(map = "string, message", tag = "1")]
-    pub dimension_values:
-        ::std::collections::HashMap<::prost::alloc::string::String, report_row::DimensionValue>,
+    #[prost(map="string, message", tag="1")]
+    pub dimension_values: ::std::collections::HashMap<::prost::alloc::string::String, report_row::DimensionValue>,
     /// Map of metric values in a row, with keys as enum name of the metrics. If
     /// a metric being requested has no value returned, the map will not include
     /// it.
-    #[prost(map = "string, message", tag = "2")]
-    pub metric_values:
-        ::std::collections::HashMap<::prost::alloc::string::String, report_row::MetricValue>,
+    #[prost(map="string, message", tag="2")]
+    pub metric_values: ::std::collections::HashMap<::prost::alloc::string::String, report_row::MetricValue>,
 }
 /// Nested message and enum types in `ReportRow`.
 pub mod report_row {
@@ -457,11 +536,11 @@ pub mod report_row {
     pub struct DimensionValue {
         /// Dimension value in the format specified in the report's spec Dimension
         /// enum.
-        #[prost(string, tag = "1")]
+        #[prost(string, tag="1")]
         pub value: ::prost::alloc::string::String,
         /// The localized string representation of the value. If unspecified, the
         /// display label should be derived from the value.
-        #[prost(string, tag = "2")]
+        #[prost(string, tag="2")]
         pub display_label: ::prost::alloc::string::String,
     }
     /// Representation of a metric value.
@@ -469,7 +548,7 @@ pub mod report_row {
     pub struct MetricValue {
         /// Metric value in the format specified in the report's spec Metric enum
         /// name.
-        #[prost(oneof = "metric_value::Value", tags = "1, 2, 3")]
+        #[prost(oneof="metric_value::Value", tags="1, 2, 3")]
         pub value: ::core::option::Option<metric_value::Value>,
     }
     /// Nested message and enum types in `MetricValue`.
@@ -479,15 +558,15 @@ pub mod report_row {
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum Value {
             /// Metric integer value.
-            #[prost(int64, tag = "1")]
+            #[prost(int64, tag="1")]
             IntegerValue(i64),
             /// Double precision (approximate) decimal values. Rates are from 0 to 1.
-            #[prost(double, tag = "2")]
+            #[prost(double, tag="2")]
             DoubleValue(f64),
             /// Amount in micros. One million is equivalent to one unit. Currency value
             /// is in the unit (USD, EUR or other) specified by the request.
             /// For example, $6.50 whould be represented as 6500000 micros.
-            #[prost(int64, tag = "3")]
+            #[prost(int64, tag="3")]
             MicrosValue(i64),
         }
     }
@@ -496,10 +575,10 @@ pub mod report_row {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReportWarning {
     /// Type of the warning.
-    #[prost(enumeration = "report_warning::Type", tag = "1")]
+    #[prost(enumeration="report_warning::Type", tag="1")]
     pub r#type: i32,
     /// Describes the details of the warning message, in English.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub description: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `ReportWarning`.
@@ -530,6 +609,21 @@ pub mod report_warning {
         /// fluctuation.
         ReportCurrencyNotAccountCurrency = 4,
     }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Type::Unspecified => "TYPE_UNSPECIFIED",
+                Type::DataBeforeAccountTimezoneChange => "DATA_BEFORE_ACCOUNT_TIMEZONE_CHANGE",
+                Type::DataDelayed => "DATA_DELAYED",
+                Type::Other => "OTHER",
+                Type::ReportCurrencyNotAccountCurrency => "REPORT_CURRENCY_NOT_ACCOUNT_CURRENCY",
+            }
+        }
+    }
 }
 /// Groups data helps to treat the generated report. Always sent as a first
 /// message in the stream response.
@@ -537,15 +631,15 @@ pub mod report_warning {
 pub struct ReportHeader {
     /// The date range for which the report is generated. This is identical to the
     /// range specified in the report request.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub date_range: ::core::option::Option<DateRange>,
     /// Localization settings of the report. This is identical to the settings
     /// in the report request.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub localization_settings: ::core::option::Option<LocalizationSettings>,
     /// The report time zone. The value is a time-zone ID as specified by the CLDR
     /// project, for example, "America/Los_Angeles".
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub reporting_time_zone: ::prost::alloc::string::String,
 }
 /// Groups data available after report generation, for example, warnings and row
@@ -553,13 +647,13 @@ pub struct ReportHeader {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReportFooter {
     /// Warnings associated with generation of the report.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub warnings: ::prost::alloc::vec::Vec<ReportWarning>,
     /// Total number of rows that matched the request.
     ///
     /// Warning: This count does NOT always match the number of rows in the
     /// response. Do not make that assumption when processing the response.
-    #[prost(int64, tag = "2")]
+    #[prost(int64, tag="2")]
     pub matching_row_count: i64,
 }
 /// Specification of a single date range. Both dates are inclusive.
@@ -567,11 +661,11 @@ pub struct ReportFooter {
 pub struct DateRange {
     /// Start date of the date range, inclusive. Must be less than or equal to the
     /// end date.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub start_date: ::core::option::Option<super::super::super::r#type::Date>,
     /// End date of the date range, inclusive. Must be greater than or equal to the
     /// start date.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub end_date: ::core::option::Option<super::super::super::r#type::Date>,
 }
 /// Localization settings for reports, such as currency and language. It affects
@@ -581,19 +675,19 @@ pub struct LocalizationSettings {
     /// Currency code of the earning related metrics, which is the 3-letter code
     /// defined in ISO 4217. The daily average rate is used for the currency
     /// conversion. Defaults to the account currency code if unspecified.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub currency_code: ::prost::alloc::string::String,
     /// Language used for any localized text, such as some dimension value display
     /// labels. The language tag defined in the IETF BCP47. Defaults to 'en-US' if
     /// unspecified.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub language_code: ::prost::alloc::string::String,
 }
 /// List of string values.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StringList {
     /// The string values.
-    #[prost(string, repeated, tag = "1")]
+    #[prost(string, repeated, tag="1")]
     pub values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// The sorting order.
@@ -607,12 +701,25 @@ pub enum SortOrder {
     /// Sort dimension value or metric value in descending order.
     Descending = 2,
 }
+impl SortOrder {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            SortOrder::Unspecified => "SORT_ORDER_UNSPECIFIED",
+            SortOrder::Ascending => "ASCENDING",
+            SortOrder::Descending => "DESCENDING",
+        }
+    }
+}
 /// Request to retrieve the specified publisher account.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPublisherAccountRequest {
     /// Resource name of the publisher account to retrieve.
     /// Example: accounts/pub-9876543210987654
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request to retrieve the AdMob publisher account accessible with the client
@@ -620,23 +727,23 @@ pub struct GetPublisherAccountRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPublisherAccountsRequest {
     /// Maximum number of accounts to return.
-    #[prost(int32, tag = "1")]
+    #[prost(int32, tag="1")]
     pub page_size: i32,
     /// The value returned by the last `ListPublisherAccountsResponse`; indicates
     /// that this is a continuation of a prior `ListPublisherAccounts` call, and
     /// that the system should return the next page of data.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response for the publisher account list request.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPublisherAccountsResponse {
     /// Publisher that the client credentials can access.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub account: ::prost::alloc::vec::Vec<PublisherAccount>,
     /// If not empty, indicates that there might be more accounts for the request;
     /// you must pass this value in a new `ListPublisherAccountsRequest`.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request to generate an AdMob Mediation report.
@@ -644,10 +751,10 @@ pub struct ListPublisherAccountsResponse {
 pub struct GenerateMediationReportRequest {
     /// Resource name of the account to generate the report for.
     /// Example: accounts/pub-9876543210987654
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub parent: ::prost::alloc::string::String,
     /// Network report specification.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub report_spec: ::core::option::Option<MediationReportSpec>,
 }
 /// The streaming response for the AdMob Mediation report where the first
@@ -656,39 +763,39 @@ pub struct GenerateMediationReportRequest {
 ///
 /// For example:
 ///
-///     [{
-///       "header": {
-///         "date_range": {
-///           "start_date": {"year": 2018, "month": 9, "day": 1},
-///           "end_date": {"year": 2018, "month": 9, "day": 1}
-///         },
-///         "localization_settings": {
-///           "currency_code": "USD",
-///           "language_code": "en-US"
-///         }
-///       }
-///     },
-///     {
-///       "row": {
-///         "dimension_values": {
-///           "DATE": {"value": "20180918"},
-///           "APP": {
-///             "value": "ca-app-pub-8123415297019784~1001342552",
-///              "display_label": "My app name!"
-///           }
-///         },
-///         "metric_values": {
-///           "ESTIMATED_EARNINGS": {"decimal_value": "1324746"}
-///         }
-///       }
-///     },
-///     {
-///       "footer": {"matching_row_count": 1}
-///     }]
+///      [{
+///        "header": {
+///          "date_range": {
+///            "start_date": {"year": 2018, "month": 9, "day": 1},
+///            "end_date": {"year": 2018, "month": 9, "day": 1}
+///          },
+///          "localization_settings": {
+///            "currency_code": "USD",
+///            "language_code": "en-US"
+///          }
+///        }
+///      },
+///      {
+///        "row": {
+///          "dimension_values": {
+///            "DATE": {"value": "20180918"},
+///            "APP": {
+///              "value": "ca-app-pub-8123415297019784~1001342552",
+///               "display_label": "My app name!"
+///            }
+///          },
+///          "metric_values": {
+///            "ESTIMATED_EARNINGS": {"decimal_value": "1324746"}
+///          }
+///        }
+///      },
+///      {
+///        "footer": {"matching_row_count": 1}
+///      }]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateMediationReportResponse {
     /// Each stream response message contains one type of payload.
-    #[prost(oneof = "generate_mediation_report_response::Payload", tags = "1, 2, 3")]
+    #[prost(oneof="generate_mediation_report_response::Payload", tags="1, 2, 3")]
     pub payload: ::core::option::Option<generate_mediation_report_response::Payload>,
 }
 /// Nested message and enum types in `GenerateMediationReportResponse`.
@@ -698,14 +805,14 @@ pub mod generate_mediation_report_response {
     pub enum Payload {
         /// Report generation settings that describes the report contents, such as
         /// the report date range and localization settings.
-        #[prost(message, tag = "1")]
+        #[prost(message, tag="1")]
         Header(super::ReportHeader),
         /// Actual report data.
-        #[prost(message, tag = "2")]
+        #[prost(message, tag="2")]
         Row(super::ReportRow),
         /// Additional information about the generated report, such as warnings about
         /// the data.
-        #[prost(message, tag = "3")]
+        #[prost(message, tag="3")]
         Footer(super::ReportFooter),
     }
 }
@@ -714,10 +821,10 @@ pub mod generate_mediation_report_response {
 pub struct GenerateNetworkReportRequest {
     /// Resource name of the account to generate the report for.
     /// Example: accounts/pub-9876543210987654
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub parent: ::prost::alloc::string::String,
     /// Network report specification.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub report_spec: ::core::option::Option<NetworkReportSpec>,
 }
 /// The streaming response for the AdMob Network report where the first response
@@ -726,39 +833,39 @@ pub struct GenerateNetworkReportRequest {
 ///
 /// For example:
 ///
-///     [{
-///       "header": {
-///         "dateRange": {
-///           "startDate": {"year": 2018, "month": 9, "day": 1},
-///           "endDate": {"year": 2018, "month": 9, "day": 1}
-///         },
-///         "localizationSettings": {
-///           "currencyCode": "USD",
-///           "languageCode": "en-US"
-///         }
-///       }
-///     },
-///     {
-///       "row": {
-///         "dimensionValues": {
-///           "DATE": {"value": "20180918"},
-///           "APP": {
-///             "value": "ca-app-pub-8123415297019784~1001342552",
-///              displayLabel: "My app name!"
-///           }
-///         },
-///         "metricValues": {
-///           "ESTIMATED_EARNINGS": {"microsValue": 6500000}
-///         }
-///       }
-///     },
-///     {
-///       "footer": {"matchingRowCount": 1}
-///     }]
+///      [{
+///        "header": {
+///          "dateRange": {
+///            "startDate": {"year": 2018, "month": 9, "day": 1},
+///            "endDate": {"year": 2018, "month": 9, "day": 1}
+///          },
+///          "localizationSettings": {
+///            "currencyCode": "USD",
+///            "languageCode": "en-US"
+///          }
+///        }
+///      },
+///      {
+///        "row": {
+///          "dimensionValues": {
+///            "DATE": {"value": "20180918"},
+///            "APP": {
+///              "value": "ca-app-pub-8123415297019784~1001342552",
+///               displayLabel: "My app name!"
+///            }
+///          },
+///          "metricValues": {
+///            "ESTIMATED_EARNINGS": {"microsValue": 6500000}
+///          }
+///        }
+///      },
+///      {
+///        "footer": {"matchingRowCount": 1}
+///      }]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GenerateNetworkReportResponse {
     /// Each stream response message contains one type of payload.
-    #[prost(oneof = "generate_network_report_response::Payload", tags = "1, 2, 3")]
+    #[prost(oneof="generate_network_report_response::Payload", tags="1, 2, 3")]
     pub payload: ::core::option::Option<generate_network_report_response::Payload>,
 }
 /// Nested message and enum types in `GenerateNetworkReportResponse`.
@@ -768,23 +875,24 @@ pub mod generate_network_report_response {
     pub enum Payload {
         /// Report generation settings that describes the report contents, such as
         /// the report date range and localization settings.
-        #[prost(message, tag = "1")]
+        #[prost(message, tag="1")]
         Header(super::ReportHeader),
         /// Actual report data.
-        #[prost(message, tag = "2")]
+        #[prost(message, tag="2")]
         Row(super::ReportRow),
         /// Additional information about the generated report, such as warnings about
         /// the data.
-        #[prost(message, tag = "3")]
+        #[prost(message, tag="3")]
         Footer(super::ReportFooter),
     }
 }
-#[doc = r" Generated client implementations."]
+/// Generated client implementations.
 pub mod ad_mob_api_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    #[doc = " The AdMob API allows AdMob publishers programmatically get information about"]
-    #[doc = " their AdMob account."]
+    use tonic::codegen::http::Uri;
+    /// The AdMob API allows AdMob publishers programmatically get information about
+    /// their AdMob account.
     #[derive(Debug, Clone)]
     pub struct AdMobApiClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -792,12 +900,16 @@ pub mod ad_mob_api_client {
     impl<T> AdMobApiClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::ResponseBody: Body + Send + 'static,
         T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
         <T::ResponseBody as Body>::Error: Into<StdError> + Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
             Self { inner }
         }
         pub fn with_interceptor<F>(
@@ -806,101 +918,124 @@ pub mod ad_mob_api_client {
         ) -> AdMobApiClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
             T: tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
                 Response = http::Response<
                     <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
         {
             AdMobApiClient::new(InterceptedService::new(inner, interceptor))
         }
-        #[doc = r" Compress requests with `gzip`."]
-        #[doc = r""]
-        #[doc = r" This requires the server to support it otherwise it might respond with an"]
-        #[doc = r" error."]
-        pub fn send_gzip(mut self) -> Self {
-            self.inner = self.inner.send_gzip();
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
             self
         }
-        #[doc = r" Enable decompressing responses with `gzip`."]
-        pub fn accept_gzip(mut self) -> Self {
-            self.inner = self.inner.accept_gzip();
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
             self
         }
-        #[doc = " Gets information about the specified AdMob publisher account."]
+        /// Gets information about the specified AdMob publisher account.
         pub async fn get_publisher_account(
             &mut self,
             request: impl tonic::IntoRequest<super::GetPublisherAccountRequest>,
         ) -> Result<tonic::Response<super::PublisherAccount>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.admob.v1.AdMobApi/GetPublisherAccount",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Lists the AdMob publisher account accessible with the client credential."]
-        #[doc = " Currently, all credentials have access to at most one AdMob account."]
+        /// Lists the AdMob publisher account accessible with the client credential.
+        /// Currently, all credentials have access to at most one AdMob account.
         pub async fn list_publisher_accounts(
             &mut self,
             request: impl tonic::IntoRequest<super::ListPublisherAccountsRequest>,
-        ) -> Result<tonic::Response<super::ListPublisherAccountsResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+        ) -> Result<
+            tonic::Response<super::ListPublisherAccountsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.admob.v1.AdMobApi/ListPublisherAccounts",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Generates an AdMob Network report based on the provided report"]
-        #[doc = " specification."]
+        /// Generates an AdMob Network report based on the provided report
+        /// specification.
         pub async fn generate_network_report(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateNetworkReportRequest>,
         ) -> Result<
-            tonic::Response<tonic::codec::Streaming<super::GenerateNetworkReportResponse>>,
+            tonic::Response<
+                tonic::codec::Streaming<super::GenerateNetworkReportResponse>,
+            >,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.admob.v1.AdMobApi/GenerateNetworkReport",
             );
             self.inner.server_streaming(request.into_request(), path, codec).await
         }
-        #[doc = " Generates an AdMob Mediation report based on the provided report"]
-        #[doc = " specification."]
+        /// Generates an AdMob Mediation report based on the provided report
+        /// specification.
         pub async fn generate_mediation_report(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateMediationReportRequest>,
         ) -> Result<
-            tonic::Response<tonic::codec::Streaming<super::GenerateMediationReportResponse>>,
+            tonic::Response<
+                tonic::codec::Streaming<super::GenerateMediationReportResponse>,
+            >,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.admob.v1.AdMobApi/GenerateMediationReport",

@@ -3,56 +3,55 @@
 pub struct Domain {
     /// Output only. The unique name of the domain using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. Resource labels that can contain user-provided metadata.
-    #[prost(map = "string, string", tag = "2")]
-    pub labels:
-        ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map="string, string", tag="2")]
+    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
     /// Optional. The full names of the Google Compute Engine
     /// \[networks\](/compute/docs/networks-and-firewalls#networks) the domain
     /// instance is connected to. Networks can be added using UpdateDomain.
     /// The domain is only available on networks listed in `authorized_networks`.
     /// If CIDR subnets overlap between networks, domain creation will fail.
-    #[prost(string, repeated, tag = "3")]
+    #[prost(string, repeated, tag="3")]
     pub authorized_networks: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Required. The CIDR range of internal addresses that are reserved for this
     /// domain. Reserved networks must be /24 or larger. Ranges must be
     /// unique and non-overlapping with existing subnets in
     /// \[Domain].[authorized_networks\].
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub reserved_ip_range: ::prost::alloc::string::String,
     /// Required. Locations where domain needs to be provisioned.
     /// \[regions][compute/docs/regions-zones/\]
     /// e.g. us-west1 or us-east4
     /// Service supports up to 4 locations at once. Each location will use a /26
     /// block.
-    #[prost(string, repeated, tag = "5")]
+    #[prost(string, repeated, tag="5")]
     pub locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Optional. The name of delegated administrator account used to perform
     /// Active Directory operations. If not specified, `setupadmin` will be used.
-    #[prost(string, tag = "6")]
+    #[prost(string, tag="6")]
     pub admin: ::prost::alloc::string::String,
     /// Output only. The fully-qualified domain name of the exposed domain used by
     /// clients to connect to the service. Similar to what would be chosen for an
     /// Active Directory set up on an internal network.
-    #[prost(string, tag = "10")]
+    #[prost(string, tag="10")]
     pub fqdn: ::prost::alloc::string::String,
     /// Output only. The time the instance was created.
-    #[prost(message, optional, tag = "11")]
+    #[prost(message, optional, tag="11")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The last update time.
-    #[prost(message, optional, tag = "12")]
+    #[prost(message, optional, tag="12")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The current state of this domain.
-    #[prost(enumeration = "domain::State", tag = "13")]
+    #[prost(enumeration="domain::State", tag="13")]
     pub state: i32,
     /// Output only. Additional information about the current status of this
     /// domain, if available.
-    #[prost(string, tag = "14")]
+    #[prost(string, tag="14")]
     pub status_message: ::prost::alloc::string::String,
     /// Output only. The current trusts associated with the domain.
-    #[prost(message, repeated, tag = "15")]
+    #[prost(message, repeated, tag="15")]
     pub trusts: ::prost::alloc::vec::Vec<Trust>,
 }
 /// Nested message and enum types in `Domain`.
@@ -79,6 +78,24 @@ pub mod domain {
         /// The domain is not serving requests.
         Unavailable = 7,
     }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                State::Unspecified => "STATE_UNSPECIFIED",
+                State::Creating => "CREATING",
+                State::Ready => "READY",
+                State::Updating => "UPDATING",
+                State::Deleting => "DELETING",
+                State::Repairing => "REPAIRING",
+                State::PerformingMaintenance => "PERFORMING_MAINTENANCE",
+                State::Unavailable => "UNAVAILABLE",
+            }
+        }
+    }
 }
 /// Represents a relationship between two domains. This allows a controller in
 /// one domain to authenticate a user in another domain.
@@ -86,44 +103,44 @@ pub mod domain {
 pub struct Trust {
     /// The fully qualified target domain name which will be in trust with the
     /// current domain.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub target_domain_name: ::prost::alloc::string::String,
     /// The type of trust represented by the trust resource.
-    #[prost(enumeration = "trust::TrustType", tag = "2")]
+    #[prost(enumeration="trust::TrustType", tag="2")]
     pub trust_type: i32,
     /// The trust direction, which decides if the current domain is trusted,
     /// trusting, or both.
-    #[prost(enumeration = "trust::TrustDirection", tag = "3")]
+    #[prost(enumeration="trust::TrustDirection", tag="3")]
     pub trust_direction: i32,
     /// The trust authentication type, which decides whether the trusted side has
     /// forest/domain wide access or selective access to an approved set of
     /// resources.
-    #[prost(bool, tag = "4")]
+    #[prost(bool, tag="4")]
     pub selective_authentication: bool,
     /// The target DNS server IP addresses which can resolve the remote domain
     /// involved in the trust.
-    #[prost(string, repeated, tag = "5")]
+    #[prost(string, repeated, tag="5")]
     pub target_dns_ip_addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Input only, and will not be stored. The trust secret used for the handshake
     /// with the target domain.
-    #[prost(string, tag = "6")]
+    #[prost(string, tag="6")]
     pub trust_handshake_secret: ::prost::alloc::string::String,
     /// Output only. The time the instance was created.
-    #[prost(message, optional, tag = "7")]
+    #[prost(message, optional, tag="7")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The last update time.
-    #[prost(message, optional, tag = "8")]
+    #[prost(message, optional, tag="8")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The current state of the trust.
-    #[prost(enumeration = "trust::State", tag = "9")]
+    #[prost(enumeration="trust::State", tag="9")]
     pub state: i32,
     /// Output only. Additional information about the current state of the
     /// trust, if available.
-    #[prost(string, tag = "11")]
+    #[prost(string, tag="11")]
     pub state_description: ::prost::alloc::string::String,
     /// Output only. The last heartbeat time when the trust was known to be
     /// connected.
-    #[prost(message, optional, tag = "12")]
+    #[prost(message, optional, tag="12")]
     pub last_trust_heartbeat_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Nested message and enum types in `Trust`.
@@ -145,6 +162,22 @@ pub mod trust {
         /// The domain trust is disconnected.
         Disconnected = 5,
     }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                State::Unspecified => "STATE_UNSPECIFIED",
+                State::Creating => "CREATING",
+                State::Updating => "UPDATING",
+                State::Deleting => "DELETING",
+                State::Connected => "CONNECTED",
+                State::Disconnected => "DISCONNECTED",
+            }
+        }
+    }
     /// Represents the different inter-forest trust types.
     #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
     #[repr(i32)]
@@ -155,6 +188,19 @@ pub mod trust {
         Forest = 1,
         /// The external domain trust.
         External = 2,
+    }
+    impl TrustType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                TrustType::Unspecified => "TRUST_TYPE_UNSPECIFIED",
+                TrustType::Forest => "FOREST",
+                TrustType::External => "EXTERNAL",
+            }
+        }
     }
     /// Represents the direction of trust.
     /// See
@@ -172,30 +218,44 @@ pub mod trust {
         /// The bidirectional direction represents the trusted / trusting side.
         Bidirectional = 3,
     }
+    impl TrustDirection {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                TrustDirection::Unspecified => "TRUST_DIRECTION_UNSPECIFIED",
+                TrustDirection::Inbound => "INBOUND",
+                TrustDirection::Outbound => "OUTBOUND",
+                TrustDirection::Bidirectional => "BIDIRECTIONAL",
+            }
+        }
+    }
 }
 /// Represents the metadata of the long-running operation.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OpMetadata {
     /// Output only. The time the operation was created.
-    #[prost(message, optional, tag = "1")]
+    #[prost(message, optional, tag="1")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The time the operation finished running.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Server-defined resource path for the target of the operation.
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub target: ::prost::alloc::string::String,
     /// Output only. Name of the verb executed by the operation.
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub verb: ::prost::alloc::string::String,
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation. Operations that have successfully been cancelled
     /// have \[Operation.error][\] value with a \[google.rpc.Status.code][google.rpc.Status.code\] of 1,
     /// corresponding to `Code.CANCELLED`.
-    #[prost(bool, tag = "5")]
+    #[prost(bool, tag="5")]
     pub requested_cancellation: bool,
     /// Output only. API version used to start the operation.
-    #[prost(string, tag = "6")]
+    #[prost(string, tag="6")]
     pub api_version: ::prost::alloc::string::String,
 }
 /// Request message for
@@ -204,22 +264,22 @@ pub struct OpMetadata {
 pub struct CreateMicrosoftAdDomainRequest {
     /// The resource project name and location using the form:
     /// `projects/{project_id}/locations/global`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub parent: ::prost::alloc::string::String,
     /// A domain name, e.g. mydomain.myorg.com, with the following restrictions:
-    ///  * Must contain only lowercase letters, numbers, periods and hyphens.
-    ///  * Must start with a letter.
-    ///  * Must contain between 2-64 characters.
-    ///  * Must end with a number or a letter.
-    ///  * Must not start with period.
-    ///  * First segement length (mydomain form example above) shouldn't exceed
-    ///    15 chars.
-    ///  * The last segment cannot be fully numeric.
-    ///  * Must be unique within the customer project.
-    #[prost(string, tag = "2")]
+    ///   * Must contain only lowercase letters, numbers, periods and hyphens.
+    ///   * Must start with a letter.
+    ///   * Must contain between 2-64 characters.
+    ///   * Must end with a number or a letter.
+    ///   * Must not start with period.
+    ///   * First segement length (mydomain form example above) shouldn't exceed
+    ///     15 chars.
+    ///   * The last segment cannot be fully numeric.
+    ///   * Must be unique within the customer project.
+    #[prost(string, tag="2")]
     pub domain_name: ::prost::alloc::string::String,
     /// A Managed Identity domain resource.
-    #[prost(message, optional, tag = "3")]
+    #[prost(message, optional, tag="3")]
     pub domain: ::core::option::Option<Domain>,
 }
 /// Request message for
@@ -228,7 +288,7 @@ pub struct CreateMicrosoftAdDomainRequest {
 pub struct ResetAdminPasswordRequest {
     /// The domain resource name using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Response message for
@@ -236,7 +296,7 @@ pub struct ResetAdminPasswordRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResetAdminPasswordResponse {
     /// A random password. See \[admin][google.cloud.managedidentities.v1beta1.Domain.admin\] for more information.
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub password: ::prost::alloc::string::String,
 }
 /// Request message for
@@ -245,7 +305,7 @@ pub struct ResetAdminPasswordResponse {
 pub struct ListDomainsRequest {
     /// Required. The resource name of the domain location using the form:
     /// `projects/{project_id}/locations/global`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The maximum number of items to return.
     /// If not specified, a default value of 1000 will be used.
@@ -253,21 +313,21 @@ pub struct ListDomainsRequest {
     /// Callers should rely on a response's
     /// \[next_page_token][google.cloud.managedidentities.v1beta1.ListDomainsResponse.next_page_token\]
     /// to determine if there are additional results to list.
-    #[prost(int32, tag = "2")]
+    #[prost(int32, tag="2")]
     pub page_size: i32,
     /// The `next_page_token` value returned from a previous ListDomainsRequest
     /// request, if any.
-    #[prost(string, tag = "3")]
+    #[prost(string, tag="3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. A filter specifying constraints of a list operation.
     /// For example, `Domain.fqdn="mydomain.myorginization"`.
-    #[prost(string, tag = "4")]
+    #[prost(string, tag="4")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. Specifies the ordering of results. See
     /// [Sorting
     /// order](<https://cloud.google.com/apis/design/design_patterns#sorting_order>)
     /// for more information.
-    #[prost(string, tag = "5")]
+    #[prost(string, tag="5")]
     pub order_by: ::prost::alloc::string::String,
 }
 /// Response message for
@@ -275,14 +335,14 @@ pub struct ListDomainsRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListDomainsResponse {
     /// A list of Managed Identities Service domains in the project.
-    #[prost(message, repeated, tag = "1")]
+    #[prost(message, repeated, tag="1")]
     pub domains: ::prost::alloc::vec::Vec<Domain>,
     /// A token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub next_page_token: ::prost::alloc::string::String,
     /// A list of locations that could not be reached.
-    #[prost(string, repeated, tag = "3")]
+    #[prost(string, repeated, tag="3")]
     pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Request message for
@@ -291,7 +351,7 @@ pub struct ListDomainsResponse {
 pub struct GetDomainRequest {
     /// The domain resource name using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for
@@ -301,14 +361,14 @@ pub struct UpdateDomainRequest {
     /// Mask of fields to update. At least one path must be supplied in this
     /// field. The elements of the repeated paths field may only include
     /// fields from \[Domain][google.cloud.managedidentities.v1beta1.Domain\]:
-    ///  * `labels`
-    ///  * `locations`
-    ///  * `authorized_networks`
-    #[prost(message, optional, tag = "1")]
+    ///   * `labels`
+    ///   * `locations`
+    ///   * `authorized_networks`
+    #[prost(message, optional, tag="1")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Domain message with updated fields. Only supported fields specified in
     /// update_mask are updated.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub domain: ::core::option::Option<Domain>,
 }
 /// Request message for
@@ -317,7 +377,7 @@ pub struct UpdateDomainRequest {
 pub struct DeleteDomainRequest {
     /// The domain resource name using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for
@@ -326,10 +386,10 @@ pub struct DeleteDomainRequest {
 pub struct AttachTrustRequest {
     /// The resource domain name, project name and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// The domain trust resource.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub trust: ::core::option::Option<Trust>,
 }
 /// Request message for
@@ -338,15 +398,15 @@ pub struct AttachTrustRequest {
 pub struct ReconfigureTrustRequest {
     /// The resource domain name, project name and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// The fully-qualified target domain name which will be in trust with current
     /// domain.
-    #[prost(string, tag = "2")]
+    #[prost(string, tag="2")]
     pub target_domain_name: ::prost::alloc::string::String,
     /// The target DNS server IP addresses to resolve the remote domain involved
     /// in the trust.
-    #[prost(string, repeated, tag = "3")]
+    #[prost(string, repeated, tag="3")]
     pub target_dns_ip_addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Request message for
@@ -355,10 +415,10 @@ pub struct ReconfigureTrustRequest {
 pub struct DetachTrustRequest {
     /// The resource domain name, project name, and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// The domain trust resource to removed.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub trust: ::core::option::Option<Trust>,
 }
 /// Request message for
@@ -367,16 +427,17 @@ pub struct DetachTrustRequest {
 pub struct ValidateTrustRequest {
     /// The resource domain name, project name, and location using the form:
     /// `projects/{project_id}/locations/global/domains/{domain_name}`
-    #[prost(string, tag = "1")]
+    #[prost(string, tag="1")]
     pub name: ::prost::alloc::string::String,
     /// The domain trust to validate trust state for.
-    #[prost(message, optional, tag = "2")]
+    #[prost(message, optional, tag="2")]
     pub trust: ::core::option::Option<Trust>,
 }
-#[doc = r" Generated client implementations."]
+/// Generated client implementations.
 pub mod managed_identities_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
     #[derive(Debug, Clone)]
     pub struct ManagedIdentitiesServiceClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -384,12 +445,16 @@ pub mod managed_identities_service_client {
     impl<T> ManagedIdentitiesServiceClient<T>
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::ResponseBody: Body + Send + 'static,
         T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
         <T::ResponseBody as Body>::Error: Into<StdError> + Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
             Self { inner }
         }
         pub fn with_interceptor<F>(
@@ -398,31 +463,37 @@ pub mod managed_identities_service_client {
         ) -> ManagedIdentitiesServiceClient<InterceptedService<T, F>>
         where
             F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
             T: tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
                 Response = http::Response<
                     <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
                 >,
             >,
-            <T as tonic::codegen::Service<http::Request<tonic::body::BoxBody>>>::Error:
-                Into<StdError> + Send + Sync,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + Send + Sync,
         {
-            ManagedIdentitiesServiceClient::new(InterceptedService::new(inner, interceptor))
+            ManagedIdentitiesServiceClient::new(
+                InterceptedService::new(inner, interceptor),
+            )
         }
-        #[doc = r" Compress requests with `gzip`."]
-        #[doc = r""]
-        #[doc = r" This requires the server to support it otherwise it might respond with an"]
-        #[doc = r" error."]
-        pub fn send_gzip(mut self) -> Self {
-            self.inner = self.inner.send_gzip();
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
             self
         }
-        #[doc = r" Enable decompressing responses with `gzip`."]
-        pub fn accept_gzip(mut self) -> Self {
-            self.inner = self.inner.accept_gzip();
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
             self
         }
-        #[doc = " Creates a Microsoft AD domain."]
+        /// Creates a Microsoft AD domain.
         pub async fn create_microsoft_ad_domain(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateMicrosoftAdDomainRequest>,
@@ -430,66 +501,82 @@ pub mod managed_identities_service_client {
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http :: uri :: PathAndQuery :: from_static ("/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/CreateMicrosoftAdDomain") ;
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/CreateMicrosoftAdDomain",
+            );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Resets a domain's administrator password."]
+        /// Resets a domain's administrator password.
         pub async fn reset_admin_password(
             &mut self,
             request: impl tonic::IntoRequest<super::ResetAdminPasswordRequest>,
         ) -> Result<tonic::Response<super::ResetAdminPasswordResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
-            let path = http :: uri :: PathAndQuery :: from_static ("/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/ResetAdminPassword") ;
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/ResetAdminPassword",
+            );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Lists domains in a project."]
+        /// Lists domains in a project.
         pub async fn list_domains(
             &mut self,
             request: impl tonic::IntoRequest<super::ListDomainsRequest>,
         ) -> Result<tonic::Response<super::ListDomainsResponse>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/ListDomains",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Gets information about a domain."]
+        /// Gets information about a domain.
         pub async fn get_domain(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDomainRequest>,
         ) -> Result<tonic::Response<super::Domain>, tonic::Status> {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/GetDomain",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Updates the metadata and configuration of a domain."]
+        /// Updates the metadata and configuration of a domain.
         pub async fn update_domain(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateDomainRequest>,
@@ -497,19 +584,22 @@ pub mod managed_identities_service_client {
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/UpdateDomain",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Deletes a domain."]
+        /// Deletes a domain.
         pub async fn delete_domain(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteDomainRequest>,
@@ -517,19 +607,22 @@ pub mod managed_identities_service_client {
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/DeleteDomain",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Adds an AD trust to a domain."]
+        /// Adds an AD trust to a domain.
         pub async fn attach_trust(
             &mut self,
             request: impl tonic::IntoRequest<super::AttachTrustRequest>,
@@ -537,19 +630,22 @@ pub mod managed_identities_service_client {
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/AttachTrust",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Updates the DNS conditional forwarder."]
+        /// Updates the DNS conditional forwarder.
         pub async fn reconfigure_trust(
             &mut self,
             request: impl tonic::IntoRequest<super::ReconfigureTrustRequest>,
@@ -557,19 +653,22 @@ pub mod managed_identities_service_client {
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/ReconfigureTrust",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Removes an AD trust."]
+        /// Removes an AD trust.
         pub async fn detach_trust(
             &mut self,
             request: impl tonic::IntoRequest<super::DetachTrustRequest>,
@@ -577,20 +676,23 @@ pub mod managed_identities_service_client {
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/DetachTrust",
             );
             self.inner.unary(request.into_request(), path, codec).await
         }
-        #[doc = " Validates a trust state, that the target domain is reachable, and that the"]
-        #[doc = " target domain is able to accept incoming trust requests."]
+        /// Validates a trust state, that the target domain is reachable, and that the
+        /// target domain is able to accept incoming trust requests.
         pub async fn validate_trust(
             &mut self,
             request: impl tonic::IntoRequest<super::ValidateTrustRequest>,
@@ -598,12 +700,15 @@ pub mod managed_identities_service_client {
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
-            self.inner.ready().await.map_err(|e| {
-                tonic::Status::new(
-                    tonic::Code::Unknown,
-                    format!("Service was not ready: {}", e.into()),
-                )
-            })?;
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
             let codec = tonic::codec::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.managedidentities.v1beta1.ManagedIdentitiesService/ValidateTrust",
