@@ -2654,6 +2654,22 @@ pub mod cloud_channel_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// List [Customer][google.cloud.channel.v1.Customer]s.
         ///
         /// Possible error codes:
@@ -2667,7 +2683,10 @@ pub mod cloud_channel_service_client {
         pub async fn list_customers(
             &mut self,
             request: impl tonic::IntoRequest<super::ListCustomersRequest>,
-        ) -> Result<tonic::Response<super::ListCustomersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListCustomersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2681,7 +2700,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListCustomers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListCustomers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the requested [Customer][google.cloud.channel.v1.Customer] resource.
         ///
@@ -2698,7 +2725,7 @@ pub mod cloud_channel_service_client {
         pub async fn get_customer(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerRequest>,
-        ) -> Result<tonic::Response<super::Customer>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Customer>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2712,7 +2739,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/GetCustomer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "GetCustomer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Confirms the existence of Cloud Identity accounts based on the domain and
         /// if the Cloud Identity accounts are owned by the reseller.
@@ -2735,7 +2770,7 @@ pub mod cloud_channel_service_client {
             request: impl tonic::IntoRequest<
                 super::CheckCloudIdentityAccountsExistRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::CheckCloudIdentityAccountsExistResponse>,
             tonic::Status,
         > {
@@ -2752,7 +2787,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/CheckCloudIdentityAccountsExist",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "CheckCloudIdentityAccountsExist",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new [Customer][google.cloud.channel.v1.Customer] resource under the reseller or distributor
         /// account.
@@ -2770,7 +2813,7 @@ pub mod cloud_channel_service_client {
         pub async fn create_customer(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateCustomerRequest>,
-        ) -> Result<tonic::Response<super::Customer>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Customer>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2784,7 +2827,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/CreateCustomer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "CreateCustomer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an existing [Customer][google.cloud.channel.v1.Customer] resource for the reseller or
         /// distributor.
@@ -2801,7 +2852,7 @@ pub mod cloud_channel_service_client {
         pub async fn update_customer(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateCustomerRequest>,
-        ) -> Result<tonic::Response<super::Customer>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Customer>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2815,7 +2866,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/UpdateCustomer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "UpdateCustomer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes the given [Customer][google.cloud.channel.v1.Customer] permanently.
         ///
@@ -2829,7 +2888,7 @@ pub mod cloud_channel_service_client {
         pub async fn delete_customer(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteCustomerRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2843,7 +2902,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/DeleteCustomer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "DeleteCustomer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Imports a [Customer][google.cloud.channel.v1.Customer] from the Cloud Identity associated with the provided
         /// Cloud Identity ID or domain before a TransferEntitlements call. If a
@@ -2865,7 +2932,7 @@ pub mod cloud_channel_service_client {
         pub async fn import_customer(
             &mut self,
             request: impl tonic::IntoRequest<super::ImportCustomerRequest>,
-        ) -> Result<tonic::Response<super::Customer>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Customer>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2879,7 +2946,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ImportCustomer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ImportCustomer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a Cloud Identity for the given customer using the customer's
         /// information, or the information provided here.
@@ -2905,7 +2980,7 @@ pub mod cloud_channel_service_client {
         pub async fn provision_cloud_identity(
             &mut self,
             request: impl tonic::IntoRequest<super::ProvisionCloudIdentityRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2922,7 +2997,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ProvisionCloudIdentity",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ProvisionCloudIdentity",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists [Entitlement][google.cloud.channel.v1.Entitlement]s belonging to a customer.
         ///
@@ -2936,7 +3019,10 @@ pub mod cloud_channel_service_client {
         pub async fn list_entitlements(
             &mut self,
             request: impl tonic::IntoRequest<super::ListEntitlementsRequest>,
-        ) -> Result<tonic::Response<super::ListEntitlementsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListEntitlementsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2950,7 +3036,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListEntitlements",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListEntitlements",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List [TransferableSku][google.cloud.channel.v1.TransferableSku]s of a customer based on the Cloud Identity ID or
         /// Customer Name in the request.
@@ -2973,7 +3067,7 @@ pub mod cloud_channel_service_client {
         pub async fn list_transferable_skus(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTransferableSkusRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListTransferableSkusResponse>,
             tonic::Status,
         > {
@@ -2990,7 +3084,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListTransferableSkus",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListTransferableSkus",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List [TransferableOffer][google.cloud.channel.v1.TransferableOffer]s of a customer based on Cloud Identity ID or
         /// Customer Name in the request.
@@ -3013,7 +3115,7 @@ pub mod cloud_channel_service_client {
         pub async fn list_transferable_offers(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTransferableOffersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListTransferableOffersResponse>,
             tonic::Status,
         > {
@@ -3030,7 +3132,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListTransferableOffers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListTransferableOffers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the requested [Entitlement][google.cloud.channel.v1.Entitlement] resource.
         ///
@@ -3045,7 +3155,7 @@ pub mod cloud_channel_service_client {
         pub async fn get_entitlement(
             &mut self,
             request: impl tonic::IntoRequest<super::GetEntitlementRequest>,
-        ) -> Result<tonic::Response<super::Entitlement>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Entitlement>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3059,7 +3169,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/GetEntitlement",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "GetEntitlement",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates an entitlement for a customer.
         ///
@@ -3100,7 +3218,7 @@ pub mod cloud_channel_service_client {
         pub async fn create_entitlement(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateEntitlementRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3117,7 +3235,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/CreateEntitlement",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "CreateEntitlement",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Change parameters of the entitlement.
         ///
@@ -3145,7 +3271,7 @@ pub mod cloud_channel_service_client {
         pub async fn change_parameters(
             &mut self,
             request: impl tonic::IntoRequest<super::ChangeParametersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3162,7 +3288,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ChangeParameters",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ChangeParameters",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the renewal settings for an existing customer entitlement.
         ///
@@ -3190,7 +3324,7 @@ pub mod cloud_channel_service_client {
         pub async fn change_renewal_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::ChangeRenewalSettingsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3207,7 +3341,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ChangeRenewalSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ChangeRenewalSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the Offer for an existing customer entitlement.
         ///
@@ -3233,7 +3375,7 @@ pub mod cloud_channel_service_client {
         pub async fn change_offer(
             &mut self,
             request: impl tonic::IntoRequest<super::ChangeOfferRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3250,7 +3392,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ChangeOffer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ChangeOffer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Starts paid service for a trial entitlement.
         ///
@@ -3279,7 +3429,7 @@ pub mod cloud_channel_service_client {
         pub async fn start_paid_service(
             &mut self,
             request: impl tonic::IntoRequest<super::StartPaidServiceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3296,7 +3446,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/StartPaidService",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "StartPaidService",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Suspends a previously fulfilled entitlement.
         ///
@@ -3322,7 +3480,7 @@ pub mod cloud_channel_service_client {
         pub async fn suspend_entitlement(
             &mut self,
             request: impl tonic::IntoRequest<super::SuspendEntitlementRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3339,7 +3497,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/SuspendEntitlement",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "SuspendEntitlement",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Cancels a previously fulfilled entitlement.
         ///
@@ -3370,7 +3536,7 @@ pub mod cloud_channel_service_client {
         pub async fn cancel_entitlement(
             &mut self,
             request: impl tonic::IntoRequest<super::CancelEntitlementRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3387,7 +3553,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/CancelEntitlement",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "CancelEntitlement",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Activates a previously suspended entitlement. Entitlements suspended for
         /// pending ToS acceptance can't be activated using this method.
@@ -3419,7 +3593,7 @@ pub mod cloud_channel_service_client {
         pub async fn activate_entitlement(
             &mut self,
             request: impl tonic::IntoRequest<super::ActivateEntitlementRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3436,7 +3610,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ActivateEntitlement",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ActivateEntitlement",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Transfers customer entitlements to new reseller.
         ///
@@ -3470,7 +3652,7 @@ pub mod cloud_channel_service_client {
         pub async fn transfer_entitlements(
             &mut self,
             request: impl tonic::IntoRequest<super::TransferEntitlementsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3487,7 +3669,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/TransferEntitlements",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "TransferEntitlements",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Transfers customer entitlements from their current reseller to Google.
         ///
@@ -3521,7 +3711,7 @@ pub mod cloud_channel_service_client {
         pub async fn transfer_entitlements_to_google(
             &mut self,
             request: impl tonic::IntoRequest<super::TransferEntitlementsToGoogleRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3538,7 +3728,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/TransferEntitlementsToGoogle",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "TransferEntitlementsToGoogle",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List [ChannelPartnerLink][google.cloud.channel.v1.ChannelPartnerLink]s belonging to a distributor.
         /// You must be a distributor to call this method.
@@ -3554,7 +3752,7 @@ pub mod cloud_channel_service_client {
         pub async fn list_channel_partner_links(
             &mut self,
             request: impl tonic::IntoRequest<super::ListChannelPartnerLinksRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListChannelPartnerLinksResponse>,
             tonic::Status,
         > {
@@ -3571,7 +3769,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListChannelPartnerLinks",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListChannelPartnerLinks",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the requested [ChannelPartnerLink][google.cloud.channel.v1.ChannelPartnerLink] resource.
         /// You must be a distributor to call this method.
@@ -3589,7 +3795,10 @@ pub mod cloud_channel_service_client {
         pub async fn get_channel_partner_link(
             &mut self,
             request: impl tonic::IntoRequest<super::GetChannelPartnerLinkRequest>,
-        ) -> Result<tonic::Response<super::ChannelPartnerLink>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ChannelPartnerLink>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3603,7 +3812,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/GetChannelPartnerLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "GetChannelPartnerLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Initiates a channel partner link between a distributor and a reseller, or
         /// between resellers in an n-tier reseller channel.
@@ -3630,7 +3847,10 @@ pub mod cloud_channel_service_client {
         pub async fn create_channel_partner_link(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateChannelPartnerLinkRequest>,
-        ) -> Result<tonic::Response<super::ChannelPartnerLink>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ChannelPartnerLink>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3644,7 +3864,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/CreateChannelPartnerLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "CreateChannelPartnerLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a channel partner link. Distributors call this method to change a
         /// link's status. For example, to suspend a partner link.
@@ -3670,7 +3898,10 @@ pub mod cloud_channel_service_client {
         pub async fn update_channel_partner_link(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateChannelPartnerLinkRequest>,
-        ) -> Result<tonic::Response<super::ChannelPartnerLink>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ChannelPartnerLink>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3684,7 +3915,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/UpdateChannelPartnerLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "UpdateChannelPartnerLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the requested [Offer][google.cloud.channel.v1.Offer] resource.
         ///
@@ -3699,7 +3938,7 @@ pub mod cloud_channel_service_client {
         pub async fn lookup_offer(
             &mut self,
             request: impl tonic::IntoRequest<super::LookupOfferRequest>,
-        ) -> Result<tonic::Response<super::Offer>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Offer>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3713,7 +3952,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/LookupOffer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "LookupOffer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the Products the reseller is authorized to sell.
         ///
@@ -3723,7 +3970,10 @@ pub mod cloud_channel_service_client {
         pub async fn list_products(
             &mut self,
             request: impl tonic::IntoRequest<super::ListProductsRequest>,
-        ) -> Result<tonic::Response<super::ListProductsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListProductsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3737,7 +3987,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListProducts",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListProducts",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the SKUs for a product the reseller is authorized to sell.
         ///
@@ -3747,7 +4005,10 @@ pub mod cloud_channel_service_client {
         pub async fn list_skus(
             &mut self,
             request: impl tonic::IntoRequest<super::ListSkusRequest>,
-        ) -> Result<tonic::Response<super::ListSkusResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListSkusResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3761,7 +4022,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListSkus",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListSkus",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the Offers the reseller can sell.
         ///
@@ -3771,7 +4040,10 @@ pub mod cloud_channel_service_client {
         pub async fn list_offers(
             &mut self,
             request: impl tonic::IntoRequest<super::ListOffersRequest>,
-        ) -> Result<tonic::Response<super::ListOffersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListOffersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3785,7 +4057,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListOffers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListOffers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the following:
         ///
@@ -3799,7 +4079,10 @@ pub mod cloud_channel_service_client {
         pub async fn list_purchasable_skus(
             &mut self,
             request: impl tonic::IntoRequest<super::ListPurchasableSkusRequest>,
-        ) -> Result<tonic::Response<super::ListPurchasableSkusResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListPurchasableSkusResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3813,7 +4096,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListPurchasableSkus",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListPurchasableSkus",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the following:
         ///
@@ -3827,7 +4118,7 @@ pub mod cloud_channel_service_client {
         pub async fn list_purchasable_offers(
             &mut self,
             request: impl tonic::IntoRequest<super::ListPurchasableOffersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListPurchasableOffersResponse>,
             tonic::Status,
         > {
@@ -3844,7 +4135,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListPurchasableOffers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListPurchasableOffers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Registers a service account with subscriber privileges on the Cloud Pub/Sub
         /// topic for this Channel Services account. After you create a
@@ -3866,7 +4165,10 @@ pub mod cloud_channel_service_client {
         pub async fn register_subscriber(
             &mut self,
             request: impl tonic::IntoRequest<super::RegisterSubscriberRequest>,
-        ) -> Result<tonic::Response<super::RegisterSubscriberResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::RegisterSubscriberResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3880,7 +4182,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/RegisterSubscriber",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "RegisterSubscriber",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Unregisters a service account with subscriber privileges on the Cloud
         /// Pub/Sub topic created for this Channel Services account. If there are no
@@ -3906,7 +4216,7 @@ pub mod cloud_channel_service_client {
         pub async fn unregister_subscriber(
             &mut self,
             request: impl tonic::IntoRequest<super::UnregisterSubscriberRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::UnregisterSubscriberResponse>,
             tonic::Status,
         > {
@@ -3923,7 +4233,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/UnregisterSubscriber",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "UnregisterSubscriber",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists service accounts with subscriber privileges on the Cloud Pub/Sub
         /// topic created for this Channel Services account.
@@ -3945,7 +4263,10 @@ pub mod cloud_channel_service_client {
         pub async fn list_subscribers(
             &mut self,
             request: impl tonic::IntoRequest<super::ListSubscribersRequest>,
-        ) -> Result<tonic::Response<super::ListSubscribersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListSubscribersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3959,7 +4280,15 @@ pub mod cloud_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.channel.v1.CloudChannelService/ListSubscribers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.channel.v1.CloudChannelService",
+                        "ListSubscribers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

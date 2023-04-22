@@ -1092,11 +1092,27 @@ pub mod security_center_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a source.
         pub async fn create_source(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateSourceRequest>,
-        ) -> Result<tonic::Response<super::Source>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Source>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1110,14 +1126,22 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/CreateSource",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "CreateSource",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a finding. The corresponding source must exist for finding creation
         /// to succeed.
         pub async fn create_finding(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateFindingRequest>,
-        ) -> Result<tonic::Response<super::Finding>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Finding>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1131,7 +1155,15 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/CreateFinding",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "CreateFinding",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy on the specified Source.
         pub async fn get_iam_policy(
@@ -1139,7 +1171,7 @@ pub mod security_center_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1156,13 +1188,24 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the settings for an organization.
         pub async fn get_organization_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::GetOrganizationSettingsRequest>,
-        ) -> Result<tonic::Response<super::OrganizationSettings>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::OrganizationSettings>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1176,13 +1219,21 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/GetOrganizationSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "GetOrganizationSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a source.
         pub async fn get_source(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSourceRequest>,
-        ) -> Result<tonic::Response<super::Source>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Source>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1196,14 +1247,25 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/GetSource",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "GetSource",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Filters an organization's assets and  groups them by their specified
         /// properties.
         pub async fn group_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::GroupAssetsRequest>,
-        ) -> Result<tonic::Response<super::GroupAssetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::GroupAssetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1217,7 +1279,15 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/GroupAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "GroupAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Filters an organization or source's findings and  groups them by their
         /// specified properties.
@@ -1227,7 +1297,10 @@ pub mod security_center_client {
         pub async fn group_findings(
             &mut self,
             request: impl tonic::IntoRequest<super::GroupFindingsRequest>,
-        ) -> Result<tonic::Response<super::GroupFindingsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::GroupFindingsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1241,13 +1314,24 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/GroupFindings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "GroupFindings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists an organization's assets.
         pub async fn list_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::ListAssetsRequest>,
-        ) -> Result<tonic::Response<super::ListAssetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListAssetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1261,7 +1345,15 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/ListAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "ListAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists an organization or source's findings.
         ///
@@ -1270,7 +1362,10 @@ pub mod security_center_client {
         pub async fn list_findings(
             &mut self,
             request: impl tonic::IntoRequest<super::ListFindingsRequest>,
-        ) -> Result<tonic::Response<super::ListFindingsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListFindingsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1284,13 +1379,24 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/ListFindings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "ListFindings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all sources belonging to an organization.
         pub async fn list_sources(
             &mut self,
             request: impl tonic::IntoRequest<super::ListSourcesRequest>,
-        ) -> Result<tonic::Response<super::ListSourcesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListSourcesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1304,7 +1410,15 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/ListSources",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "ListSources",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Runs asset discovery. The discovery is tracked with a long-running
         /// operation.
@@ -1315,7 +1429,7 @@ pub mod security_center_client {
         pub async fn run_asset_discovery(
             &mut self,
             request: impl tonic::IntoRequest<super::RunAssetDiscoveryRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1332,13 +1446,21 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/RunAssetDiscovery",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "RunAssetDiscovery",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the state of a finding.
         pub async fn set_finding_state(
             &mut self,
             request: impl tonic::IntoRequest<super::SetFindingStateRequest>,
-        ) -> Result<tonic::Response<super::Finding>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Finding>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1352,7 +1474,15 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/SetFindingState",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "SetFindingState",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on the specified Source.
         pub async fn set_iam_policy(
@@ -1360,7 +1490,7 @@ pub mod security_center_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1377,7 +1507,15 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the permissions that a caller has on the specified source.
         pub async fn test_iam_permissions(
@@ -1385,7 +1523,7 @@ pub mod security_center_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -1404,14 +1542,22 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates a finding. The corresponding source must exist for a
         /// finding creation to succeed.
         pub async fn update_finding(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateFindingRequest>,
-        ) -> Result<tonic::Response<super::Finding>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Finding>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1425,13 +1571,24 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/UpdateFinding",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "UpdateFinding",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an organization's settings.
         pub async fn update_organization_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateOrganizationSettingsRequest>,
-        ) -> Result<tonic::Response<super::OrganizationSettings>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::OrganizationSettings>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1445,13 +1602,21 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/UpdateOrganizationSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "UpdateOrganizationSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a source.
         pub async fn update_source(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateSourceRequest>,
-        ) -> Result<tonic::Response<super::Source>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Source>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1465,13 +1630,21 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/UpdateSource",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "UpdateSource",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates security marks.
         pub async fn update_security_marks(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateSecurityMarksRequest>,
-        ) -> Result<tonic::Response<super::SecurityMarks>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::SecurityMarks>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1485,7 +1658,15 @@ pub mod security_center_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.securitycenter.v1beta1.SecurityCenter/UpdateSecurityMarks",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.securitycenter.v1beta1.SecurityCenter",
+                        "UpdateSecurityMarks",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

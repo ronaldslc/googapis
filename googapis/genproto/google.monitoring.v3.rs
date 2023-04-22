@@ -1304,11 +1304,30 @@ pub mod alert_policy_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the existing alerting policies for the workspace.
         pub async fn list_alert_policies(
             &mut self,
             request: impl tonic::IntoRequest<super::ListAlertPoliciesRequest>,
-        ) -> Result<tonic::Response<super::ListAlertPoliciesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListAlertPoliciesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1322,13 +1341,21 @@ pub mod alert_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.AlertPolicyService/ListAlertPolicies",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.AlertPolicyService",
+                        "ListAlertPolicies",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a single alerting policy.
         pub async fn get_alert_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAlertPolicyRequest>,
-        ) -> Result<tonic::Response<super::AlertPolicy>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::AlertPolicy>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1342,13 +1369,21 @@ pub mod alert_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.AlertPolicyService/GetAlertPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.AlertPolicyService",
+                        "GetAlertPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new alerting policy.
         pub async fn create_alert_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateAlertPolicyRequest>,
-        ) -> Result<tonic::Response<super::AlertPolicy>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::AlertPolicy>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1362,13 +1397,21 @@ pub mod alert_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.AlertPolicyService/CreateAlertPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.AlertPolicyService",
+                        "CreateAlertPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an alerting policy.
         pub async fn delete_alert_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteAlertPolicyRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1382,7 +1425,15 @@ pub mod alert_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.AlertPolicyService/DeleteAlertPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.AlertPolicyService",
+                        "DeleteAlertPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an alerting policy. You can either replace the entire policy with
         /// a new one or replace only certain fields in the current alerting policy by
@@ -1391,7 +1442,7 @@ pub mod alert_policy_service_client {
         pub async fn update_alert_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateAlertPolicyRequest>,
-        ) -> Result<tonic::Response<super::AlertPolicy>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::AlertPolicy>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1405,7 +1456,15 @@ pub mod alert_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.AlertPolicyService/UpdateAlertPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.AlertPolicyService",
+                        "UpdateAlertPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1742,11 +1801,30 @@ pub mod group_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the existing groups.
         pub async fn list_groups(
             &mut self,
             request: impl tonic::IntoRequest<super::ListGroupsRequest>,
-        ) -> Result<tonic::Response<super::ListGroupsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListGroupsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1760,13 +1838,18 @@ pub mod group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.GroupService/ListGroups",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.monitoring.v3.GroupService", "ListGroups"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a single group.
         pub async fn get_group(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGroupRequest>,
-        ) -> Result<tonic::Response<super::Group>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Group>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1780,13 +1863,18 @@ pub mod group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.GroupService/GetGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.monitoring.v3.GroupService", "GetGroup"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new group.
         pub async fn create_group(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateGroupRequest>,
-        ) -> Result<tonic::Response<super::Group>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Group>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1800,14 +1888,19 @@ pub mod group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.GroupService/CreateGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.monitoring.v3.GroupService", "CreateGroup"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an existing group.
         /// You can change any group attributes except `name`.
         pub async fn update_group(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateGroupRequest>,
-        ) -> Result<tonic::Response<super::Group>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Group>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1821,13 +1914,18 @@ pub mod group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.GroupService/UpdateGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.monitoring.v3.GroupService", "UpdateGroup"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an existing group.
         pub async fn delete_group(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteGroupRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1841,13 +1939,21 @@ pub mod group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.GroupService/DeleteGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.monitoring.v3.GroupService", "DeleteGroup"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the monitored resources that are members of a group.
         pub async fn list_group_members(
             &mut self,
             request: impl tonic::IntoRequest<super::ListGroupMembersRequest>,
-        ) -> Result<tonic::Response<super::ListGroupMembersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListGroupMembersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1861,7 +1967,15 @@ pub mod group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.GroupService/ListGroupMembers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.GroupService",
+                        "ListGroupMembers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2565,13 +2679,29 @@ pub mod metric_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists monitored resource descriptors that match a filter. This method does not require a Workspace.
         pub async fn list_monitored_resource_descriptors(
             &mut self,
             request: impl tonic::IntoRequest<
                 super::ListMonitoredResourceDescriptorsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListMonitoredResourceDescriptorsResponse>,
             tonic::Status,
         > {
@@ -2588,7 +2718,15 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/ListMonitoredResourceDescriptors",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "ListMonitoredResourceDescriptors",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a single monitored resource descriptor. This method does not require a Workspace.
         pub async fn get_monitored_resource_descriptor(
@@ -2596,7 +2734,7 @@ pub mod metric_service_client {
             request: impl tonic::IntoRequest<
                 super::GetMonitoredResourceDescriptorRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::api::MonitoredResourceDescriptor>,
             tonic::Status,
         > {
@@ -2613,13 +2751,21 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/GetMonitoredResourceDescriptor",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "GetMonitoredResourceDescriptor",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists metric descriptors that match a filter. This method does not require a Workspace.
         pub async fn list_metric_descriptors(
             &mut self,
             request: impl tonic::IntoRequest<super::ListMetricDescriptorsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListMetricDescriptorsResponse>,
             tonic::Status,
         > {
@@ -2636,13 +2782,21 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/ListMetricDescriptors",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "ListMetricDescriptors",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a single metric descriptor. This method does not require a Workspace.
         pub async fn get_metric_descriptor(
             &mut self,
             request: impl tonic::IntoRequest<super::GetMetricDescriptorRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::api::MetricDescriptor>,
             tonic::Status,
         > {
@@ -2659,7 +2813,15 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/GetMetricDescriptor",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "GetMetricDescriptor",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new metric descriptor.
         /// The creation is executed asynchronously and callers may check the returned
@@ -2669,7 +2831,7 @@ pub mod metric_service_client {
         pub async fn create_metric_descriptor(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateMetricDescriptorRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::api::MetricDescriptor>,
             tonic::Status,
         > {
@@ -2686,7 +2848,15 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/CreateMetricDescriptor",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "CreateMetricDescriptor",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a metric descriptor. Only user-created
         /// [custom metrics](https://cloud.google.com/monitoring/custom-metrics) can be
@@ -2694,7 +2864,7 @@ pub mod metric_service_client {
         pub async fn delete_metric_descriptor(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteMetricDescriptorRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2708,13 +2878,24 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/DeleteMetricDescriptor",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "DeleteMetricDescriptor",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists time series that match a filter. This method does not require a Workspace.
         pub async fn list_time_series(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTimeSeriesRequest>,
-        ) -> Result<tonic::Response<super::ListTimeSeriesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTimeSeriesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2728,7 +2909,15 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/ListTimeSeries",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "ListTimeSeries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or adds data to one or more time series.
         /// The response is empty if all time series in the request were written.
@@ -2737,7 +2926,7 @@ pub mod metric_service_client {
         pub async fn create_time_series(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTimeSeriesRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2751,7 +2940,15 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/CreateTimeSeries",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "CreateTimeSeries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or adds data to one or more service time series. A service time
         /// series is a time series for a metric from a Google Cloud service. The
@@ -2765,7 +2962,7 @@ pub mod metric_service_client {
         pub async fn create_service_time_series(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTimeSeriesRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2779,7 +2976,15 @@ pub mod metric_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.MetricService/CreateServiceTimeSeries",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.MetricService",
+                        "CreateServiceTimeSeries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3270,6 +3475,22 @@ pub mod notification_channel_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the descriptors for supported channel types. The use of descriptors
         /// makes it possible for new channel types to be dynamically added.
         pub async fn list_notification_channel_descriptors(
@@ -3277,7 +3498,7 @@ pub mod notification_channel_service_client {
             request: impl tonic::IntoRequest<
                 super::ListNotificationChannelDescriptorsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListNotificationChannelDescriptorsResponse>,
             tonic::Status,
         > {
@@ -3294,7 +3515,15 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/ListNotificationChannelDescriptors",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "ListNotificationChannelDescriptors",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a single channel descriptor. The descriptor indicates which fields
         /// are expected / permitted for a notification channel of the given type.
@@ -3303,7 +3532,7 @@ pub mod notification_channel_service_client {
             request: impl tonic::IntoRequest<
                 super::GetNotificationChannelDescriptorRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::NotificationChannelDescriptor>,
             tonic::Status,
         > {
@@ -3320,13 +3549,21 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/GetNotificationChannelDescriptor",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "GetNotificationChannelDescriptor",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the notification channels that have been created for the project.
         pub async fn list_notification_channels(
             &mut self,
             request: impl tonic::IntoRequest<super::ListNotificationChannelsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListNotificationChannelsResponse>,
             tonic::Status,
         > {
@@ -3343,7 +3580,15 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/ListNotificationChannels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "ListNotificationChannels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a single notification channel. The channel includes the relevant
         /// configuration details with which the channel was created. However, the
@@ -3353,7 +3598,10 @@ pub mod notification_channel_service_client {
         pub async fn get_notification_channel(
             &mut self,
             request: impl tonic::IntoRequest<super::GetNotificationChannelRequest>,
-        ) -> Result<tonic::Response<super::NotificationChannel>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::NotificationChannel>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3367,14 +3615,25 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/GetNotificationChannel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "GetNotificationChannel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new notification channel, representing a single notification
         /// endpoint such as an email address, SMS number, or PagerDuty service.
         pub async fn create_notification_channel(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateNotificationChannelRequest>,
-        ) -> Result<tonic::Response<super::NotificationChannel>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::NotificationChannel>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3388,14 +3647,25 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/CreateNotificationChannel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "CreateNotificationChannel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a notification channel. Fields not specified in the field mask
         /// remain unchanged.
         pub async fn update_notification_channel(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateNotificationChannelRequest>,
-        ) -> Result<tonic::Response<super::NotificationChannel>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::NotificationChannel>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3409,13 +3679,21 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/UpdateNotificationChannel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "UpdateNotificationChannel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a notification channel.
         pub async fn delete_notification_channel(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteNotificationChannelRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3429,7 +3707,15 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/DeleteNotificationChannel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "DeleteNotificationChannel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Causes a verification code to be delivered to the channel. The code
         /// can then be supplied in `VerifyNotificationChannel` to verify the channel.
@@ -3438,7 +3724,7 @@ pub mod notification_channel_service_client {
             request: impl tonic::IntoRequest<
                 super::SendNotificationChannelVerificationCodeRequest,
             >,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3452,7 +3738,15 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/SendNotificationChannelVerificationCode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "SendNotificationChannelVerificationCode",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Requests a verification code for an already verified channel that can then
         /// be used in a call to VerifyNotificationChannel() on a different channel
@@ -3480,7 +3774,7 @@ pub mod notification_channel_service_client {
             request: impl tonic::IntoRequest<
                 super::GetNotificationChannelVerificationCodeRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GetNotificationChannelVerificationCodeResponse>,
             tonic::Status,
         > {
@@ -3497,7 +3791,15 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/GetNotificationChannelVerificationCode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "GetNotificationChannelVerificationCode",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Verifies a `NotificationChannel` by proving receipt of the code
         /// delivered to the channel as a result of calling
@@ -3505,7 +3807,10 @@ pub mod notification_channel_service_client {
         pub async fn verify_notification_channel(
             &mut self,
             request: impl tonic::IntoRequest<super::VerifyNotificationChannelRequest>,
-        ) -> Result<tonic::Response<super::NotificationChannel>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::NotificationChannel>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3519,7 +3824,15 @@ pub mod notification_channel_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.NotificationChannelService/VerifyNotificationChannel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.NotificationChannelService",
+                        "VerifyNotificationChannel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3584,11 +3897,30 @@ pub mod query_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Queries time series using Monitoring Query Language. This method does not require a Workspace.
         pub async fn query_time_series(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryTimeSeriesRequest>,
-        ) -> Result<tonic::Response<super::QueryTimeSeriesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryTimeSeriesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3602,7 +3934,15 @@ pub mod query_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.QueryService/QueryTimeSeries",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.QueryService",
+                        "QueryTimeSeries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4418,11 +4758,27 @@ pub mod service_monitoring_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Create a `Service`.
         pub async fn create_service(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateServiceRequest>,
-        ) -> Result<tonic::Response<super::Service>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4436,13 +4792,21 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/CreateService",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "CreateService",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Get the named `Service`.
         pub async fn get_service(
             &mut self,
             request: impl tonic::IntoRequest<super::GetServiceRequest>,
-        ) -> Result<tonic::Response<super::Service>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4456,13 +4820,24 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/GetService",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "GetService",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List `Service`s for this workspace.
         pub async fn list_services(
             &mut self,
             request: impl tonic::IntoRequest<super::ListServicesRequest>,
-        ) -> Result<tonic::Response<super::ListServicesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4476,13 +4851,21 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/ListServices",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "ListServices",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Update this `Service`.
         pub async fn update_service(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateServiceRequest>,
-        ) -> Result<tonic::Response<super::Service>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4496,13 +4879,21 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/UpdateService",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "UpdateService",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Soft delete this `Service`.
         pub async fn delete_service(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteServiceRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4516,13 +4907,24 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/DeleteService",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "DeleteService",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Create a `ServiceLevelObjective` for the given `Service`.
         pub async fn create_service_level_objective(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateServiceLevelObjectiveRequest>,
-        ) -> Result<tonic::Response<super::ServiceLevelObjective>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ServiceLevelObjective>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4536,13 +4938,24 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/CreateServiceLevelObjective",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "CreateServiceLevelObjective",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Get a `ServiceLevelObjective` by name.
         pub async fn get_service_level_objective(
             &mut self,
             request: impl tonic::IntoRequest<super::GetServiceLevelObjectiveRequest>,
-        ) -> Result<tonic::Response<super::ServiceLevelObjective>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ServiceLevelObjective>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4556,13 +4969,21 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/GetServiceLevelObjective",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "GetServiceLevelObjective",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List the `ServiceLevelObjective`s for the given `Service`.
         pub async fn list_service_level_objectives(
             &mut self,
             request: impl tonic::IntoRequest<super::ListServiceLevelObjectivesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListServiceLevelObjectivesResponse>,
             tonic::Status,
         > {
@@ -4579,13 +5000,24 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/ListServiceLevelObjectives",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "ListServiceLevelObjectives",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Update the given `ServiceLevelObjective`.
         pub async fn update_service_level_objective(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateServiceLevelObjectiveRequest>,
-        ) -> Result<tonic::Response<super::ServiceLevelObjective>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ServiceLevelObjective>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4599,13 +5031,21 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/UpdateServiceLevelObjective",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "UpdateServiceLevelObjective",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Delete the given `ServiceLevelObjective`.
         pub async fn delete_service_level_objective(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteServiceLevelObjectiveRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4619,7 +5059,15 @@ pub mod service_monitoring_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.ServiceMonitoringService/DeleteServiceLevelObjective",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.ServiceMonitoringService",
+                        "DeleteServiceLevelObjective",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -5425,12 +5873,28 @@ pub mod uptime_check_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the existing valid Uptime check configurations for the project
         /// (leaving out any invalid configurations).
         pub async fn list_uptime_check_configs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListUptimeCheckConfigsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListUptimeCheckConfigsResponse>,
             tonic::Status,
         > {
@@ -5447,13 +5911,24 @@ pub mod uptime_check_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.UptimeCheckService/ListUptimeCheckConfigs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.UptimeCheckService",
+                        "ListUptimeCheckConfigs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a single Uptime check configuration.
         pub async fn get_uptime_check_config(
             &mut self,
             request: impl tonic::IntoRequest<super::GetUptimeCheckConfigRequest>,
-        ) -> Result<tonic::Response<super::UptimeCheckConfig>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::UptimeCheckConfig>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5467,13 +5942,24 @@ pub mod uptime_check_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.UptimeCheckService/GetUptimeCheckConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.UptimeCheckService",
+                        "GetUptimeCheckConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new Uptime check configuration.
         pub async fn create_uptime_check_config(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateUptimeCheckConfigRequest>,
-        ) -> Result<tonic::Response<super::UptimeCheckConfig>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::UptimeCheckConfig>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5487,7 +5973,15 @@ pub mod uptime_check_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.UptimeCheckService/CreateUptimeCheckConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.UptimeCheckService",
+                        "CreateUptimeCheckConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an Uptime check configuration. You can either replace the entire
         /// configuration with a new one or replace only certain fields in the current
@@ -5496,7 +5990,10 @@ pub mod uptime_check_service_client {
         pub async fn update_uptime_check_config(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateUptimeCheckConfigRequest>,
-        ) -> Result<tonic::Response<super::UptimeCheckConfig>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::UptimeCheckConfig>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5510,7 +6007,15 @@ pub mod uptime_check_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.UptimeCheckService/UpdateUptimeCheckConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.UptimeCheckService",
+                        "UpdateUptimeCheckConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an Uptime check configuration. Note that this method will fail
         /// if the Uptime check configuration is referenced by an alert policy or
@@ -5518,7 +6023,7 @@ pub mod uptime_check_service_client {
         pub async fn delete_uptime_check_config(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteUptimeCheckConfigRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -5532,13 +6037,24 @@ pub mod uptime_check_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.UptimeCheckService/DeleteUptimeCheckConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.UptimeCheckService",
+                        "DeleteUptimeCheckConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the list of IP addresses that checkers run from
         pub async fn list_uptime_check_ips(
             &mut self,
             request: impl tonic::IntoRequest<super::ListUptimeCheckIpsRequest>,
-        ) -> Result<tonic::Response<super::ListUptimeCheckIpsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListUptimeCheckIpsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5552,7 +6068,15 @@ pub mod uptime_check_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.v3.UptimeCheckService/ListUptimeCheckIps",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.v3.UptimeCheckService",
+                        "ListUptimeCheckIps",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

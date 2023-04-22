@@ -828,6 +828,22 @@ pub mod bigtable_instance_admin_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Create an instance within a project.
         ///
         /// Note that exactly one of Cluster.serve_nodes and
@@ -838,7 +854,7 @@ pub mod bigtable_instance_admin_client {
         pub async fn create_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateInstanceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -855,13 +871,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "CreateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets information about an instance.
         pub async fn get_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::GetInstanceRequest>,
-        ) -> Result<tonic::Response<super::Instance>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -875,13 +899,24 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists information about instances in a project.
         pub async fn list_instances(
             &mut self,
             request: impl tonic::IntoRequest<super::ListInstancesRequest>,
-        ) -> Result<tonic::Response<super::ListInstancesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -895,7 +930,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListInstances",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "ListInstances",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an instance within a project. This method updates only the display
         /// name and type for an Instance. To update other Instance properties, such as
@@ -903,7 +946,7 @@ pub mod bigtable_instance_admin_client {
         pub async fn update_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::Instance>,
-        ) -> Result<tonic::Response<super::Instance>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -917,14 +960,22 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "UpdateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Partially updates an instance within a project. This method can modify all
         /// fields of an Instance and is the preferred way to update an Instance.
         pub async fn partial_update_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::PartialUpdateInstanceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -941,13 +992,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "PartialUpdateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Delete an instance from a project.
         pub async fn delete_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteInstanceRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -961,7 +1020,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "DeleteInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a cluster within an instance.
         ///
@@ -973,7 +1040,7 @@ pub mod bigtable_instance_admin_client {
         pub async fn create_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -990,13 +1057,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "CreateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets information about a cluster.
         pub async fn get_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::GetClusterRequest>,
-        ) -> Result<tonic::Response<super::Cluster>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1010,13 +1085,24 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists information about clusters in an instance.
         pub async fn list_clusters(
             &mut self,
             request: impl tonic::IntoRequest<super::ListClustersRequest>,
-        ) -> Result<tonic::Response<super::ListClustersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1030,7 +1116,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListClusters",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "ListClusters",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a cluster within an instance.
         ///
@@ -1040,7 +1134,7 @@ pub mod bigtable_instance_admin_client {
         pub async fn update_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::Cluster>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1057,7 +1151,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "UpdateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Partially updates a cluster within a project. This method is the preferred
         /// way to update a Cluster.
@@ -1074,7 +1176,7 @@ pub mod bigtable_instance_admin_client {
         pub async fn partial_update_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::PartialUpdateClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1091,13 +1193,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "PartialUpdateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a cluster from an instance.
         pub async fn delete_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteClusterRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1111,13 +1221,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "DeleteCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates an app profile within an instance.
         pub async fn create_app_profile(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateAppProfileRequest>,
-        ) -> Result<tonic::Response<super::AppProfile>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1131,13 +1249,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateAppProfile",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "CreateAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets information about an app profile.
         pub async fn get_app_profile(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAppProfileRequest>,
-        ) -> Result<tonic::Response<super::AppProfile>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1151,13 +1277,24 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetAppProfile",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists information about app profiles in an instance.
         pub async fn list_app_profiles(
             &mut self,
             request: impl tonic::IntoRequest<super::ListAppProfilesRequest>,
-        ) -> Result<tonic::Response<super::ListAppProfilesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListAppProfilesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1171,13 +1308,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListAppProfiles",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "ListAppProfiles",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an app profile within an instance.
         pub async fn update_app_profile(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateAppProfileRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1194,13 +1339,21 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateAppProfile",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "UpdateAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an app profile from an instance.
         pub async fn delete_app_profile(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteAppProfileRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1214,7 +1367,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteAppProfile",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "DeleteAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for an instance resource. Returns an empty
         /// policy if an instance exists but does not have a policy set.
@@ -1223,7 +1384,7 @@ pub mod bigtable_instance_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1240,7 +1401,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on an instance resource. Replaces any
         /// existing policy.
@@ -1249,7 +1418,7 @@ pub mod bigtable_instance_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1266,7 +1435,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that the caller has on the specified instance resource.
         pub async fn test_iam_permissions(
@@ -1274,7 +1451,7 @@ pub mod bigtable_instance_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -1293,7 +1470,15 @@ pub mod bigtable_instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableInstanceAdmin/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2642,13 +2827,29 @@ pub mod bigtable_table_admin_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a new table in the specified instance.
         /// The table can be created with a full set of initial column families,
         /// specified in the request.
         pub async fn create_table(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTableRequest>,
-        ) -> Result<tonic::Response<super::Table>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2662,7 +2863,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/CreateTable",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "CreateTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new table from the specified snapshot. The target table must
         /// not exist. The snapshot and the table must be in the same instance.
@@ -2675,7 +2884,7 @@ pub mod bigtable_table_admin_client {
         pub async fn create_table_from_snapshot(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTableFromSnapshotRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2692,13 +2901,24 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/CreateTableFromSnapshot",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "CreateTableFromSnapshot",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all tables served from a specified instance.
         pub async fn list_tables(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTablesRequest>,
-        ) -> Result<tonic::Response<super::ListTablesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTablesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2712,13 +2932,21 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/ListTables",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "ListTables",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets metadata information about the specified table.
         pub async fn get_table(
             &mut self,
             request: impl tonic::IntoRequest<super::GetTableRequest>,
-        ) -> Result<tonic::Response<super::Table>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2732,13 +2960,21 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/GetTable",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "GetTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Permanently deletes a specified table and all of its data.
         pub async fn delete_table(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteTableRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2752,7 +2988,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/DeleteTable",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "DeleteTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Performs a series of column family modifications on the specified table.
         /// Either all or none of the modifications will occur before this method
@@ -2761,7 +3005,7 @@ pub mod bigtable_table_admin_client {
         pub async fn modify_column_families(
             &mut self,
             request: impl tonic::IntoRequest<super::ModifyColumnFamiliesRequest>,
-        ) -> Result<tonic::Response<super::Table>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2775,7 +3019,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/ModifyColumnFamilies",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "ModifyColumnFamilies",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Permanently drop/delete a row range from a specified table. The request can
         /// specify whether to delete all rows in a table, or only those that match a
@@ -2783,7 +3035,7 @@ pub mod bigtable_table_admin_client {
         pub async fn drop_row_range(
             &mut self,
             request: impl tonic::IntoRequest<super::DropRowRangeRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2797,7 +3049,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/DropRowRange",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "DropRowRange",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Generates a consistency token for a Table, which can be used in
         /// CheckConsistency to check whether mutations to the table that finished
@@ -2806,7 +3066,7 @@ pub mod bigtable_table_admin_client {
         pub async fn generate_consistency_token(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateConsistencyTokenRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateConsistencyTokenResponse>,
             tonic::Status,
         > {
@@ -2823,7 +3083,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/GenerateConsistencyToken",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "GenerateConsistencyToken",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Checks replication consistency based on a consistency token, that is, if
         /// replication has caught up based on the conditions specified in the token
@@ -2831,7 +3099,10 @@ pub mod bigtable_table_admin_client {
         pub async fn check_consistency(
             &mut self,
             request: impl tonic::IntoRequest<super::CheckConsistencyRequest>,
-        ) -> Result<tonic::Response<super::CheckConsistencyResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CheckConsistencyResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2845,7 +3116,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/CheckConsistency",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "CheckConsistency",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new snapshot in the specified cluster from the specified
         /// source table. The cluster and the table must be in the same instance.
@@ -2858,7 +3137,7 @@ pub mod bigtable_table_admin_client {
         pub async fn snapshot_table(
             &mut self,
             request: impl tonic::IntoRequest<super::SnapshotTableRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2875,7 +3154,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/SnapshotTable",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "SnapshotTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets metadata information about the specified snapshot.
         ///
@@ -2887,7 +3174,7 @@ pub mod bigtable_table_admin_client {
         pub async fn get_snapshot(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSnapshotRequest>,
-        ) -> Result<tonic::Response<super::Snapshot>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Snapshot>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2901,7 +3188,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/GetSnapshot",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "GetSnapshot",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all snapshots associated with the specified cluster.
         ///
@@ -2913,7 +3208,10 @@ pub mod bigtable_table_admin_client {
         pub async fn list_snapshots(
             &mut self,
             request: impl tonic::IntoRequest<super::ListSnapshotsRequest>,
-        ) -> Result<tonic::Response<super::ListSnapshotsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListSnapshotsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2927,7 +3225,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/ListSnapshots",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "ListSnapshots",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Permanently deletes the specified snapshot.
         ///
@@ -2939,7 +3245,7 @@ pub mod bigtable_table_admin_client {
         pub async fn delete_snapshot(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteSnapshotRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2953,7 +3259,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/DeleteSnapshot",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "DeleteSnapshot",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Starts creating a new Cloud Bigtable Backup.  The returned backup
         /// [long-running operation][google.longrunning.Operation] can be used to
@@ -2966,7 +3280,7 @@ pub mod bigtable_table_admin_client {
         pub async fn create_backup(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateBackupRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2983,13 +3297,21 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/CreateBackup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "CreateBackup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets metadata on a pending or completed Cloud Bigtable Backup.
         pub async fn get_backup(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBackupRequest>,
-        ) -> Result<tonic::Response<super::Backup>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3003,13 +3325,21 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/GetBackup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "GetBackup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a pending or completed Cloud Bigtable Backup.
         pub async fn update_backup(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateBackupRequest>,
-        ) -> Result<tonic::Response<super::Backup>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3023,13 +3353,21 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/UpdateBackup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "UpdateBackup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a pending or completed Cloud Bigtable backup.
         pub async fn delete_backup(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteBackupRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3043,14 +3381,25 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/DeleteBackup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "DeleteBackup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists Cloud Bigtable backups. Returns both completed and pending
         /// backups.
         pub async fn list_backups(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBackupsRequest>,
-        ) -> Result<tonic::Response<super::ListBackupsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3064,7 +3413,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/ListBackups",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "ListBackups",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Create a new table by restoring from a completed backup. The new table
         /// must be in the same project as the instance containing the backup.  The
@@ -3077,7 +3434,7 @@ pub mod bigtable_table_admin_client {
         pub async fn restore_table(
             &mut self,
             request: impl tonic::IntoRequest<super::RestoreTableRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3094,7 +3451,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/RestoreTable",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "RestoreTable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for a Table or Backup resource.
         /// Returns an empty policy if the resource exists but does not have a policy
@@ -3104,7 +3469,7 @@ pub mod bigtable_table_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -3121,7 +3486,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on a Table or Backup resource.
         /// Replaces any existing policy.
@@ -3130,7 +3503,7 @@ pub mod bigtable_table_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -3147,7 +3520,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that the caller has on the specified Table or Backup resource.
         pub async fn test_iam_permissions(
@@ -3155,7 +3536,7 @@ pub mod bigtable_table_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -3174,7 +3555,15 @@ pub mod bigtable_table_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.bigtable.admin.v2.BigtableTableAdmin/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableTableAdmin",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

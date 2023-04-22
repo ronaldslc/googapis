@@ -1017,11 +1017,30 @@ pub mod gke_hub_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists Memberships in a given project and location.
         pub async fn list_memberships(
             &mut self,
             request: impl tonic::IntoRequest<super::ListMembershipsRequest>,
-        ) -> Result<tonic::Response<super::ListMembershipsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListMembershipsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1035,13 +1054,21 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/ListMemberships",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "ListMemberships"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists Features in a given project and location.
         pub async fn list_features(
             &mut self,
             request: impl tonic::IntoRequest<super::ListFeaturesRequest>,
-        ) -> Result<tonic::Response<super::ListFeaturesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListFeaturesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1055,13 +1082,18 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/ListFeatures",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "ListFeatures"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the details of a Membership.
         pub async fn get_membership(
             &mut self,
             request: impl tonic::IntoRequest<super::GetMembershipRequest>,
-        ) -> Result<tonic::Response<super::Membership>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Membership>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1075,13 +1107,18 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/GetMembership",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "GetMembership"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets details of a single Feature.
         pub async fn get_feature(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeatureRequest>,
-        ) -> Result<tonic::Response<super::Feature>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Feature>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1095,7 +1132,10 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/GetFeature",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "GetFeature"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new Membership.
         ///
@@ -1105,7 +1145,7 @@ pub mod gke_hub_client {
         pub async fn create_membership(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateMembershipRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1122,13 +1162,18 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/CreateMembership",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "CreateMembership"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Adds a new Feature.
         pub async fn create_feature(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateFeatureRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1145,7 +1190,12 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/CreateFeature",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "CreateFeature"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Removes a Membership.
         ///
@@ -1155,7 +1205,7 @@ pub mod gke_hub_client {
         pub async fn delete_membership(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteMembershipRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1172,13 +1222,18 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/DeleteMembership",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "DeleteMembership"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Removes a Feature.
         pub async fn delete_feature(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteFeatureRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1195,13 +1250,18 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/DeleteFeature",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "DeleteFeature"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an existing Membership.
         pub async fn update_membership(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateMembershipRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1218,13 +1278,18 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/UpdateMembership",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "UpdateMembership"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an existing Feature.
         pub async fn update_feature(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateFeatureRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1241,7 +1306,12 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/UpdateFeature",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.gkehub.v1.GkeHub", "UpdateFeature"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Generates the manifest for deployment of the GKE connect agent.
         ///
@@ -1250,7 +1320,7 @@ pub mod gke_hub_client {
         pub async fn generate_connect_manifest(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateConnectManifestRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateConnectManifestResponse>,
             tonic::Status,
         > {
@@ -1267,7 +1337,15 @@ pub mod gke_hub_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gkehub.v1.GkeHub/GenerateConnectManifest",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkehub.v1.GkeHub",
+                        "GenerateConnectManifest",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

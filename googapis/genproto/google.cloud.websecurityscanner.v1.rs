@@ -1519,11 +1519,27 @@ pub mod web_security_scanner_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a new ScanConfig.
         pub async fn create_scan_config(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateScanConfigRequest>,
-        ) -> Result<tonic::Response<super::ScanConfig>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ScanConfig>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1537,13 +1553,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/CreateScanConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "CreateScanConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an existing ScanConfig and its child resources.
         pub async fn delete_scan_config(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteScanConfigRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1557,13 +1581,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/DeleteScanConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "DeleteScanConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a ScanConfig.
         pub async fn get_scan_config(
             &mut self,
             request: impl tonic::IntoRequest<super::GetScanConfigRequest>,
-        ) -> Result<tonic::Response<super::ScanConfig>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ScanConfig>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1577,13 +1609,24 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/GetScanConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "GetScanConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists ScanConfigs under a given project.
         pub async fn list_scan_configs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListScanConfigsRequest>,
-        ) -> Result<tonic::Response<super::ListScanConfigsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListScanConfigsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1597,13 +1640,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/ListScanConfigs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "ListScanConfigs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a ScanConfig. This method support partial update of a ScanConfig.
         pub async fn update_scan_config(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateScanConfigRequest>,
-        ) -> Result<tonic::Response<super::ScanConfig>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ScanConfig>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1617,13 +1668,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/UpdateScanConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "UpdateScanConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Start a ScanRun according to the given ScanConfig.
         pub async fn start_scan_run(
             &mut self,
             request: impl tonic::IntoRequest<super::StartScanRunRequest>,
-        ) -> Result<tonic::Response<super::ScanRun>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ScanRun>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1637,13 +1696,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/StartScanRun",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "StartScanRun",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a ScanRun.
         pub async fn get_scan_run(
             &mut self,
             request: impl tonic::IntoRequest<super::GetScanRunRequest>,
-        ) -> Result<tonic::Response<super::ScanRun>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ScanRun>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1657,14 +1724,25 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/GetScanRun",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "GetScanRun",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists ScanRuns under a given ScanConfig, in descending order of ScanRun
         /// stop time.
         pub async fn list_scan_runs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListScanRunsRequest>,
-        ) -> Result<tonic::Response<super::ListScanRunsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListScanRunsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1678,13 +1756,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/ListScanRuns",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "ListScanRuns",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Stops a ScanRun. The stopped ScanRun is returned.
         pub async fn stop_scan_run(
             &mut self,
             request: impl tonic::IntoRequest<super::StopScanRunRequest>,
-        ) -> Result<tonic::Response<super::ScanRun>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ScanRun>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1698,13 +1784,24 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/StopScanRun",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "StopScanRun",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List CrawledUrls under a given ScanRun.
         pub async fn list_crawled_urls(
             &mut self,
             request: impl tonic::IntoRequest<super::ListCrawledUrlsRequest>,
-        ) -> Result<tonic::Response<super::ListCrawledUrlsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListCrawledUrlsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1718,13 +1815,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/ListCrawledUrls",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "ListCrawledUrls",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a Finding.
         pub async fn get_finding(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFindingRequest>,
-        ) -> Result<tonic::Response<super::Finding>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Finding>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1738,13 +1843,24 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/GetFinding",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "GetFinding",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List Findings under a given ScanRun.
         pub async fn list_findings(
             &mut self,
             request: impl tonic::IntoRequest<super::ListFindingsRequest>,
-        ) -> Result<tonic::Response<super::ListFindingsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListFindingsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1758,13 +1874,21 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/ListFindings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "ListFindings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List all FindingTypeStats under a given ScanRun.
         pub async fn list_finding_type_stats(
             &mut self,
             request: impl tonic::IntoRequest<super::ListFindingTypeStatsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListFindingTypeStatsResponse>,
             tonic::Status,
         > {
@@ -1781,7 +1905,15 @@ pub mod web_security_scanner_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.websecurityscanner.v1.WebSecurityScanner/ListFindingTypeStats",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.websecurityscanner.v1.WebSecurityScanner",
+                        "ListFindingTypeStats",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

@@ -1467,6 +1467,22 @@ pub mod routes_preferred_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the primary route along with optional alternate routes, given a set
         /// of terminal and intermediate waypoints.
         ///
@@ -1505,7 +1521,10 @@ pub mod routes_preferred_client {
         pub async fn compute_routes(
             &mut self,
             request: impl tonic::IntoRequest<super::ComputeRoutesRequest>,
-        ) -> Result<tonic::Response<super::ComputeRoutesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ComputeRoutesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1519,7 +1538,15 @@ pub mod routes_preferred_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.maps.routes.v1.RoutesPreferred/ComputeRoutes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.maps.routes.v1.RoutesPreferred",
+                        "ComputeRoutes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Takes in a list of origins and destinations and returns a stream containing
         /// route information for each combination of origin and destination.
@@ -1559,7 +1586,7 @@ pub mod routes_preferred_client {
         pub async fn compute_route_matrix(
             &mut self,
             request: impl tonic::IntoRequest<super::ComputeRouteMatrixRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::RouteMatrixElement>>,
             tonic::Status,
         > {
@@ -1576,7 +1603,15 @@ pub mod routes_preferred_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.maps.routes.v1.RoutesPreferred/ComputeRouteMatrix",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.maps.routes.v1.RoutesPreferred",
+                        "ComputeRouteMatrix",
+                    ),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Given a set of terminal and intermediate waypoints, and a route objective,
         /// computes the best route for the route objective. Also returns fastest route
@@ -1615,7 +1650,10 @@ pub mod routes_preferred_client {
         pub async fn compute_custom_routes(
             &mut self,
             request: impl tonic::IntoRequest<super::ComputeCustomRoutesRequest>,
-        ) -> Result<tonic::Response<super::ComputeCustomRoutesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ComputeCustomRoutesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1629,7 +1667,15 @@ pub mod routes_preferred_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.maps.routes.v1.RoutesPreferred/ComputeCustomRoutes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.maps.routes.v1.RoutesPreferred",
+                        "ComputeCustomRoutes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

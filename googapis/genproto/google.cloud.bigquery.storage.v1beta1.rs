@@ -485,6 +485,22 @@ pub mod big_query_storage_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a new read session. A read session divides the contents of a
         /// BigQuery table into one or more streams, which can then be used to read
         /// data from the table. The read session also specifies properties of the
@@ -500,7 +516,7 @@ pub mod big_query_storage_client {
         pub async fn create_read_session(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateReadSessionRequest>,
-        ) -> Result<tonic::Response<super::ReadSession>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ReadSession>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -514,7 +530,15 @@ pub mod big_query_storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/CreateReadSession",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1beta1.BigQueryStorage",
+                        "CreateReadSession",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Reads rows from the table in the format prescribed by the read session.
         /// Each response contains one or more table rows, up to a maximum of 10 MiB
@@ -528,7 +552,7 @@ pub mod big_query_storage_client {
         pub async fn read_rows(
             &mut self,
             request: impl tonic::IntoRequest<super::ReadRowsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::ReadRowsResponse>>,
             tonic::Status,
         > {
@@ -545,7 +569,15 @@ pub mod big_query_storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/ReadRows",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1beta1.BigQueryStorage",
+                        "ReadRows",
+                    ),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Creates additional streams for a ReadSession. This API can be used to
         /// dynamically adjust the parallelism of a batch processing task upwards by
@@ -553,7 +585,7 @@ pub mod big_query_storage_client {
         pub async fn batch_create_read_session_streams(
             &mut self,
             request: impl tonic::IntoRequest<super::BatchCreateReadSessionStreamsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::BatchCreateReadSessionStreamsResponse>,
             tonic::Status,
         > {
@@ -570,7 +602,15 @@ pub mod big_query_storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/BatchCreateReadSessionStreams",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1beta1.BigQueryStorage",
+                        "BatchCreateReadSessionStreams",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Triggers the graceful termination of a single stream in a ReadSession. This
         /// API can be used to dynamically adjust the parallelism of a batch processing
@@ -589,7 +629,7 @@ pub mod big_query_storage_client {
         pub async fn finalize_stream(
             &mut self,
             request: impl tonic::IntoRequest<super::FinalizeStreamRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -603,7 +643,15 @@ pub mod big_query_storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/FinalizeStream",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1beta1.BigQueryStorage",
+                        "FinalizeStream",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Splits a given read stream into two Streams. These streams are referred to
         /// as the primary and the residual of the split. The original stream can still
@@ -621,7 +669,10 @@ pub mod big_query_storage_client {
         pub async fn split_read_stream(
             &mut self,
             request: impl tonic::IntoRequest<super::SplitReadStreamRequest>,
-        ) -> Result<tonic::Response<super::SplitReadStreamResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SplitReadStreamResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -635,7 +686,15 @@ pub mod big_query_storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/SplitReadStream",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1beta1.BigQueryStorage",
+                        "SplitReadStream",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

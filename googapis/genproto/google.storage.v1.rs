@@ -2985,12 +2985,28 @@ pub mod storage_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Permanently deletes the ACL entry for the specified entity on the specified
         /// bucket.
         pub async fn delete_bucket_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteBucketAccessControlRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3004,13 +3020,24 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/DeleteBucketAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "DeleteBucketAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the ACL entry for the specified entity on the specified bucket.
         pub async fn get_bucket_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBucketAccessControlRequest>,
-        ) -> Result<tonic::Response<super::BucketAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::BucketAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3024,13 +3051,24 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetBucketAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "GetBucketAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new ACL entry on the specified bucket.
         pub async fn insert_bucket_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::InsertBucketAccessControlRequest>,
-        ) -> Result<tonic::Response<super::BucketAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::BucketAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3044,13 +3082,21 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/InsertBucketAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "InsertBucketAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves ACL entries on the specified bucket.
         pub async fn list_bucket_access_controls(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBucketAccessControlsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListBucketAccessControlsResponse>,
             tonic::Status,
         > {
@@ -3067,7 +3113,15 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListBucketAccessControls",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "ListBucketAccessControls",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an ACL entry on the specified bucket. Equivalent to
         /// PatchBucketAccessControl, but all unspecified fields will be
@@ -3075,7 +3129,10 @@ pub mod storage_client {
         pub async fn update_bucket_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateBucketAccessControlRequest>,
-        ) -> Result<tonic::Response<super::BucketAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::BucketAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3089,13 +3146,24 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/UpdateBucketAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "UpdateBucketAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an ACL entry on the specified bucket.
         pub async fn patch_bucket_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::PatchBucketAccessControlRequest>,
-        ) -> Result<tonic::Response<super::BucketAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::BucketAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3109,13 +3177,21 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/PatchBucketAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "PatchBucketAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Permanently deletes an empty bucket.
         pub async fn delete_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteBucketRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3129,13 +3205,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/DeleteBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "DeleteBucket"));
+            self.inner.unary(req, path, codec).await
         }
         /// Returns metadata for the specified bucket.
         pub async fn get_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBucketRequest>,
-        ) -> Result<tonic::Response<super::Bucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3149,13 +3228,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "GetBucket"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new bucket.
         pub async fn insert_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::InsertBucketRequest>,
-        ) -> Result<tonic::Response<super::Bucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3169,13 +3251,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/InsertBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "InsertBucket"));
+            self.inner.unary(req, path, codec).await
         }
         /// List active object change notification channels for this bucket.
         pub async fn list_channels(
             &mut self,
             request: impl tonic::IntoRequest<super::ListChannelsRequest>,
-        ) -> Result<tonic::Response<super::ListChannelsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListChannelsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3189,13 +3277,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListChannels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "ListChannels"));
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves a list of buckets for a given project.
         pub async fn list_buckets(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBucketsRequest>,
-        ) -> Result<tonic::Response<super::ListBucketsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListBucketsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3209,13 +3303,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListBuckets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "ListBuckets"));
+            self.inner.unary(req, path, codec).await
         }
         /// Locks retention policy on a bucket.
         pub async fn lock_bucket_retention_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::LockRetentionPolicyRequest>,
-        ) -> Result<tonic::Response<super::Bucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3229,13 +3326,21 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/LockBucketRetentionPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "LockBucketRetentionPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the IAM policy for the specified bucket.
         pub async fn get_bucket_iam_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::GetIamPolicyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -3252,13 +3357,18 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetBucketIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "GetBucketIamPolicy"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an IAM policy for the specified bucket.
         pub async fn set_bucket_iam_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::SetIamPolicyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -3275,14 +3385,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/SetBucketIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "SetBucketIamPolicy"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Tests a set of permissions on the given bucket to see which, if
         /// any, are held by the caller.
         pub async fn test_bucket_iam_permissions(
             &mut self,
             request: impl tonic::IntoRequest<super::TestIamPermissionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::iam::v1::TestIamPermissionsResponse>,
             tonic::Status,
         > {
@@ -3299,14 +3414,22 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/TestBucketIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "TestBucketIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a bucket. Changes to the bucket will be readable immediately after
         /// writing, but configuration changes may take time to propagate.
         pub async fn patch_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::PatchBucketRequest>,
-        ) -> Result<tonic::Response<super::Bucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3320,7 +3443,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/PatchBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "PatchBucket"));
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a bucket. Equivalent to PatchBucket, but always replaces all
         /// mutatable fields of the bucket with new values, reverting all
@@ -3330,7 +3456,7 @@ pub mod storage_client {
         pub async fn update_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateBucketRequest>,
-        ) -> Result<tonic::Response<super::Bucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3344,7 +3470,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/UpdateBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "UpdateBucket"));
+            self.inner.unary(req, path, codec).await
         }
         /// Halts "Object Change Notification" push messagages.
         /// See https://cloud.google.com/storage/docs/object-change-notification
@@ -3353,7 +3482,7 @@ pub mod storage_client {
         pub async fn stop_channel(
             &mut self,
             request: impl tonic::IntoRequest<super::StopChannelRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3367,7 +3496,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/StopChannel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "StopChannel"));
+            self.inner.unary(req, path, codec).await
         }
         /// Permanently deletes the default object ACL entry for the specified entity
         /// on the specified bucket.
@@ -3376,7 +3508,7 @@ pub mod storage_client {
             request: impl tonic::IntoRequest<
                 super::DeleteDefaultObjectAccessControlRequest,
             >,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3390,14 +3522,25 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/DeleteDefaultObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "DeleteDefaultObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the default object ACL entry for the specified entity on the
         /// specified bucket.
         pub async fn get_default_object_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDefaultObjectAccessControlRequest>,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3411,7 +3554,15 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetDefaultObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "GetDefaultObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new default object ACL entry on the specified bucket.
         pub async fn insert_default_object_access_control(
@@ -3419,7 +3570,10 @@ pub mod storage_client {
             request: impl tonic::IntoRequest<
                 super::InsertDefaultObjectAccessControlRequest,
             >,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3433,7 +3587,15 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/InsertDefaultObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "InsertDefaultObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves default object ACL entries on the specified bucket.
         pub async fn list_default_object_access_controls(
@@ -3441,7 +3603,7 @@ pub mod storage_client {
             request: impl tonic::IntoRequest<
                 super::ListDefaultObjectAccessControlsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListObjectAccessControlsResponse>,
             tonic::Status,
         > {
@@ -3458,7 +3620,15 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListDefaultObjectAccessControls",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "ListDefaultObjectAccessControls",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a default object ACL entry on the specified bucket.
         pub async fn patch_default_object_access_control(
@@ -3466,7 +3636,10 @@ pub mod storage_client {
             request: impl tonic::IntoRequest<
                 super::PatchDefaultObjectAccessControlRequest,
             >,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3480,7 +3653,15 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/PatchDefaultObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "PatchDefaultObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a default object ACL entry on the specified bucket. Equivalent to
         /// PatchDefaultObjectAccessControl, but modifies all unspecified fields to
@@ -3490,7 +3671,10 @@ pub mod storage_client {
             request: impl tonic::IntoRequest<
                 super::UpdateDefaultObjectAccessControlRequest,
             >,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3504,7 +3688,15 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/UpdateDefaultObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "UpdateDefaultObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Permanently deletes a notification subscription.
         /// Note: Older, "Object Change Notification" push subscriptions should be
@@ -3512,7 +3704,7 @@ pub mod storage_client {
         pub async fn delete_notification(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteNotificationRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3526,13 +3718,18 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/DeleteNotification",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "DeleteNotification"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// View a notification configuration.
         pub async fn get_notification(
             &mut self,
             request: impl tonic::IntoRequest<super::GetNotificationRequest>,
-        ) -> Result<tonic::Response<super::Notification>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Notification>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3546,7 +3743,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetNotification",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "GetNotification"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a notification subscription for a given bucket.
         /// These notifications, when triggered, publish messages to the specified
@@ -3555,7 +3755,7 @@ pub mod storage_client {
         pub async fn insert_notification(
             &mut self,
             request: impl tonic::IntoRequest<super::InsertNotificationRequest>,
-        ) -> Result<tonic::Response<super::Notification>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Notification>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3569,13 +3769,21 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/InsertNotification",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "InsertNotification"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves a list of notification subscriptions for a given bucket.
         pub async fn list_notifications(
             &mut self,
             request: impl tonic::IntoRequest<super::ListNotificationsRequest>,
-        ) -> Result<tonic::Response<super::ListNotificationsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListNotificationsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3589,14 +3797,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListNotifications",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "ListNotifications"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Permanently deletes the ACL entry for the specified entity on the specified
         /// object.
         pub async fn delete_object_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteObjectAccessControlRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3610,13 +3823,24 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/DeleteObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "DeleteObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the ACL entry for the specified entity on the specified object.
         pub async fn get_object_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::GetObjectAccessControlRequest>,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3630,13 +3854,24 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "GetObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new ACL entry on the specified object.
         pub async fn insert_object_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::InsertObjectAccessControlRequest>,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3650,13 +3885,21 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/InsertObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "InsertObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves ACL entries on the specified object.
         pub async fn list_object_access_controls(
             &mut self,
             request: impl tonic::IntoRequest<super::ListObjectAccessControlsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListObjectAccessControlsResponse>,
             tonic::Status,
         > {
@@ -3673,7 +3916,15 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListObjectAccessControls",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "ListObjectAccessControls",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Patches an ACL entry on the specified object.  Patch is similar to update,
         /// but only applies or appends the specified fields in the
@@ -3681,7 +3932,10 @@ pub mod storage_client {
         pub async fn patch_object_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::PatchObjectAccessControlRequest>,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3695,13 +3949,24 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/PatchObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "PatchObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an ACL entry on the specified object.
         pub async fn update_object_access_control(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateObjectAccessControlRequest>,
-        ) -> Result<tonic::Response<super::ObjectAccessControl>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ObjectAccessControl>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3715,14 +3980,22 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/UpdateObjectAccessControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "UpdateObjectAccessControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Concatenates a list of existing objects into a new object in the same
         /// bucket.
         pub async fn compose_object(
             &mut self,
             request: impl tonic::IntoRequest<super::ComposeObjectRequest>,
-        ) -> Result<tonic::Response<super::Object>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3736,14 +4009,17 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ComposeObject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "ComposeObject"));
+            self.inner.unary(req, path, codec).await
         }
         /// Copies a source object to a destination object. Optionally overrides
         /// metadata.
         pub async fn copy_object(
             &mut self,
             request: impl tonic::IntoRequest<super::CopyObjectRequest>,
-        ) -> Result<tonic::Response<super::Object>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3757,7 +4033,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/CopyObject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "CopyObject"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an object and its metadata. Deletions are permanent if versioning
         /// is not enabled for the bucket, or if the `generation` parameter
@@ -3765,7 +4044,7 @@ pub mod storage_client {
         pub async fn delete_object(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteObjectRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3779,13 +4058,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/DeleteObject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "DeleteObject"));
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves an object's metadata.
         pub async fn get_object(
             &mut self,
             request: impl tonic::IntoRequest<super::GetObjectRequest>,
-        ) -> Result<tonic::Response<super::Object>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3799,13 +4081,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetObject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "GetObject"));
+            self.inner.unary(req, path, codec).await
         }
         /// Reads an object's data.
         pub async fn get_object_media(
             &mut self,
             request: impl tonic::IntoRequest<super::GetObjectMediaRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::GetObjectMediaResponse>>,
             tonic::Status,
         > {
@@ -3822,7 +4107,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetObjectMedia",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "GetObjectMedia"));
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Stores a new object and metadata.
         ///
@@ -3853,7 +4141,7 @@ pub mod storage_client {
             request: impl tonic::IntoStreamingRequest<
                 Message = super::InsertObjectRequest,
             >,
-        ) -> Result<tonic::Response<super::Object>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3867,15 +4155,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/InsertObject",
             );
-            self.inner
-                .client_streaming(request.into_streaming_request(), path, codec)
-                .await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "InsertObject"));
+            self.inner.client_streaming(req, path, codec).await
         }
         /// Retrieves a list of objects matching the criteria.
         pub async fn list_objects(
             &mut self,
             request: impl tonic::IntoRequest<super::ListObjectsRequest>,
-        ) -> Result<tonic::Response<super::ListObjectsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListObjectsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3889,14 +4181,20 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListObjects",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "ListObjects"));
+            self.inner.unary(req, path, codec).await
         }
         /// Rewrites a source object to a destination object. Optionally overrides
         /// metadata.
         pub async fn rewrite_object(
             &mut self,
             request: impl tonic::IntoRequest<super::RewriteObjectRequest>,
-        ) -> Result<tonic::Response<super::RewriteResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::RewriteResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3910,7 +4208,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/RewriteObject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "RewriteObject"));
+            self.inner.unary(req, path, codec).await
         }
         /// Starts a resumable write. How long the write operation remains valid, and
         /// what happens when the write operation becomes invalid, are
@@ -3918,7 +4219,10 @@ pub mod storage_client {
         pub async fn start_resumable_write(
             &mut self,
             request: impl tonic::IntoRequest<super::StartResumableWriteRequest>,
-        ) -> Result<tonic::Response<super::StartResumableWriteResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::StartResumableWriteResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3932,7 +4236,12 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/StartResumableWrite",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "StartResumableWrite"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Determines the `committed_size` for an object that is being written, which
         /// can then be used as the `write_offset` for the next `Write()` call.
@@ -3950,7 +4259,10 @@ pub mod storage_client {
         pub async fn query_write_status(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryWriteStatusRequest>,
-        ) -> Result<tonic::Response<super::QueryWriteStatusResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryWriteStatusResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3964,13 +4276,18 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/QueryWriteStatus",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "QueryWriteStatus"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an object's metadata.
         pub async fn patch_object(
             &mut self,
             request: impl tonic::IntoRequest<super::PatchObjectRequest>,
-        ) -> Result<tonic::Response<super::Object>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3984,7 +4301,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/PatchObject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "PatchObject"));
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an object's metadata. Equivalent to PatchObject, but always
         /// replaces all mutatable fields of the bucket with new values, reverting all
@@ -3992,7 +4312,7 @@ pub mod storage_client {
         pub async fn update_object(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateObjectRequest>,
-        ) -> Result<tonic::Response<super::Object>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4006,13 +4326,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/UpdateObject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "UpdateObject"));
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the IAM policy for the specified object.
         pub async fn get_object_iam_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::GetIamPolicyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -4029,13 +4352,18 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetObjectIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "GetObjectIamPolicy"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an IAM policy for the specified object.
         pub async fn set_object_iam_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::SetIamPolicyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -4052,14 +4380,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/SetObjectIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "SetObjectIamPolicy"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Tests a set of permissions on the given object to see which, if
         /// any, are held by the caller.
         pub async fn test_object_iam_permissions(
             &mut self,
             request: impl tonic::IntoRequest<super::TestIamPermissionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::iam::v1::TestIamPermissionsResponse>,
             tonic::Status,
         > {
@@ -4076,13 +4409,21 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/TestObjectIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.storage.v1.Storage",
+                        "TestObjectIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Watch for changes on all objects in a bucket.
         pub async fn watch_all_objects(
             &mut self,
             request: impl tonic::IntoRequest<super::WatchAllObjectsRequest>,
-        ) -> Result<tonic::Response<super::Channel>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Channel>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4096,13 +4437,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/WatchAllObjects",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "WatchAllObjects"));
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves the name of a project's Google Cloud Storage service account.
         pub async fn get_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::GetProjectServiceAccountRequest>,
-        ) -> Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4116,13 +4460,21 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v1.Storage", "GetServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new HMAC key for the given service account.
         pub async fn create_hmac_key(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateHmacKeyRequest>,
-        ) -> Result<tonic::Response<super::CreateHmacKeyResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CreateHmacKeyResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4136,13 +4488,16 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/CreateHmacKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "CreateHmacKey"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a given HMAC key.  Key must be in an INACTIVE state.
         pub async fn delete_hmac_key(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteHmacKeyRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4156,13 +4511,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/DeleteHmacKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "DeleteHmacKey"));
+            self.inner.unary(req, path, codec).await
         }
         /// Gets an existing HMAC key metadata for the given id.
         pub async fn get_hmac_key(
             &mut self,
             request: impl tonic::IntoRequest<super::GetHmacKeyRequest>,
-        ) -> Result<tonic::Response<super::HmacKeyMetadata>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::HmacKeyMetadata>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4176,13 +4537,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/GetHmacKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "GetHmacKey"));
+            self.inner.unary(req, path, codec).await
         }
         /// Lists HMAC keys under a given project with the additional filters provided.
         pub async fn list_hmac_keys(
             &mut self,
             request: impl tonic::IntoRequest<super::ListHmacKeysRequest>,
-        ) -> Result<tonic::Response<super::ListHmacKeysResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListHmacKeysResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4196,13 +4563,19 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/ListHmacKeys",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "ListHmacKeys"));
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a given HMAC key state between ACTIVE and INACTIVE.
         pub async fn update_hmac_key(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateHmacKeyRequest>,
-        ) -> Result<tonic::Response<super::HmacKeyMetadata>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::HmacKeyMetadata>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4216,7 +4589,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v1.Storage/UpdateHmacKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v1.Storage", "UpdateHmacKey"));
+            self.inner.unary(req, path, codec).await
         }
     }
 }

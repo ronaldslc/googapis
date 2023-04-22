@@ -1192,11 +1192,30 @@ pub mod config_service_v2_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists buckets.
         pub async fn list_buckets(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBucketsRequest>,
-        ) -> Result<tonic::Response<super::ListBucketsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListBucketsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1210,13 +1229,18 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/ListBuckets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "ListBuckets"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a bucket.
         pub async fn get_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBucketRequest>,
-        ) -> Result<tonic::Response<super::LogBucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogBucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1230,14 +1254,19 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/GetBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "GetBucket"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a bucket that can be used to store log entries. Once a bucket has
         /// been created, the region cannot be changed.
         pub async fn create_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateBucketRequest>,
-        ) -> Result<tonic::Response<super::LogBucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogBucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1251,7 +1280,12 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/CreateBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "CreateBucket"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a bucket. This method replaces the following fields in the
         /// existing bucket with values from the new bucket: `retention_period`
@@ -1266,7 +1300,7 @@ pub mod config_service_v2_client {
         pub async fn update_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateBucketRequest>,
-        ) -> Result<tonic::Response<super::LogBucket>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogBucket>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1280,7 +1314,12 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/UpdateBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "UpdateBucket"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a bucket.
         /// Moves the bucket to the DELETE_REQUESTED state. After 7 days, the
@@ -1289,7 +1328,7 @@ pub mod config_service_v2_client {
         pub async fn delete_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteBucketRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1303,14 +1342,19 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/DeleteBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "DeleteBucket"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Undeletes a bucket. A bucket that has been deleted may be undeleted within
         /// the grace period of 7 days.
         pub async fn undelete_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::UndeleteBucketRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1324,13 +1368,24 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/UndeleteBucket",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.ConfigServiceV2",
+                        "UndeleteBucket",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists views on a bucket.
         pub async fn list_views(
             &mut self,
             request: impl tonic::IntoRequest<super::ListViewsRequest>,
-        ) -> Result<tonic::Response<super::ListViewsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListViewsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1344,13 +1399,18 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/ListViews",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "ListViews"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a view.
         pub async fn get_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetViewRequest>,
-        ) -> Result<tonic::Response<super::LogView>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogView>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1364,14 +1424,17 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/GetView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.logging.v2.ConfigServiceV2", "GetView"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a view over logs in a bucket. A bucket may contain a maximum of
         /// 50 views.
         pub async fn create_view(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateViewRequest>,
-        ) -> Result<tonic::Response<super::LogView>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogView>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1385,14 +1448,19 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/CreateView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "CreateView"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a view. This method replaces the following fields in the existing
         /// view with values from the new view: `filter`.
         pub async fn update_view(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateViewRequest>,
-        ) -> Result<tonic::Response<super::LogView>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogView>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1406,13 +1474,18 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/UpdateView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "UpdateView"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a view from a bucket.
         pub async fn delete_view(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteViewRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1426,13 +1499,21 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/DeleteView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "DeleteView"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists sinks.
         pub async fn list_sinks(
             &mut self,
             request: impl tonic::IntoRequest<super::ListSinksRequest>,
-        ) -> Result<tonic::Response<super::ListSinksResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListSinksResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1446,13 +1527,18 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/ListSinks",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "ListSinks"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a sink.
         pub async fn get_sink(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSinkRequest>,
-        ) -> Result<tonic::Response<super::LogSink>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogSink>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1466,7 +1552,10 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/GetSink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.logging.v2.ConfigServiceV2", "GetSink"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a sink that exports specified log entries to a destination. The
         /// export of newly-ingested log entries begins immediately, unless the sink's
@@ -1475,7 +1564,7 @@ pub mod config_service_v2_client {
         pub async fn create_sink(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateSinkRequest>,
-        ) -> Result<tonic::Response<super::LogSink>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogSink>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1489,7 +1578,12 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/CreateSink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "CreateSink"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a sink. This method replaces the following fields in the existing
         /// sink with values from the new sink: `destination`, and `filter`.
@@ -1499,7 +1593,7 @@ pub mod config_service_v2_client {
         pub async fn update_sink(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateSinkRequest>,
-        ) -> Result<tonic::Response<super::LogSink>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogSink>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1513,14 +1607,19 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/UpdateSink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "UpdateSink"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a sink. If the sink has a unique `writer_identity`, then that
         /// service account is also deleted.
         pub async fn delete_sink(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteSinkRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1534,13 +1633,21 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/DeleteSink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "DeleteSink"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all the exclusions in a parent resource.
         pub async fn list_exclusions(
             &mut self,
             request: impl tonic::IntoRequest<super::ListExclusionsRequest>,
-        ) -> Result<tonic::Response<super::ListExclusionsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListExclusionsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1554,13 +1661,21 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/ListExclusions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.ConfigServiceV2",
+                        "ListExclusions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the description of an exclusion.
         pub async fn get_exclusion(
             &mut self,
             request: impl tonic::IntoRequest<super::GetExclusionRequest>,
-        ) -> Result<tonic::Response<super::LogExclusion>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogExclusion>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1574,7 +1689,12 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/GetExclusion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.ConfigServiceV2", "GetExclusion"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new exclusion in a specified parent resource.
         /// Only log entries belonging to that resource can be excluded.
@@ -1582,7 +1702,7 @@ pub mod config_service_v2_client {
         pub async fn create_exclusion(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateExclusionRequest>,
-        ) -> Result<tonic::Response<super::LogExclusion>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogExclusion>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1596,13 +1716,21 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/CreateExclusion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.ConfigServiceV2",
+                        "CreateExclusion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Changes one or more properties of an existing exclusion.
         pub async fn update_exclusion(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateExclusionRequest>,
-        ) -> Result<tonic::Response<super::LogExclusion>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogExclusion>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1616,13 +1744,21 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/UpdateExclusion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.ConfigServiceV2",
+                        "UpdateExclusion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an exclusion.
         pub async fn delete_exclusion(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteExclusionRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1636,7 +1772,15 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/DeleteExclusion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.ConfigServiceV2",
+                        "DeleteExclusion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the Logs Router CMEK settings for the given resource.
         ///
@@ -1650,7 +1794,7 @@ pub mod config_service_v2_client {
         pub async fn get_cmek_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCmekSettingsRequest>,
-        ) -> Result<tonic::Response<super::CmekSettings>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::CmekSettings>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1664,7 +1808,15 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/GetCmekSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.ConfigServiceV2",
+                        "GetCmekSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the Logs Router CMEK settings for the given resource.
         ///
@@ -1684,7 +1836,7 @@ pub mod config_service_v2_client {
         pub async fn update_cmek_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateCmekSettingsRequest>,
-        ) -> Result<tonic::Response<super::CmekSettings>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::CmekSettings>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1698,7 +1850,15 @@ pub mod config_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.ConfigServiceV2/UpdateCmekSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.ConfigServiceV2",
+                        "UpdateCmekSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2151,6 +2311,22 @@ pub mod logging_service_v2_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Deletes all the log entries in a log. The log reappears if it receives new
         /// entries. Log entries written shortly before the delete operation might not
         /// be deleted. Entries received after the delete operation with a timestamp
@@ -2158,7 +2334,7 @@ pub mod logging_service_v2_client {
         pub async fn delete_log(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteLogRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2172,7 +2348,12 @@ pub mod logging_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.LoggingServiceV2/DeleteLog",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.LoggingServiceV2", "DeleteLog"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Writes log entries to Logging. This API method is the
         /// only way to send log entries to Logging. This method
@@ -2184,7 +2365,10 @@ pub mod logging_service_v2_client {
         pub async fn write_log_entries(
             &mut self,
             request: impl tonic::IntoRequest<super::WriteLogEntriesRequest>,
-        ) -> Result<tonic::Response<super::WriteLogEntriesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::WriteLogEntriesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2198,7 +2382,15 @@ pub mod logging_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.LoggingServiceV2/WriteLogEntries",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.LoggingServiceV2",
+                        "WriteLogEntries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists log entries.  Use this method to retrieve log entries that originated
         /// from a project/folder/organization/billing account.  For ways to export log
@@ -2207,7 +2399,10 @@ pub mod logging_service_v2_client {
         pub async fn list_log_entries(
             &mut self,
             request: impl tonic::IntoRequest<super::ListLogEntriesRequest>,
-        ) -> Result<tonic::Response<super::ListLogEntriesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListLogEntriesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2221,7 +2416,15 @@ pub mod logging_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.LoggingServiceV2/ListLogEntries",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.LoggingServiceV2",
+                        "ListLogEntries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the descriptors for monitored resource types used by Logging.
         pub async fn list_monitored_resource_descriptors(
@@ -2229,7 +2432,7 @@ pub mod logging_service_v2_client {
             request: impl tonic::IntoRequest<
                 super::ListMonitoredResourceDescriptorsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListMonitoredResourceDescriptorsResponse>,
             tonic::Status,
         > {
@@ -2246,14 +2449,25 @@ pub mod logging_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.LoggingServiceV2/ListMonitoredResourceDescriptors",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.LoggingServiceV2",
+                        "ListMonitoredResourceDescriptors",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the logs in projects, organizations, folders, or billing accounts.
         /// Only logs that have entries are listed.
         pub async fn list_logs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListLogsRequest>,
-        ) -> Result<tonic::Response<super::ListLogsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListLogsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2267,7 +2481,12 @@ pub mod logging_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.LoggingServiceV2/ListLogs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.LoggingServiceV2", "ListLogs"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Streaming read of log entries as they are ingested. Until the stream is
         /// terminated, it will continue reading logs.
@@ -2276,7 +2495,7 @@ pub mod logging_service_v2_client {
             request: impl tonic::IntoStreamingRequest<
                 Message = super::TailLogEntriesRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::TailLogEntriesResponse>>,
             tonic::Status,
         > {
@@ -2293,7 +2512,15 @@ pub mod logging_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.LoggingServiceV2/TailLogEntries",
             );
-            self.inner.streaming(request.into_streaming_request(), path, codec).await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.LoggingServiceV2",
+                        "TailLogEntries",
+                    ),
+                );
+            self.inner.streaming(req, path, codec).await
         }
     }
 }
@@ -2609,11 +2836,30 @@ pub mod metrics_service_v2_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists logs-based metrics.
         pub async fn list_log_metrics(
             &mut self,
             request: impl tonic::IntoRequest<super::ListLogMetricsRequest>,
-        ) -> Result<tonic::Response<super::ListLogMetricsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListLogMetricsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2627,13 +2873,21 @@ pub mod metrics_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.MetricsServiceV2/ListLogMetrics",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.MetricsServiceV2",
+                        "ListLogMetrics",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a logs-based metric.
         pub async fn get_log_metric(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLogMetricRequest>,
-        ) -> Result<tonic::Response<super::LogMetric>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogMetric>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2647,13 +2901,18 @@ pub mod metrics_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.MetricsServiceV2/GetLogMetric",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.logging.v2.MetricsServiceV2", "GetLogMetric"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a logs-based metric.
         pub async fn create_log_metric(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateLogMetricRequest>,
-        ) -> Result<tonic::Response<super::LogMetric>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogMetric>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2667,13 +2926,21 @@ pub mod metrics_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.MetricsServiceV2/CreateLogMetric",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.MetricsServiceV2",
+                        "CreateLogMetric",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates a logs-based metric.
         pub async fn update_log_metric(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateLogMetricRequest>,
-        ) -> Result<tonic::Response<super::LogMetric>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::LogMetric>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2687,13 +2954,21 @@ pub mod metrics_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.MetricsServiceV2/UpdateLogMetric",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.MetricsServiceV2",
+                        "UpdateLogMetric",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a logs-based metric.
         pub async fn delete_log_metric(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteLogMetricRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2707,7 +2982,15 @@ pub mod metrics_service_v2_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.logging.v2.MetricsServiceV2/DeleteLogMetric",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.logging.v2.MetricsServiceV2",
+                        "DeleteLogMetric",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

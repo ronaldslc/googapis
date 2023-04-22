@@ -496,11 +496,30 @@ pub mod instance_admin_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the supported instance configurations for a given project.
         pub async fn list_instance_configs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListInstanceConfigsRequest>,
-        ) -> Result<tonic::Response<super::ListInstanceConfigsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstanceConfigsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -514,13 +533,21 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/ListInstanceConfigs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "ListInstanceConfigs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets information about a particular instance configuration.
         pub async fn get_instance_config(
             &mut self,
             request: impl tonic::IntoRequest<super::GetInstanceConfigRequest>,
-        ) -> Result<tonic::Response<super::InstanceConfig>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::InstanceConfig>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -534,13 +561,24 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/GetInstanceConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "GetInstanceConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all instances in the given project.
         pub async fn list_instances(
             &mut self,
             request: impl tonic::IntoRequest<super::ListInstancesRequest>,
-        ) -> Result<tonic::Response<super::ListInstancesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -554,13 +592,21 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/ListInstances",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "ListInstances",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets information about a particular instance.
         pub async fn get_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::GetInstanceRequest>,
-        ) -> Result<tonic::Response<super::Instance>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -574,7 +620,15 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/GetInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "GetInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates an instance and begins preparing it to begin serving. The
         /// returned [long-running operation][google.longrunning.Operation]
@@ -613,7 +667,7 @@ pub mod instance_admin_client {
         pub async fn create_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateInstanceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -630,7 +684,15 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/CreateInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "CreateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates an instance, and begins allocating or releasing resources
         /// as requested. The returned [long-running
@@ -675,7 +737,7 @@ pub mod instance_admin_client {
         pub async fn update_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateInstanceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -692,7 +754,15 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/UpdateInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "UpdateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an instance.
         ///
@@ -708,7 +778,7 @@ pub mod instance_admin_client {
         pub async fn delete_instance(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteInstanceRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -722,7 +792,15 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/DeleteInstance",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "DeleteInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on an instance resource. Replaces any
         /// existing policy.
@@ -734,7 +812,7 @@ pub mod instance_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -751,7 +829,15 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for an instance resource. Returns an empty
         /// policy if an instance exists but does not have a policy set.
@@ -763,7 +849,7 @@ pub mod instance_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -780,7 +866,15 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that the caller has on the specified instance resource.
         ///
@@ -793,7 +887,7 @@ pub mod instance_admin_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -812,7 +906,15 @@ pub mod instance_admin_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.spanner.admin.instance.v1.InstanceAdmin/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.spanner.admin.instance.v1.InstanceAdmin",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

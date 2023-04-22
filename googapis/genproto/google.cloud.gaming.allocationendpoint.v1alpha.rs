@@ -141,11 +141,30 @@ pub mod allocation_endpoint_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Proxy allocation service to the Game Server Clusters.
         pub async fn allocate(
             &mut self,
             request: impl tonic::IntoRequest<super::AllocationRequest>,
-        ) -> Result<tonic::Response<super::AllocationResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AllocationResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -159,7 +178,15 @@ pub mod allocation_endpoint_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.gaming.allocationendpoint.v1alpha.AllocationEndpointService/Allocate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gaming.allocationendpoint.v1alpha.AllocationEndpointService",
+                        "Allocate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

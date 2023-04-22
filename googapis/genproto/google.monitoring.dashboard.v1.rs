@@ -1628,12 +1628,28 @@ pub mod dashboards_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a new custom dashboard. For examples on how you can use this API to create dashboards, see [Managing dashboards by API](https://cloud.google.com/monitoring/dashboards/api-dashboard).
         /// This method requires the `monitoring.dashboards.create` permission on the specified project. For more information about permissions, see [Cloud Identity and Access Management](https://cloud.google.com/iam).
         pub async fn create_dashboard(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateDashboardRequest>,
-        ) -> Result<tonic::Response<super::Dashboard>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Dashboard>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1647,7 +1663,15 @@ pub mod dashboards_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.dashboard.v1.DashboardsService/CreateDashboard",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.dashboard.v1.DashboardsService",
+                        "CreateDashboard",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the existing dashboards.
         ///
@@ -1657,7 +1681,10 @@ pub mod dashboards_service_client {
         pub async fn list_dashboards(
             &mut self,
             request: impl tonic::IntoRequest<super::ListDashboardsRequest>,
-        ) -> Result<tonic::Response<super::ListDashboardsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListDashboardsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1671,7 +1698,15 @@ pub mod dashboards_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.dashboard.v1.DashboardsService/ListDashboards",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.dashboard.v1.DashboardsService",
+                        "ListDashboards",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Fetches a specific dashboard.
         ///
@@ -1681,7 +1716,7 @@ pub mod dashboards_service_client {
         pub async fn get_dashboard(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDashboardRequest>,
-        ) -> Result<tonic::Response<super::Dashboard>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Dashboard>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1695,7 +1730,15 @@ pub mod dashboards_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.dashboard.v1.DashboardsService/GetDashboard",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.dashboard.v1.DashboardsService",
+                        "GetDashboard",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an existing custom dashboard.
         ///
@@ -1705,7 +1748,7 @@ pub mod dashboards_service_client {
         pub async fn delete_dashboard(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteDashboardRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1719,7 +1762,15 @@ pub mod dashboards_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.dashboard.v1.DashboardsService/DeleteDashboard",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.dashboard.v1.DashboardsService",
+                        "DeleteDashboard",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Replaces an existing custom dashboard with a new definition.
         ///
@@ -1729,7 +1780,7 @@ pub mod dashboards_service_client {
         pub async fn update_dashboard(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateDashboardRequest>,
-        ) -> Result<tonic::Response<super::Dashboard>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Dashboard>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1743,7 +1794,15 @@ pub mod dashboards_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.monitoring.dashboard.v1.DashboardsService/UpdateDashboard",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.monitoring.dashboard.v1.DashboardsService",
+                        "UpdateDashboard",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

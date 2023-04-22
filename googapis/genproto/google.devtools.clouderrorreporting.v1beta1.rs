@@ -276,11 +276,27 @@ pub mod error_group_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Get the specified group.
         pub async fn get_group(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGroupRequest>,
-        ) -> Result<tonic::Response<super::ErrorGroup>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ErrorGroup>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -294,14 +310,22 @@ pub mod error_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.devtools.clouderrorreporting.v1beta1.ErrorGroupService/GetGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouderrorreporting.v1beta1.ErrorGroupService",
+                        "GetGroup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Replace the data for the specified group.
         /// Fails if the group does not exist.
         pub async fn update_group(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateGroupRequest>,
-        ) -> Result<tonic::Response<super::ErrorGroup>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ErrorGroup>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -315,7 +339,15 @@ pub mod error_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.devtools.clouderrorreporting.v1beta1.ErrorGroupService/UpdateGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouderrorreporting.v1beta1.ErrorGroupService",
+                        "UpdateGroup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -777,11 +809,30 @@ pub mod error_stats_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the specified groups.
         pub async fn list_group_stats(
             &mut self,
             request: impl tonic::IntoRequest<super::ListGroupStatsRequest>,
-        ) -> Result<tonic::Response<super::ListGroupStatsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListGroupStatsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -795,13 +846,24 @@ pub mod error_stats_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.devtools.clouderrorreporting.v1beta1.ErrorStatsService/ListGroupStats",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouderrorreporting.v1beta1.ErrorStatsService",
+                        "ListGroupStats",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the specified events.
         pub async fn list_events(
             &mut self,
             request: impl tonic::IntoRequest<super::ListEventsRequest>,
-        ) -> Result<tonic::Response<super::ListEventsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListEventsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -815,13 +877,24 @@ pub mod error_stats_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.devtools.clouderrorreporting.v1beta1.ErrorStatsService/ListEvents",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouderrorreporting.v1beta1.ErrorStatsService",
+                        "ListEvents",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes all error events of a given project.
         pub async fn delete_events(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteEventsRequest>,
-        ) -> Result<tonic::Response<super::DeleteEventsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::DeleteEventsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -835,7 +908,15 @@ pub mod error_stats_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.devtools.clouderrorreporting.v1beta1.ErrorStatsService/DeleteEvents",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouderrorreporting.v1beta1.ErrorStatsService",
+                        "DeleteEvents",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -961,6 +1042,22 @@ pub mod report_errors_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Report an individual error event and record the event to a log.
         ///
         /// This endpoint accepts **either** an OAuth token,
@@ -981,7 +1078,10 @@ pub mod report_errors_service_client {
         pub async fn report_error_event(
             &mut self,
             request: impl tonic::IntoRequest<super::ReportErrorEventRequest>,
-        ) -> Result<tonic::Response<super::ReportErrorEventResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ReportErrorEventResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -995,7 +1095,15 @@ pub mod report_errors_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.devtools.clouderrorreporting.v1beta1.ReportErrorsService/ReportErrorEvent",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouderrorreporting.v1beta1.ReportErrorsService",
+                        "ReportErrorEvent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

@@ -2029,11 +2029,30 @@ pub mod key_management_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists [KeyRings][google.cloud.kms.v1.KeyRing].
         pub async fn list_key_rings(
             &mut self,
             request: impl tonic::IntoRequest<super::ListKeyRingsRequest>,
-        ) -> Result<tonic::Response<super::ListKeyRingsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListKeyRingsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2047,13 +2066,24 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/ListKeyRings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "ListKeyRings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists [CryptoKeys][google.cloud.kms.v1.CryptoKey].
         pub async fn list_crypto_keys(
             &mut self,
             request: impl tonic::IntoRequest<super::ListCryptoKeysRequest>,
-        ) -> Result<tonic::Response<super::ListCryptoKeysResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListCryptoKeysResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2067,13 +2097,21 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/ListCryptoKeys",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "ListCryptoKeys",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion].
         pub async fn list_crypto_key_versions(
             &mut self,
             request: impl tonic::IntoRequest<super::ListCryptoKeyVersionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListCryptoKeyVersionsResponse>,
             tonic::Status,
         > {
@@ -2090,13 +2128,24 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/ListCryptoKeyVersions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "ListCryptoKeyVersions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists [ImportJobs][google.cloud.kms.v1.ImportJob].
         pub async fn list_import_jobs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListImportJobsRequest>,
-        ) -> Result<tonic::Response<super::ListImportJobsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListImportJobsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2110,13 +2159,21 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/ListImportJobs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "ListImportJobs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns metadata for a given [KeyRing][google.cloud.kms.v1.KeyRing].
         pub async fn get_key_ring(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeyRingRequest>,
-        ) -> Result<tonic::Response<super::KeyRing>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::KeyRing>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2130,14 +2187,22 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/GetKeyRing",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "GetKeyRing",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns metadata for a given [CryptoKey][google.cloud.kms.v1.CryptoKey], as well as its
         /// [primary][google.cloud.kms.v1.CryptoKey.primary] [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
         pub async fn get_crypto_key(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCryptoKeyRequest>,
-        ) -> Result<tonic::Response<super::CryptoKey>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::CryptoKey>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2151,13 +2216,24 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/GetCryptoKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "GetCryptoKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns metadata for a given [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
         pub async fn get_crypto_key_version(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCryptoKeyVersionRequest>,
-        ) -> Result<tonic::Response<super::CryptoKeyVersion>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CryptoKeyVersion>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2171,7 +2247,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/GetCryptoKeyVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "GetCryptoKeyVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the public key for the given [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]. The
         /// [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
@@ -2180,7 +2264,7 @@ pub mod key_management_service_client {
         pub async fn get_public_key(
             &mut self,
             request: impl tonic::IntoRequest<super::GetPublicKeyRequest>,
-        ) -> Result<tonic::Response<super::PublicKey>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::PublicKey>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2194,13 +2278,21 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/GetPublicKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "GetPublicKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns metadata for a given [ImportJob][google.cloud.kms.v1.ImportJob].
         pub async fn get_import_job(
             &mut self,
             request: impl tonic::IntoRequest<super::GetImportJobRequest>,
-        ) -> Result<tonic::Response<super::ImportJob>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ImportJob>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2214,13 +2306,21 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/GetImportJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "GetImportJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Create a new [KeyRing][google.cloud.kms.v1.KeyRing] in a given Project and Location.
         pub async fn create_key_ring(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateKeyRingRequest>,
-        ) -> Result<tonic::Response<super::KeyRing>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::KeyRing>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2234,7 +2334,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/CreateKeyRing",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "CreateKeyRing",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Create a new [CryptoKey][google.cloud.kms.v1.CryptoKey] within a [KeyRing][google.cloud.kms.v1.KeyRing].
         ///
@@ -2244,7 +2352,7 @@ pub mod key_management_service_client {
         pub async fn create_crypto_key(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateCryptoKeyRequest>,
-        ) -> Result<tonic::Response<super::CryptoKey>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::CryptoKey>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2258,7 +2366,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/CreateCryptoKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "CreateCryptoKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Create a new [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] in a [CryptoKey][google.cloud.kms.v1.CryptoKey].
         ///
@@ -2268,7 +2384,10 @@ pub mod key_management_service_client {
         pub async fn create_crypto_key_version(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateCryptoKeyVersionRequest>,
-        ) -> Result<tonic::Response<super::CryptoKeyVersion>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CryptoKeyVersion>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2282,7 +2401,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/CreateCryptoKeyVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "CreateCryptoKeyVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Import wrapped key material into a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion].
         ///
@@ -2293,7 +2420,10 @@ pub mod key_management_service_client {
         pub async fn import_crypto_key_version(
             &mut self,
             request: impl tonic::IntoRequest<super::ImportCryptoKeyVersionRequest>,
-        ) -> Result<tonic::Response<super::CryptoKeyVersion>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CryptoKeyVersion>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2307,7 +2437,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/ImportCryptoKeyVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "ImportCryptoKeyVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Create a new [ImportJob][google.cloud.kms.v1.ImportJob] within a [KeyRing][google.cloud.kms.v1.KeyRing].
         ///
@@ -2315,7 +2453,7 @@ pub mod key_management_service_client {
         pub async fn create_import_job(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateImportJobRequest>,
-        ) -> Result<tonic::Response<super::ImportJob>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ImportJob>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2329,13 +2467,21 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/CreateImportJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "CreateImportJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Update a [CryptoKey][google.cloud.kms.v1.CryptoKey].
         pub async fn update_crypto_key(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateCryptoKeyRequest>,
-        ) -> Result<tonic::Response<super::CryptoKey>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::CryptoKey>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2349,7 +2495,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/UpdateCryptoKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "UpdateCryptoKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Update a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion]'s metadata.
         ///
@@ -2361,7 +2515,10 @@ pub mod key_management_service_client {
         pub async fn update_crypto_key_version(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateCryptoKeyVersionRequest>,
-        ) -> Result<tonic::Response<super::CryptoKeyVersion>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CryptoKeyVersion>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2375,7 +2532,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/UpdateCryptoKeyVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "UpdateCryptoKeyVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Update the version of a [CryptoKey][google.cloud.kms.v1.CryptoKey] that will be used in [Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt].
         ///
@@ -2384,7 +2549,7 @@ pub mod key_management_service_client {
         pub async fn update_crypto_key_primary_version(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateCryptoKeyPrimaryVersionRequest>,
-        ) -> Result<tonic::Response<super::CryptoKey>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::CryptoKey>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2398,7 +2563,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/UpdateCryptoKeyPrimaryVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "UpdateCryptoKeyPrimaryVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Schedule a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] for destruction.
         ///
@@ -2416,7 +2589,10 @@ pub mod key_management_service_client {
         pub async fn destroy_crypto_key_version(
             &mut self,
             request: impl tonic::IntoRequest<super::DestroyCryptoKeyVersionRequest>,
-        ) -> Result<tonic::Response<super::CryptoKeyVersion>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CryptoKeyVersion>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2430,7 +2606,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/DestroyCryptoKeyVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "DestroyCryptoKeyVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Restore a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] in the
         /// [DESTROY_SCHEDULED][google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.DESTROY_SCHEDULED]
@@ -2442,7 +2626,10 @@ pub mod key_management_service_client {
         pub async fn restore_crypto_key_version(
             &mut self,
             request: impl tonic::IntoRequest<super::RestoreCryptoKeyVersionRequest>,
-        ) -> Result<tonic::Response<super::CryptoKeyVersion>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CryptoKeyVersion>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2456,7 +2643,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/RestoreCryptoKeyVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "RestoreCryptoKeyVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Encrypts data, so that it can only be recovered by a call to [Decrypt][google.cloud.kms.v1.KeyManagementService.Decrypt].
         /// The [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose] must be
@@ -2464,7 +2659,10 @@ pub mod key_management_service_client {
         pub async fn encrypt(
             &mut self,
             request: impl tonic::IntoRequest<super::EncryptRequest>,
-        ) -> Result<tonic::Response<super::EncryptResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::EncryptResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2478,14 +2676,25 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/Encrypt",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "Encrypt",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Decrypts data that was protected by [Encrypt][google.cloud.kms.v1.KeyManagementService.Encrypt]. The [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
         /// must be [ENCRYPT_DECRYPT][google.cloud.kms.v1.CryptoKey.CryptoKeyPurpose.ENCRYPT_DECRYPT].
         pub async fn decrypt(
             &mut self,
             request: impl tonic::IntoRequest<super::DecryptRequest>,
-        ) -> Result<tonic::Response<super::DecryptResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::DecryptResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2499,7 +2708,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/Decrypt",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "Decrypt",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Signs data using a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
         /// ASYMMETRIC_SIGN, producing a signature that can be verified with the public
@@ -2507,7 +2724,10 @@ pub mod key_management_service_client {
         pub async fn asymmetric_sign(
             &mut self,
             request: impl tonic::IntoRequest<super::AsymmetricSignRequest>,
-        ) -> Result<tonic::Response<super::AsymmetricSignResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AsymmetricSignResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2521,7 +2741,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/AsymmetricSign",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "AsymmetricSign",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Decrypts data that was encrypted with a public key retrieved from
         /// [GetPublicKey][google.cloud.kms.v1.KeyManagementService.GetPublicKey] corresponding to a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with
@@ -2529,7 +2757,10 @@ pub mod key_management_service_client {
         pub async fn asymmetric_decrypt(
             &mut self,
             request: impl tonic::IntoRequest<super::AsymmetricDecryptRequest>,
-        ) -> Result<tonic::Response<super::AsymmetricDecryptResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AsymmetricDecryptResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2543,7 +2774,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/AsymmetricDecrypt",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "AsymmetricDecrypt",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Signs data using a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
         /// MAC, producing a tag that can be verified by another source with the
@@ -2551,7 +2790,10 @@ pub mod key_management_service_client {
         pub async fn mac_sign(
             &mut self,
             request: impl tonic::IntoRequest<super::MacSignRequest>,
-        ) -> Result<tonic::Response<super::MacSignResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MacSignResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2565,7 +2807,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/MacSign",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "MacSign",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Verifies MAC tag using a [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with [CryptoKey.purpose][google.cloud.kms.v1.CryptoKey.purpose]
         /// MAC, and returns a response that indicates whether or not the verification
@@ -2573,7 +2823,10 @@ pub mod key_management_service_client {
         pub async fn mac_verify(
             &mut self,
             request: impl tonic::IntoRequest<super::MacVerifyRequest>,
-        ) -> Result<tonic::Response<super::MacVerifyResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MacVerifyResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2587,14 +2840,25 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/MacVerify",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "MacVerify",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Generate random bytes using the Cloud KMS randomness source in the provided
         /// location.
         pub async fn generate_random_bytes(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateRandomBytesRequest>,
-        ) -> Result<tonic::Response<super::GenerateRandomBytesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateRandomBytesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2608,7 +2872,15 @@ pub mod key_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.kms.v1.KeyManagementService/GenerateRandomBytes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.kms.v1.KeyManagementService",
+                        "GenerateRandomBytes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

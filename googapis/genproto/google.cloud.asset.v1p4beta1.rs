@@ -565,12 +565,31 @@ pub mod asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Analyzes IAM policies based on the specified request. Returns
         /// a list of [IamPolicyAnalysisResult][google.cloud.asset.v1p4beta1.IamPolicyAnalysisResult] matching the request.
         pub async fn analyze_iam_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::AnalyzeIamPolicyRequest>,
-        ) -> Result<tonic::Response<super::AnalyzeIamPolicyResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeIamPolicyResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -584,7 +603,15 @@ pub mod asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.asset.v1p4beta1.AssetService/AnalyzeIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.asset.v1p4beta1.AssetService",
+                        "AnalyzeIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Exports IAM policy analysis based on the specified request. This API
         /// implements the [google.longrunning.Operation][google.longrunning.Operation] API allowing you to keep
@@ -593,7 +620,7 @@ pub mod asset_service_client {
         pub async fn export_iam_policy_analysis(
             &mut self,
             request: impl tonic::IntoRequest<super::ExportIamPolicyAnalysisRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -610,7 +637,15 @@ pub mod asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.asset.v1p4beta1.AssetService/ExportIamPolicyAnalysis",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.asset.v1p4beta1.AssetService",
+                        "ExportIamPolicyAnalysis",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

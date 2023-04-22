@@ -1098,6 +1098,22 @@ pub mod big_query_read_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a new read session. A read session divides the contents of a
         /// BigQuery table into one or more streams, which can then be used to read
         /// data from the table. The read session also specifies properties of the
@@ -1120,7 +1136,7 @@ pub mod big_query_read_client {
         pub async fn create_read_session(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateReadSessionRequest>,
-        ) -> Result<tonic::Response<super::ReadSession>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ReadSession>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1134,7 +1150,15 @@ pub mod big_query_read_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryRead/CreateReadSession",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryRead",
+                        "CreateReadSession",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Reads rows from the stream in the format prescribed by the ReadSession.
         /// Each response contains one or more table rows, up to a maximum of 100 MiB
@@ -1146,7 +1170,7 @@ pub mod big_query_read_client {
         pub async fn read_rows(
             &mut self,
             request: impl tonic::IntoRequest<super::ReadRowsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::ReadRowsResponse>>,
             tonic::Status,
         > {
@@ -1163,7 +1187,15 @@ pub mod big_query_read_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryRead/ReadRows",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryRead",
+                        "ReadRows",
+                    ),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Splits a given `ReadStream` into two `ReadStream` objects. These
         /// `ReadStream` objects are referred to as the primary and the residual
@@ -1180,7 +1212,10 @@ pub mod big_query_read_client {
         pub async fn split_read_stream(
             &mut self,
             request: impl tonic::IntoRequest<super::SplitReadStreamRequest>,
-        ) -> Result<tonic::Response<super::SplitReadStreamResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SplitReadStreamResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1194,7 +1229,15 @@ pub mod big_query_read_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryRead/SplitReadStream",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryRead",
+                        "SplitReadStream",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1262,6 +1305,22 @@ pub mod big_query_write_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a write stream to the given table.
         /// Additionally, every table has a special stream named '_default'
         /// to which data can be written. This stream doesn't need to be created using
@@ -1271,7 +1330,7 @@ pub mod big_query_write_client {
         pub async fn create_write_stream(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateWriteStreamRequest>,
-        ) -> Result<tonic::Response<super::WriteStream>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::WriteStream>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1285,7 +1344,15 @@ pub mod big_query_write_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryWrite/CreateWriteStream",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryWrite",
+                        "CreateWriteStream",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Appends data to the given stream.
         ///
@@ -1321,7 +1388,7 @@ pub mod big_query_write_client {
         pub async fn append_rows(
             &mut self,
             request: impl tonic::IntoStreamingRequest<Message = super::AppendRowsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::AppendRowsResponse>>,
             tonic::Status,
         > {
@@ -1338,13 +1405,21 @@ pub mod big_query_write_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryWrite/AppendRows",
             );
-            self.inner.streaming(request.into_streaming_request(), path, codec).await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryWrite",
+                        "AppendRows",
+                    ),
+                );
+            self.inner.streaming(req, path, codec).await
         }
         /// Gets information about a write stream.
         pub async fn get_write_stream(
             &mut self,
             request: impl tonic::IntoRequest<super::GetWriteStreamRequest>,
-        ) -> Result<tonic::Response<super::WriteStream>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::WriteStream>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1358,14 +1433,25 @@ pub mod big_query_write_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryWrite/GetWriteStream",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryWrite",
+                        "GetWriteStream",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Finalize a write stream so that no new data can be appended to the
         /// stream. Finalize is not supported on the '_default' stream.
         pub async fn finalize_write_stream(
             &mut self,
             request: impl tonic::IntoRequest<super::FinalizeWriteStreamRequest>,
-        ) -> Result<tonic::Response<super::FinalizeWriteStreamResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::FinalizeWriteStreamResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1379,7 +1465,15 @@ pub mod big_query_write_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryWrite/FinalizeWriteStream",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryWrite",
+                        "FinalizeWriteStream",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Atomically commits a group of `PENDING` streams that belong to the same
         /// `parent` table.
@@ -1390,7 +1484,7 @@ pub mod big_query_write_client {
         pub async fn batch_commit_write_streams(
             &mut self,
             request: impl tonic::IntoRequest<super::BatchCommitWriteStreamsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::BatchCommitWriteStreamsResponse>,
             tonic::Status,
         > {
@@ -1407,7 +1501,15 @@ pub mod big_query_write_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryWrite/BatchCommitWriteStreams",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryWrite",
+                        "BatchCommitWriteStreams",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Flushes rows to a BUFFERED stream.
         ///
@@ -1420,7 +1522,10 @@ pub mod big_query_write_client {
         pub async fn flush_rows(
             &mut self,
             request: impl tonic::IntoRequest<super::FlushRowsRequest>,
-        ) -> Result<tonic::Response<super::FlushRowsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::FlushRowsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1434,7 +1539,15 @@ pub mod big_query_write_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.bigquery.storage.v1.BigQueryWrite/FlushRows",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.storage.v1.BigQueryWrite",
+                        "FlushRows",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

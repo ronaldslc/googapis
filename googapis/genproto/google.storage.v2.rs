@@ -1331,11 +1331,27 @@ pub mod storage_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Reads an object's data.
         pub async fn read_object(
             &mut self,
             request: impl tonic::IntoRequest<super::ReadObjectRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::ReadObjectResponse>>,
             tonic::Status,
         > {
@@ -1352,7 +1368,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v2.Storage/ReadObject",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v2.Storage", "ReadObject"));
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Stores a new object and metadata.
         ///
@@ -1383,7 +1402,10 @@ pub mod storage_client {
             request: impl tonic::IntoStreamingRequest<
                 Message = super::WriteObjectRequest,
             >,
-        ) -> Result<tonic::Response<super::WriteObjectResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::WriteObjectResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1397,9 +1419,10 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v2.Storage/WriteObject",
             );
-            self.inner
-                .client_streaming(request.into_streaming_request(), path, codec)
-                .await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.storage.v2.Storage", "WriteObject"));
+            self.inner.client_streaming(req, path, codec).await
         }
         /// Starts a resumable write. How long the write operation remains valid, and
         /// what happens when the write operation becomes invalid, are
@@ -1407,7 +1430,10 @@ pub mod storage_client {
         pub async fn start_resumable_write(
             &mut self,
             request: impl tonic::IntoRequest<super::StartResumableWriteRequest>,
-        ) -> Result<tonic::Response<super::StartResumableWriteResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::StartResumableWriteResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1421,7 +1447,12 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v2.Storage/StartResumableWrite",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v2.Storage", "StartResumableWrite"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Determines the `persisted_size` for an object that is being written, which
         /// can then be used as the `write_offset` for the next `Write()` call.
@@ -1439,7 +1470,10 @@ pub mod storage_client {
         pub async fn query_write_status(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryWriteStatusRequest>,
-        ) -> Result<tonic::Response<super::QueryWriteStatusResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryWriteStatusResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1453,7 +1487,12 @@ pub mod storage_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.storage.v2.Storage/QueryWriteStatus",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.storage.v2.Storage", "QueryWriteStatus"),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

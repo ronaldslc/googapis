@@ -68,11 +68,27 @@ pub mod accessible_bidding_strategy_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested accessible bidding strategy in full detail.
         pub async fn get_accessible_bidding_strategy(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAccessibleBiddingStrategyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AccessibleBiddingStrategy>,
             tonic::Status,
         > {
@@ -89,7 +105,15 @@ pub mod accessible_bidding_strategy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AccessibleBiddingStrategyService/GetAccessibleBiddingStrategy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AccessibleBiddingStrategyService",
+                        "GetAccessibleBiddingStrategy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -246,6 +270,22 @@ pub mod account_budget_proposal_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns an account-level budget proposal in full detail.
         ///
         /// List of thrown errors:
@@ -258,7 +298,7 @@ pub mod account_budget_proposal_service_client {
         pub async fn get_account_budget_proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAccountBudgetProposalRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AccountBudgetProposal>,
             tonic::Status,
         > {
@@ -275,7 +315,15 @@ pub mod account_budget_proposal_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AccountBudgetProposalService/GetAccountBudgetProposal",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AccountBudgetProposalService",
+                        "GetAccountBudgetProposal",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes account budget proposals.  Operation statuses
         /// are returned.
@@ -297,7 +345,7 @@ pub mod account_budget_proposal_service_client {
         pub async fn mutate_account_budget_proposal(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAccountBudgetProposalRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAccountBudgetProposalResponse>,
             tonic::Status,
         > {
@@ -314,7 +362,15 @@ pub mod account_budget_proposal_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AccountBudgetProposalService/MutateAccountBudgetProposal",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AccountBudgetProposalService",
+                        "MutateAccountBudgetProposal",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -388,6 +444,22 @@ pub mod account_budget_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns an account-level budget in full detail.
         ///
         /// List of thrown errors:
@@ -400,7 +472,7 @@ pub mod account_budget_service_client {
         pub async fn get_account_budget(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAccountBudgetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AccountBudget>,
             tonic::Status,
         > {
@@ -417,7 +489,15 @@ pub mod account_budget_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AccountBudgetService/GetAccountBudget",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AccountBudgetService",
+                        "GetAccountBudget",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -584,6 +664,22 @@ pub mod account_link_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the account link in full detail.
         ///
         /// List of thrown errors:
@@ -596,7 +692,7 @@ pub mod account_link_service_client {
         pub async fn get_account_link(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAccountLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AccountLink>,
             tonic::Status,
         > {
@@ -613,7 +709,15 @@ pub mod account_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AccountLinkService/GetAccountLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AccountLinkService",
+                        "GetAccountLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates an account link.
         ///
@@ -631,7 +735,10 @@ pub mod account_link_service_client {
         pub async fn create_account_link(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateAccountLinkRequest>,
-        ) -> Result<tonic::Response<super::CreateAccountLinkResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::CreateAccountLinkResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -645,7 +752,15 @@ pub mod account_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AccountLinkService/CreateAccountLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AccountLinkService",
+                        "CreateAccountLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or removes an account link.
         /// From V5, create is not supported through
@@ -665,7 +780,10 @@ pub mod account_link_service_client {
         pub async fn mutate_account_link(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAccountLinkRequest>,
-        ) -> Result<tonic::Response<super::MutateAccountLinkResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAccountLinkResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -679,7 +797,15 @@ pub mod account_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AccountLinkService/MutateAccountLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AccountLinkService",
+                        "MutateAccountLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -752,6 +878,22 @@ pub mod ad_group_ad_asset_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group ad asset view in full detail.
         ///
         /// List of thrown errors:
@@ -764,7 +906,7 @@ pub mod ad_group_ad_asset_view_service_client {
         pub async fn get_ad_group_ad_asset_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupAdAssetViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupAdAssetView>,
             tonic::Status,
         > {
@@ -781,7 +923,15 @@ pub mod ad_group_ad_asset_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAdAssetViewService/GetAdGroupAdAssetView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAdAssetViewService",
+                        "GetAdGroupAdAssetView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -924,6 +1074,22 @@ pub mod ad_group_ad_label_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group ad label in full detail.
         ///
         /// List of thrown errors:
@@ -936,7 +1102,7 @@ pub mod ad_group_ad_label_service_client {
         pub async fn get_ad_group_ad_label(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupAdLabelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupAdLabel>,
             tonic::Status,
         > {
@@ -953,7 +1119,15 @@ pub mod ad_group_ad_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAdLabelService/GetAdGroupAdLabel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAdLabelService",
+                        "GetAdGroupAdLabel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates and removes ad group ad labels.
         /// Operation statuses are returned.
@@ -972,7 +1146,7 @@ pub mod ad_group_ad_label_service_client {
         pub async fn mutate_ad_group_ad_labels(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupAdLabelsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAdGroupAdLabelsResponse>,
             tonic::Status,
         > {
@@ -989,7 +1163,15 @@ pub mod ad_group_ad_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAdLabelService/MutateAdGroupAdLabels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAdLabelService",
+                        "MutateAdGroupAdLabels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1153,6 +1335,22 @@ pub mod ad_group_ad_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad in full detail.
         ///
         /// List of thrown errors:
@@ -1165,7 +1363,10 @@ pub mod ad_group_ad_service_client {
         pub async fn get_ad_group_ad(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupAdRequest>,
-        ) -> Result<tonic::Response<super::super::resources::AdGroupAd>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::AdGroupAd>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1179,7 +1380,15 @@ pub mod ad_group_ad_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAdService/GetAdGroupAd",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAdService",
+                        "GetAdGroupAd",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes ads. Operation statuses are returned.
         ///
@@ -1230,7 +1439,10 @@ pub mod ad_group_ad_service_client {
         pub async fn mutate_ad_group_ads(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupAdsRequest>,
-        ) -> Result<tonic::Response<super::MutateAdGroupAdsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAdGroupAdsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1244,7 +1456,15 @@ pub mod ad_group_ad_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAdService/MutateAdGroupAds",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAdService",
+                        "MutateAdGroupAds",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1405,6 +1625,22 @@ pub mod ad_group_asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group asset in full detail.
         ///
         /// List of thrown errors:
@@ -1417,7 +1653,7 @@ pub mod ad_group_asset_service_client {
         pub async fn get_ad_group_asset(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupAssetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupAsset>,
             tonic::Status,
         > {
@@ -1434,7 +1670,15 @@ pub mod ad_group_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAssetService/GetAdGroupAsset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAssetService",
+                        "GetAdGroupAsset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes ad group assets. Operation statuses are
         /// returned.
@@ -1454,7 +1698,10 @@ pub mod ad_group_asset_service_client {
         pub async fn mutate_ad_group_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupAssetsRequest>,
-        ) -> Result<tonic::Response<super::MutateAdGroupAssetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAdGroupAssetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1468,7 +1715,15 @@ pub mod ad_group_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAssetService/MutateAdGroupAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAssetService",
+                        "MutateAdGroupAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1541,6 +1796,22 @@ pub mod ad_group_audience_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group audience view in full detail.
         ///
         /// List of thrown errors:
@@ -1553,7 +1824,7 @@ pub mod ad_group_audience_view_service_client {
         pub async fn get_ad_group_audience_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupAudienceViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupAudienceView>,
             tonic::Status,
         > {
@@ -1570,7 +1841,15 @@ pub mod ad_group_audience_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupAudienceViewService/GetAdGroupAudienceView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupAudienceViewService",
+                        "GetAdGroupAudienceView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1735,6 +2014,22 @@ pub mod ad_group_bid_modifier_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group bid modifier in full detail.
         ///
         /// List of thrown errors:
@@ -1747,7 +2042,7 @@ pub mod ad_group_bid_modifier_service_client {
         pub async fn get_ad_group_bid_modifier(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupBidModifierRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupBidModifier>,
             tonic::Status,
         > {
@@ -1764,7 +2059,15 @@ pub mod ad_group_bid_modifier_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupBidModifierService/GetAdGroupBidModifier",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupBidModifierService",
+                        "GetAdGroupBidModifier",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes ad group bid modifiers.
         /// Operation statuses are returned.
@@ -1796,7 +2099,7 @@ pub mod ad_group_bid_modifier_service_client {
         pub async fn mutate_ad_group_bid_modifiers(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupBidModifiersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAdGroupBidModifiersResponse>,
             tonic::Status,
         > {
@@ -1813,7 +2116,15 @@ pub mod ad_group_bid_modifier_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupBidModifierService/MutateAdGroupBidModifiers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupBidModifierService",
+                        "MutateAdGroupBidModifiers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1968,6 +2279,22 @@ pub mod ad_group_criterion_customizer_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes ad group criterion customizers. Operation
         /// statuses are returned.
         pub async fn mutate_ad_group_criterion_customizers(
@@ -1975,7 +2302,7 @@ pub mod ad_group_criterion_customizer_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateAdGroupCriterionCustomizersRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAdGroupCriterionCustomizersResponse>,
             tonic::Status,
         > {
@@ -1992,7 +2319,15 @@ pub mod ad_group_criterion_customizer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupCriterionCustomizerService/MutateAdGroupCriterionCustomizers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupCriterionCustomizerService",
+                        "MutateAdGroupCriterionCustomizers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2138,6 +2473,22 @@ pub mod ad_group_criterion_label_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group criterion label in full detail.
         ///
         /// List of thrown errors:
@@ -2150,7 +2501,7 @@ pub mod ad_group_criterion_label_service_client {
         pub async fn get_ad_group_criterion_label(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupCriterionLabelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupCriterionLabel>,
             tonic::Status,
         > {
@@ -2167,7 +2518,15 @@ pub mod ad_group_criterion_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupCriterionLabelService/GetAdGroupCriterionLabel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupCriterionLabelService",
+                        "GetAdGroupCriterionLabel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates and removes ad group criterion labels.
         /// Operation statuses are returned.
@@ -2184,7 +2543,7 @@ pub mod ad_group_criterion_label_service_client {
         pub async fn mutate_ad_group_criterion_labels(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupCriterionLabelsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAdGroupCriterionLabelsResponse>,
             tonic::Status,
         > {
@@ -2201,7 +2560,15 @@ pub mod ad_group_criterion_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupCriterionLabelService/MutateAdGroupCriterionLabels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupCriterionLabelService",
+                        "MutateAdGroupCriterionLabels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2376,6 +2743,22 @@ pub mod ad_group_criterion_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested criterion in full detail.
         ///
         /// List of thrown errors:
@@ -2388,7 +2771,7 @@ pub mod ad_group_criterion_service_client {
         pub async fn get_ad_group_criterion(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupCriterionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupCriterion>,
             tonic::Status,
         > {
@@ -2405,7 +2788,15 @@ pub mod ad_group_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupCriterionService/GetAdGroupCriterion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupCriterionService",
+                        "GetAdGroupCriterion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes criteria. Operation statuses are returned.
         ///
@@ -2446,7 +2837,7 @@ pub mod ad_group_criterion_service_client {
         pub async fn mutate_ad_group_criteria(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupCriteriaRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAdGroupCriteriaResponse>,
             tonic::Status,
         > {
@@ -2463,7 +2854,15 @@ pub mod ad_group_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupCriterionService/MutateAdGroupCriteria",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupCriterionService",
+                        "MutateAdGroupCriteria",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2537,6 +2936,22 @@ pub mod ad_group_criterion_simulation_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group criterion simulation in full detail.
         ///
         /// List of thrown errors:
@@ -2549,7 +2964,7 @@ pub mod ad_group_criterion_simulation_service_client {
         pub async fn get_ad_group_criterion_simulation(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupCriterionSimulationRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupCriterionSimulation>,
             tonic::Status,
         > {
@@ -2566,7 +2981,15 @@ pub mod ad_group_criterion_simulation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupCriterionSimulationService/GetAdGroupCriterionSimulation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupCriterionSimulationService",
+                        "GetAdGroupCriterionSimulation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2714,12 +3137,28 @@ pub mod ad_group_customizer_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes ad group customizers. Operation statuses are
         /// returned.
         pub async fn mutate_ad_group_customizers(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupCustomizersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAdGroupCustomizersResponse>,
             tonic::Status,
         > {
@@ -2736,7 +3175,15 @@ pub mod ad_group_customizer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupCustomizerService/MutateAdGroupCustomizers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupCustomizerService",
+                        "MutateAdGroupCustomizers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2907,6 +3354,22 @@ pub mod ad_group_extension_setting_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group extension setting in full detail.
         ///
         /// List of thrown errors:
@@ -2919,7 +3382,7 @@ pub mod ad_group_extension_setting_service_client {
         pub async fn get_ad_group_extension_setting(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupExtensionSettingRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupExtensionSetting>,
             tonic::Status,
         > {
@@ -2936,7 +3399,15 @@ pub mod ad_group_extension_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupExtensionSettingService/GetAdGroupExtensionSetting",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupExtensionSettingService",
+                        "GetAdGroupExtensionSetting",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes ad group extension settings. Operation
         /// statuses are returned.
@@ -2975,7 +3446,7 @@ pub mod ad_group_extension_setting_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateAdGroupExtensionSettingsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAdGroupExtensionSettingsResponse>,
             tonic::Status,
         > {
@@ -2992,7 +3463,15 @@ pub mod ad_group_extension_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupExtensionSettingService/MutateAdGroupExtensionSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupExtensionSettingService",
+                        "MutateAdGroupExtensionSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3152,6 +3631,22 @@ pub mod ad_group_feed_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group feed in full detail.
         ///
         /// List of thrown errors:
@@ -3164,7 +3659,7 @@ pub mod ad_group_feed_service_client {
         pub async fn get_ad_group_feed(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupFeedRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupFeed>,
             tonic::Status,
         > {
@@ -3181,7 +3676,15 @@ pub mod ad_group_feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupFeedService/GetAdGroupFeed",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupFeedService",
+                        "GetAdGroupFeed",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes ad group feeds. Operation statuses are
         /// returned.
@@ -3212,7 +3715,10 @@ pub mod ad_group_feed_service_client {
         pub async fn mutate_ad_group_feeds(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupFeedsRequest>,
-        ) -> Result<tonic::Response<super::MutateAdGroupFeedsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAdGroupFeedsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3226,7 +3732,15 @@ pub mod ad_group_feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupFeedService/MutateAdGroupFeeds",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupFeedService",
+                        "MutateAdGroupFeeds",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3368,6 +3882,22 @@ pub mod ad_group_label_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group label in full detail.
         ///
         /// List of thrown errors:
@@ -3380,7 +3910,7 @@ pub mod ad_group_label_service_client {
         pub async fn get_ad_group_label(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupLabelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupLabel>,
             tonic::Status,
         > {
@@ -3397,7 +3927,15 @@ pub mod ad_group_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupLabelService/GetAdGroupLabel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupLabelService",
+                        "GetAdGroupLabel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates and removes ad group labels.
         /// Operation statuses are returned.
@@ -3417,7 +3955,10 @@ pub mod ad_group_label_service_client {
         pub async fn mutate_ad_group_labels(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupLabelsRequest>,
-        ) -> Result<tonic::Response<super::MutateAdGroupLabelsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAdGroupLabelsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3431,7 +3972,15 @@ pub mod ad_group_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupLabelService/MutateAdGroupLabels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupLabelService",
+                        "MutateAdGroupLabels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3589,6 +4138,22 @@ pub mod ad_group_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group in full detail.
         ///
         /// List of thrown errors:
@@ -3601,7 +4166,10 @@ pub mod ad_group_service_client {
         pub async fn get_ad_group(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupRequest>,
-        ) -> Result<tonic::Response<super::super::resources::AdGroup>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::AdGroup>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3615,7 +4183,15 @@ pub mod ad_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupService/GetAdGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupService",
+                        "GetAdGroup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes ad groups. Operation statuses are returned.
         ///
@@ -3654,7 +4230,10 @@ pub mod ad_group_service_client {
         pub async fn mutate_ad_groups(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdGroupsRequest>,
-        ) -> Result<tonic::Response<super::MutateAdGroupsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAdGroupsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3668,7 +4247,15 @@ pub mod ad_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupService/MutateAdGroups",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupService",
+                        "MutateAdGroups",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3741,6 +4328,22 @@ pub mod ad_group_simulation_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad group simulation in full detail.
         ///
         /// List of thrown errors:
@@ -3753,7 +4356,7 @@ pub mod ad_group_simulation_service_client {
         pub async fn get_ad_group_simulation(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdGroupSimulationRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdGroupSimulation>,
             tonic::Status,
         > {
@@ -3770,7 +4373,15 @@ pub mod ad_group_simulation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdGroupSimulationService/GetAdGroupSimulation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdGroupSimulationService",
+                        "GetAdGroupSimulation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3930,6 +4541,22 @@ pub mod ad_parameter_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad parameter in full detail.
         ///
         /// List of thrown errors:
@@ -3942,7 +4569,7 @@ pub mod ad_parameter_service_client {
         pub async fn get_ad_parameter(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdParameterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdParameter>,
             tonic::Status,
         > {
@@ -3959,7 +4586,15 @@ pub mod ad_parameter_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdParameterService/GetAdParameter",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdParameterService",
+                        "GetAdParameter",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes ad parameters. Operation statuses are
         /// returned.
@@ -3980,7 +4615,10 @@ pub mod ad_parameter_service_client {
         pub async fn mutate_ad_parameters(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdParametersRequest>,
-        ) -> Result<tonic::Response<super::MutateAdParametersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAdParametersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3994,7 +4632,15 @@ pub mod ad_parameter_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdParameterService/MutateAdParameters",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdParameterService",
+                        "MutateAdParameters",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4065,6 +4711,22 @@ pub mod ad_schedule_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad schedule view in full detail.
         ///
         /// List of thrown errors:
@@ -4077,7 +4739,7 @@ pub mod ad_schedule_view_service_client {
         pub async fn get_ad_schedule_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdScheduleViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AdScheduleView>,
             tonic::Status,
         > {
@@ -4094,7 +4756,15 @@ pub mod ad_schedule_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdScheduleViewService/GetAdScheduleView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdScheduleViewService",
+                        "GetAdScheduleView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4251,6 +4921,22 @@ pub mod ad_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested ad in full detail.
         ///
         /// List of thrown errors:
@@ -4263,7 +4949,10 @@ pub mod ad_service_client {
         pub async fn get_ad(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAdRequest>,
-        ) -> Result<tonic::Response<super::super::resources::Ad>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::Ad>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4277,7 +4966,15 @@ pub mod ad_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdService/GetAd",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdService",
+                        "GetAd",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates ads. Operation statuses are returned. Updating ads is not supported
         /// for TextAd, ExpandedDynamicSearchAd, GmailAd and ImageAd.
@@ -4324,7 +5021,10 @@ pub mod ad_service_client {
         pub async fn mutate_ads(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAdsRequest>,
-        ) -> Result<tonic::Response<super::MutateAdsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAdsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4338,7 +5038,15 @@ pub mod ad_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AdService/MutateAds",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AdService",
+                        "MutateAds",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4409,6 +5117,22 @@ pub mod age_range_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested age range view in full detail.
         ///
         /// List of thrown errors:
@@ -4421,7 +5145,7 @@ pub mod age_range_view_service_client {
         pub async fn get_age_range_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAgeRangeViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AgeRangeView>,
             tonic::Status,
         > {
@@ -4438,7 +5162,15 @@ pub mod age_range_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AgeRangeViewService/GetAgeRangeView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AgeRangeViewService",
+                        "GetAgeRangeView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4511,11 +5243,27 @@ pub mod asset_field_type_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested asset field type view in full detail.
         pub async fn get_asset_field_type_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAssetFieldTypeViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AssetFieldTypeView>,
             tonic::Status,
         > {
@@ -4532,7 +5280,15 @@ pub mod asset_field_type_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetFieldTypeViewService/GetAssetFieldTypeView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetFieldTypeViewService",
+                        "GetAssetFieldTypeView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4682,11 +5438,27 @@ pub mod asset_group_asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested asset group asset in full detail.
         pub async fn get_asset_group_asset(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAssetGroupAssetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AssetGroupAsset>,
             tonic::Status,
         > {
@@ -4703,14 +5475,22 @@ pub mod asset_group_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetGroupAssetService/GetAssetGroupAsset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetGroupAssetService",
+                        "GetAssetGroupAsset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates or removes asset group assets. Operation statuses are
         /// returned.
         pub async fn mutate_asset_group_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAssetGroupAssetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAssetGroupAssetsResponse>,
             tonic::Status,
         > {
@@ -4727,7 +5507,15 @@ pub mod asset_group_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetGroupAssetService/MutateAssetGroupAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetGroupAssetService",
+                        "MutateAssetGroupAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4882,6 +5670,22 @@ pub mod asset_group_listing_group_filter_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes asset group listing group filters. Operation
         /// statuses are returned.
         pub async fn mutate_asset_group_listing_group_filters(
@@ -4889,7 +5693,7 @@ pub mod asset_group_listing_group_filter_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateAssetGroupListingGroupFiltersRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAssetGroupListingGroupFiltersResponse>,
             tonic::Status,
         > {
@@ -4906,7 +5710,15 @@ pub mod asset_group_listing_group_filter_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetGroupListingGroupFilterService/MutateAssetGroupListingGroupFilters",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetGroupListingGroupFilterService",
+                        "MutateAssetGroupListingGroupFilters",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -5047,11 +5859,27 @@ pub mod asset_group_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested asset group in full detail.
         pub async fn get_asset_group(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAssetGroupRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::AssetGroup>,
             tonic::Status,
         > {
@@ -5068,14 +5896,25 @@ pub mod asset_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetGroupService/GetAssetGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetGroupService",
+                        "GetAssetGroup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates or removes asset groups. Operation statuses are
         /// returned.
         pub async fn mutate_asset_groups(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAssetGroupsRequest>,
-        ) -> Result<tonic::Response<super::MutateAssetGroupsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAssetGroupsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5089,7 +5928,15 @@ pub mod asset_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetGroupService/MutateAssetGroups",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetGroupService",
+                        "MutateAssetGroups",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -5248,6 +6095,22 @@ pub mod asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested asset in full detail.
         ///
         /// List of thrown errors:
@@ -5260,7 +6123,10 @@ pub mod asset_service_client {
         pub async fn get_asset(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAssetRequest>,
-        ) -> Result<tonic::Response<super::super::resources::Asset>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::Asset>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5274,7 +6140,15 @@ pub mod asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetService/GetAsset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetService",
+                        "GetAsset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates assets. Operation statuses are returned.
         ///
@@ -5309,7 +6183,10 @@ pub mod asset_service_client {
         pub async fn mutate_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAssetsRequest>,
-        ) -> Result<tonic::Response<super::MutateAssetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAssetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5323,7 +6200,15 @@ pub mod asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetService/MutateAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetService",
+                        "MutateAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -5468,12 +6353,28 @@ pub mod asset_set_asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes asset set assets. Operation statuses are
         /// returned.
         pub async fn mutate_asset_set_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAssetSetAssetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateAssetSetAssetsResponse>,
             tonic::Status,
         > {
@@ -5490,7 +6391,15 @@ pub mod asset_set_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetSetAssetService/MutateAssetSetAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetSetAssetService",
+                        "MutateAssetSetAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -5640,12 +6549,31 @@ pub mod asset_set_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes asset sets. Operation statuses are
         /// returned.
         pub async fn mutate_asset_sets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateAssetSetsRequest>,
-        ) -> Result<tonic::Response<super::MutateAssetSetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateAssetSetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5659,7 +6587,15 @@ pub mod asset_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.AssetSetService/MutateAssetSets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.AssetSetService",
+                        "MutateAssetSets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -5826,11 +6762,27 @@ pub mod bidding_data_exclusion_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested data exclusion in full detail.
         pub async fn get_bidding_data_exclusion(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBiddingDataExclusionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::BiddingDataExclusion>,
             tonic::Status,
         > {
@@ -5847,14 +6799,22 @@ pub mod bidding_data_exclusion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BiddingDataExclusionService/GetBiddingDataExclusion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BiddingDataExclusionService",
+                        "GetBiddingDataExclusion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes data exclusions.
         /// Operation statuses are returned.
         pub async fn mutate_bidding_data_exclusions(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateBiddingDataExclusionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateBiddingDataExclusionsResponse>,
             tonic::Status,
         > {
@@ -5871,7 +6831,15 @@ pub mod bidding_data_exclusion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BiddingDataExclusionService/MutateBiddingDataExclusions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BiddingDataExclusionService",
+                        "MutateBiddingDataExclusions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -6043,13 +7011,29 @@ pub mod bidding_seasonality_adjustment_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested seasonality adjustment in full detail.
         pub async fn get_bidding_seasonality_adjustment(
             &mut self,
             request: impl tonic::IntoRequest<
                 super::GetBiddingSeasonalityAdjustmentRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::BiddingSeasonalityAdjustment>,
             tonic::Status,
         > {
@@ -6066,7 +7050,15 @@ pub mod bidding_seasonality_adjustment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BiddingSeasonalityAdjustmentService/GetBiddingSeasonalityAdjustment",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BiddingSeasonalityAdjustmentService",
+                        "GetBiddingSeasonalityAdjustment",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes seasonality adjustments.
         /// Operation statuses are returned.
@@ -6075,7 +7067,7 @@ pub mod bidding_seasonality_adjustment_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateBiddingSeasonalityAdjustmentsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateBiddingSeasonalityAdjustmentsResponse>,
             tonic::Status,
         > {
@@ -6092,7 +7084,15 @@ pub mod bidding_seasonality_adjustment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BiddingSeasonalityAdjustmentService/MutateBiddingSeasonalityAdjustments",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BiddingSeasonalityAdjustmentService",
+                        "MutateBiddingSeasonalityAdjustments",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -6255,6 +7255,22 @@ pub mod bidding_strategy_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested bidding strategy in full detail.
         ///
         /// List of thrown errors:
@@ -6267,7 +7283,7 @@ pub mod bidding_strategy_service_client {
         pub async fn get_bidding_strategy(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBiddingStrategyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::BiddingStrategy>,
             tonic::Status,
         > {
@@ -6284,7 +7300,15 @@ pub mod bidding_strategy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BiddingStrategyService/GetBiddingStrategy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BiddingStrategyService",
+                        "GetBiddingStrategy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes bidding strategies. Operation statuses are
         /// returned.
@@ -6319,7 +7343,7 @@ pub mod bidding_strategy_service_client {
         pub async fn mutate_bidding_strategies(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateBiddingStrategiesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateBiddingStrategiesResponse>,
             tonic::Status,
         > {
@@ -6336,7 +7360,15 @@ pub mod bidding_strategy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BiddingStrategyService/MutateBiddingStrategies",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BiddingStrategyService",
+                        "MutateBiddingStrategies",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -6497,6 +7529,22 @@ pub mod campaign_asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign asset in full detail.
         ///
         /// List of thrown errors:
@@ -6509,7 +7557,7 @@ pub mod campaign_asset_service_client {
         pub async fn get_campaign_asset(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignAssetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignAsset>,
             tonic::Status,
         > {
@@ -6526,7 +7574,15 @@ pub mod campaign_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignAssetService/GetCampaignAsset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignAssetService",
+                        "GetCampaignAsset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes campaign assets. Operation statuses are
         /// returned.
@@ -6547,7 +7603,7 @@ pub mod campaign_asset_service_client {
         pub async fn mutate_campaign_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignAssetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignAssetsResponse>,
             tonic::Status,
         > {
@@ -6564,7 +7620,15 @@ pub mod campaign_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignAssetService/MutateCampaignAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignAssetService",
+                        "MutateCampaignAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -6711,12 +7775,28 @@ pub mod campaign_asset_set_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes campaign asset sets. Operation statuses are
         /// returned.
         pub async fn mutate_campaign_asset_sets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignAssetSetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignAssetSetsResponse>,
             tonic::Status,
         > {
@@ -6733,7 +7813,15 @@ pub mod campaign_asset_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignAssetSetService/MutateCampaignAssetSets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignAssetSetService",
+                        "MutateCampaignAssetSets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -6899,6 +7987,22 @@ pub mod campaign_bid_modifier_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign bid modifier in full detail.
         ///
         /// List of thrown errors:
@@ -6911,7 +8015,7 @@ pub mod campaign_bid_modifier_service_client {
         pub async fn get_campaign_bid_modifier(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignBidModifierRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignBidModifier>,
             tonic::Status,
         > {
@@ -6928,7 +8032,15 @@ pub mod campaign_bid_modifier_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignBidModifierService/GetCampaignBidModifier",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignBidModifierService",
+                        "GetCampaignBidModifier",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes campaign bid modifiers.
         /// Operation statuses are returned.
@@ -6959,7 +8071,7 @@ pub mod campaign_bid_modifier_service_client {
         pub async fn mutate_campaign_bid_modifiers(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignBidModifiersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignBidModifiersResponse>,
             tonic::Status,
         > {
@@ -6976,7 +8088,15 @@ pub mod campaign_bid_modifier_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignBidModifierService/MutateCampaignBidModifiers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignBidModifierService",
+                        "MutateCampaignBidModifiers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -7136,6 +8256,22 @@ pub mod campaign_budget_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Campaign Budget in full detail.
         ///
         /// List of thrown errors:
@@ -7148,7 +8284,7 @@ pub mod campaign_budget_service_client {
         pub async fn get_campaign_budget(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignBudgetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignBudget>,
             tonic::Status,
         > {
@@ -7165,7 +8301,15 @@ pub mod campaign_budget_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignBudgetService/GetCampaignBudget",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignBudgetService",
+                        "GetCampaignBudget",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes campaign budgets. Operation statuses are
         /// returned.
@@ -7191,7 +8335,7 @@ pub mod campaign_budget_service_client {
         pub async fn mutate_campaign_budgets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignBudgetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignBudgetsResponse>,
             tonic::Status,
         > {
@@ -7208,7 +8352,15 @@ pub mod campaign_budget_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignBudgetService/MutateCampaignBudgets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignBudgetService",
+                        "MutateCampaignBudgets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -7328,12 +8480,28 @@ pub mod campaign_conversion_goal_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes campaign conversion goals. Operation statuses
         /// are returned.
         pub async fn mutate_campaign_conversion_goals(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignConversionGoalsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignConversionGoalsResponse>,
             tonic::Status,
         > {
@@ -7350,7 +8518,15 @@ pub mod campaign_conversion_goal_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignConversionGoalService/MutateCampaignConversionGoals",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignConversionGoalService",
+                        "MutateCampaignConversionGoals",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -7512,6 +8688,22 @@ pub mod campaign_criterion_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested criterion in full detail.
         ///
         /// List of thrown errors:
@@ -7524,7 +8716,7 @@ pub mod campaign_criterion_service_client {
         pub async fn get_campaign_criterion(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignCriterionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignCriterion>,
             tonic::Status,
         > {
@@ -7541,7 +8733,15 @@ pub mod campaign_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignCriterionService/GetCampaignCriterion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignCriterionService",
+                        "GetCampaignCriterion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes criteria. Operation statuses are returned.
         ///
@@ -7578,7 +8778,7 @@ pub mod campaign_criterion_service_client {
         pub async fn mutate_campaign_criteria(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignCriteriaRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignCriteriaResponse>,
             tonic::Status,
         > {
@@ -7595,7 +8795,15 @@ pub mod campaign_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignCriterionService/MutateCampaignCriteria",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignCriterionService",
+                        "MutateCampaignCriteria",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -7745,12 +8953,28 @@ pub mod campaign_customizer_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes campaign customizers. Operation statuses are
         /// returned.
         pub async fn mutate_campaign_customizers(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignCustomizersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignCustomizersResponse>,
             tonic::Status,
         > {
@@ -7767,7 +8991,15 @@ pub mod campaign_customizer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignCustomizerService/MutateCampaignCustomizers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignCustomizerService",
+                        "MutateCampaignCustomizers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -7973,6 +9205,22 @@ pub mod campaign_draft_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign draft in full detail.
         ///
         /// List of thrown errors:
@@ -7985,7 +9233,7 @@ pub mod campaign_draft_service_client {
         pub async fn get_campaign_draft(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignDraftRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignDraft>,
             tonic::Status,
         > {
@@ -8002,7 +9250,15 @@ pub mod campaign_draft_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignDraftService/GetCampaignDraft",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignDraftService",
+                        "GetCampaignDraft",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes campaign drafts. Operation statuses are
         /// returned.
@@ -8021,7 +9277,7 @@ pub mod campaign_draft_service_client {
         pub async fn mutate_campaign_drafts(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignDraftsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignDraftsResponse>,
             tonic::Status,
         > {
@@ -8038,7 +9294,15 @@ pub mod campaign_draft_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignDraftService/MutateCampaignDrafts",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignDraftService",
+                        "MutateCampaignDrafts",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Promotes the changes in a draft back to the base campaign.
         ///
@@ -8061,7 +9325,7 @@ pub mod campaign_draft_service_client {
         pub async fn promote_campaign_draft(
             &mut self,
             request: impl tonic::IntoRequest<super::PromoteCampaignDraftRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -8078,7 +9342,15 @@ pub mod campaign_draft_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignDraftService/PromoteCampaignDraft",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignDraftService",
+                        "PromoteCampaignDraft",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns all errors that occurred during CampaignDraft promote. Throws an
         /// error if called before campaign draft is promoted.
@@ -8094,7 +9366,7 @@ pub mod campaign_draft_service_client {
         pub async fn list_campaign_draft_async_errors(
             &mut self,
             request: impl tonic::IntoRequest<super::ListCampaignDraftAsyncErrorsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListCampaignDraftAsyncErrorsResponse>,
             tonic::Status,
         > {
@@ -8111,7 +9383,15 @@ pub mod campaign_draft_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignDraftService/ListCampaignDraftAsyncErrors",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignDraftService",
+                        "ListCampaignDraftAsyncErrors",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -8392,6 +9672,22 @@ pub mod campaign_experiment_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign experiment in full detail.
         ///
         /// List of thrown errors:
@@ -8404,7 +9700,7 @@ pub mod campaign_experiment_service_client {
         pub async fn get_campaign_experiment(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignExperimentRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignExperiment>,
             tonic::Status,
         > {
@@ -8421,7 +9717,15 @@ pub mod campaign_experiment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExperimentService/GetCampaignExperiment",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExperimentService",
+                        "GetCampaignExperiment",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a campaign experiment based on a campaign draft. The draft campaign
         /// will be forked into a real campaign (called the experiment campaign) that
@@ -8450,7 +9754,7 @@ pub mod campaign_experiment_service_client {
         pub async fn create_campaign_experiment(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateCampaignExperimentRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -8467,7 +9771,15 @@ pub mod campaign_experiment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExperimentService/CreateCampaignExperiment",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExperimentService",
+                        "CreateCampaignExperiment",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates campaign experiments. Operation statuses are returned.
         ///
@@ -8482,7 +9794,7 @@ pub mod campaign_experiment_service_client {
         pub async fn mutate_campaign_experiments(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignExperimentsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignExperimentsResponse>,
             tonic::Status,
         > {
@@ -8499,7 +9811,15 @@ pub mod campaign_experiment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExperimentService/MutateCampaignExperiments",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExperimentService",
+                        "MutateCampaignExperiments",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Graduates a campaign experiment to a full campaign. The base and experiment
         /// campaigns will start running independently with their own budgets.
@@ -8516,7 +9836,7 @@ pub mod campaign_experiment_service_client {
         pub async fn graduate_campaign_experiment(
             &mut self,
             request: impl tonic::IntoRequest<super::GraduateCampaignExperimentRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GraduateCampaignExperimentResponse>,
             tonic::Status,
         > {
@@ -8533,7 +9853,15 @@ pub mod campaign_experiment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExperimentService/GraduateCampaignExperiment",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExperimentService",
+                        "GraduateCampaignExperiment",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Promotes the changes in a experiment campaign back to the base campaign.
         ///
@@ -8552,7 +9880,7 @@ pub mod campaign_experiment_service_client {
         pub async fn promote_campaign_experiment(
             &mut self,
             request: impl tonic::IntoRequest<super::PromoteCampaignExperimentRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -8569,7 +9897,15 @@ pub mod campaign_experiment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExperimentService/PromoteCampaignExperiment",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExperimentService",
+                        "PromoteCampaignExperiment",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Immediately ends a campaign experiment, changing the experiment's scheduled
         /// end date and without waiting for end of day. End date is updated to be the
@@ -8586,7 +9922,7 @@ pub mod campaign_experiment_service_client {
         pub async fn end_campaign_experiment(
             &mut self,
             request: impl tonic::IntoRequest<super::EndCampaignExperimentRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -8600,7 +9936,15 @@ pub mod campaign_experiment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExperimentService/EndCampaignExperiment",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExperimentService",
+                        "EndCampaignExperiment",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns all errors that occurred during CampaignExperiment create or
         /// promote (whichever occurred last).
@@ -8618,7 +9962,7 @@ pub mod campaign_experiment_service_client {
             request: impl tonic::IntoRequest<
                 super::ListCampaignExperimentAsyncErrorsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListCampaignExperimentAsyncErrorsResponse>,
             tonic::Status,
         > {
@@ -8635,7 +9979,15 @@ pub mod campaign_experiment_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExperimentService/ListCampaignExperimentAsyncErrors",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExperimentService",
+                        "ListCampaignExperimentAsyncErrors",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -8806,6 +10158,22 @@ pub mod campaign_extension_setting_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign extension setting in full detail.
         ///
         /// List of thrown errors:
@@ -8818,7 +10186,7 @@ pub mod campaign_extension_setting_service_client {
         pub async fn get_campaign_extension_setting(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignExtensionSettingRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignExtensionSetting>,
             tonic::Status,
         > {
@@ -8835,7 +10203,15 @@ pub mod campaign_extension_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExtensionSettingService/GetCampaignExtensionSetting",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExtensionSettingService",
+                        "GetCampaignExtensionSetting",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes campaign extension settings. Operation
         /// statuses are returned.
@@ -8873,7 +10249,7 @@ pub mod campaign_extension_setting_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateCampaignExtensionSettingsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignExtensionSettingsResponse>,
             tonic::Status,
         > {
@@ -8890,7 +10266,15 @@ pub mod campaign_extension_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignExtensionSettingService/MutateCampaignExtensionSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignExtensionSettingService",
+                        "MutateCampaignExtensionSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -9050,6 +10434,22 @@ pub mod campaign_feed_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign feed in full detail.
         ///
         /// List of thrown errors:
@@ -9062,7 +10462,7 @@ pub mod campaign_feed_service_client {
         pub async fn get_campaign_feed(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignFeedRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignFeed>,
             tonic::Status,
         > {
@@ -9079,7 +10479,15 @@ pub mod campaign_feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignFeedService/GetCampaignFeed",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignFeedService",
+                        "GetCampaignFeed",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes campaign feeds. Operation statuses are
         /// returned.
@@ -9111,7 +10519,10 @@ pub mod campaign_feed_service_client {
         pub async fn mutate_campaign_feeds(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignFeedsRequest>,
-        ) -> Result<tonic::Response<super::MutateCampaignFeedsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateCampaignFeedsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -9125,7 +10536,15 @@ pub mod campaign_feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignFeedService/MutateCampaignFeeds",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignFeedService",
+                        "MutateCampaignFeeds",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -9267,6 +10686,22 @@ pub mod campaign_label_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign-label relationship in full detail.
         ///
         /// List of thrown errors:
@@ -9279,7 +10714,7 @@ pub mod campaign_label_service_client {
         pub async fn get_campaign_label(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignLabelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignLabel>,
             tonic::Status,
         > {
@@ -9296,7 +10731,15 @@ pub mod campaign_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignLabelService/GetCampaignLabel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignLabelService",
+                        "GetCampaignLabel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates and removes campaign-label relationships.
         /// Operation statuses are returned.
@@ -9316,7 +10759,7 @@ pub mod campaign_label_service_client {
         pub async fn mutate_campaign_labels(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignLabelsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignLabelsResponse>,
             tonic::Status,
         > {
@@ -9333,7 +10776,15 @@ pub mod campaign_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignLabelService/MutateCampaignLabels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignLabelService",
+                        "MutateCampaignLabels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -9492,6 +10943,22 @@ pub mod campaign_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign in full detail.
         ///
         /// List of thrown errors:
@@ -9504,7 +10971,10 @@ pub mod campaign_service_client {
         pub async fn get_campaign(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignRequest>,
-        ) -> Result<tonic::Response<super::super::resources::Campaign>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::Campaign>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -9518,7 +10988,15 @@ pub mod campaign_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignService/GetCampaign",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignService",
+                        "GetCampaign",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes campaigns. Operation statuses are returned.
         ///
@@ -9561,7 +11039,10 @@ pub mod campaign_service_client {
         pub async fn mutate_campaigns(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignsRequest>,
-        ) -> Result<tonic::Response<super::MutateCampaignsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateCampaignsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -9575,7 +11056,15 @@ pub mod campaign_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignService/MutateCampaigns",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignService",
+                        "MutateCampaigns",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -9731,6 +11220,22 @@ pub mod campaign_shared_set_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign shared set in full detail.
         ///
         /// List of thrown errors:
@@ -9743,7 +11248,7 @@ pub mod campaign_shared_set_service_client {
         pub async fn get_campaign_shared_set(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignSharedSetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignSharedSet>,
             tonic::Status,
         > {
@@ -9760,7 +11265,15 @@ pub mod campaign_shared_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignSharedSetService/GetCampaignSharedSet",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignSharedSetService",
+                        "GetCampaignSharedSet",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or removes campaign shared sets. Operation statuses are returned.
         ///
@@ -9790,7 +11303,7 @@ pub mod campaign_shared_set_service_client {
         pub async fn mutate_campaign_shared_sets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCampaignSharedSetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCampaignSharedSetsResponse>,
             tonic::Status,
         > {
@@ -9807,7 +11320,15 @@ pub mod campaign_shared_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignSharedSetService/MutateCampaignSharedSets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignSharedSetService",
+                        "MutateCampaignSharedSets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -9970,6 +11491,22 @@ pub mod conversion_action_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested conversion action.
         ///
         /// List of thrown errors:
@@ -9982,7 +11519,7 @@ pub mod conversion_action_service_client {
         pub async fn get_conversion_action(
             &mut self,
             request: impl tonic::IntoRequest<super::GetConversionActionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ConversionAction>,
             tonic::Status,
         > {
@@ -9999,7 +11536,15 @@ pub mod conversion_action_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionActionService/GetConversionAction",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionActionService",
+                        "GetConversionAction",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates or removes conversion actions. Operation statuses are
         /// returned.
@@ -10024,7 +11569,7 @@ pub mod conversion_action_service_client {
         pub async fn mutate_conversion_actions(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateConversionActionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateConversionActionsResponse>,
             tonic::Status,
         > {
@@ -10041,7 +11586,15 @@ pub mod conversion_action_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionActionService/MutateConversionActions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionActionService",
+                        "MutateConversionActions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -10207,6 +11760,22 @@ pub mod conversion_custom_variable_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested conversion custom variable.
         ///
         /// List of thrown errors:
@@ -10219,7 +11788,7 @@ pub mod conversion_custom_variable_service_client {
         pub async fn get_conversion_custom_variable(
             &mut self,
             request: impl tonic::IntoRequest<super::GetConversionCustomVariableRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ConversionCustomVariable>,
             tonic::Status,
         > {
@@ -10236,7 +11805,15 @@ pub mod conversion_custom_variable_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionCustomVariableService/GetConversionCustomVariable",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionCustomVariableService",
+                        "GetConversionCustomVariable",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates conversion custom variables. Operation statuses are
         /// returned.
@@ -10255,7 +11832,7 @@ pub mod conversion_custom_variable_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateConversionCustomVariablesRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateConversionCustomVariablesResponse>,
             tonic::Status,
         > {
@@ -10272,7 +11849,15 @@ pub mod conversion_custom_variable_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionCustomVariableService/MutateConversionCustomVariables",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionCustomVariableService",
+                        "MutateConversionCustomVariables",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -10409,6 +11994,22 @@ pub mod conversion_goal_campaign_config_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes conversion goal campaign config. Operation
         /// statuses are returned.
         pub async fn mutate_conversion_goal_campaign_configs(
@@ -10416,7 +12017,7 @@ pub mod conversion_goal_campaign_config_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateConversionGoalCampaignConfigsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateConversionGoalCampaignConfigsResponse>,
             tonic::Status,
         > {
@@ -10433,7 +12034,15 @@ pub mod conversion_goal_campaign_config_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionGoalCampaignConfigService/MutateConversionGoalCampaignConfigs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionGoalCampaignConfigService",
+                        "MutateConversionGoalCampaignConfigs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -10601,11 +12210,27 @@ pub mod conversion_value_rule_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested conversion value rule.
         pub async fn get_conversion_value_rule(
             &mut self,
             request: impl tonic::IntoRequest<super::GetConversionValueRuleRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ConversionValueRule>,
             tonic::Status,
         > {
@@ -10622,14 +12247,22 @@ pub mod conversion_value_rule_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionValueRuleService/GetConversionValueRule",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionValueRuleService",
+                        "GetConversionValueRule",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes conversion value rules. Operation statuses are
         /// returned.
         pub async fn mutate_conversion_value_rules(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateConversionValueRulesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateConversionValueRulesResponse>,
             tonic::Status,
         > {
@@ -10646,7 +12279,15 @@ pub mod conversion_value_rule_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionValueRuleService/MutateConversionValueRules",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionValueRuleService",
+                        "MutateConversionValueRules",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -10816,11 +12457,27 @@ pub mod conversion_value_rule_set_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested conversion value rule set.
         pub async fn get_conversion_value_rule_set(
             &mut self,
             request: impl tonic::IntoRequest<super::GetConversionValueRuleSetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ConversionValueRuleSet>,
             tonic::Status,
         > {
@@ -10837,14 +12494,22 @@ pub mod conversion_value_rule_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionValueRuleSetService/GetConversionValueRuleSet",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionValueRuleSetService",
+                        "GetConversionValueRuleSet",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates or removes conversion value rule sets. Operation statuses
         /// are returned.
         pub async fn mutate_conversion_value_rule_sets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateConversionValueRuleSetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateConversionValueRuleSetsResponse>,
             tonic::Status,
         > {
@@ -10861,7 +12526,15 @@ pub mod conversion_value_rule_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionValueRuleSetService/MutateConversionValueRuleSets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionValueRuleSetService",
+                        "MutateConversionValueRuleSets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -11005,12 +12678,28 @@ pub mod custom_conversion_goal_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes custom conversion goals. Operation statuses
         /// are returned.
         pub async fn mutate_custom_conversion_goals(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomConversionGoalsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomConversionGoalsResponse>,
             tonic::Status,
         > {
@@ -11027,7 +12716,15 @@ pub mod custom_conversion_goal_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomConversionGoalService/MutateCustomConversionGoals",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomConversionGoalService",
+                        "MutateCustomConversionGoals",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -11188,6 +12885,22 @@ pub mod customer_asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested customer asset in full detail.
         ///
         /// List of thrown errors:
@@ -11200,7 +12913,7 @@ pub mod customer_asset_service_client {
         pub async fn get_customer_asset(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerAssetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerAsset>,
             tonic::Status,
         > {
@@ -11217,7 +12930,15 @@ pub mod customer_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerAssetService/GetCustomerAsset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerAssetService",
+                        "GetCustomerAsset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes customer assets. Operation statuses are
         /// returned.
@@ -11235,7 +12956,7 @@ pub mod customer_asset_service_client {
         pub async fn mutate_customer_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerAssetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerAssetsResponse>,
             tonic::Status,
         > {
@@ -11252,7 +12973,15 @@ pub mod customer_asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerAssetService/MutateCustomerAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerAssetService",
+                        "MutateCustomerAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -11372,12 +13101,28 @@ pub mod customer_conversion_goal_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes customer conversion goals. Operation statuses
         /// are returned.
         pub async fn mutate_customer_conversion_goals(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerConversionGoalsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerConversionGoalsResponse>,
             tonic::Status,
         > {
@@ -11394,7 +13139,15 @@ pub mod customer_conversion_goal_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerConversionGoalService/MutateCustomerConversionGoals",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerConversionGoalService",
+                        "MutateCustomerConversionGoals",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -11544,12 +13297,28 @@ pub mod customer_customizer_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes customer customizers. Operation statuses are
         /// returned.
         pub async fn mutate_customer_customizers(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerCustomizersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerCustomizersResponse>,
             tonic::Status,
         > {
@@ -11566,7 +13335,15 @@ pub mod customer_customizer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerCustomizerService/MutateCustomerCustomizers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerCustomizerService",
+                        "MutateCustomerCustomizers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -11737,6 +13514,22 @@ pub mod customer_extension_setting_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested customer extension setting in full detail.
         ///
         /// List of thrown errors:
@@ -11749,7 +13542,7 @@ pub mod customer_extension_setting_service_client {
         pub async fn get_customer_extension_setting(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerExtensionSettingRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerExtensionSetting>,
             tonic::Status,
         > {
@@ -11766,7 +13559,15 @@ pub mod customer_extension_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerExtensionSettingService/GetCustomerExtensionSetting",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerExtensionSettingService",
+                        "GetCustomerExtensionSetting",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes customer extension settings. Operation
         /// statuses are returned.
@@ -11802,7 +13603,7 @@ pub mod customer_extension_setting_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateCustomerExtensionSettingsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerExtensionSettingsResponse>,
             tonic::Status,
         > {
@@ -11819,7 +13620,15 @@ pub mod customer_extension_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerExtensionSettingService/MutateCustomerExtensionSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerExtensionSettingService",
+                        "MutateCustomerExtensionSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -11979,6 +13788,22 @@ pub mod customer_feed_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested customer feed in full detail.
         ///
         /// List of thrown errors:
@@ -11991,7 +13816,7 @@ pub mod customer_feed_service_client {
         pub async fn get_customer_feed(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerFeedRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerFeed>,
             tonic::Status,
         > {
@@ -12008,7 +13833,15 @@ pub mod customer_feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerFeedService/GetCustomerFeed",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerFeedService",
+                        "GetCustomerFeed",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes customer feeds. Operation statuses are
         /// returned.
@@ -12039,7 +13872,10 @@ pub mod customer_feed_service_client {
         pub async fn mutate_customer_feeds(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerFeedsRequest>,
-        ) -> Result<tonic::Response<super::MutateCustomerFeedsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateCustomerFeedsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -12053,7 +13889,15 @@ pub mod customer_feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerFeedService/MutateCustomerFeeds",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerFeedService",
+                        "MutateCustomerFeeds",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -12195,6 +14039,22 @@ pub mod customer_label_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested customer-label relationship in full detail.
         ///
         /// List of thrown errors:
@@ -12207,7 +14067,7 @@ pub mod customer_label_service_client {
         pub async fn get_customer_label(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerLabelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerLabel>,
             tonic::Status,
         > {
@@ -12224,7 +14084,15 @@ pub mod customer_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerLabelService/GetCustomerLabel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerLabelService",
+                        "GetCustomerLabel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates and removes customer-label relationships.
         /// Operation statuses are returned.
@@ -12242,7 +14110,7 @@ pub mod customer_label_service_client {
         pub async fn mutate_customer_labels(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerLabelsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerLabelsResponse>,
             tonic::Status,
         > {
@@ -12259,7 +14127,15 @@ pub mod customer_label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerLabelService/MutateCustomerLabels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerLabelService",
+                        "MutateCustomerLabels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -12419,6 +14295,22 @@ pub mod customer_negative_criterion_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested criterion in full detail.
         ///
         /// List of thrown errors:
@@ -12431,7 +14323,7 @@ pub mod customer_negative_criterion_service_client {
         pub async fn get_customer_negative_criterion(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerNegativeCriterionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerNegativeCriterion>,
             tonic::Status,
         > {
@@ -12448,7 +14340,15 @@ pub mod customer_negative_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerNegativeCriterionService/GetCustomerNegativeCriterion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerNegativeCriterionService",
+                        "GetCustomerNegativeCriterion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or removes criteria. Operation statuses are returned.
         ///
@@ -12468,7 +14368,7 @@ pub mod customer_negative_criterion_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateCustomerNegativeCriteriaRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerNegativeCriteriaResponse>,
             tonic::Status,
         > {
@@ -12485,7 +14385,15 @@ pub mod customer_negative_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerNegativeCriterionService/MutateCustomerNegativeCriteria",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerNegativeCriterionService",
+                        "MutateCustomerNegativeCriteria",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -12658,6 +14566,22 @@ pub mod customer_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested customer in full detail.
         ///
         /// List of thrown errors:
@@ -12670,7 +14594,10 @@ pub mod customer_service_client {
         pub async fn get_customer(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerRequest>,
-        ) -> Result<tonic::Response<super::super::resources::Customer>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::Customer>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -12684,7 +14611,15 @@ pub mod customer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerService/GetCustomer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerService",
+                        "GetCustomer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a customer. Operation statuses are returned.
         ///
@@ -12701,7 +14636,10 @@ pub mod customer_service_client {
         pub async fn mutate_customer(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerRequest>,
-        ) -> Result<tonic::Response<super::MutateCustomerResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateCustomerResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -12715,7 +14653,15 @@ pub mod customer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerService/MutateCustomer",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerService",
+                        "MutateCustomer",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns resource names of customers directly accessible by the
         /// user authenticating the call.
@@ -12730,7 +14676,7 @@ pub mod customer_service_client {
         pub async fn list_accessible_customers(
             &mut self,
             request: impl tonic::IntoRequest<super::ListAccessibleCustomersRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListAccessibleCustomersResponse>,
             tonic::Status,
         > {
@@ -12747,7 +14693,15 @@ pub mod customer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerService/ListAccessibleCustomers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerService",
+                        "ListAccessibleCustomers",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new client under manager. The new client customer is returned.
         ///
@@ -12766,7 +14720,7 @@ pub mod customer_service_client {
         pub async fn create_customer_client(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateCustomerClientRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::CreateCustomerClientResponse>,
             tonic::Status,
         > {
@@ -12783,7 +14737,15 @@ pub mod customer_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerService/CreateCustomerClient",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerService",
+                        "CreateCustomerClient",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -12936,12 +14898,28 @@ pub mod customizer_attribute_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates, updates or removes customizer attributes. Operation statuses are
         /// returned.
         pub async fn mutate_customizer_attributes(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomizerAttributesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomizerAttributesResponse>,
             tonic::Status,
         > {
@@ -12958,7 +14936,15 @@ pub mod customizer_attribute_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomizerAttributeService/MutateCustomizerAttributes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomizerAttributeService",
+                        "MutateCustomizerAttributes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -13122,6 +15108,22 @@ pub mod extension_feed_item_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested extension feed item in full detail.
         ///
         /// List of thrown errors:
@@ -13134,7 +15136,7 @@ pub mod extension_feed_item_service_client {
         pub async fn get_extension_feed_item(
             &mut self,
             request: impl tonic::IntoRequest<super::GetExtensionFeedItemRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ExtensionFeedItem>,
             tonic::Status,
         > {
@@ -13151,7 +15153,15 @@ pub mod extension_feed_item_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ExtensionFeedItemService/GetExtensionFeedItem",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ExtensionFeedItemService",
+                        "GetExtensionFeedItem",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes extension feed items. Operation
         /// statuses are returned.
@@ -13183,7 +15193,7 @@ pub mod extension_feed_item_service_client {
         pub async fn mutate_extension_feed_items(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateExtensionFeedItemsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateExtensionFeedItemsResponse>,
             tonic::Status,
         > {
@@ -13200,7 +15210,15 @@ pub mod extension_feed_item_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ExtensionFeedItemService/MutateExtensionFeedItems",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ExtensionFeedItemService",
+                        "MutateExtensionFeedItems",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -13359,6 +15377,22 @@ pub mod feed_item_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested feed item in full detail.
         ///
         /// List of thrown errors:
@@ -13371,7 +15405,10 @@ pub mod feed_item_service_client {
         pub async fn get_feed_item(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeedItemRequest>,
-        ) -> Result<tonic::Response<super::super::resources::FeedItem>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::FeedItem>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -13385,7 +15422,15 @@ pub mod feed_item_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemService/GetFeedItem",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemService",
+                        "GetFeedItem",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes feed items. Operation statuses are
         /// returned.
@@ -13419,7 +15464,10 @@ pub mod feed_item_service_client {
         pub async fn mutate_feed_items(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateFeedItemsRequest>,
-        ) -> Result<tonic::Response<super::MutateFeedItemsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateFeedItemsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -13433,7 +15481,15 @@ pub mod feed_item_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemService/MutateFeedItems",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemService",
+                        "MutateFeedItems",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -13577,6 +15633,22 @@ pub mod feed_item_set_link_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested feed item set link in full detail.
         ///
         /// List of thrown errors:
@@ -13589,7 +15661,7 @@ pub mod feed_item_set_link_service_client {
         pub async fn get_feed_item_set_link(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeedItemSetLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::FeedItemSetLink>,
             tonic::Status,
         > {
@@ -13606,7 +15678,15 @@ pub mod feed_item_set_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemSetLinkService/GetFeedItemSetLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemSetLinkService",
+                        "GetFeedItemSetLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes feed item set links.
         ///
@@ -13620,7 +15700,7 @@ pub mod feed_item_set_link_service_client {
         pub async fn mutate_feed_item_set_links(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateFeedItemSetLinksRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateFeedItemSetLinksResponse>,
             tonic::Status,
         > {
@@ -13637,7 +15717,15 @@ pub mod feed_item_set_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemSetLinkService/MutateFeedItemSetLinks",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemSetLinkService",
+                        "MutateFeedItemSetLinks",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -13784,6 +15872,22 @@ pub mod feed_item_set_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested feed item set in full detail.
         ///
         /// List of thrown errors:
@@ -13796,7 +15900,7 @@ pub mod feed_item_set_service_client {
         pub async fn get_feed_item_set(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeedItemSetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::FeedItemSet>,
             tonic::Status,
         > {
@@ -13813,7 +15917,15 @@ pub mod feed_item_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemSetService/GetFeedItemSet",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemSetService",
+                        "GetFeedItemSet",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates or removes feed item sets. Operation statuses are
         /// returned.
@@ -13829,7 +15941,10 @@ pub mod feed_item_set_service_client {
         pub async fn mutate_feed_item_sets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateFeedItemSetsRequest>,
-        ) -> Result<tonic::Response<super::MutateFeedItemSetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateFeedItemSetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -13843,7 +15958,15 @@ pub mod feed_item_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemSetService/MutateFeedItemSets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemSetService",
+                        "MutateFeedItemSets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -13997,6 +16120,22 @@ pub mod feed_item_target_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested feed item targets in full detail.
         ///
         /// List of thrown errors:
@@ -14009,7 +16148,7 @@ pub mod feed_item_target_service_client {
         pub async fn get_feed_item_target(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeedItemTargetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::FeedItemTarget>,
             tonic::Status,
         > {
@@ -14026,7 +16165,15 @@ pub mod feed_item_target_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemTargetService/GetFeedItemTarget",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemTargetService",
+                        "GetFeedItemTarget",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or removes feed item targets. Operation statuses are returned.
         ///
@@ -14053,7 +16200,7 @@ pub mod feed_item_target_service_client {
         pub async fn mutate_feed_item_targets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateFeedItemTargetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateFeedItemTargetsResponse>,
             tonic::Status,
         > {
@@ -14070,7 +16217,15 @@ pub mod feed_item_target_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedItemTargetService/MutateFeedItemTargets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedItemTargetService",
+                        "MutateFeedItemTargets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -14223,6 +16378,22 @@ pub mod feed_mapping_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested feed mapping in full detail.
         ///
         /// List of thrown errors:
@@ -14235,7 +16406,7 @@ pub mod feed_mapping_service_client {
         pub async fn get_feed_mapping(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeedMappingRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::FeedMapping>,
             tonic::Status,
         > {
@@ -14252,7 +16423,15 @@ pub mod feed_mapping_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedMappingService/GetFeedMapping",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedMappingService",
+                        "GetFeedMapping",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or removes feed mappings. Operation statuses are
         /// returned.
@@ -14280,7 +16459,10 @@ pub mod feed_mapping_service_client {
         pub async fn mutate_feed_mappings(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateFeedMappingsRequest>,
-        ) -> Result<tonic::Response<super::MutateFeedMappingsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateFeedMappingsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -14294,7 +16476,15 @@ pub mod feed_mapping_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedMappingService/MutateFeedMappings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedMappingService",
+                        "MutateFeedMappings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -14453,6 +16643,22 @@ pub mod feed_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested feed in full detail.
         ///
         /// List of thrown errors:
@@ -14465,7 +16671,10 @@ pub mod feed_service_client {
         pub async fn get_feed(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeedRequest>,
-        ) -> Result<tonic::Response<super::super::resources::Feed>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::Feed>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -14479,7 +16688,15 @@ pub mod feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedService/GetFeed",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedService",
+                        "GetFeed",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes feeds. Operation statuses are
         /// returned.
@@ -14512,7 +16729,10 @@ pub mod feed_service_client {
         pub async fn mutate_feeds(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateFeedsRequest>,
-        ) -> Result<tonic::Response<super::MutateFeedsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateFeedsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -14526,7 +16746,15 @@ pub mod feed_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedService/MutateFeeds",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedService",
+                        "MutateFeeds",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -14692,6 +16920,22 @@ pub mod keyword_plan_ad_group_keyword_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Keyword Plan ad group keyword in full detail.
         ///
         /// List of thrown errors:
@@ -14704,7 +16948,7 @@ pub mod keyword_plan_ad_group_keyword_service_client {
         pub async fn get_keyword_plan_ad_group_keyword(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeywordPlanAdGroupKeywordRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::KeywordPlanAdGroupKeyword>,
             tonic::Status,
         > {
@@ -14721,7 +16965,15 @@ pub mod keyword_plan_ad_group_keyword_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanAdGroupKeywordService/GetKeywordPlanAdGroupKeyword",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanAdGroupKeywordService",
+                        "GetKeywordPlanAdGroupKeyword",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes Keyword Plan ad group keywords. Operation
         /// statuses are returned.
@@ -14744,7 +16996,7 @@ pub mod keyword_plan_ad_group_keyword_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateKeywordPlanAdGroupKeywordsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateKeywordPlanAdGroupKeywordsResponse>,
             tonic::Status,
         > {
@@ -14761,7 +17013,15 @@ pub mod keyword_plan_ad_group_keyword_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanAdGroupKeywordService/MutateKeywordPlanAdGroupKeywords",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanAdGroupKeywordService",
+                        "MutateKeywordPlanAdGroupKeywords",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -14914,6 +17174,22 @@ pub mod keyword_plan_ad_group_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Keyword Plan ad group in full detail.
         ///
         /// List of thrown errors:
@@ -14926,7 +17202,7 @@ pub mod keyword_plan_ad_group_service_client {
         pub async fn get_keyword_plan_ad_group(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeywordPlanAdGroupRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::KeywordPlanAdGroup>,
             tonic::Status,
         > {
@@ -14943,7 +17219,15 @@ pub mod keyword_plan_ad_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanAdGroupService/GetKeywordPlanAdGroup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanAdGroupService",
+                        "GetKeywordPlanAdGroup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes Keyword Plan ad groups. Operation statuses are
         /// returned.
@@ -14966,7 +17250,7 @@ pub mod keyword_plan_ad_group_service_client {
         pub async fn mutate_keyword_plan_ad_groups(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateKeywordPlanAdGroupsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateKeywordPlanAdGroupsResponse>,
             tonic::Status,
         > {
@@ -14983,7 +17267,15 @@ pub mod keyword_plan_ad_group_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanAdGroupService/MutateKeywordPlanAdGroups",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanAdGroupService",
+                        "MutateKeywordPlanAdGroups",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -15147,6 +17439,22 @@ pub mod keyword_plan_campaign_keyword_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested plan in full detail.
         ///
         /// List of thrown errors:
@@ -15159,7 +17467,7 @@ pub mod keyword_plan_campaign_keyword_service_client {
         pub async fn get_keyword_plan_campaign_keyword(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeywordPlanCampaignKeywordRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::KeywordPlanCampaignKeyword>,
             tonic::Status,
         > {
@@ -15176,7 +17484,15 @@ pub mod keyword_plan_campaign_keyword_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanCampaignKeywordService/GetKeywordPlanCampaignKeyword",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanCampaignKeywordService",
+                        "GetKeywordPlanCampaignKeyword",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes Keyword Plan campaign keywords. Operation
         /// statuses are returned.
@@ -15198,7 +17514,7 @@ pub mod keyword_plan_campaign_keyword_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateKeywordPlanCampaignKeywordsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateKeywordPlanCampaignKeywordsResponse>,
             tonic::Status,
         > {
@@ -15215,7 +17531,15 @@ pub mod keyword_plan_campaign_keyword_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanCampaignKeywordService/MutateKeywordPlanCampaignKeywords",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanCampaignKeywordService",
+                        "MutateKeywordPlanCampaignKeywords",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -15368,6 +17692,22 @@ pub mod keyword_plan_campaign_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Keyword Plan campaign in full detail.
         ///
         /// List of thrown errors:
@@ -15380,7 +17720,7 @@ pub mod keyword_plan_campaign_service_client {
         pub async fn get_keyword_plan_campaign(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeywordPlanCampaignRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::KeywordPlanCampaign>,
             tonic::Status,
         > {
@@ -15397,7 +17737,15 @@ pub mod keyword_plan_campaign_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanCampaignService/GetKeywordPlanCampaign",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanCampaignService",
+                        "GetKeywordPlanCampaign",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes Keyword Plan campaigns. Operation statuses are
         /// returned.
@@ -15421,7 +17769,7 @@ pub mod keyword_plan_campaign_service_client {
         pub async fn mutate_keyword_plan_campaigns(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateKeywordPlanCampaignsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateKeywordPlanCampaignsResponse>,
             tonic::Status,
         > {
@@ -15438,7 +17786,15 @@ pub mod keyword_plan_campaign_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanCampaignService/MutateKeywordPlanCampaigns",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanCampaignService",
+                        "MutateKeywordPlanCampaigns",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -15825,6 +18181,22 @@ pub mod keyword_plan_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested plan in full detail.
         ///
         /// List of thrown errors:
@@ -15837,7 +18209,7 @@ pub mod keyword_plan_service_client {
         pub async fn get_keyword_plan(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeywordPlanRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::KeywordPlan>,
             tonic::Status,
         > {
@@ -15854,7 +18226,15 @@ pub mod keyword_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanService/GetKeywordPlan",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanService",
+                        "GetKeywordPlan",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes keyword plans. Operation statuses are
         /// returned.
@@ -15876,7 +18256,10 @@ pub mod keyword_plan_service_client {
         pub async fn mutate_keyword_plans(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateKeywordPlansRequest>,
-        ) -> Result<tonic::Response<super::MutateKeywordPlansResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateKeywordPlansResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -15890,7 +18273,15 @@ pub mod keyword_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanService/MutateKeywordPlans",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanService",
+                        "MutateKeywordPlans",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the requested Keyword Plan forecast curve.
         /// Only the bidding strategy is considered for generating forecast curve.
@@ -15910,7 +18301,7 @@ pub mod keyword_plan_service_client {
         pub async fn generate_forecast_curve(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateForecastCurveRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateForecastCurveResponse>,
             tonic::Status,
         > {
@@ -15927,7 +18318,15 @@ pub mod keyword_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanService/GenerateForecastCurve",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanService",
+                        "GenerateForecastCurve",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns a forecast in the form of a time series for the Keyword Plan over
         /// the next 52 weeks.
@@ -15948,7 +18347,7 @@ pub mod keyword_plan_service_client {
         pub async fn generate_forecast_time_series(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateForecastTimeSeriesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateForecastTimeSeriesResponse>,
             tonic::Status,
         > {
@@ -15965,7 +18364,15 @@ pub mod keyword_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanService/GenerateForecastTimeSeries",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanService",
+                        "GenerateForecastTimeSeries",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the requested Keyword Plan forecasts.
         ///
@@ -15980,7 +18387,7 @@ pub mod keyword_plan_service_client {
         pub async fn generate_forecast_metrics(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateForecastMetricsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateForecastMetricsResponse>,
             tonic::Status,
         > {
@@ -15997,7 +18404,15 @@ pub mod keyword_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanService/GenerateForecastMetrics",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanService",
+                        "GenerateForecastMetrics",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the requested Keyword Plan historical metrics.
         ///
@@ -16012,7 +18427,7 @@ pub mod keyword_plan_service_client {
         pub async fn generate_historical_metrics(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateHistoricalMetricsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateHistoricalMetricsResponse>,
             tonic::Status,
         > {
@@ -16029,7 +18444,15 @@ pub mod keyword_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanService/GenerateHistoricalMetrics",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanService",
+                        "GenerateHistoricalMetrics",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -16187,6 +18610,22 @@ pub mod label_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested label in full detail.
         ///
         /// List of thrown errors:
@@ -16199,7 +18638,10 @@ pub mod label_service_client {
         pub async fn get_label(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLabelRequest>,
-        ) -> Result<tonic::Response<super::super::resources::Label>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::Label>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -16213,7 +18655,15 @@ pub mod label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.LabelService/GetLabel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.LabelService",
+                        "GetLabel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes labels. Operation statuses are returned.
         ///
@@ -16244,7 +18694,10 @@ pub mod label_service_client {
         pub async fn mutate_labels(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateLabelsRequest>,
-        ) -> Result<tonic::Response<super::MutateLabelsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateLabelsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -16258,7 +18711,15 @@ pub mod label_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.LabelService/MutateLabels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.LabelService",
+                        "MutateLabels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -16405,6 +18866,22 @@ pub mod media_file_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested media file in full detail.
         ///
         /// List of thrown errors:
@@ -16417,7 +18894,10 @@ pub mod media_file_service_client {
         pub async fn get_media_file(
             &mut self,
             request: impl tonic::IntoRequest<super::GetMediaFileRequest>,
-        ) -> Result<tonic::Response<super::super::resources::MediaFile>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::MediaFile>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -16431,7 +18911,15 @@ pub mod media_file_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.MediaFileService/GetMediaFile",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.MediaFileService",
+                        "GetMediaFile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates media files. Operation statuses are returned.
         ///
@@ -16460,7 +18948,10 @@ pub mod media_file_service_client {
         pub async fn mutate_media_files(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateMediaFilesRequest>,
-        ) -> Result<tonic::Response<super::MutateMediaFilesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateMediaFilesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -16474,7 +18965,15 @@ pub mod media_file_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.MediaFileService/MutateMediaFiles",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.MediaFileService",
+                        "MutateMediaFiles",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -16619,6 +19118,22 @@ pub mod remarketing_action_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested remarketing action in full detail.
         ///
         /// List of thrown errors:
@@ -16631,7 +19146,7 @@ pub mod remarketing_action_service_client {
         pub async fn get_remarketing_action(
             &mut self,
             request: impl tonic::IntoRequest<super::GetRemarketingActionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::RemarketingAction>,
             tonic::Status,
         > {
@@ -16648,7 +19163,15 @@ pub mod remarketing_action_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.RemarketingActionService/GetRemarketingAction",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.RemarketingActionService",
+                        "GetRemarketingAction",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates remarketing actions. Operation statuses are returned.
         ///
@@ -16663,7 +19186,7 @@ pub mod remarketing_action_service_client {
         pub async fn mutate_remarketing_actions(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateRemarketingActionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateRemarketingActionsResponse>,
             tonic::Status,
         > {
@@ -16680,7 +19203,15 @@ pub mod remarketing_action_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.RemarketingActionService/MutateRemarketingActions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.RemarketingActionService",
+                        "MutateRemarketingActions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -16836,6 +19367,22 @@ pub mod shared_criterion_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested shared criterion in full detail.
         ///
         /// List of thrown errors:
@@ -16848,7 +19395,7 @@ pub mod shared_criterion_service_client {
         pub async fn get_shared_criterion(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSharedCriterionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::SharedCriterion>,
             tonic::Status,
         > {
@@ -16865,7 +19412,15 @@ pub mod shared_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SharedCriterionService/GetSharedCriterion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SharedCriterionService",
+                        "GetSharedCriterion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or removes shared criteria. Operation statuses are returned.
         ///
@@ -16893,7 +19448,7 @@ pub mod shared_criterion_service_client {
         pub async fn mutate_shared_criteria(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateSharedCriteriaRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateSharedCriteriaResponse>,
             tonic::Status,
         > {
@@ -16910,7 +19465,15 @@ pub mod shared_criterion_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SharedCriterionService/MutateSharedCriteria",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SharedCriterionService",
+                        "MutateSharedCriteria",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -17070,6 +19633,22 @@ pub mod shared_set_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested shared set in full detail.
         ///
         /// List of thrown errors:
@@ -17082,7 +19661,10 @@ pub mod shared_set_service_client {
         pub async fn get_shared_set(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSharedSetRequest>,
-        ) -> Result<tonic::Response<super::super::resources::SharedSet>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::SharedSet>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -17096,7 +19678,15 @@ pub mod shared_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SharedSetService/GetSharedSet",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SharedSetService",
+                        "GetSharedSet",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates, updates, or removes shared sets. Operation statuses are returned.
         ///
@@ -17127,7 +19717,10 @@ pub mod shared_set_service_client {
         pub async fn mutate_shared_sets(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateSharedSetsRequest>,
-        ) -> Result<tonic::Response<super::MutateSharedSetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateSharedSetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -17141,7 +19734,15 @@ pub mod shared_set_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SharedSetService/MutateSharedSets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SharedSetService",
+                        "MutateSharedSets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -17286,11 +19887,27 @@ pub mod smart_campaign_setting_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Smart campaign setting in full detail.
         pub async fn get_smart_campaign_setting(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSmartCampaignSettingRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::SmartCampaignSetting>,
             tonic::Status,
         > {
@@ -17307,13 +19924,21 @@ pub mod smart_campaign_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SmartCampaignSettingService/GetSmartCampaignSetting",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SmartCampaignSettingService",
+                        "GetSmartCampaignSetting",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates Smart campaign settings for campaigns.
         pub async fn mutate_smart_campaign_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateSmartCampaignSettingsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateSmartCampaignSettingsResponse>,
             tonic::Status,
         > {
@@ -17330,7 +19955,15 @@ pub mod smart_campaign_setting_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SmartCampaignSettingService/MutateSmartCampaignSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SmartCampaignSettingService",
+                        "MutateSmartCampaignSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -17478,6 +20111,22 @@ pub mod user_list_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested user list.
         ///
         /// List of thrown errors:
@@ -17490,7 +20139,10 @@ pub mod user_list_service_client {
         pub async fn get_user_list(
             &mut self,
             request: impl tonic::IntoRequest<super::GetUserListRequest>,
-        ) -> Result<tonic::Response<super::super::resources::UserList>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::UserList>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -17504,7 +20156,15 @@ pub mod user_list_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.UserListService/GetUserList",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.UserListService",
+                        "GetUserList",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates user lists. Operation statuses are returned.
         ///
@@ -17532,7 +20192,10 @@ pub mod user_list_service_client {
         pub async fn mutate_user_lists(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateUserListsRequest>,
-        ) -> Result<tonic::Response<super::MutateUserListsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateUserListsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -17546,7 +20209,15 @@ pub mod user_list_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.UserListService/MutateUserLists",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.UserListService",
+                        "MutateUserLists",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -18802,6 +21473,22 @@ pub mod google_ads_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns all rows that match the search query.
         ///
         /// List of thrown errors:
@@ -18818,7 +21505,10 @@ pub mod google_ads_service_client {
         pub async fn search(
             &mut self,
             request: impl tonic::IntoRequest<super::SearchGoogleAdsRequest>,
-        ) -> Result<tonic::Response<super::SearchGoogleAdsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SearchGoogleAdsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -18832,7 +21522,15 @@ pub mod google_ads_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GoogleAdsService/Search",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GoogleAdsService",
+                        "Search",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns all rows that match the search stream query.
         ///
@@ -18850,7 +21548,7 @@ pub mod google_ads_service_client {
         pub async fn search_stream(
             &mut self,
             request: impl tonic::IntoRequest<super::SearchGoogleAdsStreamRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 tonic::codec::Streaming<super::SearchGoogleAdsStreamResponse>,
             >,
@@ -18869,7 +21567,15 @@ pub mod google_ads_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GoogleAdsService/SearchStream",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GoogleAdsService",
+                        "SearchStream",
+                    ),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Creates, updates, or removes resources. This method supports atomic
         /// transactions with multiple types of resources. For example, you can
@@ -18986,7 +21692,10 @@ pub mod google_ads_service_client {
         pub async fn mutate(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateGoogleAdsRequest>,
-        ) -> Result<tonic::Response<super::MutateGoogleAdsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateGoogleAdsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -19000,7 +21709,15 @@ pub mod google_ads_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GoogleAdsService/Mutate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GoogleAdsService",
+                        "Mutate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -19220,6 +21937,22 @@ pub mod batch_job_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Mutates a batch job.
         ///
         /// List of thrown errors:
@@ -19233,7 +21966,10 @@ pub mod batch_job_service_client {
         pub async fn mutate_batch_job(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateBatchJobRequest>,
-        ) -> Result<tonic::Response<super::MutateBatchJobResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateBatchJobResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -19247,7 +21983,15 @@ pub mod batch_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BatchJobService/MutateBatchJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BatchJobService",
+                        "MutateBatchJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the batch job.
         ///
@@ -19261,7 +22005,10 @@ pub mod batch_job_service_client {
         pub async fn get_batch_job(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBatchJobRequest>,
-        ) -> Result<tonic::Response<super::super::resources::BatchJob>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::BatchJob>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -19275,7 +22022,15 @@ pub mod batch_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BatchJobService/GetBatchJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BatchJobService",
+                        "GetBatchJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the results of the batch job. The job must be done.
         /// Supports standard list paging.
@@ -19291,7 +22046,10 @@ pub mod batch_job_service_client {
         pub async fn list_batch_job_results(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBatchJobResultsRequest>,
-        ) -> Result<tonic::Response<super::ListBatchJobResultsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListBatchJobResultsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -19305,7 +22063,15 @@ pub mod batch_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BatchJobService/ListBatchJobResults",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BatchJobService",
+                        "ListBatchJobResults",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Runs the batch job.
         ///
@@ -19324,7 +22090,7 @@ pub mod batch_job_service_client {
         pub async fn run_batch_job(
             &mut self,
             request: impl tonic::IntoRequest<super::RunBatchJobRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -19341,7 +22107,15 @@ pub mod batch_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BatchJobService/RunBatchJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BatchJobService",
+                        "RunBatchJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Add operations to the batch job.
         ///
@@ -19357,7 +22131,7 @@ pub mod batch_job_service_client {
         pub async fn add_batch_job_operations(
             &mut self,
             request: impl tonic::IntoRequest<super::AddBatchJobOperationsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::AddBatchJobOperationsResponse>,
             tonic::Status,
         > {
@@ -19374,7 +22148,15 @@ pub mod batch_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BatchJobService/AddBatchJobOperations",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BatchJobService",
+                        "AddBatchJobOperations",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -19448,11 +22230,27 @@ pub mod bidding_strategy_simulation_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested bidding strategy simulation in full detail.
         pub async fn get_bidding_strategy_simulation(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBiddingStrategySimulationRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::BiddingStrategySimulation>,
             tonic::Status,
         > {
@@ -19469,7 +22267,15 @@ pub mod bidding_strategy_simulation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BiddingStrategySimulationService/GetBiddingStrategySimulation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BiddingStrategySimulationService",
+                        "GetBiddingStrategySimulation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -19605,6 +22411,22 @@ pub mod billing_setup_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns a billing setup.
         ///
         /// List of thrown errors:
@@ -19617,7 +22439,7 @@ pub mod billing_setup_service_client {
         pub async fn get_billing_setup(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBillingSetupRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::BillingSetup>,
             tonic::Status,
         > {
@@ -19634,7 +22456,15 @@ pub mod billing_setup_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BillingSetupService/GetBillingSetup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BillingSetupService",
+                        "GetBillingSetup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a billing setup, or cancels an existing billing setup.
         ///
@@ -19652,7 +22482,10 @@ pub mod billing_setup_service_client {
         pub async fn mutate_billing_setup(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateBillingSetupRequest>,
-        ) -> Result<tonic::Response<super::MutateBillingSetupResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MutateBillingSetupResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -19666,7 +22499,15 @@ pub mod billing_setup_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.BillingSetupService/MutateBillingSetup",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.BillingSetupService",
+                        "MutateBillingSetup",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -19739,6 +22580,22 @@ pub mod campaign_audience_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign audience view in full detail.
         ///
         /// List of thrown errors:
@@ -19751,7 +22608,7 @@ pub mod campaign_audience_view_service_client {
         pub async fn get_campaign_audience_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignAudienceViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignAudienceView>,
             tonic::Status,
         > {
@@ -19768,7 +22625,15 @@ pub mod campaign_audience_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignAudienceViewService/GetCampaignAudienceView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignAudienceViewService",
+                        "GetCampaignAudienceView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -19842,6 +22707,22 @@ pub mod campaign_criterion_simulation_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign criterion simulation in full detail.
         ///
         /// List of thrown errors:
@@ -19856,7 +22737,7 @@ pub mod campaign_criterion_simulation_service_client {
             request: impl tonic::IntoRequest<
                 super::GetCampaignCriterionSimulationRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignCriterionSimulation>,
             tonic::Status,
         > {
@@ -19873,7 +22754,15 @@ pub mod campaign_criterion_simulation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignCriterionSimulationService/GetCampaignCriterionSimulation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignCriterionSimulationService",
+                        "GetCampaignCriterionSimulation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -19947,11 +22836,27 @@ pub mod campaign_simulation_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested campaign simulation in full detail.
         pub async fn get_campaign_simulation(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCampaignSimulationRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CampaignSimulation>,
             tonic::Status,
         > {
@@ -19968,7 +22873,15 @@ pub mod campaign_simulation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CampaignSimulationService/GetCampaignSimulation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CampaignSimulationService",
+                        "GetCampaignSimulation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -20041,6 +22954,22 @@ pub mod carrier_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested carrier constant in full detail.
         ///
         /// List of thrown errors:
@@ -20053,7 +22982,7 @@ pub mod carrier_constant_service_client {
         pub async fn get_carrier_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCarrierConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CarrierConstant>,
             tonic::Status,
         > {
@@ -20070,7 +22999,15 @@ pub mod carrier_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CarrierConstantService/GetCarrierConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CarrierConstantService",
+                        "GetCarrierConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -20141,6 +23078,22 @@ pub mod change_status_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested change status in full detail.
         ///
         /// List of thrown errors:
@@ -20153,7 +23106,7 @@ pub mod change_status_service_client {
         pub async fn get_change_status(
             &mut self,
             request: impl tonic::IntoRequest<super::GetChangeStatusRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ChangeStatus>,
             tonic::Status,
         > {
@@ -20170,7 +23123,15 @@ pub mod change_status_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ChangeStatusService/GetChangeStatus",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ChangeStatusService",
+                        "GetChangeStatus",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -20241,6 +23202,22 @@ pub mod click_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested click view in full detail.
         ///
         /// List of thrown errors:
@@ -20253,7 +23230,10 @@ pub mod click_view_service_client {
         pub async fn get_click_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetClickViewRequest>,
-        ) -> Result<tonic::Response<super::super::resources::ClickView>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::ClickView>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -20267,7 +23247,15 @@ pub mod click_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ClickViewService/GetClickView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ClickViewService",
+                        "GetClickView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -20342,6 +23330,22 @@ pub mod combined_audience_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested combined audience in full detail.
         ///
         /// List of thrown errors:
@@ -20354,7 +23358,7 @@ pub mod combined_audience_service_client {
         pub async fn get_combined_audience(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCombinedAudienceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CombinedAudience>,
             tonic::Status,
         > {
@@ -20371,7 +23375,15 @@ pub mod combined_audience_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CombinedAudienceService/GetCombinedAudience",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CombinedAudienceService",
+                        "GetCombinedAudience",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -20599,6 +23611,22 @@ pub mod conversion_adjustment_upload_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Processes the given conversion adjustments.
         ///
         /// List of thrown errors:
@@ -20612,7 +23640,7 @@ pub mod conversion_adjustment_upload_service_client {
         pub async fn upload_conversion_adjustments(
             &mut self,
             request: impl tonic::IntoRequest<super::UploadConversionAdjustmentsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::UploadConversionAdjustmentsResponse>,
             tonic::Status,
         > {
@@ -20629,7 +23657,15 @@ pub mod conversion_adjustment_upload_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionAdjustmentUploadService/UploadConversionAdjustments",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionAdjustmentUploadService",
+                        "UploadConversionAdjustments",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -20992,6 +24028,22 @@ pub mod conversion_upload_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Processes the given click conversions.
         ///
         /// List of thrown errors:
@@ -21006,7 +24058,7 @@ pub mod conversion_upload_service_client {
         pub async fn upload_click_conversions(
             &mut self,
             request: impl tonic::IntoRequest<super::UploadClickConversionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::UploadClickConversionsResponse>,
             tonic::Status,
         > {
@@ -21023,7 +24075,15 @@ pub mod conversion_upload_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionUploadService/UploadClickConversions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionUploadService",
+                        "UploadClickConversions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Processes the given call conversions.
         ///
@@ -21038,7 +24098,7 @@ pub mod conversion_upload_service_client {
         pub async fn upload_call_conversions(
             &mut self,
             request: impl tonic::IntoRequest<super::UploadCallConversionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::UploadCallConversionsResponse>,
             tonic::Status,
         > {
@@ -21055,7 +24115,15 @@ pub mod conversion_upload_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ConversionUploadService/UploadCallConversions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ConversionUploadService",
+                        "UploadCallConversions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -21128,6 +24196,22 @@ pub mod currency_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested currency constant.
         ///
         /// List of thrown errors:
@@ -21140,7 +24224,7 @@ pub mod currency_constant_service_client {
         pub async fn get_currency_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCurrencyConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CurrencyConstant>,
             tonic::Status,
         > {
@@ -21157,7 +24241,15 @@ pub mod currency_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CurrencyConstantService/GetCurrencyConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CurrencyConstantService",
+                        "GetCurrencyConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -21292,6 +24384,22 @@ pub mod custom_audience_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested custom audience in full detail.
         ///
         /// List of thrown errors:
@@ -21304,7 +24412,7 @@ pub mod custom_audience_service_client {
         pub async fn get_custom_audience(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomAudienceRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomAudience>,
             tonic::Status,
         > {
@@ -21321,7 +24429,15 @@ pub mod custom_audience_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomAudienceService/GetCustomAudience",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomAudienceService",
+                        "GetCustomAudience",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates custom audiences. Operation statuses are returned.
         ///
@@ -21342,7 +24458,7 @@ pub mod custom_audience_service_client {
         pub async fn mutate_custom_audiences(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomAudiencesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomAudiencesResponse>,
             tonic::Status,
         > {
@@ -21359,7 +24475,15 @@ pub mod custom_audience_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomAudienceService/MutateCustomAudiences",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomAudienceService",
+                        "MutateCustomAudiences",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -21488,6 +24612,22 @@ pub mod custom_interest_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested custom interest in full detail.
         ///
         /// List of thrown errors:
@@ -21500,7 +24640,7 @@ pub mod custom_interest_service_client {
         pub async fn get_custom_interest(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomInterestRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomInterest>,
             tonic::Status,
         > {
@@ -21517,7 +24657,15 @@ pub mod custom_interest_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomInterestService/GetCustomInterest",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomInterestService",
+                        "GetCustomInterest",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates custom interests. Operation statuses are returned.
         ///
@@ -21536,7 +24684,7 @@ pub mod custom_interest_service_client {
         pub async fn mutate_custom_interests(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomInterestsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomInterestsResponse>,
             tonic::Status,
         > {
@@ -21553,7 +24701,15 @@ pub mod custom_interest_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomInterestService/MutateCustomInterests",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomInterestService",
+                        "MutateCustomInterests",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -21682,6 +24838,22 @@ pub mod customer_client_link_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested CustomerClientLink in full detail.
         ///
         /// List of thrown errors:
@@ -21694,7 +24866,7 @@ pub mod customer_client_link_service_client {
         pub async fn get_customer_client_link(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerClientLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerClientLink>,
             tonic::Status,
         > {
@@ -21711,7 +24883,15 @@ pub mod customer_client_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerClientLinkService/GetCustomerClientLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerClientLinkService",
+                        "GetCustomerClientLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates a customer client link. Operation statuses are returned.
         ///
@@ -21731,7 +24911,7 @@ pub mod customer_client_link_service_client {
         pub async fn mutate_customer_client_link(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerClientLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerClientLinkResponse>,
             tonic::Status,
         > {
@@ -21748,7 +24928,15 @@ pub mod customer_client_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerClientLinkService/MutateCustomerClientLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerClientLinkService",
+                        "MutateCustomerClientLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -21819,6 +25007,22 @@ pub mod customer_client_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested client in full detail.
         ///
         /// List of thrown errors:
@@ -21831,7 +25035,7 @@ pub mod customer_client_service_client {
         pub async fn get_customer_client(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerClientRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerClient>,
             tonic::Status,
         > {
@@ -21848,7 +25052,15 @@ pub mod customer_client_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerClientService/GetCustomerClient",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerClientService",
+                        "GetCustomerClient",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22009,6 +25221,22 @@ pub mod customer_manager_link_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested CustomerManagerLink in full detail.
         ///
         /// List of thrown errors:
@@ -22021,7 +25249,7 @@ pub mod customer_manager_link_service_client {
         pub async fn get_customer_manager_link(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerManagerLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerManagerLink>,
             tonic::Status,
         > {
@@ -22038,7 +25266,15 @@ pub mod customer_manager_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerManagerLinkService/GetCustomerManagerLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerManagerLinkService",
+                        "GetCustomerManagerLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or updates customer manager links. Operation statuses are returned.
         ///
@@ -22057,7 +25293,7 @@ pub mod customer_manager_link_service_client {
         pub async fn mutate_customer_manager_link(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerManagerLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerManagerLinkResponse>,
             tonic::Status,
         > {
@@ -22074,7 +25310,15 @@ pub mod customer_manager_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerManagerLinkService/MutateCustomerManagerLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerManagerLinkService",
+                        "MutateCustomerManagerLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Moves a client customer to a new manager customer.
         /// This simplifies the complex request that requires two operations to move
@@ -22095,7 +25339,10 @@ pub mod customer_manager_link_service_client {
         pub async fn move_manager_link(
             &mut self,
             request: impl tonic::IntoRequest<super::MoveManagerLinkRequest>,
-        ) -> Result<tonic::Response<super::MoveManagerLinkResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MoveManagerLinkResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -22109,7 +25356,15 @@ pub mod customer_manager_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerManagerLinkService/MoveManagerLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerManagerLinkService",
+                        "MoveManagerLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22243,6 +25498,22 @@ pub mod customer_user_access_invitation_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested access invitation in full detail.
         ///
         /// List of thrown errors:
@@ -22257,7 +25528,7 @@ pub mod customer_user_access_invitation_service_client {
             request: impl tonic::IntoRequest<
                 super::GetCustomerUserAccessInvitationRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerUserAccessInvitation>,
             tonic::Status,
         > {
@@ -22274,7 +25545,15 @@ pub mod customer_user_access_invitation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerUserAccessInvitationService/GetCustomerUserAccessInvitation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerUserAccessInvitationService",
+                        "GetCustomerUserAccessInvitation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates or removes an access invitation.
         ///
@@ -22291,7 +25570,7 @@ pub mod customer_user_access_invitation_service_client {
             request: impl tonic::IntoRequest<
                 super::MutateCustomerUserAccessInvitationRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerUserAccessInvitationResponse>,
             tonic::Status,
         > {
@@ -22308,7 +25587,15 @@ pub mod customer_user_access_invitation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerUserAccessInvitationService/MutateCustomerUserAccessInvitation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerUserAccessInvitationService",
+                        "MutateCustomerUserAccessInvitation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22439,6 +25726,22 @@ pub mod customer_user_access_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the CustomerUserAccess in full detail.
         ///
         /// List of thrown errors:
@@ -22451,7 +25754,7 @@ pub mod customer_user_access_service_client {
         pub async fn get_customer_user_access(
             &mut self,
             request: impl tonic::IntoRequest<super::GetCustomerUserAccessRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::CustomerUserAccess>,
             tonic::Status,
         > {
@@ -22468,7 +25771,15 @@ pub mod customer_user_access_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerUserAccessService/GetCustomerUserAccess",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerUserAccessService",
+                        "GetCustomerUserAccess",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates, removes permission of a user on a given customer. Operation
         /// statuses are returned.
@@ -22486,7 +25797,7 @@ pub mod customer_user_access_service_client {
         pub async fn mutate_customer_user_access(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateCustomerUserAccessRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateCustomerUserAccessResponse>,
             tonic::Status,
         > {
@@ -22503,7 +25814,15 @@ pub mod customer_user_access_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.CustomerUserAccessService/MutateCustomerUserAccess",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.CustomerUserAccessService",
+                        "MutateCustomerUserAccess",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22576,6 +25895,22 @@ pub mod detail_placement_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Detail Placement view in full detail.
         ///
         /// List of thrown errors:
@@ -22588,7 +25923,7 @@ pub mod detail_placement_view_service_client {
         pub async fn get_detail_placement_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDetailPlacementViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::DetailPlacementView>,
             tonic::Status,
         > {
@@ -22605,7 +25940,15 @@ pub mod detail_placement_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.DetailPlacementViewService/GetDetailPlacementView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.DetailPlacementViewService",
+                        "GetDetailPlacementView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22678,11 +26021,27 @@ pub mod detailed_demographic_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested detailed demographic in full detail.
         pub async fn get_detailed_demographic(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDetailedDemographicRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::DetailedDemographic>,
             tonic::Status,
         > {
@@ -22699,7 +26058,15 @@ pub mod detailed_demographic_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.DetailedDemographicService/GetDetailedDemographic",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.DetailedDemographicService",
+                        "GetDetailedDemographic",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22772,6 +26139,22 @@ pub mod display_keyword_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested display keyword view in full detail.
         ///
         /// List of thrown errors:
@@ -22784,7 +26167,7 @@ pub mod display_keyword_view_service_client {
         pub async fn get_display_keyword_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDisplayKeywordViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::DisplayKeywordView>,
             tonic::Status,
         > {
@@ -22801,7 +26184,15 @@ pub mod display_keyword_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.DisplayKeywordViewService/GetDisplayKeywordView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.DisplayKeywordViewService",
+                        "GetDisplayKeywordView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22872,6 +26263,22 @@ pub mod distance_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the attributes of the requested distance view.
         ///
         /// List of thrown errors:
@@ -22884,7 +26291,7 @@ pub mod distance_view_service_client {
         pub async fn get_distance_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDistanceViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::DistanceView>,
             tonic::Status,
         > {
@@ -22901,7 +26308,15 @@ pub mod distance_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.DistanceViewService/GetDistanceView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.DistanceViewService",
+                        "GetDistanceView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -22973,6 +26388,22 @@ pub mod domain_category_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested domain category.
         ///
         /// List of thrown errors:
@@ -22985,7 +26416,7 @@ pub mod domain_category_service_client {
         pub async fn get_domain_category(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDomainCategoryRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::DomainCategory>,
             tonic::Status,
         > {
@@ -23002,7 +26433,15 @@ pub mod domain_category_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.DomainCategoryService/GetDomainCategory",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.DomainCategoryService",
+                        "GetDomainCategory",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23076,6 +26515,22 @@ pub mod dynamic_search_ads_search_term_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested dynamic search ads search term view in full detail.
         ///
         /// List of thrown errors:
@@ -23090,7 +26545,7 @@ pub mod dynamic_search_ads_search_term_view_service_client {
             request: impl tonic::IntoRequest<
                 super::GetDynamicSearchAdsSearchTermViewRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::DynamicSearchAdsSearchTermView>,
             tonic::Status,
         > {
@@ -23107,7 +26562,15 @@ pub mod dynamic_search_ads_search_term_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.DynamicSearchAdsSearchTermViewService/GetDynamicSearchAdsSearchTermView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.DynamicSearchAdsSearchTermViewService",
+                        "GetDynamicSearchAdsSearchTermView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23181,6 +26644,22 @@ pub mod expanded_landing_page_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested expanded landing page view in full detail.
         ///
         /// List of thrown errors:
@@ -23193,7 +26672,7 @@ pub mod expanded_landing_page_view_service_client {
         pub async fn get_expanded_landing_page_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetExpandedLandingPageViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ExpandedLandingPageView>,
             tonic::Status,
         > {
@@ -23210,7 +26689,15 @@ pub mod expanded_landing_page_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ExpandedLandingPageViewService/GetExpandedLandingPageView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ExpandedLandingPageViewService",
+                        "GetExpandedLandingPageView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23283,6 +26770,22 @@ pub mod feed_placeholder_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested feed placeholder view in full detail.
         ///
         /// List of thrown errors:
@@ -23295,7 +26798,7 @@ pub mod feed_placeholder_view_service_client {
         pub async fn get_feed_placeholder_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFeedPlaceholderViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::FeedPlaceholderView>,
             tonic::Status,
         > {
@@ -23312,7 +26815,15 @@ pub mod feed_placeholder_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.FeedPlaceholderViewService/GetFeedPlaceholderView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.FeedPlaceholderViewService",
+                        "GetFeedPlaceholderView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23383,6 +26894,22 @@ pub mod gender_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested gender view in full detail.
         ///
         /// List of thrown errors:
@@ -23395,7 +26922,7 @@ pub mod gender_view_service_client {
         pub async fn get_gender_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGenderViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::GenderView>,
             tonic::Status,
         > {
@@ -23412,7 +26939,15 @@ pub mod gender_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GenderViewService/GetGenderView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GenderViewService",
+                        "GetGenderView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23571,6 +27106,22 @@ pub mod geo_target_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested geo target constant in full detail.
         ///
         /// List of thrown errors:
@@ -23583,7 +27134,7 @@ pub mod geo_target_constant_service_client {
         pub async fn get_geo_target_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGeoTargetConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::GeoTargetConstant>,
             tonic::Status,
         > {
@@ -23600,7 +27151,15 @@ pub mod geo_target_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GeoTargetConstantService/GetGeoTargetConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GeoTargetConstantService",
+                        "GetGeoTargetConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns GeoTargetConstant suggestions by location name or by resource name.
         ///
@@ -23615,7 +27174,7 @@ pub mod geo_target_constant_service_client {
         pub async fn suggest_geo_target_constants(
             &mut self,
             request: impl tonic::IntoRequest<super::SuggestGeoTargetConstantsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::SuggestGeoTargetConstantsResponse>,
             tonic::Status,
         > {
@@ -23632,7 +27191,15 @@ pub mod geo_target_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GeoTargetConstantService/SuggestGeoTargetConstants",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GeoTargetConstantService",
+                        "SuggestGeoTargetConstants",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23703,6 +27270,22 @@ pub mod geographic_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested geographic view in full detail.
         ///
         /// List of thrown errors:
@@ -23715,7 +27298,7 @@ pub mod geographic_view_service_client {
         pub async fn get_geographic_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGeographicViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::GeographicView>,
             tonic::Status,
         > {
@@ -23732,7 +27315,15 @@ pub mod geographic_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GeographicViewService/GetGeographicView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GeographicViewService",
+                        "GetGeographicView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23837,6 +27428,22 @@ pub mod google_ads_field_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns just the requested field.
         ///
         /// List of thrown errors:
@@ -23849,7 +27456,7 @@ pub mod google_ads_field_service_client {
         pub async fn get_google_ads_field(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGoogleAdsFieldRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::GoogleAdsField>,
             tonic::Status,
         > {
@@ -23866,7 +27473,15 @@ pub mod google_ads_field_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GoogleAdsFieldService/GetGoogleAdsField",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GoogleAdsFieldService",
+                        "GetGoogleAdsField",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns all fields that match the search query.
         ///
@@ -23881,7 +27496,7 @@ pub mod google_ads_field_service_client {
         pub async fn search_google_ads_fields(
             &mut self,
             request: impl tonic::IntoRequest<super::SearchGoogleAdsFieldsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::SearchGoogleAdsFieldsResponse>,
             tonic::Status,
         > {
@@ -23898,7 +27513,15 @@ pub mod google_ads_field_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GoogleAdsFieldService/SearchGoogleAdsFields",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GoogleAdsFieldService",
+                        "SearchGoogleAdsFields",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -23971,6 +27594,22 @@ pub mod group_placement_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Group Placement view in full detail.
         ///
         /// List of thrown errors:
@@ -23983,7 +27622,7 @@ pub mod group_placement_view_service_client {
         pub async fn get_group_placement_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGroupPlacementViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::GroupPlacementView>,
             tonic::Status,
         > {
@@ -24000,7 +27639,15 @@ pub mod group_placement_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.GroupPlacementViewService/GetGroupPlacementView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.GroupPlacementViewService",
+                        "GetGroupPlacementView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -24071,6 +27718,22 @@ pub mod hotel_group_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Hotel Group View in full detail.
         ///
         /// List of thrown errors:
@@ -24083,7 +27746,7 @@ pub mod hotel_group_view_service_client {
         pub async fn get_hotel_group_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetHotelGroupViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::HotelGroupView>,
             tonic::Status,
         > {
@@ -24100,7 +27763,15 @@ pub mod hotel_group_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.HotelGroupViewService/GetHotelGroupView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.HotelGroupViewService",
+                        "GetHotelGroupView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -24173,6 +27844,22 @@ pub mod hotel_performance_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Hotel Performance View in full detail.
         ///
         /// List of thrown errors:
@@ -24185,7 +27872,7 @@ pub mod hotel_performance_view_service_client {
         pub async fn get_hotel_performance_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetHotelPerformanceViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::HotelPerformanceView>,
             tonic::Status,
         > {
@@ -24202,7 +27889,15 @@ pub mod hotel_performance_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.HotelPerformanceViewService/GetHotelPerformanceView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.HotelPerformanceViewService",
+                        "GetHotelPerformanceView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -24275,6 +27970,22 @@ pub mod income_range_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested income range view in full detail.
         ///
         /// List of thrown errors:
@@ -24287,7 +27998,7 @@ pub mod income_range_view_service_client {
         pub async fn get_income_range_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetIncomeRangeViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::IncomeRangeView>,
             tonic::Status,
         > {
@@ -24304,7 +28015,15 @@ pub mod income_range_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.IncomeRangeViewService/GetIncomeRangeView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.IncomeRangeViewService",
+                        "GetIncomeRangeView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -24396,6 +28115,22 @@ pub mod invoice_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns all invoices associated with a billing setup, for a given month.
         ///
         /// List of thrown errors:
@@ -24410,7 +28145,10 @@ pub mod invoice_service_client {
         pub async fn list_invoices(
             &mut self,
             request: impl tonic::IntoRequest<super::ListInvoicesRequest>,
-        ) -> Result<tonic::Response<super::ListInvoicesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListInvoicesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -24424,7 +28162,15 @@ pub mod invoice_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.InvoiceService/ListInvoices",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.InvoiceService",
+                        "ListInvoices",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -24649,6 +28395,22 @@ pub mod keyword_plan_idea_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns a list of keyword ideas.
         ///
         /// List of thrown errors:
@@ -24663,7 +28425,10 @@ pub mod keyword_plan_idea_service_client {
         pub async fn generate_keyword_ideas(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateKeywordIdeasRequest>,
-        ) -> Result<tonic::Response<super::GenerateKeywordIdeaResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateKeywordIdeaResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -24677,7 +28442,15 @@ pub mod keyword_plan_idea_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordPlanIdeaService/GenerateKeywordIdeas",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordPlanIdeaService",
+                        "GenerateKeywordIdeas",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -24779,11 +28552,27 @@ pub mod keyword_theme_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested keyword theme constant in full detail.
         pub async fn get_keyword_theme_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeywordThemeConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::KeywordThemeConstant>,
             tonic::Status,
         > {
@@ -24800,7 +28589,15 @@ pub mod keyword_theme_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordThemeConstantService/GetKeywordThemeConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordThemeConstantService",
+                        "GetKeywordThemeConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns KeywordThemeConstant suggestions by keyword themes.
         ///
@@ -24814,7 +28611,7 @@ pub mod keyword_theme_constant_service_client {
         pub async fn suggest_keyword_theme_constants(
             &mut self,
             request: impl tonic::IntoRequest<super::SuggestKeywordThemeConstantsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::SuggestKeywordThemeConstantsResponse>,
             tonic::Status,
         > {
@@ -24831,7 +28628,15 @@ pub mod keyword_theme_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordThemeConstantService/SuggestKeywordThemeConstants",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordThemeConstantService",
+                        "SuggestKeywordThemeConstants",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -24902,6 +28707,22 @@ pub mod keyword_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested keyword view in full detail.
         ///
         /// List of thrown errors:
@@ -24914,7 +28735,7 @@ pub mod keyword_view_service_client {
         pub async fn get_keyword_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetKeywordViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::KeywordView>,
             tonic::Status,
         > {
@@ -24931,7 +28752,15 @@ pub mod keyword_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.KeywordViewService/GetKeywordView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.KeywordViewService",
+                        "GetKeywordView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25004,6 +28833,22 @@ pub mod landing_page_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested landing page view in full detail.
         ///
         /// List of thrown errors:
@@ -25016,7 +28861,7 @@ pub mod landing_page_view_service_client {
         pub async fn get_landing_page_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLandingPageViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::LandingPageView>,
             tonic::Status,
         > {
@@ -25033,7 +28878,15 @@ pub mod landing_page_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.LandingPageViewService/GetLandingPageView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.LandingPageViewService",
+                        "GetLandingPageView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25106,6 +28959,22 @@ pub mod language_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested language constant.
         ///
         /// List of thrown errors:
@@ -25118,7 +28987,7 @@ pub mod language_constant_service_client {
         pub async fn get_language_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLanguageConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::LanguageConstant>,
             tonic::Status,
         > {
@@ -25135,7 +29004,15 @@ pub mod language_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.LanguageConstantService/GetLanguageConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.LanguageConstantService",
+                        "GetLanguageConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25206,11 +29083,30 @@ pub mod life_event_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested life event in full detail.
         pub async fn get_life_event(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLifeEventRequest>,
-        ) -> Result<tonic::Response<super::super::resources::LifeEvent>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::LifeEvent>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -25224,7 +29120,15 @@ pub mod life_event_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.LifeEventService/GetLifeEvent",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.LifeEventService",
+                        "GetLifeEvent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25295,6 +29199,22 @@ pub mod location_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested location view in full detail.
         ///
         /// List of thrown errors:
@@ -25307,7 +29227,7 @@ pub mod location_view_service_client {
         pub async fn get_location_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetLocationViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::LocationView>,
             tonic::Status,
         > {
@@ -25324,7 +29244,15 @@ pub mod location_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.LocationViewService/GetLocationView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.LocationViewService",
+                        "GetLocationView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25397,6 +29325,22 @@ pub mod managed_placement_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Managed Placement view in full detail.
         ///
         /// List of thrown errors:
@@ -25409,7 +29353,7 @@ pub mod managed_placement_view_service_client {
         pub async fn get_managed_placement_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetManagedPlacementViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ManagedPlacementView>,
             tonic::Status,
         > {
@@ -25426,7 +29370,15 @@ pub mod managed_placement_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ManagedPlacementViewService/GetManagedPlacementView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ManagedPlacementViewService",
+                        "GetManagedPlacementView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25579,6 +29531,22 @@ pub mod merchant_center_link_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns Merchant Center links available for this customer.
         ///
         /// List of thrown errors:
@@ -25591,7 +29559,7 @@ pub mod merchant_center_link_service_client {
         pub async fn list_merchant_center_links(
             &mut self,
             request: impl tonic::IntoRequest<super::ListMerchantCenterLinksRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListMerchantCenterLinksResponse>,
             tonic::Status,
         > {
@@ -25608,7 +29576,15 @@ pub mod merchant_center_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.MerchantCenterLinkService/ListMerchantCenterLinks",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.MerchantCenterLinkService",
+                        "ListMerchantCenterLinks",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the Merchant Center link in full detail.
         ///
@@ -25622,7 +29598,7 @@ pub mod merchant_center_link_service_client {
         pub async fn get_merchant_center_link(
             &mut self,
             request: impl tonic::IntoRequest<super::GetMerchantCenterLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::MerchantCenterLink>,
             tonic::Status,
         > {
@@ -25639,7 +29615,15 @@ pub mod merchant_center_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.MerchantCenterLinkService/GetMerchantCenterLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.MerchantCenterLinkService",
+                        "GetMerchantCenterLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates status or removes a Merchant Center link.
         ///
@@ -25654,7 +29638,7 @@ pub mod merchant_center_link_service_client {
         pub async fn mutate_merchant_center_link(
             &mut self,
             request: impl tonic::IntoRequest<super::MutateMerchantCenterLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::MutateMerchantCenterLinkResponse>,
             tonic::Status,
         > {
@@ -25671,7 +29655,15 @@ pub mod merchant_center_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.MerchantCenterLinkService/MutateMerchantCenterLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.MerchantCenterLinkService",
+                        "MutateMerchantCenterLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25745,6 +29737,22 @@ pub mod mobile_app_category_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested mobile app category constant.
         ///
         /// List of thrown errors:
@@ -25757,7 +29765,7 @@ pub mod mobile_app_category_constant_service_client {
         pub async fn get_mobile_app_category_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetMobileAppCategoryConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::MobileAppCategoryConstant>,
             tonic::Status,
         > {
@@ -25774,7 +29782,15 @@ pub mod mobile_app_category_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.MobileAppCategoryConstantService/GetMobileAppCategoryConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.MobileAppCategoryConstantService",
+                        "GetMobileAppCategoryConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -25847,6 +29863,22 @@ pub mod mobile_device_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested mobile device constant in full detail.
         ///
         /// List of thrown errors:
@@ -25859,7 +29891,7 @@ pub mod mobile_device_constant_service_client {
         pub async fn get_mobile_device_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetMobileDeviceConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::MobileDeviceConstant>,
             tonic::Status,
         > {
@@ -25876,7 +29908,15 @@ pub mod mobile_device_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.MobileDeviceConstantService/GetMobileDeviceConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.MobileDeviceConstantService",
+                        "GetMobileDeviceConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -26060,6 +30100,22 @@ pub mod offline_user_data_job_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates an offline user data job.
         ///
         /// List of thrown errors:
@@ -26076,7 +30132,7 @@ pub mod offline_user_data_job_service_client {
         pub async fn create_offline_user_data_job(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateOfflineUserDataJobRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::CreateOfflineUserDataJobResponse>,
             tonic::Status,
         > {
@@ -26093,7 +30149,15 @@ pub mod offline_user_data_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.OfflineUserDataJobService/CreateOfflineUserDataJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.OfflineUserDataJobService",
+                        "CreateOfflineUserDataJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the offline user data job.
         ///
@@ -26107,7 +30171,7 @@ pub mod offline_user_data_job_service_client {
         pub async fn get_offline_user_data_job(
             &mut self,
             request: impl tonic::IntoRequest<super::GetOfflineUserDataJobRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::OfflineUserDataJob>,
             tonic::Status,
         > {
@@ -26124,7 +30188,15 @@ pub mod offline_user_data_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.OfflineUserDataJobService/GetOfflineUserDataJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.OfflineUserDataJobService",
+                        "GetOfflineUserDataJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Adds operations to the offline user data job.
         ///
@@ -26144,7 +30216,7 @@ pub mod offline_user_data_job_service_client {
             request: impl tonic::IntoRequest<
                 super::AddOfflineUserDataJobOperationsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::AddOfflineUserDataJobOperationsResponse>,
             tonic::Status,
         > {
@@ -26161,7 +30233,15 @@ pub mod offline_user_data_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.OfflineUserDataJobService/AddOfflineUserDataJobOperations",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.OfflineUserDataJobService",
+                        "AddOfflineUserDataJobOperations",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Runs the offline user data job.
         ///
@@ -26180,7 +30260,7 @@ pub mod offline_user_data_job_service_client {
         pub async fn run_offline_user_data_job(
             &mut self,
             request: impl tonic::IntoRequest<super::RunOfflineUserDataJobRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -26197,7 +30277,15 @@ pub mod offline_user_data_job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.OfflineUserDataJobService/RunOfflineUserDataJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.OfflineUserDataJobService",
+                        "RunOfflineUserDataJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -26271,6 +30359,22 @@ pub mod operating_system_version_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested OS version constant in full detail.
         ///
         /// List of thrown errors:
@@ -26285,7 +30389,7 @@ pub mod operating_system_version_constant_service_client {
             request: impl tonic::IntoRequest<
                 super::GetOperatingSystemVersionConstantRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::OperatingSystemVersionConstant>,
             tonic::Status,
         > {
@@ -26302,7 +30406,15 @@ pub mod operating_system_version_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.OperatingSystemVersionConstantService/GetOperatingSystemVersionConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.OperatingSystemVersionConstantService",
+                        "GetOperatingSystemVersionConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -26376,6 +30488,22 @@ pub mod paid_organic_search_term_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested paid organic search term view in full detail.
         ///
         /// List of thrown errors:
@@ -26388,7 +30516,7 @@ pub mod paid_organic_search_term_view_service_client {
         pub async fn get_paid_organic_search_term_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetPaidOrganicSearchTermViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::PaidOrganicSearchTermView>,
             tonic::Status,
         > {
@@ -26405,7 +30533,15 @@ pub mod paid_organic_search_term_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.PaidOrganicSearchTermViewService/GetPaidOrganicSearchTermView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.PaidOrganicSearchTermViewService",
+                        "GetPaidOrganicSearchTermView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -26478,6 +30614,22 @@ pub mod parental_status_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested parental status view in full detail.
         ///
         /// List of thrown errors:
@@ -26490,7 +30642,7 @@ pub mod parental_status_view_service_client {
         pub async fn get_parental_status_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetParentalStatusViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ParentalStatusView>,
             tonic::Status,
         > {
@@ -26507,7 +30659,15 @@ pub mod parental_status_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ParentalStatusViewService/GetParentalStatusView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ParentalStatusViewService",
+                        "GetParentalStatusView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -26589,6 +30749,22 @@ pub mod payments_account_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns all payments accounts associated with all managers
         /// between the login customer ID and specified serving customer in the
         /// hierarchy, inclusive.
@@ -26604,7 +30780,7 @@ pub mod payments_account_service_client {
         pub async fn list_payments_accounts(
             &mut self,
             request: impl tonic::IntoRequest<super::ListPaymentsAccountsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListPaymentsAccountsResponse>,
             tonic::Status,
         > {
@@ -26621,7 +30797,15 @@ pub mod payments_account_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.PaymentsAccountService/ListPaymentsAccounts",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.PaymentsAccountService",
+                        "ListPaymentsAccounts",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -26695,6 +30879,22 @@ pub mod product_bidding_category_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Product Bidding Category in full detail.
         ///
         /// List of thrown errors:
@@ -26709,7 +30909,7 @@ pub mod product_bidding_category_constant_service_client {
             request: impl tonic::IntoRequest<
                 super::GetProductBiddingCategoryConstantRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ProductBiddingCategoryConstant>,
             tonic::Status,
         > {
@@ -26726,7 +30926,15 @@ pub mod product_bidding_category_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ProductBiddingCategoryConstantService/GetProductBiddingCategoryConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ProductBiddingCategoryConstantService",
+                        "GetProductBiddingCategoryConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -26799,6 +31007,22 @@ pub mod product_group_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested product group view in full detail.
         ///
         /// List of thrown errors:
@@ -26811,7 +31035,7 @@ pub mod product_group_view_service_client {
         pub async fn get_product_group_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetProductGroupViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ProductGroupView>,
             tonic::Status,
         > {
@@ -26828,7 +31052,15 @@ pub mod product_group_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ProductGroupViewService/GetProductGroupView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ProductGroupViewService",
+                        "GetProductGroupView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -27412,6 +31644,22 @@ pub mod reach_plan_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the list of plannable locations (for example, countries & DMAs).
         ///
         /// List of thrown errors:
@@ -27424,7 +31672,7 @@ pub mod reach_plan_service_client {
         pub async fn list_plannable_locations(
             &mut self,
             request: impl tonic::IntoRequest<super::ListPlannableLocationsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListPlannableLocationsResponse>,
             tonic::Status,
         > {
@@ -27441,7 +31689,15 @@ pub mod reach_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ReachPlanService/ListPlannableLocations",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ReachPlanService",
+                        "ListPlannableLocations",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the list of per-location plannable YouTube ad formats with allowed
         /// targeting.
@@ -27456,7 +31712,7 @@ pub mod reach_plan_service_client {
         pub async fn list_plannable_products(
             &mut self,
             request: impl tonic::IntoRequest<super::ListPlannableProductsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListPlannableProductsResponse>,
             tonic::Status,
         > {
@@ -27473,7 +31729,15 @@ pub mod reach_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ReachPlanService/ListPlannableProducts",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ReachPlanService",
+                        "ListPlannableProducts",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Generates a product mix ideas given a set of preferences. This method
         /// helps the advertiser to obtain a good mix of ad formats and budget
@@ -27490,7 +31754,7 @@ pub mod reach_plan_service_client {
         pub async fn generate_product_mix_ideas(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateProductMixIdeasRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateProductMixIdeasResponse>,
             tonic::Status,
         > {
@@ -27507,7 +31771,15 @@ pub mod reach_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ReachPlanService/GenerateProductMixIdeas",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ReachPlanService",
+                        "GenerateProductMixIdeas",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Generates a reach forecast for a given targeting / product mix.
         ///
@@ -27524,7 +31796,7 @@ pub mod reach_plan_service_client {
         pub async fn generate_reach_forecast(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateReachForecastRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateReachForecastResponse>,
             tonic::Status,
         > {
@@ -27541,7 +31813,15 @@ pub mod reach_plan_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ReachPlanService/GenerateReachForecast",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ReachPlanService",
+                        "GenerateReachForecast",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -27882,6 +32162,22 @@ pub mod recommendation_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested recommendation in full detail.
         ///
         /// List of thrown errors:
@@ -27894,7 +32190,7 @@ pub mod recommendation_service_client {
         pub async fn get_recommendation(
             &mut self,
             request: impl tonic::IntoRequest<super::GetRecommendationRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::Recommendation>,
             tonic::Status,
         > {
@@ -27911,7 +32207,15 @@ pub mod recommendation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.RecommendationService/GetRecommendation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.RecommendationService",
+                        "GetRecommendation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Applies given recommendations with corresponding apply parameters.
         ///
@@ -27930,7 +32234,10 @@ pub mod recommendation_service_client {
         pub async fn apply_recommendation(
             &mut self,
             request: impl tonic::IntoRequest<super::ApplyRecommendationRequest>,
-        ) -> Result<tonic::Response<super::ApplyRecommendationResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ApplyRecommendationResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -27944,7 +32251,15 @@ pub mod recommendation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.RecommendationService/ApplyRecommendation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.RecommendationService",
+                        "ApplyRecommendation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Dismisses given recommendations.
         ///
@@ -27959,7 +32274,7 @@ pub mod recommendation_service_client {
         pub async fn dismiss_recommendation(
             &mut self,
             request: impl tonic::IntoRequest<super::DismissRecommendationRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::DismissRecommendationResponse>,
             tonic::Status,
         > {
@@ -27976,7 +32291,15 @@ pub mod recommendation_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.RecommendationService/DismissRecommendation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.RecommendationService",
+                        "DismissRecommendation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -28047,6 +32370,22 @@ pub mod search_term_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the attributes of the requested search term view.
         ///
         /// List of thrown errors:
@@ -28059,7 +32398,7 @@ pub mod search_term_view_service_client {
         pub async fn get_search_term_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSearchTermViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::SearchTermView>,
             tonic::Status,
         > {
@@ -28076,7 +32415,15 @@ pub mod search_term_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SearchTermViewService/GetSearchTermView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SearchTermViewService",
+                        "GetSearchTermView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -28150,6 +32497,22 @@ pub mod shopping_performance_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested Shopping performance view in full detail.
         ///
         /// List of thrown errors:
@@ -28162,7 +32525,7 @@ pub mod shopping_performance_view_service_client {
         pub async fn get_shopping_performance_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetShoppingPerformanceViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ShoppingPerformanceView>,
             tonic::Status,
         > {
@@ -28179,7 +32542,15 @@ pub mod shopping_performance_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ShoppingPerformanceViewService/GetShoppingPerformanceView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ShoppingPerformanceViewService",
+                        "GetShoppingPerformanceView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -28253,6 +32624,22 @@ pub mod smart_campaign_search_term_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the attributes of the requested Smart campaign search term view.
         ///
         /// List of thrown errors:
@@ -28267,7 +32654,7 @@ pub mod smart_campaign_search_term_view_service_client {
             request: impl tonic::IntoRequest<
                 super::GetSmartCampaignSearchTermViewRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::SmartCampaignSearchTermView>,
             tonic::Status,
         > {
@@ -28284,7 +32671,15 @@ pub mod smart_campaign_search_term_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SmartCampaignSearchTermViewService/GetSmartCampaignSearchTermView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SmartCampaignSearchTermViewService",
+                        "GetSmartCampaignSearchTermView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -28567,13 +32962,29 @@ pub mod smart_campaign_suggest_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns BudgetOption suggestions.
         pub async fn suggest_smart_campaign_budget_options(
             &mut self,
             request: impl tonic::IntoRequest<
                 super::SuggestSmartCampaignBudgetOptionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::SuggestSmartCampaignBudgetOptionsResponse>,
             tonic::Status,
         > {
@@ -28590,14 +33001,22 @@ pub mod smart_campaign_suggest_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SmartCampaignSuggestService/SuggestSmartCampaignBudgetOptions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SmartCampaignSuggestService",
+                        "SuggestSmartCampaignBudgetOptions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Suggests a Smart campaign ad compatible with the Ad family of resources,
         /// based on data points such as targeting and the business to advertise.
         pub async fn suggest_smart_campaign_ad(
             &mut self,
             request: impl tonic::IntoRequest<super::SuggestSmartCampaignAdRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::SuggestSmartCampaignAdResponse>,
             tonic::Status,
         > {
@@ -28614,13 +33033,21 @@ pub mod smart_campaign_suggest_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SmartCampaignSuggestService/SuggestSmartCampaignAd",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SmartCampaignSuggestService",
+                        "SuggestSmartCampaignAd",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Suggests keyword themes to advertise on.
         pub async fn suggest_keyword_themes(
             &mut self,
             request: impl tonic::IntoRequest<super::SuggestKeywordThemesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::SuggestKeywordThemesResponse>,
             tonic::Status,
         > {
@@ -28637,7 +33064,15 @@ pub mod smart_campaign_suggest_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.SmartCampaignSuggestService/SuggestKeywordThemes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.SmartCampaignSuggestService",
+                        "SuggestKeywordThemes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -28726,6 +33161,22 @@ pub mod third_party_app_analytics_link_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the third party app analytics link in full detail.
         ///
         /// List of thrown errors:
@@ -28738,7 +33189,7 @@ pub mod third_party_app_analytics_link_service_client {
         pub async fn get_third_party_app_analytics_link(
             &mut self,
             request: impl tonic::IntoRequest<super::GetThirdPartyAppAnalyticsLinkRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::ThirdPartyAppAnalyticsLink>,
             tonic::Status,
         > {
@@ -28755,7 +33206,15 @@ pub mod third_party_app_analytics_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ThirdPartyAppAnalyticsLinkService/GetThirdPartyAppAnalyticsLink",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ThirdPartyAppAnalyticsLinkService",
+                        "GetThirdPartyAppAnalyticsLink",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Regenerate ThirdPartyAppAnalyticsLink.shareable_link_id that should be
         /// provided to the third party when setting up app analytics.
@@ -28770,7 +33229,7 @@ pub mod third_party_app_analytics_link_service_client {
         pub async fn regenerate_shareable_link_id(
             &mut self,
             request: impl tonic::IntoRequest<super::RegenerateShareableLinkIdRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::RegenerateShareableLinkIdResponse>,
             tonic::Status,
         > {
@@ -28787,7 +33246,15 @@ pub mod third_party_app_analytics_link_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.ThirdPartyAppAnalyticsLinkService/RegenerateShareableLinkId",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.ThirdPartyAppAnalyticsLinkService",
+                        "RegenerateShareableLinkId",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -28858,6 +33325,22 @@ pub mod topic_constant_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested topic constant in full detail.
         ///
         /// List of thrown errors:
@@ -28870,7 +33353,7 @@ pub mod topic_constant_service_client {
         pub async fn get_topic_constant(
             &mut self,
             request: impl tonic::IntoRequest<super::GetTopicConstantRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::TopicConstant>,
             tonic::Status,
         > {
@@ -28887,7 +33370,15 @@ pub mod topic_constant_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.TopicConstantService/GetTopicConstant",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.TopicConstantService",
+                        "GetTopicConstant",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -28958,6 +33449,22 @@ pub mod topic_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested topic view in full detail.
         ///
         /// List of thrown errors:
@@ -28970,7 +33477,10 @@ pub mod topic_view_service_client {
         pub async fn get_topic_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetTopicViewRequest>,
-        ) -> Result<tonic::Response<super::super::resources::TopicView>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::TopicView>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -28984,7 +33494,15 @@ pub mod topic_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.TopicViewService/GetTopicView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.TopicViewService",
+                        "GetTopicView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -29108,6 +33626,22 @@ pub mod user_data_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Uploads the given user data.
         ///
         /// List of thrown errors:
@@ -29125,7 +33659,10 @@ pub mod user_data_service_client {
         pub async fn upload_user_data(
             &mut self,
             request: impl tonic::IntoRequest<super::UploadUserDataRequest>,
-        ) -> Result<tonic::Response<super::UploadUserDataResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::UploadUserDataResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -29139,7 +33676,15 @@ pub mod user_data_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.UserDataService/UploadUserData",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.UserDataService",
+                        "UploadUserData",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -29210,6 +33755,22 @@ pub mod user_interest_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested user interest in full detail
         ///
         /// List of thrown errors:
@@ -29222,7 +33783,7 @@ pub mod user_interest_service_client {
         pub async fn get_user_interest(
             &mut self,
             request: impl tonic::IntoRequest<super::GetUserInterestRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::UserInterest>,
             tonic::Status,
         > {
@@ -29239,7 +33800,15 @@ pub mod user_interest_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.UserInterestService/GetUserInterest",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.UserInterestService",
+                        "GetUserInterest",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -29312,6 +33881,22 @@ pub mod user_location_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested user location view in full detail.
         ///
         /// List of thrown errors:
@@ -29324,7 +33909,7 @@ pub mod user_location_view_service_client {
         pub async fn get_user_location_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetUserLocationViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::UserLocationView>,
             tonic::Status,
         > {
@@ -29341,7 +33926,15 @@ pub mod user_location_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.UserLocationViewService/GetUserLocationView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.UserLocationViewService",
+                        "GetUserLocationView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -29412,6 +34005,22 @@ pub mod video_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested video in full detail.
         ///
         /// List of thrown errors:
@@ -29424,7 +34033,10 @@ pub mod video_service_client {
         pub async fn get_video(
             &mut self,
             request: impl tonic::IntoRequest<super::GetVideoRequest>,
-        ) -> Result<tonic::Response<super::super::resources::Video>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::resources::Video>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -29438,7 +34050,15 @@ pub mod video_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.VideoService/GetVideo",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.VideoService",
+                        "GetVideo",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -29509,11 +34129,27 @@ pub mod webpage_view_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Returns the requested webpage view in full detail.
         pub async fn get_webpage_view(
             &mut self,
             request: impl tonic::IntoRequest<super::GetWebpageViewRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::resources::WebpageView>,
             tonic::Status,
         > {
@@ -29530,7 +34166,15 @@ pub mod webpage_view_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.ads.googleads.v9.services.WebpageViewService/GetWebpageView",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.ads.googleads.v9.services.WebpageViewService",
+                        "GetWebpageView",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

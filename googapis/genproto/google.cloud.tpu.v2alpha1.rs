@@ -859,11 +859,30 @@ pub mod tpu_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists nodes.
         pub async fn list_nodes(
             &mut self,
             request: impl tonic::IntoRequest<super::ListNodesRequest>,
-        ) -> Result<tonic::Response<super::ListNodesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListNodesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -877,13 +896,16 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/ListNodes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "ListNodes"));
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the details of a node.
         pub async fn get_node(
             &mut self,
             request: impl tonic::IntoRequest<super::GetNodeRequest>,
-        ) -> Result<tonic::Response<super::Node>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Node>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -897,13 +919,16 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/GetNode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "GetNode"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a node.
         pub async fn create_node(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateNodeRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -920,13 +945,16 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/CreateNode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "CreateNode"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a node.
         pub async fn delete_node(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteNodeRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -943,13 +971,16 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/DeleteNode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "DeleteNode"));
+            self.inner.unary(req, path, codec).await
         }
         /// Stops a node. This operation is only available with single TPU nodes.
         pub async fn stop_node(
             &mut self,
             request: impl tonic::IntoRequest<super::StopNodeRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -966,13 +997,16 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/StopNode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "StopNode"));
+            self.inner.unary(req, path, codec).await
         }
         /// Starts a node.
         pub async fn start_node(
             &mut self,
             request: impl tonic::IntoRequest<super::StartNodeRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -989,13 +1023,16 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/StartNode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "StartNode"));
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the configurations of a node.
         pub async fn update_node(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateNodeRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1012,13 +1049,16 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/UpdateNode",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "UpdateNode"));
+            self.inner.unary(req, path, codec).await
         }
         /// Generates the Cloud TPU service identity for the project.
         pub async fn generate_service_identity(
             &mut self,
             request: impl tonic::IntoRequest<super::GenerateServiceIdentityRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::GenerateServiceIdentityResponse>,
             tonic::Status,
         > {
@@ -1035,13 +1075,21 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/GenerateServiceIdentity",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.tpu.v2alpha1.Tpu",
+                        "GenerateServiceIdentity",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists accelerator types supported by this API.
         pub async fn list_accelerator_types(
             &mut self,
             request: impl tonic::IntoRequest<super::ListAcceleratorTypesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListAcceleratorTypesResponse>,
             tonic::Status,
         > {
@@ -1058,13 +1106,24 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/ListAcceleratorTypes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.tpu.v2alpha1.Tpu",
+                        "ListAcceleratorTypes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets AcceleratorType.
         pub async fn get_accelerator_type(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAcceleratorTypeRequest>,
-        ) -> Result<tonic::Response<super::AcceleratorType>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AcceleratorType>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1078,13 +1137,24 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/GetAcceleratorType",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.tpu.v2alpha1.Tpu",
+                        "GetAcceleratorType",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists runtime versions supported by this API.
         pub async fn list_runtime_versions(
             &mut self,
             request: impl tonic::IntoRequest<super::ListRuntimeVersionsRequest>,
-        ) -> Result<tonic::Response<super::ListRuntimeVersionsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListRuntimeVersionsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1098,13 +1168,21 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/ListRuntimeVersions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.tpu.v2alpha1.Tpu",
+                        "ListRuntimeVersions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a runtime version.
         pub async fn get_runtime_version(
             &mut self,
             request: impl tonic::IntoRequest<super::GetRuntimeVersionRequest>,
-        ) -> Result<tonic::Response<super::RuntimeVersion>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::RuntimeVersion>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1118,13 +1196,21 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/GetRuntimeVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.tpu.v2alpha1.Tpu", "GetRuntimeVersion"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves the guest attributes for the node.
         pub async fn get_guest_attributes(
             &mut self,
             request: impl tonic::IntoRequest<super::GetGuestAttributesRequest>,
-        ) -> Result<tonic::Response<super::GetGuestAttributesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::GetGuestAttributesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1138,7 +1224,15 @@ pub mod tpu_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.tpu.v2alpha1.Tpu/GetGuestAttributes",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.tpu.v2alpha1.Tpu",
+                        "GetGuestAttributes",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

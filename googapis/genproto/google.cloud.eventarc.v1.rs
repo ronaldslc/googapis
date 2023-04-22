@@ -348,11 +348,27 @@ pub mod eventarc_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Get a single trigger.
         pub async fn get_trigger(
             &mut self,
             request: impl tonic::IntoRequest<super::GetTriggerRequest>,
-        ) -> Result<tonic::Response<super::Trigger>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Trigger>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -366,13 +382,21 @@ pub mod eventarc_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.eventarc.v1.Eventarc/GetTrigger",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.eventarc.v1.Eventarc", "GetTrigger"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List triggers.
         pub async fn list_triggers(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTriggersRequest>,
-        ) -> Result<tonic::Response<super::ListTriggersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTriggersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -386,13 +410,18 @@ pub mod eventarc_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.eventarc.v1.Eventarc/ListTriggers",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.eventarc.v1.Eventarc", "ListTriggers"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Create a new trigger in a particular project and location.
         pub async fn create_trigger(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTriggerRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -409,13 +438,18 @@ pub mod eventarc_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.eventarc.v1.Eventarc/CreateTrigger",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.eventarc.v1.Eventarc", "CreateTrigger"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Update a single trigger.
         pub async fn update_trigger(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateTriggerRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -432,13 +466,18 @@ pub mod eventarc_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.eventarc.v1.Eventarc/UpdateTrigger",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.eventarc.v1.Eventarc", "UpdateTrigger"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Delete a single trigger.
         pub async fn delete_trigger(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteTriggerRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -455,7 +494,12 @@ pub mod eventarc_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.eventarc.v1.Eventarc/DeleteTrigger",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.eventarc.v1.Eventarc", "DeleteTrigger"),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

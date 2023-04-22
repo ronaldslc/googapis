@@ -3839,6 +3839,22 @@ pub mod prediction_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Perform an online prediction. The prediction result will be directly
         /// returned in the response.
         /// Available for following ML problems, and their expected request payloads:
@@ -3861,7 +3877,10 @@ pub mod prediction_service_client {
         pub async fn predict(
             &mut self,
             request: impl tonic::IntoRequest<super::PredictRequest>,
-        ) -> Result<tonic::Response<super::PredictResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::PredictResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -3875,7 +3894,15 @@ pub mod prediction_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.PredictionService/Predict",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.PredictionService",
+                        "Predict",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Perform a batch prediction. Unlike the online [Predict][google.cloud.automl.v1beta1.PredictionService.Predict], batch
         /// prediction result won't be immediately available in the response. Instead,
@@ -3892,7 +3919,7 @@ pub mod prediction_service_client {
         pub async fn batch_predict(
             &mut self,
             request: impl tonic::IntoRequest<super::BatchPredictRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -3909,7 +3936,15 @@ pub mod prediction_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.PredictionService/BatchPredict",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.PredictionService",
+                        "BatchPredict",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -4443,11 +4478,27 @@ pub mod auto_ml_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a dataset.
         pub async fn create_dataset(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateDatasetRequest>,
-        ) -> Result<tonic::Response<super::Dataset>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4461,13 +4512,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/CreateDataset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "CreateDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a dataset.
         pub async fn get_dataset(
             &mut self,
             request: impl tonic::IntoRequest<super::GetDatasetRequest>,
-        ) -> Result<tonic::Response<super::Dataset>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4481,13 +4540,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/GetDataset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "GetDataset"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists datasets in a project.
         pub async fn list_datasets(
             &mut self,
             request: impl tonic::IntoRequest<super::ListDatasetsRequest>,
-        ) -> Result<tonic::Response<super::ListDatasetsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatasetsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4501,13 +4568,18 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ListDatasets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "ListDatasets"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a dataset.
         pub async fn update_dataset(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateDatasetRequest>,
-        ) -> Result<tonic::Response<super::Dataset>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4521,7 +4593,15 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/UpdateDataset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "UpdateDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a dataset and all of its contents.
         /// Returns empty response in the
@@ -4531,7 +4611,7 @@ pub mod auto_ml_client {
         pub async fn delete_dataset(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteDatasetRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4548,7 +4628,15 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/DeleteDataset",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "DeleteDataset",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Imports data into a dataset.
         /// For Tables this method can only be called on an empty Dataset.
@@ -4562,7 +4650,7 @@ pub mod auto_ml_client {
         pub async fn import_data(
             &mut self,
             request: impl tonic::IntoRequest<super::ImportDataRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4579,7 +4667,12 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ImportData",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "ImportData"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Exports dataset's data to the provided output location.
         /// Returns an empty response in the
@@ -4587,7 +4680,7 @@ pub mod auto_ml_client {
         pub async fn export_data(
             &mut self,
             request: impl tonic::IntoRequest<super::ExportDataRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4604,13 +4697,18 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ExportData",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "ExportData"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets an annotation spec.
         pub async fn get_annotation_spec(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAnnotationSpecRequest>,
-        ) -> Result<tonic::Response<super::AnnotationSpec>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::AnnotationSpec>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4624,13 +4722,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/GetAnnotationSpec",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "GetAnnotationSpec",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a table spec.
         pub async fn get_table_spec(
             &mut self,
             request: impl tonic::IntoRequest<super::GetTableSpecRequest>,
-        ) -> Result<tonic::Response<super::TableSpec>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::TableSpec>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4644,13 +4750,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/GetTableSpec",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "GetTableSpec"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists table specs in a dataset.
         pub async fn list_table_specs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTableSpecsRequest>,
-        ) -> Result<tonic::Response<super::ListTableSpecsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTableSpecsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4664,13 +4778,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ListTableSpecs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "ListTableSpecs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a table spec.
         pub async fn update_table_spec(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateTableSpecRequest>,
-        ) -> Result<tonic::Response<super::TableSpec>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::TableSpec>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4684,13 +4806,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/UpdateTableSpec",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "UpdateTableSpec",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a column spec.
         pub async fn get_column_spec(
             &mut self,
             request: impl tonic::IntoRequest<super::GetColumnSpecRequest>,
-        ) -> Result<tonic::Response<super::ColumnSpec>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ColumnSpec>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4704,13 +4834,24 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/GetColumnSpec",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "GetColumnSpec",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists column specs in a table spec.
         pub async fn list_column_specs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListColumnSpecsRequest>,
-        ) -> Result<tonic::Response<super::ListColumnSpecsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListColumnSpecsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4724,13 +4865,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ListColumnSpecs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "ListColumnSpecs",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a column spec.
         pub async fn update_column_spec(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateColumnSpecRequest>,
-        ) -> Result<tonic::Response<super::ColumnSpec>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ColumnSpec>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4744,7 +4893,15 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/UpdateColumnSpec",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "UpdateColumnSpec",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a model.
         /// Returns a Model in the [response][google.longrunning.Operation.response]
@@ -4754,7 +4911,7 @@ pub mod auto_ml_client {
         pub async fn create_model(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateModelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4771,13 +4928,18 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/CreateModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "CreateModel"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a model.
         pub async fn get_model(
             &mut self,
             request: impl tonic::IntoRequest<super::GetModelRequest>,
-        ) -> Result<tonic::Response<super::Model>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Model>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4791,13 +4953,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/GetModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "GetModel"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists models.
         pub async fn list_models(
             &mut self,
             request: impl tonic::IntoRequest<super::ListModelsRequest>,
-        ) -> Result<tonic::Response<super::ListModelsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListModelsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4811,7 +4981,12 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ListModels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "ListModels"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a model.
         /// Returns `google.protobuf.Empty` in the
@@ -4821,7 +4996,7 @@ pub mod auto_ml_client {
         pub async fn delete_model(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteModelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4838,7 +5013,12 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/DeleteModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "DeleteModel"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deploys a model. If a model is already deployed, deploying it with the
         /// same parameters has no effect. Deploying with different parametrs
@@ -4855,7 +5035,7 @@ pub mod auto_ml_client {
         pub async fn deploy_model(
             &mut self,
             request: impl tonic::IntoRequest<super::DeployModelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4872,7 +5052,12 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/DeployModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "DeployModel"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Undeploys a model. If the model is not deployed this method has no effect.
         ///
@@ -4884,7 +5069,7 @@ pub mod auto_ml_client {
         pub async fn undeploy_model(
             &mut self,
             request: impl tonic::IntoRequest<super::UndeployModelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4901,7 +5086,15 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/UndeployModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "UndeployModel",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Exports a trained, "export-able", model to a user specified Google Cloud
         /// Storage location. A model is considered export-able if and only if it has
@@ -4914,7 +5107,7 @@ pub mod auto_ml_client {
         pub async fn export_model(
             &mut self,
             request: impl tonic::IntoRequest<super::ExportModelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4931,7 +5124,12 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ExportModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.automl.v1beta1.AutoMl", "ExportModel"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Exports examples on which the model was evaluated (i.e. which were in the
         /// TEST set of the dataset the model was created from), together with their
@@ -4950,7 +5148,7 @@ pub mod auto_ml_client {
         pub async fn export_evaluated_examples(
             &mut self,
             request: impl tonic::IntoRequest<super::ExportEvaluatedExamplesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4967,13 +5165,24 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ExportEvaluatedExamples",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "ExportEvaluatedExamples",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a model evaluation.
         pub async fn get_model_evaluation(
             &mut self,
             request: impl tonic::IntoRequest<super::GetModelEvaluationRequest>,
-        ) -> Result<tonic::Response<super::ModelEvaluation>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ModelEvaluation>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4987,13 +5196,21 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/GetModelEvaluation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "GetModelEvaluation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists model evaluations.
         pub async fn list_model_evaluations(
             &mut self,
             request: impl tonic::IntoRequest<super::ListModelEvaluationsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListModelEvaluationsResponse>,
             tonic::Status,
         > {
@@ -5010,7 +5227,15 @@ pub mod auto_ml_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.automl.v1beta1.AutoMl/ListModelEvaluations",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.automl.v1beta1.AutoMl",
+                        "ListModelEvaluations",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

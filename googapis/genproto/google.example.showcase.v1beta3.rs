@@ -154,12 +154,28 @@ pub mod compliance_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// This method echoes the ComplianceData request. This method exercises
         /// sending the entire request object in the REST body.
         pub async fn repeat_data_body(
             &mut self,
             request: impl tonic::IntoRequest<super::RepeatRequest>,
-        ) -> Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -173,7 +189,15 @@ pub mod compliance_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Compliance/RepeatDataBody",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Compliance",
+                        "RepeatDataBody",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// This method echoes the ComplianceData request. This method exercises
         /// sending the a message-type field in the REST body. Per AIP-127, only
@@ -181,7 +205,7 @@ pub mod compliance_client {
         pub async fn repeat_data_body_info(
             &mut self,
             request: impl tonic::IntoRequest<super::RepeatRequest>,
-        ) -> Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -195,14 +219,22 @@ pub mod compliance_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Compliance/RepeatDataBodyInfo",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Compliance",
+                        "RepeatDataBodyInfo",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// This method echoes the ComplianceData request. This method exercises
         /// sending all request fields as query parameters.
         pub async fn repeat_data_query(
             &mut self,
             request: impl tonic::IntoRequest<super::RepeatRequest>,
-        ) -> Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -216,7 +248,15 @@ pub mod compliance_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Compliance/RepeatDataQuery",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Compliance",
+                        "RepeatDataQuery",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// This method echoes the ComplianceData request. This method exercises
         /// sending some parameters as "simple" path variables (i.e., of the form
@@ -224,7 +264,7 @@ pub mod compliance_client {
         pub async fn repeat_data_simple_path(
             &mut self,
             request: impl tonic::IntoRequest<super::RepeatRequest>,
-        ) -> Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -238,13 +278,21 @@ pub mod compliance_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Compliance/RepeatDataSimplePath",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Compliance",
+                        "RepeatDataSimplePath",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Same as RepeatDataSimplePath, but with a path resource.
         pub async fn repeat_data_path_resource(
             &mut self,
             request: impl tonic::IntoRequest<super::RepeatRequest>,
-        ) -> Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -258,13 +306,21 @@ pub mod compliance_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Compliance/RepeatDataPathResource",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Compliance",
+                        "RepeatDataPathResource",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Same as RepeatDataSimplePath, but with a trailing resource.
         pub async fn repeat_data_path_trailing_resource(
             &mut self,
             request: impl tonic::IntoRequest<super::RepeatRequest>,
-        ) -> Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::RepeatResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -278,7 +334,15 @@ pub mod compliance_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Compliance/RepeatDataPathTrailingResource",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Compliance",
+                        "RepeatDataPathTrailingResource",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -537,11 +601,27 @@ pub mod echo_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// This method simply echoes the request. This method showcases unary RPCs.
         pub async fn echo(
             &mut self,
             request: impl tonic::IntoRequest<super::EchoRequest>,
-        ) -> Result<tonic::Response<super::EchoResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::EchoResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -555,14 +635,17 @@ pub mod echo_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Echo/Echo",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.example.showcase.v1beta3.Echo", "Echo"));
+            self.inner.unary(req, path, codec).await
         }
         /// This method splits the given content into words and will pass each word
         /// back through the stream. This method showcases server-side streaming RPCs.
         pub async fn expand(
             &mut self,
             request: impl tonic::IntoRequest<super::ExpandRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::EchoResponse>>,
             tonic::Status,
         > {
@@ -579,7 +662,12 @@ pub mod echo_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Echo/Expand",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.example.showcase.v1beta3.Echo", "Expand"),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// This method will collect the words given to it. When the stream is closed
         /// by the client, this method will return the a concatenation of the strings
@@ -587,7 +675,7 @@ pub mod echo_client {
         pub async fn collect(
             &mut self,
             request: impl tonic::IntoStreamingRequest<Message = super::EchoRequest>,
-        ) -> Result<tonic::Response<super::EchoResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::EchoResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -601,9 +689,12 @@ pub mod echo_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Echo/Collect",
             );
-            self.inner
-                .client_streaming(request.into_streaming_request(), path, codec)
-                .await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.example.showcase.v1beta3.Echo", "Collect"),
+                );
+            self.inner.client_streaming(req, path, codec).await
         }
         /// This method, upon receiving a request on the stream, will pass the same
         /// content back on the stream. This method showcases bidirectional
@@ -611,7 +702,7 @@ pub mod echo_client {
         pub async fn chat(
             &mut self,
             request: impl tonic::IntoStreamingRequest<Message = super::EchoRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::EchoResponse>>,
             tonic::Status,
         > {
@@ -628,14 +719,20 @@ pub mod echo_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Echo/Chat",
             );
-            self.inner.streaming(request.into_streaming_request(), path, codec).await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.example.showcase.v1beta3.Echo", "Chat"));
+            self.inner.streaming(req, path, codec).await
         }
         /// This is similar to the Expand method but instead of returning a stream of
         /// expanded words, this method returns a paged list of expanded words.
         pub async fn paged_expand(
             &mut self,
             request: impl tonic::IntoRequest<super::PagedExpandRequest>,
-        ) -> Result<tonic::Response<super::PagedExpandResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::PagedExpandResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -649,14 +746,22 @@ pub mod echo_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Echo/PagedExpand",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Echo",
+                        "PagedExpand",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// This method will wait for the requested amount of time and then return.
         /// This method showcases how a client handles a request timeout.
         pub async fn wait(
             &mut self,
             request: impl tonic::IntoRequest<super::WaitRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -673,7 +778,10 @@ pub mod echo_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Echo/Wait",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.example.showcase.v1beta3.Echo", "Wait"));
+            self.inner.unary(req, path, codec).await
         }
         /// This method will block (wait) for the requested amount of time
         /// and then return the response or error.
@@ -681,7 +789,7 @@ pub mod echo_client {
         pub async fn block(
             &mut self,
             request: impl tonic::IntoRequest<super::BlockRequest>,
-        ) -> Result<tonic::Response<super::BlockResponse>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::BlockResponse>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -695,7 +803,12 @@ pub mod echo_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Echo/Block",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.example.showcase.v1beta3.Echo", "Block"),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -833,11 +946,27 @@ pub mod sequence_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a sequence.
         pub async fn create_sequence(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateSequenceRequest>,
-        ) -> Result<tonic::Response<super::Sequence>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Sequence>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -851,13 +980,21 @@ pub mod sequence_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.SequenceService/CreateSequence",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.SequenceService",
+                        "CreateSequence",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves a sequence.
         pub async fn get_sequence_report(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSequenceReportRequest>,
-        ) -> Result<tonic::Response<super::SequenceReport>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::SequenceReport>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -871,13 +1008,21 @@ pub mod sequence_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.SequenceService/GetSequenceReport",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.SequenceService",
+                        "GetSequenceReport",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Attempts a sequence.
         pub async fn attempt_sequence(
             &mut self,
             request: impl tonic::IntoRequest<super::AttemptSequenceRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -891,7 +1036,15 @@ pub mod sequence_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.SequenceService/AttemptSequence",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.SequenceService",
+                        "AttemptSequence",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1426,11 +1579,27 @@ pub mod testing_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a new testing session.
         pub async fn create_session(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateSessionRequest>,
-        ) -> Result<tonic::Response<super::Session>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Session>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1444,13 +1613,21 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/CreateSession",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "CreateSession",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a testing session.
         pub async fn get_session(
             &mut self,
             request: impl tonic::IntoRequest<super::GetSessionRequest>,
-        ) -> Result<tonic::Response<super::Session>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Session>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1464,13 +1641,24 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/GetSession",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "GetSession",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the current test sessions.
         pub async fn list_sessions(
             &mut self,
             request: impl tonic::IntoRequest<super::ListSessionsRequest>,
-        ) -> Result<tonic::Response<super::ListSessionsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListSessionsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1484,13 +1672,21 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/ListSessions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "ListSessions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Delete a test session.
         pub async fn delete_session(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteSessionRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1504,7 +1700,15 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/DeleteSession",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "DeleteSession",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Report on the status of a session.
         /// This generates a report detailing which tests have been completed,
@@ -1512,7 +1716,10 @@ pub mod testing_client {
         pub async fn report_session(
             &mut self,
             request: impl tonic::IntoRequest<super::ReportSessionRequest>,
-        ) -> Result<tonic::Response<super::ReportSessionResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ReportSessionResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1526,13 +1733,24 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/ReportSession",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "ReportSession",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// List the tests of a sessesion.
         pub async fn list_tests(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTestsRequest>,
-        ) -> Result<tonic::Response<super::ListTestsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTestsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1546,7 +1764,15 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/ListTests",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "ListTests",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Explicitly decline to implement a test.
         ///
@@ -1557,7 +1783,7 @@ pub mod testing_client {
         pub async fn delete_test(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteTestRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1571,7 +1797,15 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/DeleteTest",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "DeleteTest",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Register a response to a test.
         ///
@@ -1580,7 +1814,10 @@ pub mod testing_client {
         pub async fn verify_test(
             &mut self,
             request: impl tonic::IntoRequest<super::VerifyTestRequest>,
-        ) -> Result<tonic::Response<super::VerifyTestResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::VerifyTestResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1594,7 +1831,15 @@ pub mod testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.example.showcase.v1beta3.Testing/VerifyTest",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.example.showcase.v1beta3.Testing",
+                        "VerifyTest",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

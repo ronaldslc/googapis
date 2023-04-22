@@ -870,11 +870,27 @@ pub mod job_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a training or a batch prediction job.
         pub async fn create_job(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateJobRequest>,
-        ) -> Result<tonic::Response<super::Job>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -888,13 +904,19 @@ pub mod job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.JobService/CreateJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.ml.v1.JobService", "CreateJob"));
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the jobs in the project.
         pub async fn list_jobs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListJobsRequest>,
-        ) -> Result<tonic::Response<super::ListJobsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListJobsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -908,13 +930,16 @@ pub mod job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.JobService/ListJobs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.ml.v1.JobService", "ListJobs"));
+            self.inner.unary(req, path, codec).await
         }
         /// Describes a job.
         pub async fn get_job(
             &mut self,
             request: impl tonic::IntoRequest<super::GetJobRequest>,
-        ) -> Result<tonic::Response<super::Job>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -928,13 +953,16 @@ pub mod job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.JobService/GetJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.ml.v1.JobService", "GetJob"));
+            self.inner.unary(req, path, codec).await
         }
         /// Cancels a running job.
         pub async fn cancel_job(
             &mut self,
             request: impl tonic::IntoRequest<super::CancelJobRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -948,7 +976,10 @@ pub mod job_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.JobService/CancelJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.ml.v1.JobService", "CancelJob"));
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1285,6 +1316,22 @@ pub mod model_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a model which will later contain one or more versions.
         ///
         /// You must add at least one version before you can request predictions from
@@ -1293,7 +1340,7 @@ pub mod model_service_client {
         pub async fn create_model(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateModelRequest>,
-        ) -> Result<tonic::Response<super::Model>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Model>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1307,7 +1354,12 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/CreateModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.ml.v1.ModelService", "CreateModel"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the models in a project.
         ///
@@ -1316,7 +1368,10 @@ pub mod model_service_client {
         pub async fn list_models(
             &mut self,
             request: impl tonic::IntoRequest<super::ListModelsRequest>,
-        ) -> Result<tonic::Response<super::ListModelsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListModelsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1330,7 +1385,12 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/ListModels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.ml.v1.ModelService", "ListModels"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets information about a model, including its name, the description (if
         /// set), and the default version (if at least one version of the model has
@@ -1338,7 +1398,7 @@ pub mod model_service_client {
         pub async fn get_model(
             &mut self,
             request: impl tonic::IntoRequest<super::GetModelRequest>,
-        ) -> Result<tonic::Response<super::Model>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Model>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1352,7 +1412,10 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/GetModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.cloud.ml.v1.ModelService", "GetModel"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a model.
         ///
@@ -1362,7 +1425,7 @@ pub mod model_service_client {
         pub async fn delete_model(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteModelRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1379,7 +1442,12 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/DeleteModel",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.ml.v1.ModelService", "DeleteModel"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new version of a model from a trained TensorFlow model.
         ///
@@ -1392,7 +1460,7 @@ pub mod model_service_client {
         pub async fn create_version(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateVersionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1409,7 +1477,12 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/CreateVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.ml.v1.ModelService", "CreateVersion"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets basic information about all the versions of a model.
         ///
@@ -1419,7 +1492,10 @@ pub mod model_service_client {
         pub async fn list_versions(
             &mut self,
             request: impl tonic::IntoRequest<super::ListVersionsRequest>,
-        ) -> Result<tonic::Response<super::ListVersionsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListVersionsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1433,7 +1509,12 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/ListVersions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.ml.v1.ModelService", "ListVersions"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets information about a model version.
         ///
@@ -1444,7 +1525,7 @@ pub mod model_service_client {
         pub async fn get_version(
             &mut self,
             request: impl tonic::IntoRequest<super::GetVersionRequest>,
-        ) -> Result<tonic::Response<super::Version>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Version>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1458,7 +1539,12 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/GetVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.ml.v1.ModelService", "GetVersion"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a model version.
         ///
@@ -1470,7 +1556,7 @@ pub mod model_service_client {
         pub async fn delete_version(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteVersionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1487,7 +1573,12 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/DeleteVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.ml.v1.ModelService", "DeleteVersion"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Designates a version to be the default for the model.
         ///
@@ -1500,7 +1591,7 @@ pub mod model_service_client {
         pub async fn set_default_version(
             &mut self,
             request: impl tonic::IntoRequest<super::SetDefaultVersionRequest>,
-        ) -> Result<tonic::Response<super::Version>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Version>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1514,7 +1605,15 @@ pub mod model_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ModelService/SetDefaultVersion",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.ml.v1.ModelService",
+                        "SetDefaultVersion",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1855,13 +1954,29 @@ pub mod online_prediction_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Performs prediction on the data in the request.
         ///
         /// **** REMOVE FROM GENERATED DOCUMENTATION
         pub async fn predict(
             &mut self,
             request: impl tonic::IntoRequest<super::PredictRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::api::HttpBody>,
             tonic::Status,
         > {
@@ -1878,7 +1993,15 @@ pub mod online_prediction_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.OnlinePredictionService/Predict",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.ml.v1.OnlinePredictionService",
+                        "Predict",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1964,6 +2087,22 @@ pub mod project_management_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Get the service account information associated with your project. You need
         /// this information in order to grant the service account persmissions for
         /// the Google Cloud Storage location where you put your model training code
@@ -1971,7 +2110,10 @@ pub mod project_management_service_client {
         pub async fn get_config(
             &mut self,
             request: impl tonic::IntoRequest<super::GetConfigRequest>,
-        ) -> Result<tonic::Response<super::GetConfigResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::GetConfigResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1985,7 +2127,15 @@ pub mod project_management_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.ml.v1.ProjectManagementService/GetConfig",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.ml.v1.ProjectManagementService",
+                        "GetConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

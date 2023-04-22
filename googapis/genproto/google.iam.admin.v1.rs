@@ -1531,11 +1531,30 @@ pub mod iam_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists every [ServiceAccount][google.iam.admin.v1.ServiceAccount] that belongs to a specific project.
         pub async fn list_service_accounts(
             &mut self,
             request: impl tonic::IntoRequest<super::ListServiceAccountsRequest>,
-        ) -> Result<tonic::Response<super::ListServiceAccountsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListServiceAccountsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1549,13 +1568,18 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/ListServiceAccounts",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "ListServiceAccounts"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
         pub async fn get_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::GetServiceAccountRequest>,
-        ) -> Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1569,13 +1593,16 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/GetServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "GetServiceAccount"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
         pub async fn create_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateServiceAccountRequest>,
-        ) -> Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1589,7 +1616,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/CreateServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "CreateServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// **Note:** We are in the process of deprecating this method. Use
         /// [PatchServiceAccount][google.iam.admin.v1.IAM.PatchServiceAccount] instead.
@@ -1600,7 +1632,7 @@ pub mod iam_client {
         pub async fn update_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::ServiceAccount>,
-        ) -> Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1614,13 +1646,18 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/UpdateServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "UpdateServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Patches a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
         pub async fn patch_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::PatchServiceAccountRequest>,
-        ) -> Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::ServiceAccount>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1634,7 +1671,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/PatchServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "PatchServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
         ///
@@ -1654,7 +1696,7 @@ pub mod iam_client {
         pub async fn delete_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteServiceAccountRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1668,7 +1710,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/DeleteServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "DeleteServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Restores a deleted [ServiceAccount][google.iam.admin.v1.ServiceAccount].
         ///
@@ -1681,7 +1728,7 @@ pub mod iam_client {
         pub async fn undelete_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::UndeleteServiceAccountRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::UndeleteServiceAccountResponse>,
             tonic::Status,
         > {
@@ -1698,7 +1745,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/UndeleteServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "UndeleteServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Enables a [ServiceAccount][google.iam.admin.v1.ServiceAccount] that was disabled by
         /// [DisableServiceAccount][google.iam.admin.v1.IAM.DisableServiceAccount].
@@ -1711,7 +1763,7 @@ pub mod iam_client {
         pub async fn enable_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::EnableServiceAccountRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1725,7 +1777,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/EnableServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "EnableServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Disables a [ServiceAccount][google.iam.admin.v1.ServiceAccount] immediately.
         ///
@@ -1746,7 +1803,7 @@ pub mod iam_client {
         pub async fn disable_service_account(
             &mut self,
             request: impl tonic::IntoRequest<super::DisableServiceAccountRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1760,13 +1817,18 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/DisableServiceAccount",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "DisableServiceAccount"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists every [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey] for a service account.
         pub async fn list_service_account_keys(
             &mut self,
             request: impl tonic::IntoRequest<super::ListServiceAccountKeysRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListServiceAccountKeysResponse>,
             tonic::Status,
         > {
@@ -1783,13 +1845,21 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/ListServiceAccountKeys",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "ListServiceAccountKeys"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
         pub async fn get_service_account_key(
             &mut self,
             request: impl tonic::IntoRequest<super::GetServiceAccountKeyRequest>,
-        ) -> Result<tonic::Response<super::ServiceAccountKey>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ServiceAccountKey>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1803,13 +1873,21 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/GetServiceAccountKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "GetServiceAccountKey"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey].
         pub async fn create_service_account_key(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateServiceAccountKeyRequest>,
-        ) -> Result<tonic::Response<super::ServiceAccountKey>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ServiceAccountKey>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1823,13 +1901,21 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/CreateServiceAccountKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "CreateServiceAccountKey"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey], using a public key that you provide.
         pub async fn upload_service_account_key(
             &mut self,
             request: impl tonic::IntoRequest<super::UploadServiceAccountKeyRequest>,
-        ) -> Result<tonic::Response<super::ServiceAccountKey>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ServiceAccountKey>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1843,7 +1929,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/UploadServiceAccountKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "UploadServiceAccountKey"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a [ServiceAccountKey][google.iam.admin.v1.ServiceAccountKey]. Deleting a service account key does not
         /// revoke short-lived credentials that have been issued based on the service
@@ -1851,7 +1942,7 @@ pub mod iam_client {
         pub async fn delete_service_account_key(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteServiceAccountKeyRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1865,7 +1956,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/DeleteServiceAccountKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "DeleteServiceAccountKey"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// **Note:** This method is deprecated. Use the
         /// [`signBlob`](https://cloud.google.com/iam/help/rest-credentials/v1/projects.serviceAccounts/signBlob)
@@ -1878,7 +1974,10 @@ pub mod iam_client {
         pub async fn sign_blob(
             &mut self,
             request: impl tonic::IntoRequest<super::SignBlobRequest>,
-        ) -> Result<tonic::Response<super::SignBlobResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SignBlobResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1892,7 +1991,10 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/SignBlob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "SignBlob"));
+            self.inner.unary(req, path, codec).await
         }
         /// **Note:** This method is deprecated. Use the
         /// [`signJwt`](https://cloud.google.com/iam/help/rest-credentials/v1/projects.serviceAccounts/signJwt)
@@ -1906,7 +2008,10 @@ pub mod iam_client {
         pub async fn sign_jwt(
             &mut self,
             request: impl tonic::IntoRequest<super::SignJwtRequest>,
-        ) -> Result<tonic::Response<super::SignJwtResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SignJwtResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1920,7 +2025,10 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/SignJwt",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "SignJwt"));
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the IAM policy that is attached to a [ServiceAccount][google.iam.admin.v1.ServiceAccount]. This IAM
         /// policy specifies which members have access to the service account.
@@ -1937,7 +2045,10 @@ pub mod iam_client {
             request: impl tonic::IntoRequest<
                 super::super::super::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<tonic::Response<super::super::super::v1::Policy>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::v1::Policy>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1951,7 +2062,10 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "GetIamPolicy"));
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the IAM policy that is attached to a [ServiceAccount][google.iam.admin.v1.ServiceAccount].
         ///
@@ -1975,7 +2089,10 @@ pub mod iam_client {
             request: impl tonic::IntoRequest<
                 super::super::super::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<tonic::Response<super::super::super::v1::Policy>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::v1::Policy>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1989,7 +2106,10 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "SetIamPolicy"));
+            self.inner.unary(req, path, codec).await
         }
         /// Tests whether the caller has the specified permissions on a
         /// [ServiceAccount][google.iam.admin.v1.ServiceAccount].
@@ -1998,7 +2118,7 @@ pub mod iam_client {
             request: impl tonic::IntoRequest<
                 super::super::super::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::v1::TestIamPermissionsResponse>,
             tonic::Status,
         > {
@@ -2015,7 +2135,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "TestIamPermissions"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists roles that can be granted on a Google Cloud resource. A role is
         /// grantable if the IAM policy for the resource can contain bindings to the
@@ -2023,7 +2148,10 @@ pub mod iam_client {
         pub async fn query_grantable_roles(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryGrantableRolesRequest>,
-        ) -> Result<tonic::Response<super::QueryGrantableRolesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::QueryGrantableRolesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2037,14 +2165,22 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/QueryGrantableRoles",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "QueryGrantableRoles"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists every predefined [Role][google.iam.admin.v1.Role] that IAM supports, or every custom role
         /// that is defined for an organization or project.
         pub async fn list_roles(
             &mut self,
             request: impl tonic::IntoRequest<super::ListRolesRequest>,
-        ) -> Result<tonic::Response<super::ListRolesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListRolesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2058,13 +2194,16 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/ListRoles",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "ListRoles"));
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the definition of a [Role][google.iam.admin.v1.Role].
         pub async fn get_role(
             &mut self,
             request: impl tonic::IntoRequest<super::GetRoleRequest>,
-        ) -> Result<tonic::Response<super::Role>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Role>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2078,13 +2217,16 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/GetRole",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "GetRole"));
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new custom [Role][google.iam.admin.v1.Role].
         pub async fn create_role(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateRoleRequest>,
-        ) -> Result<tonic::Response<super::Role>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Role>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2098,13 +2240,16 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/CreateRole",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "CreateRole"));
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the definition of a custom [Role][google.iam.admin.v1.Role].
         pub async fn update_role(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateRoleRequest>,
-        ) -> Result<tonic::Response<super::Role>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Role>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2118,7 +2263,10 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/UpdateRole",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "UpdateRole"));
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a custom [Role][google.iam.admin.v1.Role].
         ///
@@ -2140,7 +2288,7 @@ pub mod iam_client {
         pub async fn delete_role(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteRoleRequest>,
-        ) -> Result<tonic::Response<super::Role>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Role>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2154,13 +2302,16 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/DeleteRole",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "DeleteRole"));
+            self.inner.unary(req, path, codec).await
         }
         /// Undeletes a custom [Role][google.iam.admin.v1.Role].
         pub async fn undelete_role(
             &mut self,
             request: impl tonic::IntoRequest<super::UndeleteRoleRequest>,
-        ) -> Result<tonic::Response<super::Role>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Role>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2174,7 +2325,10 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/UndeleteRole",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "UndeleteRole"));
+            self.inner.unary(req, path, codec).await
         }
         /// Lists every permission that you can test on a resource. A permission is
         /// testable if you can check whether a member has that permission on the
@@ -2182,7 +2336,7 @@ pub mod iam_client {
         pub async fn query_testable_permissions(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryTestablePermissionsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::QueryTestablePermissionsResponse>,
             tonic::Status,
         > {
@@ -2199,7 +2353,15 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/QueryTestablePermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.iam.admin.v1.IAM",
+                        "QueryTestablePermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns a list of services that allow you to opt into audit logs that are
         /// not generated by default.
@@ -2209,7 +2371,7 @@ pub mod iam_client {
         pub async fn query_auditable_services(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryAuditableServicesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::QueryAuditableServicesResponse>,
             tonic::Status,
         > {
@@ -2226,7 +2388,12 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/QueryAuditableServices",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.iam.admin.v1.IAM", "QueryAuditableServices"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lints, or validates, an IAM policy. Currently checks the
         /// [google.iam.v1.Binding.condition][google.iam.v1.Binding.condition] field, which contains a condition
@@ -2237,7 +2404,10 @@ pub mod iam_client {
         pub async fn lint_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::LintPolicyRequest>,
-        ) -> Result<tonic::Response<super::LintPolicyResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::LintPolicyResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2251,7 +2421,10 @@ pub mod iam_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.iam.admin.v1.IAM/LintPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(GrpcMethod::new("google.iam.admin.v1.IAM", "LintPolicy"));
+            self.inner.unary(req, path, codec).await
         }
     }
 }

@@ -347,6 +347,22 @@ pub mod identity_aware_proxy_admin_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Sets the access control policy for an Identity-Aware Proxy protected
         /// resource. Replaces any existing policy.
         /// More information about managing access via IAP can be found at:
@@ -356,7 +372,7 @@ pub mod identity_aware_proxy_admin_service_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -373,7 +389,15 @@ pub mod identity_aware_proxy_admin_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyAdminService/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyAdminService",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for an Identity-Aware Proxy protected
         /// resource.
@@ -384,7 +408,7 @@ pub mod identity_aware_proxy_admin_service_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -401,7 +425,15 @@ pub mod identity_aware_proxy_admin_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyAdminService/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyAdminService",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that a caller has on the Identity-Aware Proxy protected
         /// resource.
@@ -412,7 +444,7 @@ pub mod identity_aware_proxy_admin_service_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -431,13 +463,21 @@ pub mod identity_aware_proxy_admin_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyAdminService/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyAdminService",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the IAP settings on a particular IAP protected resource.
         pub async fn get_iap_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::GetIapSettingsRequest>,
-        ) -> Result<tonic::Response<super::IapSettings>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::IapSettings>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -451,14 +491,22 @@ pub mod identity_aware_proxy_admin_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyAdminService/GetIapSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyAdminService",
+                        "GetIapSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the IAP settings on a particular IAP protected resource. It
         /// replaces all fields unless the `update_mask` is set.
         pub async fn update_iap_settings(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateIapSettingsRequest>,
-        ) -> Result<tonic::Response<super::IapSettings>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::IapSettings>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -472,7 +520,15 @@ pub mod identity_aware_proxy_admin_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyAdminService/UpdateIapSettings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyAdminService",
+                        "UpdateIapSettings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -539,11 +595,30 @@ pub mod identity_aware_proxy_o_auth_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the existing brands for the project.
         pub async fn list_brands(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBrandsRequest>,
-        ) -> Result<tonic::Response<super::ListBrandsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListBrandsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -557,7 +632,15 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/ListBrands",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "ListBrands",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Constructs a new OAuth brand for the project if one does not exist.
         /// The created brand is "internal only", meaning that OAuth clients created
@@ -569,7 +652,7 @@ pub mod identity_aware_proxy_o_auth_service_client {
         pub async fn create_brand(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateBrandRequest>,
-        ) -> Result<tonic::Response<super::Brand>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Brand>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -583,13 +666,21 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/CreateBrand",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "CreateBrand",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves the OAuth brand of the project.
         pub async fn get_brand(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBrandRequest>,
-        ) -> Result<tonic::Response<super::Brand>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Brand>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -603,7 +694,15 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/GetBrand",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "GetBrand",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates an Identity Aware Proxy (IAP) OAuth client. The client is owned
         /// by IAP. Requires that the brand for the project exists and that it is
@@ -613,7 +712,10 @@ pub mod identity_aware_proxy_o_auth_service_client {
             request: impl tonic::IntoRequest<
                 super::CreateIdentityAwareProxyClientRequest,
             >,
-        ) -> Result<tonic::Response<super::IdentityAwareProxyClient>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::IdentityAwareProxyClient>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -627,13 +729,21 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/CreateIdentityAwareProxyClient",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "CreateIdentityAwareProxyClient",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the existing clients for the brand.
         pub async fn list_identity_aware_proxy_clients(
             &mut self,
             request: impl tonic::IntoRequest<super::ListIdentityAwareProxyClientsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListIdentityAwareProxyClientsResponse>,
             tonic::Status,
         > {
@@ -650,14 +760,25 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/ListIdentityAwareProxyClients",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "ListIdentityAwareProxyClients",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves an Identity Aware Proxy (IAP) OAuth client.
         /// Requires that the client is owned by IAP.
         pub async fn get_identity_aware_proxy_client(
             &mut self,
             request: impl tonic::IntoRequest<super::GetIdentityAwareProxyClientRequest>,
-        ) -> Result<tonic::Response<super::IdentityAwareProxyClient>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::IdentityAwareProxyClient>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -671,7 +792,15 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/GetIdentityAwareProxyClient",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "GetIdentityAwareProxyClient",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Resets an Identity Aware Proxy (IAP) OAuth client secret. Useful if the
         /// secret was compromised. Requires that the client is owned by IAP.
@@ -680,7 +809,10 @@ pub mod identity_aware_proxy_o_auth_service_client {
             request: impl tonic::IntoRequest<
                 super::ResetIdentityAwareProxyClientSecretRequest,
             >,
-        ) -> Result<tonic::Response<super::IdentityAwareProxyClient>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::IdentityAwareProxyClient>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -694,7 +826,15 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/ResetIdentityAwareProxyClientSecret",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "ResetIdentityAwareProxyClientSecret",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an Identity Aware Proxy (IAP) OAuth client. Useful for removing
         /// obsolete clients, managing the number of clients in a given project, and
@@ -704,7 +844,7 @@ pub mod identity_aware_proxy_o_auth_service_client {
             request: impl tonic::IntoRequest<
                 super::DeleteIdentityAwareProxyClientRequest,
             >,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -718,7 +858,15 @@ pub mod identity_aware_proxy_o_auth_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/DeleteIdentityAwareProxyClient",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.iap.v1.IdentityAwareProxyOAuthService",
+                        "DeleteIdentityAwareProxyClient",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

@@ -2365,11 +2365,27 @@ pub mod agent_endpoint_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Stream established by client to receive Task notifications.
         pub async fn receive_task_notification(
             &mut self,
             request: impl tonic::IntoRequest<super::ReceiveTaskNotificationRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 tonic::codec::Streaming<super::ReceiveTaskNotificationResponse>,
             >,
@@ -2388,13 +2404,24 @@ pub mod agent_endpoint_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.osconfig.agentendpoint.v1.AgentEndpointService/ReceiveTaskNotification",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.osconfig.agentendpoint.v1.AgentEndpointService",
+                        "ReceiveTaskNotification",
+                    ),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Signals the start of a task execution and returns the task info.
         pub async fn start_next_task(
             &mut self,
             request: impl tonic::IntoRequest<super::StartNextTaskRequest>,
-        ) -> Result<tonic::Response<super::StartNextTaskResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::StartNextTaskResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2408,13 +2435,24 @@ pub mod agent_endpoint_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.osconfig.agentendpoint.v1.AgentEndpointService/StartNextTask",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.osconfig.agentendpoint.v1.AgentEndpointService",
+                        "StartNextTask",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Signals an intermediary progress checkpoint in task execution.
         pub async fn report_task_progress(
             &mut self,
             request: impl tonic::IntoRequest<super::ReportTaskProgressRequest>,
-        ) -> Result<tonic::Response<super::ReportTaskProgressResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ReportTaskProgressResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2428,14 +2466,25 @@ pub mod agent_endpoint_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.osconfig.agentendpoint.v1.AgentEndpointService/ReportTaskProgress",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.osconfig.agentendpoint.v1.AgentEndpointService",
+                        "ReportTaskProgress",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Signals that the task execution is complete and optionally returns the next
         /// task.
         pub async fn report_task_complete(
             &mut self,
             request: impl tonic::IntoRequest<super::ReportTaskCompleteRequest>,
-        ) -> Result<tonic::Response<super::ReportTaskCompleteResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ReportTaskCompleteResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2449,13 +2498,24 @@ pub mod agent_endpoint_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.osconfig.agentendpoint.v1.AgentEndpointService/ReportTaskComplete",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.osconfig.agentendpoint.v1.AgentEndpointService",
+                        "ReportTaskComplete",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Registers the agent running on the VM.
         pub async fn register_agent(
             &mut self,
             request: impl tonic::IntoRequest<super::RegisterAgentRequest>,
-        ) -> Result<tonic::Response<super::RegisterAgentResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::RegisterAgentResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2469,13 +2529,24 @@ pub mod agent_endpoint_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.osconfig.agentendpoint.v1.AgentEndpointService/RegisterAgent",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.osconfig.agentendpoint.v1.AgentEndpointService",
+                        "RegisterAgent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Reports the VMs current inventory.
         pub async fn report_inventory(
             &mut self,
             request: impl tonic::IntoRequest<super::ReportInventoryRequest>,
-        ) -> Result<tonic::Response<super::ReportInventoryResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ReportInventoryResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2489,7 +2560,15 @@ pub mod agent_endpoint_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.osconfig.agentendpoint.v1.AgentEndpointService/ReportInventory",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.osconfig.agentendpoint.v1.AgentEndpointService",
+                        "ReportInventory",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

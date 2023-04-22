@@ -328,11 +328,30 @@ pub mod autoscaling_policy_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates new autoscaling policy.
         pub async fn create_autoscaling_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateAutoscalingPolicyRequest>,
-        ) -> Result<tonic::Response<super::AutoscalingPolicy>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AutoscalingPolicy>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -346,7 +365,15 @@ pub mod autoscaling_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.AutoscalingPolicyService/CreateAutoscalingPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService",
+                        "CreateAutoscalingPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates (replaces) autoscaling policy.
         ///
@@ -355,7 +382,10 @@ pub mod autoscaling_policy_service_client {
         pub async fn update_autoscaling_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateAutoscalingPolicyRequest>,
-        ) -> Result<tonic::Response<super::AutoscalingPolicy>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AutoscalingPolicy>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -369,13 +399,24 @@ pub mod autoscaling_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.AutoscalingPolicyService/UpdateAutoscalingPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService",
+                        "UpdateAutoscalingPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves autoscaling policy.
         pub async fn get_autoscaling_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::GetAutoscalingPolicyRequest>,
-        ) -> Result<tonic::Response<super::AutoscalingPolicy>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::AutoscalingPolicy>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -389,13 +430,21 @@ pub mod autoscaling_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.AutoscalingPolicyService/GetAutoscalingPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService",
+                        "GetAutoscalingPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists autoscaling policies in the project.
         pub async fn list_autoscaling_policies(
             &mut self,
             request: impl tonic::IntoRequest<super::ListAutoscalingPoliciesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListAutoscalingPoliciesResponse>,
             tonic::Status,
         > {
@@ -412,14 +461,22 @@ pub mod autoscaling_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.AutoscalingPolicyService/ListAutoscalingPolicies",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService",
+                        "ListAutoscalingPolicies",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes an autoscaling policy. It is an error to delete an autoscaling
         /// policy that is in use by one or more clusters.
         pub async fn delete_autoscaling_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteAutoscalingPolicyRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -433,7 +490,15 @@ pub mod autoscaling_policy_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.AutoscalingPolicyService/DeleteAutoscalingPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService",
+                        "DeleteAutoscalingPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1059,11 +1124,27 @@ pub mod batch_controller_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a batch workload that executes asynchronously.
         pub async fn create_batch(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateBatchRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1080,13 +1161,21 @@ pub mod batch_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.BatchController/CreateBatch",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.BatchController",
+                        "CreateBatch",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the batch workload resource representation.
         pub async fn get_batch(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBatchRequest>,
-        ) -> Result<tonic::Response<super::Batch>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Batch>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1100,13 +1189,24 @@ pub mod batch_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.BatchController/GetBatch",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.BatchController",
+                        "GetBatch",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists batch workloads.
         pub async fn list_batches(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBatchesRequest>,
-        ) -> Result<tonic::Response<super::ListBatchesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListBatchesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1120,14 +1220,22 @@ pub mod batch_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.BatchController/ListBatches",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.BatchController",
+                        "ListBatches",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes the batch workload resource. If the batch is not in terminal state,
         /// the delete fails and the response returns `FAILED_PRECONDITION`.
         pub async fn delete_batch(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteBatchRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1141,7 +1249,15 @@ pub mod batch_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.BatchController/DeleteBatch",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.BatchController",
+                        "DeleteBatch",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2569,13 +2685,29 @@ pub mod cluster_controller_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates a cluster in a project. The returned
         /// [Operation.metadata][google.longrunning.Operation.metadata] will be
         /// [ClusterOperationMetadata](https://cloud.google.com/dataproc/docs/reference/rpc/google.cloud.dataproc.v1#clusteroperationmetadata).
         pub async fn create_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2592,7 +2724,15 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/CreateCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "CreateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a cluster in a project. The returned
         /// [Operation.metadata][google.longrunning.Operation.metadata] will be
@@ -2602,7 +2742,7 @@ pub mod cluster_controller_client {
         pub async fn update_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2619,13 +2759,21 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/UpdateCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "UpdateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Stops a cluster in a project.
         pub async fn stop_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::StopClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2642,13 +2790,21 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/StopCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "StopCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Starts a cluster in a project.
         pub async fn start_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::StartClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2665,7 +2821,15 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/StartCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "StartCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a cluster in a project. The returned
         /// [Operation.metadata][google.longrunning.Operation.metadata] will be
@@ -2673,7 +2837,7 @@ pub mod cluster_controller_client {
         pub async fn delete_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2690,13 +2854,21 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/DeleteCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "DeleteCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the resource representation for a cluster in a project.
         pub async fn get_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::GetClusterRequest>,
-        ) -> Result<tonic::Response<super::Cluster>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2710,13 +2882,24 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/GetCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "GetCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all regions/{region}/clusters in a project alphabetically.
         pub async fn list_clusters(
             &mut self,
             request: impl tonic::IntoRequest<super::ListClustersRequest>,
-        ) -> Result<tonic::Response<super::ListClustersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2730,7 +2913,15 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/ListClusters",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "ListClusters",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets cluster diagnostic information. The returned
         /// [Operation.metadata][google.longrunning.Operation.metadata] will be
@@ -2742,7 +2933,7 @@ pub mod cluster_controller_client {
         pub async fn diagnose_cluster(
             &mut self,
             request: impl tonic::IntoRequest<super::DiagnoseClusterRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2759,7 +2950,15 @@ pub mod cluster_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.ClusterController/DiagnoseCluster",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.ClusterController",
+                        "DiagnoseCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -3970,11 +4169,27 @@ pub mod job_controller_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Submits a job to a cluster.
         pub async fn submit_job(
             &mut self,
             request: impl tonic::IntoRequest<super::SubmitJobRequest>,
-        ) -> Result<tonic::Response<super::Job>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -3988,13 +4203,21 @@ pub mod job_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.JobController/SubmitJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.JobController",
+                        "SubmitJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Submits job to a cluster.
         pub async fn submit_job_as_operation(
             &mut self,
             request: impl tonic::IntoRequest<super::SubmitJobRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -4011,13 +4234,21 @@ pub mod job_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.JobController/SubmitJobAsOperation",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.JobController",
+                        "SubmitJobAsOperation",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the resource representation for a job in a project.
         pub async fn get_job(
             &mut self,
             request: impl tonic::IntoRequest<super::GetJobRequest>,
-        ) -> Result<tonic::Response<super::Job>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4031,13 +4262,21 @@ pub mod job_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.JobController/GetJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.dataproc.v1.JobController", "GetJob"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists regions/{region}/jobs in a project.
         pub async fn list_jobs(
             &mut self,
             request: impl tonic::IntoRequest<super::ListJobsRequest>,
-        ) -> Result<tonic::Response<super::ListJobsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListJobsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -4051,13 +4290,18 @@ pub mod job_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.JobController/ListJobs",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.cloud.dataproc.v1.JobController", "ListJobs"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a job in a project.
         pub async fn update_job(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateJobRequest>,
-        ) -> Result<tonic::Response<super::Job>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4071,7 +4315,15 @@ pub mod job_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.JobController/UpdateJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.JobController",
+                        "UpdateJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Starts a job cancellation request. To access the job resource
         /// after cancellation, call
@@ -4081,7 +4333,7 @@ pub mod job_controller_client {
         pub async fn cancel_job(
             &mut self,
             request: impl tonic::IntoRequest<super::CancelJobRequest>,
-        ) -> Result<tonic::Response<super::Job>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4095,14 +4347,22 @@ pub mod job_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.JobController/CancelJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.JobController",
+                        "CancelJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes the job from the project. If the job is active, the delete fails,
         /// and the response returns `FAILED_PRECONDITION`.
         pub async fn delete_job(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteJobRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -4116,7 +4376,15 @@ pub mod job_controller_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.JobController/DeleteJob",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.JobController",
+                        "DeleteJob",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -5102,11 +5370,30 @@ pub mod workflow_template_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Creates new workflow template.
         pub async fn create_workflow_template(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateWorkflowTemplateRequest>,
-        ) -> Result<tonic::Response<super::WorkflowTemplate>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::WorkflowTemplate>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5120,7 +5407,15 @@ pub mod workflow_template_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.WorkflowTemplateService/CreateWorkflowTemplate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService",
+                        "CreateWorkflowTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves the latest workflow template.
         ///
@@ -5129,7 +5424,10 @@ pub mod workflow_template_service_client {
         pub async fn get_workflow_template(
             &mut self,
             request: impl tonic::IntoRequest<super::GetWorkflowTemplateRequest>,
-        ) -> Result<tonic::Response<super::WorkflowTemplate>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::WorkflowTemplate>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5143,7 +5441,15 @@ pub mod workflow_template_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.WorkflowTemplateService/GetWorkflowTemplate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService",
+                        "GetWorkflowTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Instantiates a template and begins execution.
         ///
@@ -5168,7 +5474,7 @@ pub mod workflow_template_service_client {
         pub async fn instantiate_workflow_template(
             &mut self,
             request: impl tonic::IntoRequest<super::InstantiateWorkflowTemplateRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -5185,7 +5491,15 @@ pub mod workflow_template_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.WorkflowTemplateService/InstantiateWorkflowTemplate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService",
+                        "InstantiateWorkflowTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Instantiates a template and begins execution.
         ///
@@ -5216,7 +5530,7 @@ pub mod workflow_template_service_client {
             request: impl tonic::IntoRequest<
                 super::InstantiateInlineWorkflowTemplateRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -5233,14 +5547,25 @@ pub mod workflow_template_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.WorkflowTemplateService/InstantiateInlineWorkflowTemplate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService",
+                        "InstantiateInlineWorkflowTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates (replaces) workflow template. The updated template
         /// must contain version that matches the current server version.
         pub async fn update_workflow_template(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateWorkflowTemplateRequest>,
-        ) -> Result<tonic::Response<super::WorkflowTemplate>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::WorkflowTemplate>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -5254,13 +5579,21 @@ pub mod workflow_template_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.WorkflowTemplateService/UpdateWorkflowTemplate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService",
+                        "UpdateWorkflowTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists workflows that match the specified filter in the request.
         pub async fn list_workflow_templates(
             &mut self,
             request: impl tonic::IntoRequest<super::ListWorkflowTemplatesRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::ListWorkflowTemplatesResponse>,
             tonic::Status,
         > {
@@ -5277,13 +5610,21 @@ pub mod workflow_template_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.WorkflowTemplateService/ListWorkflowTemplates",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService",
+                        "ListWorkflowTemplates",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a workflow template. It does not cancel in-progress workflows.
         pub async fn delete_workflow_template(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteWorkflowTemplateRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -5297,7 +5638,15 @@ pub mod workflow_template_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.dataproc.v1.WorkflowTemplateService/DeleteWorkflowTemplate",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService",
+                        "DeleteWorkflowTemplate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

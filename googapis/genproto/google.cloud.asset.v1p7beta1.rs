@@ -615,6 +615,22 @@ pub mod asset_service_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Exports assets with time and resource types to a given Cloud Storage
         /// location/BigQuery table. For Cloud Storage location destinations, the
         /// output format is newline-delimited JSON. Each line represents a
@@ -629,7 +645,7 @@ pub mod asset_service_client {
         pub async fn export_assets(
             &mut self,
             request: impl tonic::IntoRequest<super::ExportAssetsRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -646,7 +662,15 @@ pub mod asset_service_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.asset.v1p7beta1.AssetService/ExportAssets",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.asset.v1p7beta1.AssetService",
+                        "ExportAssets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

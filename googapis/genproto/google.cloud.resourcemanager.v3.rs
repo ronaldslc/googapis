@@ -357,6 +357,22 @@ pub mod folders_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Retrieves a folder identified by the supplied resource name.
         /// Valid folder resource names have the format `folders/{folder_id}`
         /// (for example, `folders/1234`).
@@ -365,7 +381,7 @@ pub mod folders_client {
         pub async fn get_folder(
             &mut self,
             request: impl tonic::IntoRequest<super::GetFolderRequest>,
-        ) -> Result<tonic::Response<super::Folder>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Folder>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -379,7 +395,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/GetFolder",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "GetFolder",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists the folders that are direct descendants of supplied parent resource.
         /// `list()` provides a strongly consistent view of the folders underneath
@@ -391,7 +415,10 @@ pub mod folders_client {
         pub async fn list_folders(
             &mut self,
             request: impl tonic::IntoRequest<super::ListFoldersRequest>,
-        ) -> Result<tonic::Response<super::ListFoldersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListFoldersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -405,7 +432,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/ListFolders",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "ListFolders",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Search for folders that match specific filter criteria.
         /// `search()` provides an eventually consistent view of the folders a user has
@@ -416,7 +451,10 @@ pub mod folders_client {
         pub async fn search_folders(
             &mut self,
             request: impl tonic::IntoRequest<super::SearchFoldersRequest>,
-        ) -> Result<tonic::Response<super::SearchFoldersResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SearchFoldersResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -430,7 +468,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/SearchFolders",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "SearchFolders",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a folder in the resource hierarchy.
         /// Returns an `Operation` which can be used to track the progress of the
@@ -462,7 +508,7 @@ pub mod folders_client {
         pub async fn create_folder(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateFolderRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -479,7 +525,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/CreateFolder",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "CreateFolder",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates a folder, changing its `display_name`.
         /// Changes to the folder `display_name` will be rejected if they violate
@@ -499,7 +553,7 @@ pub mod folders_client {
         pub async fn update_folder(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateFolderRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -516,7 +570,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/UpdateFolder",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "UpdateFolder",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Moves a folder under a new resource parent.
         /// Returns an `Operation` which can be used to track the progress of the
@@ -538,7 +600,7 @@ pub mod folders_client {
         pub async fn move_folder(
             &mut self,
             request: impl tonic::IntoRequest<super::MoveFolderRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -555,7 +617,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/MoveFolder",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "MoveFolder",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Requests deletion of a folder. The folder is moved into the
         /// [DELETE_REQUESTED][google.cloud.resourcemanager.v3.Folder.State.DELETE_REQUESTED] state
@@ -569,7 +639,7 @@ pub mod folders_client {
         pub async fn delete_folder(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteFolderRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -586,7 +656,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/DeleteFolder",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "DeleteFolder",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Cancels the deletion request for a folder. This method may be called on a
         /// folder in any state. If the folder is in the [ACTIVE][google.cloud.resourcemanager.v3.Folder.State.ACTIVE]
@@ -600,7 +678,7 @@ pub mod folders_client {
         pub async fn undelete_folder(
             &mut self,
             request: impl tonic::IntoRequest<super::UndeleteFolderRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -617,7 +695,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/UndeleteFolder",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "UndeleteFolder",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for a folder. The returned policy may be
         /// empty if no such policy or resource exists. The `resource` field should
@@ -629,7 +715,7 @@ pub mod folders_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -646,7 +732,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on a folder, replacing any existing policy.
         /// The `resource` field should be the folder's resource name, for example:
@@ -658,7 +752,7 @@ pub mod folders_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -675,7 +769,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that a caller has on the specified folder.
         /// The `resource` field should be the folder's resource name,
@@ -687,7 +789,7 @@ pub mod folders_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -706,7 +808,15 @@ pub mod folders_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Folders/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Folders",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -940,11 +1050,27 @@ pub mod organizations_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Fetches an organization resource identified by the specified resource name.
         pub async fn get_organization(
             &mut self,
             request: impl tonic::IntoRequest<super::GetOrganizationRequest>,
-        ) -> Result<tonic::Response<super::Organization>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Organization>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -958,7 +1084,15 @@ pub mod organizations_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Organizations/GetOrganization",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Organizations",
+                        "GetOrganization",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Searches organization resources that are visible to the user and satisfy
         /// the specified filter. This method returns organizations in an unspecified
@@ -970,7 +1104,10 @@ pub mod organizations_client {
         pub async fn search_organizations(
             &mut self,
             request: impl tonic::IntoRequest<super::SearchOrganizationsRequest>,
-        ) -> Result<tonic::Response<super::SearchOrganizationsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SearchOrganizationsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -984,7 +1121,15 @@ pub mod organizations_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Organizations/SearchOrganizations",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Organizations",
+                        "SearchOrganizations",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for an organization resource. The policy may
         /// be empty if no such policy or resource exists. The `resource` field should
@@ -997,7 +1142,7 @@ pub mod organizations_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1014,7 +1159,15 @@ pub mod organizations_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Organizations/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Organizations",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on an organization resource. Replaces any
         /// existing policy. The `resource` field should be the organization's resource
@@ -1027,7 +1180,7 @@ pub mod organizations_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1044,7 +1197,15 @@ pub mod organizations_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Organizations/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Organizations",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the permissions that a caller has on the specified organization.
         /// The `resource` field should be the organization's resource name,
@@ -1056,7 +1217,7 @@ pub mod organizations_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -1075,7 +1236,15 @@ pub mod organizations_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Organizations/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Organizations",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1519,6 +1688,22 @@ pub mod projects_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Retrieves the project identified by the specified `name` (for example,
         /// `projects/415104041262`).
         ///
@@ -1527,7 +1712,7 @@ pub mod projects_client {
         pub async fn get_project(
             &mut self,
             request: impl tonic::IntoRequest<super::GetProjectRequest>,
-        ) -> Result<tonic::Response<super::Project>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Project>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1541,7 +1726,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/GetProject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "GetProject",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists projects that are direct children of the specified folder or
         /// organization resource. `list()` provides a strongly consistent view of the
@@ -1552,7 +1745,10 @@ pub mod projects_client {
         pub async fn list_projects(
             &mut self,
             request: impl tonic::IntoRequest<super::ListProjectsRequest>,
-        ) -> Result<tonic::Response<super::ListProjectsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListProjectsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1566,7 +1762,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/ListProjects",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "ListProjects",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Search for projects that the caller has both `resourcemanager.projects.get`
         /// permission on, and also satisfy the specified query.
@@ -1581,7 +1785,10 @@ pub mod projects_client {
         pub async fn search_projects(
             &mut self,
             request: impl tonic::IntoRequest<super::SearchProjectsRequest>,
-        ) -> Result<tonic::Response<super::SearchProjectsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SearchProjectsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1595,7 +1802,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/SearchProjects",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "SearchProjects",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Request that a new project be created. The result is an `Operation` which
         /// can be used to track the creation process. This process usually takes a few
@@ -1605,7 +1820,7 @@ pub mod projects_client {
         pub async fn create_project(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateProjectRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1622,7 +1837,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/CreateProject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "CreateProject",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the `display_name` and labels of the project identified by the
         /// specified `name` (for example, `projects/415104041262`). Deleting all
@@ -1633,7 +1856,7 @@ pub mod projects_client {
         pub async fn update_project(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateProjectRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1650,7 +1873,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/UpdateProject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "UpdateProject",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Move a project to another place in your resource hierarchy, under a new
         /// resource parent.
@@ -1668,7 +1899,7 @@ pub mod projects_client {
         pub async fn move_project(
             &mut self,
             request: impl tonic::IntoRequest<super::MoveProjectRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1685,7 +1916,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/MoveProject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "MoveProject",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Marks the project identified by the specified
         /// `name` (for example, `projects/415104041262`) for deletion.
@@ -1722,7 +1961,7 @@ pub mod projects_client {
         pub async fn delete_project(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteProjectRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1739,7 +1978,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/DeleteProject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "DeleteProject",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Restores the project identified by the specified
         /// `name` (for example, `projects/415104041262`).
@@ -1753,7 +2000,7 @@ pub mod projects_client {
         pub async fn undelete_project(
             &mut self,
             request: impl tonic::IntoRequest<super::UndeleteProjectRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -1770,7 +2017,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/UndeleteProject",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "UndeleteProject",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns the IAM access control policy for the specified project.
         /// Permission is denied if the policy or the resource do not exist.
@@ -1779,7 +2034,7 @@ pub mod projects_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1796,7 +2051,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the IAM access control policy for the specified project.
         ///
@@ -1847,7 +2110,7 @@ pub mod projects_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -1864,7 +2127,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that a caller has on the specified project.
         pub async fn test_iam_permissions(
@@ -1872,7 +2143,7 @@ pub mod projects_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -1891,7 +2162,15 @@ pub mod projects_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.Projects/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.Projects",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2047,6 +2326,22 @@ pub mod tag_bindings_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists the TagBindings for the given cloud resource, as specified with
         /// `parent`.
         ///
@@ -2055,7 +2350,10 @@ pub mod tag_bindings_client {
         pub async fn list_tag_bindings(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTagBindingsRequest>,
-        ) -> Result<tonic::Response<super::ListTagBindingsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTagBindingsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2069,14 +2367,22 @@ pub mod tag_bindings_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagBindings/ListTagBindings",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagBindings",
+                        "ListTagBindings",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a TagBinding between a TagValue and a cloud resource
         /// (currently project, folder, or organization).
         pub async fn create_tag_binding(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTagBindingRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2093,13 +2399,21 @@ pub mod tag_bindings_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagBindings/CreateTagBinding",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagBindings",
+                        "CreateTagBinding",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a TagBinding.
         pub async fn delete_tag_binding(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteTagBindingRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2116,7 +2430,15 @@ pub mod tag_bindings_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagBindings/DeleteTagBinding",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagBindings",
+                        "DeleteTagBinding",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2321,11 +2643,30 @@ pub mod tag_keys_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists all TagKeys for a parent resource.
         pub async fn list_tag_keys(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTagKeysRequest>,
-        ) -> Result<tonic::Response<super::ListTagKeysResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTagKeysResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2339,14 +2680,22 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/ListTagKeys",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "ListTagKeys",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves a TagKey. This method will return `PERMISSION_DENIED` if the
         /// key does not exist or the user does not have permission to view it.
         pub async fn get_tag_key(
             &mut self,
             request: impl tonic::IntoRequest<super::GetTagKeyRequest>,
-        ) -> Result<tonic::Response<super::TagKey>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::TagKey>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2360,7 +2709,15 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/GetTagKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "GetTagKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a new TagKey. If another request with the same parameters is
         /// sent while the original request is in process, the second request
@@ -2369,7 +2726,7 @@ pub mod tag_keys_client {
         pub async fn create_tag_key(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTagKeyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2386,13 +2743,21 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/CreateTagKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "CreateTagKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the attributes of the TagKey resource.
         pub async fn update_tag_key(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateTagKeyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2409,14 +2774,22 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/UpdateTagKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "UpdateTagKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a TagKey. The TagKey cannot be deleted if it has any child
         /// TagValues.
         pub async fn delete_tag_key(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteTagKeyRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2433,7 +2806,15 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/DeleteTagKey",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "DeleteTagKey",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for a TagKey. The returned policy may be
         /// empty if no such policy or resource exists. The `resource` field should
@@ -2446,7 +2827,7 @@ pub mod tag_keys_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -2463,7 +2844,15 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on a TagKey, replacing any existing
         /// policy. The `resource` field should be the TagKey's resource name.
@@ -2475,7 +2864,7 @@ pub mod tag_keys_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -2492,7 +2881,15 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that a caller has on the specified TagKey.
         /// The `resource` field should be the TagKey's resource name.
@@ -2504,7 +2901,7 @@ pub mod tag_keys_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -2523,7 +2920,15 @@ pub mod tag_keys_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagKeys/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagKeys",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2726,11 +3131,30 @@ pub mod tag_values_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Lists all TagValues for a specific TagKey.
         pub async fn list_tag_values(
             &mut self,
             request: impl tonic::IntoRequest<super::ListTagValuesRequest>,
-        ) -> Result<tonic::Response<super::ListTagValuesResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListTagValuesResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2744,7 +3168,15 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/ListTagValues",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "ListTagValues",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Retrieves TagValue. If the TagValue or namespaced name does not exist, or
         /// if the user does not have permission to view it, this method will return
@@ -2752,7 +3184,7 @@ pub mod tag_values_client {
         pub async fn get_tag_value(
             &mut self,
             request: impl tonic::IntoRequest<super::GetTagValueRequest>,
-        ) -> Result<tonic::Response<super::TagValue>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::TagValue>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2766,7 +3198,15 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/GetTagValue",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "GetTagValue",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Creates a TagValue as a child of the specified TagKey. If a another
         /// request with the same parameters is sent while the original request is in
@@ -2775,7 +3215,7 @@ pub mod tag_values_client {
         pub async fn create_tag_value(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateTagValueRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2792,13 +3232,21 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/CreateTagValue",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "CreateTagValue",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Updates the attributes of the TagValue resource.
         pub async fn update_tag_value(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateTagValueRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2815,14 +3263,22 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/UpdateTagValue",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "UpdateTagValue",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Deletes a TagValue. The TagValue cannot have any bindings when it is
         /// deleted.
         pub async fn delete_tag_value(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteTagValueRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
         > {
@@ -2839,7 +3295,15 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/DeleteTagValue",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "DeleteTagValue",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Gets the access control policy for a TagValue. The returned policy may be
         /// empty if no such policy or resource exists. The `resource` field should
@@ -2852,7 +3316,7 @@ pub mod tag_values_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -2869,7 +3333,15 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/GetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the access control policy on a TagValue, replacing any existing
         /// policy. The `resource` field should be the TagValue's resource name.
@@ -2881,7 +3353,7 @@ pub mod tag_values_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
         > {
@@ -2898,7 +3370,15 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/SetIamPolicy",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Returns permissions that a caller has on the specified TagValue.
         /// The `resource` field should be the TagValue's resource name. For example:
@@ -2910,7 +3390,7 @@ pub mod tag_values_client {
             request: impl tonic::IntoRequest<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
@@ -2929,7 +3409,15 @@ pub mod tag_values_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.cloud.resourcemanager.v3.TagValues/TestIamPermissions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.resourcemanager.v3.TagValues",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }

@@ -1533,11 +1533,27 @@ pub mod actions_sdk_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Updates the project draft based on the model.
         pub async fn write_draft(
             &mut self,
             request: impl tonic::IntoStreamingRequest<Message = super::WriteDraftRequest>,
-        ) -> Result<tonic::Response<super::Draft>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Draft>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1551,9 +1567,12 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/WriteDraft",
             );
-            self.inner
-                .client_streaming(request.into_streaming_request(), path, codec)
-                .await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "WriteDraft"),
+                );
+            self.inner.client_streaming(req, path, codec).await
         }
         /// Updates the user's project preview based on the model.
         pub async fn write_preview(
@@ -1561,7 +1580,7 @@ pub mod actions_sdk_client {
             request: impl tonic::IntoStreamingRequest<
                 Message = super::WritePreviewRequest,
             >,
-        ) -> Result<tonic::Response<super::Preview>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Preview>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1575,9 +1594,12 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/WritePreview",
             );
-            self.inner
-                .client_streaming(request.into_streaming_request(), path, codec)
-                .await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "WritePreview"),
+                );
+            self.inner.client_streaming(req, path, codec).await
         }
         /// Creates a project version based on the model and triggers deployment to the
         /// specified release channel, if specified.
@@ -1586,7 +1608,7 @@ pub mod actions_sdk_client {
             request: impl tonic::IntoStreamingRequest<
                 Message = super::CreateVersionRequest,
             >,
-        ) -> Result<tonic::Response<super::Version>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<super::Version>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -1600,15 +1622,18 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/CreateVersion",
             );
-            self.inner
-                .client_streaming(request.into_streaming_request(), path, codec)
-                .await
+            let mut req = request.into_streaming_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "CreateVersion"),
+                );
+            self.inner.client_streaming(req, path, codec).await
         }
         /// Reads the entire content of the project draft.
         pub async fn read_draft(
             &mut self,
             request: impl tonic::IntoRequest<super::ReadDraftRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::ReadDraftResponse>>,
             tonic::Status,
         > {
@@ -1625,13 +1650,18 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/ReadDraft",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "ReadDraft"),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Reads the entire content of a project version.
         pub async fn read_version(
             &mut self,
             request: impl tonic::IntoRequest<super::ReadVersionRequest>,
-        ) -> Result<
+        ) -> std::result::Result<
             tonic::Response<tonic::codec::Streaming<super::ReadVersionResponse>>,
             tonic::Status,
         > {
@@ -1648,7 +1678,12 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/ReadVersion",
             );
-            self.inner.server_streaming(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "ReadVersion"),
+                );
+            self.inner.server_streaming(req, path, codec).await
         }
         /// Encrypts the OAuth client secret used in account linking flows.
         /// This can be used to encrypt the client secret for the first time (e.g.
@@ -1658,7 +1693,10 @@ pub mod actions_sdk_client {
         pub async fn encrypt_secret(
             &mut self,
             request: impl tonic::IntoRequest<super::EncryptSecretRequest>,
-        ) -> Result<tonic::Response<super::EncryptSecretResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::EncryptSecretResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1672,14 +1710,22 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/EncryptSecret",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "EncryptSecret"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Decrypts the OAuth client secret used in account linking flows.
         /// This can be used to view the client secret (e.g. after pulling a project).
         pub async fn decrypt_secret(
             &mut self,
             request: impl tonic::IntoRequest<super::DecryptSecretRequest>,
-        ) -> Result<tonic::Response<super::DecryptSecretResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::DecryptSecretResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1693,13 +1739,21 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/DecryptSecret",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "DecryptSecret"),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all the sample projects supported by the gactions CLI.
         pub async fn list_sample_projects(
             &mut self,
             request: impl tonic::IntoRequest<super::ListSampleProjectsRequest>,
-        ) -> Result<tonic::Response<super::ListSampleProjectsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListSampleProjectsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1713,13 +1767,24 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/ListSampleProjects",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.actions.sdk.v2.ActionsSdk",
+                        "ListSampleProjects",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all release channels and corresponding versions, if any.
         pub async fn list_release_channels(
             &mut self,
             request: impl tonic::IntoRequest<super::ListReleaseChannelsRequest>,
-        ) -> Result<tonic::Response<super::ListReleaseChannelsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListReleaseChannelsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1733,13 +1798,24 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/ListReleaseChannels",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.actions.sdk.v2.ActionsSdk",
+                        "ListReleaseChannels",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Lists all versions and their current states.
         pub async fn list_versions(
             &mut self,
             request: impl tonic::IntoRequest<super::ListVersionsRequest>,
-        ) -> Result<tonic::Response<super::ListVersionsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::ListVersionsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -1753,7 +1829,12 @@ pub mod actions_sdk_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsSdk/ListVersions",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new("google.actions.sdk.v2.ActionsSdk", "ListVersions"),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -2353,11 +2434,30 @@ pub mod actions_testing_client {
             self.inner = self.inner.accept_compressed(encoding);
             self
         }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
         /// Plays one round of the conversation.
         pub async fn send_interaction(
             &mut self,
             request: impl tonic::IntoRequest<super::SendInteractionRequest>,
-        ) -> Result<tonic::Response<super::SendInteractionResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::SendInteractionResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2371,13 +2471,24 @@ pub mod actions_testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsTesting/SendInteraction",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.actions.sdk.v2.ActionsTesting",
+                        "SendInteraction",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Finds the intents that match a given query.
         pub async fn match_intents(
             &mut self,
             request: impl tonic::IntoRequest<super::MatchIntentsRequest>,
-        ) -> Result<tonic::Response<super::MatchIntentsResponse>, tonic::Status> {
+        ) -> std::result::Result<
+            tonic::Response<super::MatchIntentsResponse>,
+            tonic::Status,
+        > {
             self.inner
                 .ready()
                 .await
@@ -2391,7 +2502,15 @@ pub mod actions_testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsTesting/MatchIntents",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.actions.sdk.v2.ActionsTesting",
+                        "MatchIntents",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
         /// Sets the Web & App Activity control on a service account.
         ///
@@ -2407,7 +2526,7 @@ pub mod actions_testing_client {
         pub async fn set_web_and_app_activity_control(
             &mut self,
             request: impl tonic::IntoRequest<super::SetWebAndAppActivityControlRequest>,
-        ) -> Result<tonic::Response<()>, tonic::Status> {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -2421,7 +2540,15 @@ pub mod actions_testing_client {
             let path = http::uri::PathAndQuery::from_static(
                 "/google.actions.sdk.v2.ActionsTesting/SetWebAndAppActivityControl",
             );
-            self.inner.unary(request.into_request(), path, codec).await
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.actions.sdk.v2.ActionsTesting",
+                        "SetWebAndAppActivityControl",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
         }
     }
 }
