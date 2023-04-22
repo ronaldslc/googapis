@@ -1,15 +1,16 @@
 /// A Folder in an Organization's resource hierarchy, used to
 /// organize that Organization's resources.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Folder {
     /// Output only. The resource name of the Folder.
     /// Its format is `folders/{folder_id}`, for example: "folders/1234".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The Folder’s parent's resource name.
     /// Updates to the folder's parent must be performed via
     /// \[MoveFolder][google.cloud.resourcemanager.v2.Folders.MoveFolder\].
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub parent: ::prost::alloc::string::String,
     /// The folder’s display name.
     /// A folder’s display name must be unique amongst its siblings, e.g.
@@ -18,25 +19,35 @@ pub struct Folder {
     /// letters, digits, spaces, hyphens and underscores and can be no longer
     /// than 30 characters. This is captured by the regular expression:
     /// \[\p{L}\p{N}\]([\p{L}\p{N}_- ]{0,28}\[\p{L}\p{N}\])?.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub display_name: ::prost::alloc::string::String,
     /// Output only. The lifecycle state of the folder.
     /// Updates to the lifecycle_state must be performed via
     /// \[DeleteFolder][google.cloud.resourcemanager.v2.Folders.DeleteFolder\] and
     /// \[UndeleteFolder][google.cloud.resourcemanager.v2.Folders.UndeleteFolder\].
-    #[prost(enumeration="folder::LifecycleState", tag="4")]
+    #[prost(enumeration = "folder::LifecycleState", tag = "4")]
     pub lifecycle_state: i32,
     /// Output only. Timestamp when the Folder was created. Assigned by the server.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Timestamp when the Folder was last modified.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Nested message and enum types in `Folder`.
 pub mod folder {
     /// Folder lifecycle states.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum LifecycleState {
         /// Unspecified state.
@@ -58,9 +69,19 @@ pub mod folder {
                 LifecycleState::DeleteRequested => "DELETE_REQUESTED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "LIFECYCLE_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "DELETE_REQUESTED" => Some(Self::DeleteRequested),
+                _ => None,
+            }
+        }
     }
 }
 /// The ListFolders request message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListFoldersRequest {
     /// Required. The resource name of the Organization or Folder whose Folders are
@@ -68,42 +89,44 @@ pub struct ListFoldersRequest {
     /// Must be of the form `folders/{folder_id}` or `organizations/{org_id}`.
     /// Access to this method is controlled by checking the
     /// `resourcemanager.folders.list` permission on the `parent`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The maximum number of Folders to return in the response.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. A pagination token returned from a previous call to `ListFolders`
     /// that indicates where this listing should continue from.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. Controls whether Folders in the
     /// \[DELETE_REQUESTED][google.cloud.resourcemanager.v2.Folder.LifecycleState.DELETE_REQUESTED\]
     /// state should be returned. Defaults to false.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub show_deleted: bool,
 }
 /// The ListFolders response message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListFoldersResponse {
     /// A possibly paginated list of Folders that are direct descendants of
     /// the specified parent resource.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub folders: ::prost::alloc::vec::Vec<Folder>,
     /// A pagination token returned from a previous call to `ListFolders`
     /// that indicates from where listing should continue.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message for searching folders.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchFoldersRequest {
     /// Optional. The maximum number of folders to return in the response.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub page_size: i32,
     /// Optional. A pagination token returned from a previous call to `SearchFolders`
     /// that indicates from where search should continue.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
     /// Search criteria used to select the Folders to return.
     /// If no search criteria is specified then all accessible folders will be
@@ -128,109 +151,127 @@ pub struct SearchFoldersRequest {
     /// Folder resources that have `folders/123` as a parent resource.
     /// * Query `displayName=\\"Test String\\"` returns Folder resources with
     /// display names that include both "Test" and "String".
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub query: ::prost::alloc::string::String,
 }
 /// The response message for searching folders.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SearchFoldersResponse {
     /// A possibly paginated folder search results.
     /// the specified parent resource.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub folders: ::prost::alloc::vec::Vec<Folder>,
     /// A pagination token returned from a previous call to `SearchFolders`
     /// that indicates from where searching should continue.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The GetFolder request message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetFolderRequest {
     /// Required. The resource name of the Folder to retrieve.
     /// Must be of the form `folders/{folder_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The CreateFolder request message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateFolderRequest {
     /// Required. The resource name of the new Folder's parent.
     /// Must be of the form `folders/{folder_id}` or `organizations/{org_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The Folder being created, only the display name will be consulted.
     /// All other fields will be ignored.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub folder: ::core::option::Option<Folder>,
 }
 /// The MoveFolder request message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MoveFolderRequest {
     /// Required. The resource name of the Folder to move.
     /// Must be of the form folders/{folder_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The resource name of the Folder or Organization to reparent
     /// the folder under.
     /// Must be of the form `folders/{folder_id}` or `organizations/{org_id}`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub destination_parent: ::prost::alloc::string::String,
 }
 /// The request message for updating a folder's display name.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateFolderRequest {
     /// Required. The new definition of the Folder. It must include a
     /// a `name` and `display_name` field. The other fields
     /// will be ignored.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub folder: ::core::option::Option<Folder>,
     /// Required. Fields to be updated.
     /// Only the `display_name` can be updated.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The DeleteFolder request message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteFolderRequest {
     /// Required. The resource name of the Folder to be deleted.
     /// Must be of the form `folders/{folder_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Instructs DeleteFolderAction to delete a folder even when the folder is not
     /// empty.
-    #[prost(bool, tag="2")]
+    #[prost(bool, tag = "2")]
     pub recursive_delete: bool,
 }
 /// The UndeleteFolder request message.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UndeleteFolderRequest {
     /// Required. The resource name of the Folder to undelete.
     /// Must be of the form `folders/{folder_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Metadata describing a long running folder operation
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FolderOperation {
     /// The display name of the folder.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// The type of this operation.
-    #[prost(enumeration="folder_operation::OperationType", tag="2")]
+    #[prost(enumeration = "folder_operation::OperationType", tag = "2")]
     pub operation_type: i32,
     /// The resource name of the folder's parent.
     /// Only applicable when the operation_type is MOVE.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub source_parent: ::prost::alloc::string::String,
     /// The resource name of the folder or organization we are either creating
     /// the folder under or moving the folder to.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub destination_parent: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `FolderOperation`.
 pub mod folder_operation {
     /// The type of operation that failed.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum OperationType {
         /// Operation type not specified.
@@ -250,6 +291,15 @@ pub mod folder_operation {
                 OperationType::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
                 OperationType::Create => "CREATE",
                 OperationType::Move => "MOVE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "OPERATION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATE" => Some(Self::Create),
+                "MOVE" => Some(Self::Move),
+                _ => None,
             }
         }
     }

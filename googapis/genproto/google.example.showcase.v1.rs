@@ -1,92 +1,97 @@
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RepeatRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub info: ::core::option::Option<ComplianceData>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RepeatResponse {
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub info: ::core::option::Option<ComplianceData>,
 }
 /// ComplianceData is a message used for testing REST transcoding of
 /// different data types.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComplianceData {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub f_string: ::prost::alloc::string::String,
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub f_int32: i32,
-    #[prost(sint32, tag="3")]
+    #[prost(sint32, tag = "3")]
     pub f_sint32: i32,
-    #[prost(sfixed32, tag="4")]
+    #[prost(sfixed32, tag = "4")]
     pub f_sfixed32: i32,
-    #[prost(uint32, tag="5")]
+    #[prost(uint32, tag = "5")]
     pub f_uint32: u32,
-    #[prost(fixed32, tag="6")]
+    #[prost(fixed32, tag = "6")]
     pub f_fixed32: u32,
-    #[prost(int64, tag="7")]
+    #[prost(int64, tag = "7")]
     pub f_int64: i64,
-    #[prost(sint64, tag="8")]
+    #[prost(sint64, tag = "8")]
     pub f_sint64: i64,
-    #[prost(sfixed64, tag="9")]
+    #[prost(sfixed64, tag = "9")]
     pub f_sfixed64: i64,
-    #[prost(uint64, tag="10")]
+    #[prost(uint64, tag = "10")]
     pub f_uint64: u64,
-    #[prost(fixed64, tag="11")]
+    #[prost(fixed64, tag = "11")]
     pub f_fixed64: u64,
-    #[prost(double, tag="12")]
+    #[prost(double, tag = "12")]
     pub f_double: f64,
-    #[prost(float, tag="13")]
+    #[prost(float, tag = "13")]
     pub f_float: f32,
-    #[prost(bool, tag="14")]
+    #[prost(bool, tag = "14")]
     pub f_bool: bool,
-    #[prost(bytes="vec", tag="15")]
+    #[prost(bytes = "vec", tag = "15")]
     pub f_bytes: ::prost::alloc::vec::Vec<u8>,
-    #[prost(message, optional, tag="16")]
+    #[prost(message, optional, tag = "16")]
     pub f_child: ::core::option::Option<ComplianceDataChild>,
-    #[prost(string, optional, tag="17")]
+    #[prost(string, optional, tag = "17")]
     pub p_string: ::core::option::Option<::prost::alloc::string::String>,
-    #[prost(int32, optional, tag="18")]
+    #[prost(int32, optional, tag = "18")]
     pub p_int32: ::core::option::Option<i32>,
-    #[prost(double, optional, tag="19")]
+    #[prost(double, optional, tag = "19")]
     pub p_double: ::core::option::Option<f64>,
-    #[prost(bool, optional, tag="20")]
+    #[prost(bool, optional, tag = "20")]
     pub p_bool: ::core::option::Option<bool>,
-    #[prost(message, optional, tag="21")]
+    #[prost(message, optional, tag = "21")]
     pub p_child: ::core::option::Option<ComplianceDataChild>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComplianceDataChild {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub f_string: ::prost::alloc::string::String,
-    #[prost(float, tag="2")]
+    #[prost(float, tag = "2")]
     pub f_float: f32,
-    #[prost(double, tag="3")]
+    #[prost(double, tag = "3")]
     pub f_double: f64,
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub f_bool: bool,
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub f_child: ::core::option::Option<ComplianceDataGrandchild>,
-    #[prost(string, optional, tag="6")]
+    #[prost(string, optional, tag = "6")]
     pub p_string: ::core::option::Option<::prost::alloc::string::String>,
-    #[prost(float, optional, tag="7")]
+    #[prost(float, optional, tag = "7")]
     pub p_float: ::core::option::Option<f32>,
-    #[prost(double, optional, tag="8")]
+    #[prost(double, optional, tag = "8")]
     pub p_double: ::core::option::Option<f64>,
-    #[prost(bool, optional, tag="9")]
+    #[prost(bool, optional, tag = "9")]
     pub p_bool: ::core::option::Option<bool>,
-    #[prost(message, optional, tag="10")]
+    #[prost(message, optional, tag = "10")]
     pub p_child: ::core::option::Option<ComplianceDataGrandchild>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComplianceDataGrandchild {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub f_string: ::prost::alloc::string::String,
-    #[prost(double, tag="2")]
+    #[prost(double, tag = "2")]
     pub f_double: f64,
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub f_bool: bool,
 }
 /// Generated client implementations.
@@ -281,142 +286,155 @@ pub mod compliance_client {
 /// If content or opt are set in this message then the request will succeed.
 /// If status is set in this message then the status will be returned as an
 /// error.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EchoRequest {
     /// The severity to be echoed by the server.
-    #[prost(enumeration="Severity", tag="3")]
+    #[prost(enumeration = "Severity", tag = "3")]
     pub severity: i32,
     /// The response contents.
-    #[prost(oneof="echo_request::Response", tags="1, 2")]
+    #[prost(oneof = "echo_request::Response", tags = "1, 2")]
     pub response: ::core::option::Option<echo_request::Response>,
 }
 /// Nested message and enum types in `EchoRequest`.
 pub mod echo_request {
     /// The response contents.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Response {
         /// The content to be echoed by the server.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         Content(::prost::alloc::string::String),
         /// The error to be thrown by the server.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Error(super::super::super::super::rpc::Status),
     }
 }
 /// The response message for the Echo methods.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EchoResponse {
     /// The content specified in the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub content: ::prost::alloc::string::String,
     /// The severity specified in the request.
-    #[prost(enumeration="Severity", tag="2")]
+    #[prost(enumeration = "Severity", tag = "2")]
     pub severity: i32,
 }
 /// The request message for the Expand method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExpandRequest {
     /// The content that will be split into words and returned on the stream.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub content: ::prost::alloc::string::String,
     /// The error that is thrown after all words are sent on the stream.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub error: ::core::option::Option<super::super::super::rpc::Status>,
 }
 /// The request for the PagedExpand method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PagedExpandRequest {
     /// Required. The string to expand.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub content: ::prost::alloc::string::String,
     /// The amount of words to returned in each page.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// The position of the page to be returned.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// The response for the PagedExpand method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PagedExpandResponse {
     /// The words that were expanded.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub responses: ::prost::alloc::vec::Vec<EchoResponse>,
     /// The next page token.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request for Wait method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WaitRequest {
     /// The ending time or duration.
-    #[prost(oneof="wait_request::End", tags="1, 4")]
+    #[prost(oneof = "wait_request::End", tags = "1, 4")]
     pub end: ::core::option::Option<wait_request::End>,
     /// The response.
-    #[prost(oneof="wait_request::Response", tags="2, 3")]
+    #[prost(oneof = "wait_request::Response", tags = "2, 3")]
     pub response: ::core::option::Option<wait_request::Response>,
 }
 /// Nested message and enum types in `WaitRequest`.
 pub mod wait_request {
     /// The ending time or duration.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum End {
         /// The time that this operation will complete.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         EndTime(::prost_types::Timestamp),
         /// The duration of this operation.
-        #[prost(message, tag="4")]
+        #[prost(message, tag = "4")]
         Ttl(::prost_types::Duration),
     }
     /// The response.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Response {
         /// The error that will be returned by the server. If this code is specified
         /// to be the OK rpc code, an empty response will be returned.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Error(super::super::super::super::rpc::Status),
         /// The response to be returned on operation completion.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         Success(super::WaitResponse),
     }
 }
 /// The result of the Wait operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WaitResponse {
     /// This content of the result.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub content: ::prost::alloc::string::String,
 }
 /// The request for Block method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BlockRequest {
     /// The amount of time to block before returning a response.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub response_delay: ::core::option::Option<::prost_types::Duration>,
     /// The response.
-    #[prost(oneof="block_request::Response", tags="2, 3")]
+    #[prost(oneof = "block_request::Response", tags = "2, 3")]
     pub response: ::core::option::Option<block_request::Response>,
 }
 /// Nested message and enum types in `BlockRequest`.
 pub mod block_request {
     /// The response.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Response {
         /// The error that will be returned by the server. If this code is specified
         /// to be the OK rpc code, an empty response will be returned.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Error(super::super::super::super::rpc::Status),
         /// The response to be returned that will signify successful method call.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         Success(super::BlockResponse),
     }
 }
 /// The response for Block method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BlockResponse {
     /// This content can contain anything, the server will not depend on a value
     /// here.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub content: ::prost::alloc::string::String,
 }
 /// A severity enum used to test enum capabilities in GAPIC surfaces.
@@ -443,6 +461,16 @@ impl Severity {
             Severity::Necessary => "NECESSARY",
             Severity::Urgent => "URGENT",
             Severity::Critical => "CRITICAL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "UNNECESSARY" => Some(Self::Unnecessary),
+            "NECESSARY" => Some(Self::Necessary),
+            "URGENT" => Some(Self::Urgent),
+            "CRITICAL" => Some(Self::Critical),
+            _ => None,
         }
     }
 }
@@ -671,73 +699,80 @@ pub mod echo_client {
         }
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Sequence {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Sequence of responses to return in order for each attempt. If empty, the
     /// default response is an immediate OK.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub responses: ::prost::alloc::vec::Vec<sequence::Response>,
 }
 /// Nested message and enum types in `Sequence`.
 pub mod sequence {
     /// A server response to an RPC Attempt in a sequence.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Response {
         /// The status to return for an individual attempt.
-        #[prost(message, optional, tag="1")]
+        #[prost(message, optional, tag = "1")]
         pub status: ::core::option::Option<super::super::super::super::rpc::Status>,
         /// The amount of time to delay sending the response.
-        #[prost(message, optional, tag="2")]
+        #[prost(message, optional, tag = "2")]
         pub delay: ::core::option::Option<::prost_types::Duration>,
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SequenceReport {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The set of RPC attempts received by the server for a Sequence.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub attempts: ::prost::alloc::vec::Vec<sequence_report::Attempt>,
 }
 /// Nested message and enum types in `SequenceReport`.
 pub mod sequence_report {
     /// Contains metrics on individual RPC Attempts in a sequence.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Attempt {
         /// The attempt number - starting at 0.
-        #[prost(int32, tag="1")]
+        #[prost(int32, tag = "1")]
         pub attempt_number: i32,
         /// The deadline dictated by the attempt to the server.
-        #[prost(message, optional, tag="2")]
+        #[prost(message, optional, tag = "2")]
         pub attempt_deadline: ::core::option::Option<::prost_types::Timestamp>,
         /// The time that the server responded to the RPC attempt. Used for
         /// calculating attempt_delay.
-        #[prost(message, optional, tag="3")]
+        #[prost(message, optional, tag = "3")]
         pub response_time: ::core::option::Option<::prost_types::Timestamp>,
         /// The server perceived delay between sending the last response and
         /// receiving this attempt. Used for validating attempt delay backoff.
-        #[prost(message, optional, tag="4")]
+        #[prost(message, optional, tag = "4")]
         pub attempt_delay: ::core::option::Option<::prost_types::Duration>,
         /// The status returned to the attempt.
-        #[prost(message, optional, tag="5")]
+        #[prost(message, optional, tag = "5")]
         pub status: ::core::option::Option<super::super::super::super::rpc::Status>,
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateSequenceRequest {
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub sequence: ::core::option::Option<Sequence>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AttemptSequenceRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSequenceReportRequest {
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -865,20 +900,31 @@ pub mod sequence_service_client {
 ///
 /// A session defines tests it may expect, based on which version of the
 /// code generation spec is in use.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Session {
     /// The name of the session. The ID must conform to ^\[a-z\]+$
     /// If this is not provided, Showcase chooses one at random.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The version this session is using.
-    #[prost(enumeration="session::Version", tag="2")]
+    #[prost(enumeration = "session::Version", tag = "2")]
     pub version: i32,
 }
 /// Nested message and enum types in `Session`.
 pub mod session {
     /// The specification versions understood by Showcase.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Version {
         /// Unspecified version. If passed on creation, the session will default
@@ -901,73 +947,99 @@ pub mod session {
                 Version::V10 => "V1_0",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "VERSION_UNSPECIFIED" => Some(Self::Unspecified),
+                "V1_LATEST" => Some(Self::V1Latest),
+                "V1_0" => Some(Self::V10),
+                _ => None,
+            }
+        }
     }
 }
 /// The request for the CreateSession method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateSessionRequest {
     /// The session to be created.
     /// Sessions are immutable once they are created (although they can
     /// be deleted).
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub session: ::core::option::Option<Session>,
 }
 /// The request for the GetSession method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSessionRequest {
     /// The session to be retrieved.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request for the ListSessions method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSessionsRequest {
     /// The maximum number of sessions to return per page.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub page_size: i32,
     /// The page token, for retrieving subsequent pages.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response for the ListSessions method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSessionsResponse {
     /// The sessions being returned.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub sessions: ::prost::alloc::vec::Vec<Session>,
     /// The next page token, if any.
     /// An empty value here means the last page has been reached.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request for the DeleteSession method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteSessionRequest {
     /// The session to be deleted.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for reporting on a session.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReportSessionRequest {
     /// The session to be reported on.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Response message for reporting on a session.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReportSessionResponse {
     /// The state of the report.
-    #[prost(enumeration="report_session_response::Result", tag="1")]
+    #[prost(enumeration = "report_session_response::Result", tag = "1")]
     pub result: i32,
     /// The test runs of this session.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub test_runs: ::prost::alloc::vec::Vec<TestRun>,
 }
 /// Nested message and enum types in `ReportSessionResponse`.
 pub mod report_session_response {
     /// The topline state of the report.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Result {
         Unspecified = 0,
@@ -991,26 +1063,37 @@ pub mod report_session_response {
                 Result::Incomplete => "INCOMPLETE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "RESULT_UNSPECIFIED" => Some(Self::Unspecified),
+                "PASSED" => Some(Self::Passed),
+                "FAILED" => Some(Self::Failed),
+                "INCOMPLETE" => Some(Self::Incomplete),
+                _ => None,
+            }
+        }
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Test {
     /// The name of the test.
     /// The tests/* portion of the names are hard-coded, and do not change
     /// from session to session.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The expectation level for this test.
-    #[prost(enumeration="test::ExpectationLevel", tag="2")]
+    #[prost(enumeration = "test::ExpectationLevel", tag = "2")]
     pub expectation_level: i32,
     /// A description of the test.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub description: ::prost::alloc::string::String,
     /// The blueprints that will satisfy this test. There may be multiple
     /// blueprints that can signal to the server that this test case is being
     /// exercised. Although multiple blueprints are specified, only a single
     /// blueprint needs to be run to signal that the test case was exercised.
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub blueprints: ::prost::alloc::vec::Vec<test::Blueprint>,
 }
 /// Nested message and enum types in `Test`.
@@ -1019,36 +1102,48 @@ pub mod test {
     /// needed to be made to test this specific test case. Ideally this would be
     /// represented by something more robust like CEL, but as of writing this, I am
     /// unsure if CEL is ready.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Blueprint {
         /// The name of this blueprint.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub name: ::prost::alloc::string::String,
         /// A description of this blueprint.
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         pub description: ::prost::alloc::string::String,
         /// The initial request to trigger this test.
-        #[prost(message, optional, tag="3")]
+        #[prost(message, optional, tag = "3")]
         pub request: ::core::option::Option<blueprint::Invocation>,
         /// An ordered list of method calls that can be called to trigger this test.
-        #[prost(message, repeated, tag="4")]
+        #[prost(message, repeated, tag = "4")]
         pub additional_requests: ::prost::alloc::vec::Vec<blueprint::Invocation>,
     }
     /// Nested message and enum types in `Blueprint`.
     pub mod blueprint {
         /// A message representing a method invocation.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Invocation {
             /// The fully qualified name of the showcase method to be invoked.
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub method: ::prost::alloc::string::String,
             /// The request to be made if a specific request is necessary.
-            #[prost(bytes="vec", tag="2")]
+            #[prost(bytes = "vec", tag = "2")]
             pub serialized_request: ::prost::alloc::vec::Vec<u8>,
         }
     }
     /// Whether or not a test is required, recommended, or optional.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ExpectationLevel {
         Unspecified = 0,
@@ -1085,25 +1180,46 @@ pub mod test {
                 ExpectationLevel::Optional => "OPTIONAL",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "EXPECTATION_LEVEL_UNSPECIFIED" => Some(Self::Unspecified),
+                "REQUIRED" => Some(Self::Required),
+                "RECOMMENDED" => Some(Self::Recommended),
+                "OPTIONAL" => Some(Self::Optional),
+                _ => None,
+            }
+        }
     }
 }
 /// An issue found in the test.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Issue {
     /// The type of the issue.
-    #[prost(enumeration="issue::Type", tag="1")]
+    #[prost(enumeration = "issue::Type", tag = "1")]
     pub r#type: i32,
     /// The severity of the issue.
-    #[prost(enumeration="issue::Severity", tag="2")]
+    #[prost(enumeration = "issue::Severity", tag = "2")]
     pub severity: i32,
     /// A description of the issue.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub description: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `Issue`.
 pub mod issue {
     /// The different potential types of issues.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Type {
         Unspecified = 0,
@@ -1128,9 +1244,29 @@ pub mod issue {
                 Type::IncorrectConfirmation => "INCORRECT_CONFIRMATION",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SKIPPED" => Some(Self::Skipped),
+                "PENDING" => Some(Self::Pending),
+                "INCORRECT_CONFIRMATION" => Some(Self::IncorrectConfirmation),
+                _ => None,
+            }
+        }
     }
     /// Severity levels.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Severity {
         Unspecified = 0,
@@ -1151,68 +1287,83 @@ pub mod issue {
                 Severity::Warning => "WARNING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SEVERITY_UNSPECIFIED" => Some(Self::Unspecified),
+                "ERROR" => Some(Self::Error),
+                "WARNING" => Some(Self::Warning),
+                _ => None,
+            }
+        }
     }
 }
 /// The request for the ListTests method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTestsRequest {
     /// The session.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of tests to return per page.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// The page token, for retrieving subsequent pages.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// The response for the ListTests method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTestsResponse {
     /// The tests being returned.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub tests: ::prost::alloc::vec::Vec<Test>,
     /// The next page token, if any.
     /// An empty value here means the last page has been reached.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// A TestRun is the result of running a Test.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TestRun {
     /// The name of the test.
     /// The tests/* portion of the names are hard-coded, and do not change
     /// from session to session.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub test: ::prost::alloc::string::String,
     /// An issue found with the test run. If empty, this test run was successful.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub issue: ::core::option::Option<Issue>,
 }
 /// Request message for deleting a test.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTestRequest {
     /// The test to be deleted.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VerifyTestRequest {
     /// The test to have an answer registered to it.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The answer from the test.
-    #[prost(bytes="vec", tag="2")]
+    #[prost(bytes = "vec", tag = "2")]
     pub answer: ::prost::alloc::vec::Vec<u8>,
     /// The answers from the test if multiple are to be checked
-    #[prost(bytes="vec", repeated, tag="3")]
+    #[prost(bytes = "vec", repeated, tag = "3")]
     pub answers: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VerifyTestResponse {
     /// An issue if check answer was unsuccessful. This will be empty if the check
     /// answer succeeded.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub issue: ::core::option::Option<Issue>,
 }
 /// Generated client implementations.

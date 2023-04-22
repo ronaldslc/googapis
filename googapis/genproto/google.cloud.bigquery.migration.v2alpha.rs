@@ -1,51 +1,60 @@
 /// Provides details for errors and the corresponding resources.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResourceErrorDetail {
     /// Required. Information about the resource where the error is located.
-    #[prost(message, optional, tag="1")]
-    pub resource_info: ::core::option::Option<super::super::super::super::rpc::ResourceInfo>,
+    #[prost(message, optional, tag = "1")]
+    pub resource_info: ::core::option::Option<
+        super::super::super::super::rpc::ResourceInfo,
+    >,
     /// Required. The error details for the resource.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub error_details: ::prost::alloc::vec::Vec<ErrorDetail>,
     /// Required. How many errors there are in total for the resource. Truncation can be
     /// indicated by having an `error_count` that is higher than the size of
     /// `error_details`.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub error_count: i32,
 }
 /// Provides details for errors, e.g. issues that where encountered when
 /// processing a subtask.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ErrorDetail {
     /// Optional. The exact location within the resource (if applicable).
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub location: ::core::option::Option<ErrorLocation>,
     /// Required. Describes the cause of the error with structured detail.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub error_info: ::core::option::Option<super::super::super::super::rpc::ErrorInfo>,
 }
 /// Holds information about where the error is located.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ErrorLocation {
     /// Optional. If applicable, denotes the line where the error occurred. A zero value
     /// means that there is no line information.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub line: i32,
     /// Optional. If applicable, denotes the column where the error occurred. A zero value
     /// means that there is no columns information.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub column: i32,
 }
 /// The metrics object for a SubTask.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimeSeries {
     /// Required. The name of the metric.
     ///
     /// If the metric is not known by the service yet, it will be auto-created.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub metric: ::prost::alloc::string::String,
     /// Required. The value type of the time series.
-    #[prost(enumeration="super::super::super::super::api::metric_descriptor::ValueType", tag="2")]
+    #[prost(
+        enumeration = "super::super::super::super::api::metric_descriptor::ValueType",
+        tag = "2"
+    )]
     pub value_type: i32,
     /// Optional. The metric kind of the time series.
     ///
@@ -53,7 +62,10 @@ pub struct TimeSeries {
     /// metric. If the associated metric's descriptor must be auto-created, then
     /// this field specifies the metric kind of the new descriptor and must be
     /// either `GAUGE` (the default) or `CUMULATIVE`.
-    #[prost(enumeration="super::super::super::super::api::metric_descriptor::MetricKind", tag="3")]
+    #[prost(
+        enumeration = "super::super::super::super::api::metric_descriptor::MetricKind",
+        tag = "3"
+    )]
     pub metric_kind: i32,
     /// Required. The data points of this time series. When listing time series, points are
     /// returned in reverse time order.
@@ -63,10 +75,11 @@ pub struct TimeSeries {
     /// metric. If the associated metric's descriptor must be auto-created, then
     /// the value type of the descriptor is determined by the point's type, which
     /// must be `BOOL`, `INT64`, `DOUBLE`, or `DISTRIBUTION`.
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub points: ::prost::alloc::vec::Vec<Point>,
 }
 /// A single data point in a time series.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Point {
     /// The time interval to which the data point applies.  For `GAUGE` metrics,
@@ -78,90 +91,107 @@ pub struct Point {
     /// the same start time and increasing end times, until an event resets the
     /// cumulative value to zero and sets a new start time for the following
     /// points.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub interval: ::core::option::Option<TimeInterval>,
     /// The value of the data point.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub value: ::core::option::Option<TypedValue>,
 }
 /// A time interval extending just after a start time through an end time.
 /// If the start time is the same as the end time, then the interval
 /// represents a single point in time.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimeInterval {
     /// Optional. The beginning of the time interval.  The default value
     /// for the start time is the end time. The start time must not be
     /// later than the end time.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Required. The end of the time interval.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// A single strongly-typed value.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TypedValue {
     /// The typed value field.
-    #[prost(oneof="typed_value::Value", tags="1, 2, 3, 4, 5")]
+    #[prost(oneof = "typed_value::Value", tags = "1, 2, 3, 4, 5")]
     pub value: ::core::option::Option<typed_value::Value>,
 }
 /// Nested message and enum types in `TypedValue`.
 pub mod typed_value {
     /// The typed value field.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Value {
         /// A Boolean value: `true` or `false`.
-        #[prost(bool, tag="1")]
+        #[prost(bool, tag = "1")]
         BoolValue(bool),
         /// A 64-bit integer. Its range is approximately +/-9.2x10^18.
-        #[prost(int64, tag="2")]
+        #[prost(int64, tag = "2")]
         Int64Value(i64),
         /// A 64-bit double-precision floating-point number. Its magnitude
         /// is approximately +/-10^(+/-300) and it has 16 significant digits of
         /// precision.
-        #[prost(double, tag="3")]
+        #[prost(double, tag = "3")]
         DoubleValue(f64),
         /// A variable-length string value.
-        #[prost(string, tag="4")]
+        #[prost(string, tag = "4")]
         StringValue(::prost::alloc::string::String),
         /// A distribution value.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         DistributionValue(super::super::super::super::super::api::Distribution),
     }
 }
 /// A migration workflow which specifies what needs to be done for an EDW
 /// migration.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MigrationWorkflow {
     /// Output only. Immutable. The unique identifier for the migration workflow. The ID is
     /// server-generated.
     ///
     /// Example: `projects/123/locations/us/workflows/345`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The display name of the workflow. This can be set to give a workflow
     /// a descriptive name. There is no guarantee or enforcement of uniqueness.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub display_name: ::prost::alloc::string::String,
     /// The tasks in a workflow in a named map. The name (i.e. key) has no
     /// meaning and is merely a convenient way to address a specific task
     /// in a workflow.
-    #[prost(map="string, message", tag="2")]
-    pub tasks: ::std::collections::HashMap<::prost::alloc::string::String, MigrationTask>,
+    #[prost(map = "string, message", tag = "2")]
+    pub tasks: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        MigrationTask,
+    >,
     /// Output only. That status of the workflow.
-    #[prost(enumeration="migration_workflow::State", tag="3")]
+    #[prost(enumeration = "migration_workflow::State", tag = "3")]
     pub state: i32,
     /// Time when the workflow was created.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Time when the workflow was last updated.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub last_update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Nested message and enum types in `MigrationWorkflow`.
 pub mod migration_workflow {
     /// Possible migration workflow states.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// Workflow state is unspecified.
@@ -193,39 +223,63 @@ pub mod migration_workflow {
                 State::Completed => "COMPLETED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "DRAFT" => Some(Self::Draft),
+                "RUNNING" => Some(Self::Running),
+                "PAUSED" => Some(Self::Paused),
+                "COMPLETED" => Some(Self::Completed),
+                _ => None,
+            }
+        }
     }
 }
 /// A single task for a migration which has details about the configuration of
 /// the task.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MigrationTask {
     /// Output only. Immutable. The unique identifier for the migration task. The ID is server-generated.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub id: ::prost::alloc::string::String,
     /// The type of the task. This must be a supported task type.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub r#type: ::prost::alloc::string::String,
     /// The details of the task. The type URL must be one of the supported task
     /// details messages and correspond to the Task's type.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub details: ::core::option::Option<::prost_types::Any>,
     /// Output only. The current state of the task.
-    #[prost(enumeration="migration_task::State", tag="4")]
+    #[prost(enumeration = "migration_task::State", tag = "4")]
     pub state: i32,
     /// Output only. An explanation that may be populated when the task is in FAILED state.
-    #[prost(message, optional, tag="5")]
-    pub processing_error: ::core::option::Option<super::super::super::super::rpc::ErrorInfo>,
+    #[prost(message, optional, tag = "5")]
+    pub processing_error: ::core::option::Option<
+        super::super::super::super::rpc::ErrorInfo,
+    >,
     /// Time when the task was created.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Time when the task was last updated.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub last_update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Nested message and enum types in `MigrationTask`.
 pub mod migration_task {
     /// Possible states of a migration task.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The state is unspecified.
@@ -260,58 +314,84 @@ pub mod migration_task {
                 State::Failed => "FAILED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PENDING" => Some(Self::Pending),
+                "ORCHESTRATING" => Some(Self::Orchestrating),
+                "RUNNING" => Some(Self::Running),
+                "PAUSED" => Some(Self::Paused),
+                "SUCCEEDED" => Some(Self::Succeeded),
+                "FAILED" => Some(Self::Failed),
+                _ => None,
+            }
+        }
     }
 }
 /// A subtask for a migration which carries details about the configuration of
 /// the subtask. The content of the details should not matter to the end user,
 /// but is a contract between the subtask creator and subtask worker.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MigrationSubtask {
     /// Output only. Immutable. The resource name for the migration subtask. The ID is
     /// server-generated.
     ///
     /// Example: `projects/123/locations/us/workflows/345/subtasks/678`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The unique ID of the task to which this subtask belongs.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub task_id: ::prost::alloc::string::String,
     /// The type of the Subtask. The migration service does not check whether this
     /// is a known type. It is up to the task creator (i.e. orchestrator or worker)
     /// to ensure it only creates subtasks for which there are compatible workers
     /// polling for Subtasks.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub r#type: ::prost::alloc::string::String,
     /// Output only. The current state of the subtask.
-    #[prost(enumeration="migration_subtask::State", tag="5")]
+    #[prost(enumeration = "migration_subtask::State", tag = "5")]
     pub state: i32,
     /// Output only. An explanation that may be populated when the task is in FAILED state.
-    #[prost(message, optional, tag="6")]
-    pub processing_error: ::core::option::Option<super::super::super::super::rpc::ErrorInfo>,
+    #[prost(message, optional, tag = "6")]
+    pub processing_error: ::core::option::Option<
+        super::super::super::super::rpc::ErrorInfo,
+    >,
     /// Output only. Provides details to errors and issues encountered while processing the
     /// subtask. Presence of error details does not mean that the subtask failed.
-    #[prost(message, repeated, tag="12")]
+    #[prost(message, repeated, tag = "12")]
     pub resource_error_details: ::prost::alloc::vec::Vec<ResourceErrorDetail>,
     /// The number or resources with errors. Note: This is not the total
     /// number of errors as each resource can have more than one error.
     /// This is used to indicate truncation by having a `resource_error_count`
     /// that is higher than the size of `resource_error_details`.
-    #[prost(int32, tag="13")]
+    #[prost(int32, tag = "13")]
     pub resource_error_count: i32,
     /// Time when the subtask was created.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Time when the subtask was last updated.
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub last_update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The metrics for the subtask.
-    #[prost(message, repeated, tag="11")]
+    #[prost(message, repeated, tag = "11")]
     pub metrics: ::prost::alloc::vec::Vec<TimeSeries>,
 }
 /// Nested message and enum types in `MigrationSubtask`.
 pub mod migration_subtask {
     /// Possible states of a migration subtask.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The state is unspecified.
@@ -343,126 +423,147 @@ pub mod migration_subtask {
                 State::Paused => "PAUSED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "RUNNING" => Some(Self::Running),
+                "SUCCEEDED" => Some(Self::Succeeded),
+                "FAILED" => Some(Self::Failed),
+                "PAUSED" => Some(Self::Paused),
+                _ => None,
+            }
+        }
     }
 }
 /// Request to create a migration workflow resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateMigrationWorkflowRequest {
     /// Required. The name of the project to which this migration workflow belongs.
     /// Example: `projects/foo/locations/bar`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The migration workflow to create.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub migration_workflow: ::core::option::Option<MigrationWorkflow>,
 }
 /// A request to get a previously created migration workflow.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
     /// Example: `projects/123/locations/us/workflows/1234`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The list of fields to be retrieved.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// A request to list previously created migration workflows.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMigrationWorkflowsRequest {
     /// Required. The project and location of the migration workflows to list.
     /// Example: `projects/123/locations/us`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The list of fields to be retrieved.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// The maximum number of migration workflows to return. The service may return
     /// fewer than this number.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
     /// A page token, received from previous `ListMigrationWorkflows` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListMigrationWorkflows`
     /// must match the call that provided the page token.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response object for a `ListMigrationWorkflows` call.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMigrationWorkflowsResponse {
     /// The migration workflows for the specified project / location.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub migration_workflows: ::prost::alloc::vec::Vec<MigrationWorkflow>,
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// A request to delete a previously created migration workflow.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
     /// Example: `projects/123/locations/us/workflows/1234`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// A request to start a previously created migration workflow.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StartMigrationWorkflowRequest {
     /// Required. The unique identifier for the migration workflow.
     /// Example: `projects/123/locations/us/workflows/1234`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// A request to get a previously created migration subtasks.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetMigrationSubtaskRequest {
     /// Required. The unique identifier for the migration subtask.
     /// Example: `projects/123/locations/us/workflows/1234/subtasks/543`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. The list of fields to be retrieved.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// A request to list previously created migration subtasks.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMigrationSubtasksRequest {
     /// Required. The migration task of the subtasks to list.
     /// Example: `projects/123/locations/us/workflows/1234`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The list of fields to be retrieved.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub read_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Optional. The maximum number of migration tasks to return. The service may return
     /// fewer than this number.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
     /// Optional. A page token, received from previous `ListMigrationSubtasks` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListMigrationSubtasks`
     /// must match the call that provided the page token.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The filter to apply. This can be used to get the subtasks of a specific
     /// tasks in a workflow, e.g. `migration_task = "ab012"` where `"ab012"` is the
     /// task ID (not the name in the named map).
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub filter: ::prost::alloc::string::String,
 }
 /// Response object for a `ListMigrationSubtasks` call.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMigrationSubtasksResponse {
     /// The migration subtasks for the specified task.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub migration_subtasks: ::prost::alloc::vec::Vec<MigrationSubtask>,
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -676,22 +777,36 @@ pub mod migration_service_client {
     }
 }
 /// The request of translating a SQL query to Standard SQL.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TranslateQueryRequest {
     /// Required. Project ID of the project that will be charged for the quota.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The source SQL dialect of `queries`.
-    #[prost(enumeration="translate_query_request::SqlTranslationSourceDialect", tag="2")]
+    #[prost(
+        enumeration = "translate_query_request::SqlTranslationSourceDialect",
+        tag = "2"
+    )]
     pub source_dialect: i32,
     /// Required. The query to be translated.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub query: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `TranslateQueryRequest`.
 pub mod translate_query_request {
     /// Supported SQL translation source dialects.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SqlTranslationSourceDialect {
         /// SqlTranslationSourceDialect not specified.
@@ -706,55 +821,78 @@ pub mod translate_query_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SqlTranslationSourceDialect::Unspecified => "SQL_TRANSLATION_SOURCE_DIALECT_UNSPECIFIED",
+                SqlTranslationSourceDialect::Unspecified => {
+                    "SQL_TRANSLATION_SOURCE_DIALECT_UNSPECIFIED"
+                }
                 SqlTranslationSourceDialect::Teradata => "TERADATA",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SQL_TRANSLATION_SOURCE_DIALECT_UNSPECIFIED" => Some(Self::Unspecified),
+                "TERADATA" => Some(Self::Teradata),
+                _ => None,
             }
         }
     }
 }
 /// The response of translating a SQL query to Standard SQL.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TranslateQueryResponse {
     /// The translated result. This will be empty if the translation fails.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub translated_query: ::prost::alloc::string::String,
     /// The list of errors encountered during the translation, if present.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub errors: ::prost::alloc::vec::Vec<SqlTranslationError>,
     /// The list of warnings encountered during the translation, if present,
     /// indicates non-semantically correct translation.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub warnings: ::prost::alloc::vec::Vec<SqlTranslationWarning>,
 }
 /// Structured error object capturing the error message and the location in the
 /// source text where the error occurs.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SqlTranslationErrorDetail {
     /// Specifies the row from the source text where the error occurred.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub row: i64,
     /// Specifie the column from the source texts where the error occurred.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub column: i64,
     /// A human-readable description of the error.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub message: ::prost::alloc::string::String,
 }
 /// The detailed error object if the SQL translation job fails.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SqlTranslationError {
     /// The type of SQL translation error.
-    #[prost(enumeration="sql_translation_error::SqlTranslationErrorType", tag="1")]
+    #[prost(enumeration = "sql_translation_error::SqlTranslationErrorType", tag = "1")]
     pub error_type: i32,
     /// Specifies the details of the error, including the error message and
     /// location from the source text.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub error_detail: ::core::option::Option<SqlTranslationErrorDetail>,
 }
 /// Nested message and enum types in `SqlTranslationError`.
 pub mod sql_translation_error {
     /// The error type of the SQL translation job.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SqlTranslationErrorType {
         /// SqlTranslationErrorType not specified.
@@ -772,20 +910,34 @@ pub mod sql_translation_error {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SqlTranslationErrorType::Unspecified => "SQL_TRANSLATION_ERROR_TYPE_UNSPECIFIED",
+                SqlTranslationErrorType::Unspecified => {
+                    "SQL_TRANSLATION_ERROR_TYPE_UNSPECIFIED"
+                }
                 SqlTranslationErrorType::SqlParseError => "SQL_PARSE_ERROR",
-                SqlTranslationErrorType::UnsupportedSqlFunction => "UNSUPPORTED_SQL_FUNCTION",
+                SqlTranslationErrorType::UnsupportedSqlFunction => {
+                    "UNSUPPORTED_SQL_FUNCTION"
+                }
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SQL_TRANSLATION_ERROR_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SQL_PARSE_ERROR" => Some(Self::SqlParseError),
+                "UNSUPPORTED_SQL_FUNCTION" => Some(Self::UnsupportedSqlFunction),
+                _ => None,
             }
         }
     }
 }
 /// The detailed warning object if the SQL translation job is completed but not
 /// semantically correct.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SqlTranslationWarning {
     /// Specifies the details of the warning, including the warning message and
     /// location from the source text.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub warning_detail: ::core::option::Option<SqlTranslationErrorDetail>,
 }
 /// Generated client implementations.

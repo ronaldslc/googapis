@@ -1,10 +1,11 @@
 /// A chart that displays alert policy data.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AlertChart {
     /// Required. The resource name of the alert policy. The format is:
     ///
     ///      projects/\[PROJECT_ID_OR_NUMBER]/alertPolicies/[ALERT_POLICY_ID\]
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Describes how to combine multiple time series to provide a different view of
@@ -33,6 +34,7 @@ pub struct AlertChart {
 /// individual time series data is still available for later drilldown. For more
 /// details, see [Filtering and
 /// aggregation](<https://cloud.google.com/monitoring/api/v3/aggregation>).
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Aggregation {
     /// The `alignment_period` specifies a time interval, in seconds, that is used
@@ -47,7 +49,7 @@ pub struct Aggregation {
     /// specified, then this field is ignored.
     ///
     /// The maximum value of the `alignment_period` is 2 years, or 104 weeks.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub alignment_period: ::core::option::Option<::prost_types::Duration>,
     /// An `Aligner` describes how to bring the data points in a single
     /// time series into temporal alignment. Except for `ALIGN_NONE`, all
@@ -65,7 +67,7 @@ pub struct Aggregation {
     /// `per_series_aligner` must be specified and not equal to `ALIGN_NONE`
     /// and `alignment_period` must be specified; otherwise, an error is
     /// returned.
-    #[prost(enumeration="aggregation::Aligner", tag="2")]
+    #[prost(enumeration = "aggregation::Aligner", tag = "2")]
     pub per_series_aligner: i32,
     /// The reduction operation to be used to combine time series into a single
     /// time series, where the value of each data point in the resulting series is
@@ -81,7 +83,7 @@ pub struct Aggregation {
     /// specified, then `per_series_aligner` must be specified, and must not be
     /// `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
     /// error is returned.
-    #[prost(enumeration="aggregation::Reducer", tag="4")]
+    #[prost(enumeration = "aggregation::Reducer", tag = "4")]
     pub cross_series_reducer: i32,
     /// The set of fields to preserve when `cross_series_reducer` is
     /// specified. The `group_by_fields` determine how the time series are
@@ -97,7 +99,7 @@ pub struct Aggregation {
     /// the same resource type, then the time series are aggregated into
     /// a single output time series. If `cross_series_reducer` is not
     /// defined, this field is ignored.
-    #[prost(string, repeated, tag="5")]
+    #[prost(string, repeated, tag = "5")]
     pub group_by_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Nested message and enum types in `Aggregation`.
@@ -114,7 +116,17 @@ pub mod aggregation {
     /// example, if you apply a counting operation to boolean values, the data
     /// `value_type` in the original time series is `BOOLEAN`, but the `value_type`
     /// in the aligned result is `INT64`.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Aligner {
         /// No alignment. Raw data is returned. Not valid if cross-series reduction
@@ -272,12 +284,47 @@ pub mod aggregation {
                 Aligner::AlignPercentChange => "ALIGN_PERCENT_CHANGE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ALIGN_NONE" => Some(Self::AlignNone),
+                "ALIGN_DELTA" => Some(Self::AlignDelta),
+                "ALIGN_RATE" => Some(Self::AlignRate),
+                "ALIGN_INTERPOLATE" => Some(Self::AlignInterpolate),
+                "ALIGN_NEXT_OLDER" => Some(Self::AlignNextOlder),
+                "ALIGN_MIN" => Some(Self::AlignMin),
+                "ALIGN_MAX" => Some(Self::AlignMax),
+                "ALIGN_MEAN" => Some(Self::AlignMean),
+                "ALIGN_COUNT" => Some(Self::AlignCount),
+                "ALIGN_SUM" => Some(Self::AlignSum),
+                "ALIGN_STDDEV" => Some(Self::AlignStddev),
+                "ALIGN_COUNT_TRUE" => Some(Self::AlignCountTrue),
+                "ALIGN_COUNT_FALSE" => Some(Self::AlignCountFalse),
+                "ALIGN_FRACTION_TRUE" => Some(Self::AlignFractionTrue),
+                "ALIGN_PERCENTILE_99" => Some(Self::AlignPercentile99),
+                "ALIGN_PERCENTILE_95" => Some(Self::AlignPercentile95),
+                "ALIGN_PERCENTILE_50" => Some(Self::AlignPercentile50),
+                "ALIGN_PERCENTILE_05" => Some(Self::AlignPercentile05),
+                "ALIGN_PERCENT_CHANGE" => Some(Self::AlignPercentChange),
+                _ => None,
+            }
+        }
     }
     /// A Reducer operation describes how to aggregate data points from multiple
     /// time series into a single time series, where the value of each data point
     /// in the resulting series is a function of all the already aligned values in
     /// the input time series.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Reducer {
         /// No cross-time series reduction. The output of the `Aligner` is
@@ -379,6 +426,26 @@ pub mod aggregation {
                 Reducer::ReducePercentile05 => "REDUCE_PERCENTILE_05",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "REDUCE_NONE" => Some(Self::ReduceNone),
+                "REDUCE_MEAN" => Some(Self::ReduceMean),
+                "REDUCE_MIN" => Some(Self::ReduceMin),
+                "REDUCE_MAX" => Some(Self::ReduceMax),
+                "REDUCE_SUM" => Some(Self::ReduceSum),
+                "REDUCE_STDDEV" => Some(Self::ReduceStddev),
+                "REDUCE_COUNT" => Some(Self::ReduceCount),
+                "REDUCE_COUNT_TRUE" => Some(Self::ReduceCountTrue),
+                "REDUCE_COUNT_FALSE" => Some(Self::ReduceCountFalse),
+                "REDUCE_FRACTION_TRUE" => Some(Self::ReduceFractionTrue),
+                "REDUCE_PERCENTILE_99" => Some(Self::ReducePercentile99),
+                "REDUCE_PERCENTILE_95" => Some(Self::ReducePercentile95),
+                "REDUCE_PERCENTILE_50" => Some(Self::ReducePercentile50),
+                "REDUCE_PERCENTILE_05" => Some(Self::ReducePercentile05),
+                _ => None,
+            }
+        }
     }
 }
 /// Describes a ranking-based time series filter. Each input time series is
@@ -388,24 +455,35 @@ pub mod aggregation {
 /// For example, if `ranking_method` is `METHOD_MEAN`,`direction` is `BOTTOM`,
 /// and `num_time_series` is 3, then the 3 times series with the lowest mean
 /// values will pass through the filter.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PickTimeSeriesFilter {
     /// `ranking_method` is applied to each time series independently to produce
     /// the value which will be used to compare the time series to other time
     /// series.
-    #[prost(enumeration="pick_time_series_filter::Method", tag="1")]
+    #[prost(enumeration = "pick_time_series_filter::Method", tag = "1")]
     pub ranking_method: i32,
     /// How many time series to allow to pass through the filter.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub num_time_series: i32,
     /// How to use the ranking to select time series that pass through the filter.
-    #[prost(enumeration="pick_time_series_filter::Direction", tag="3")]
+    #[prost(enumeration = "pick_time_series_filter::Direction", tag = "3")]
     pub direction: i32,
 }
 /// Nested message and enum types in `PickTimeSeriesFilter`.
 pub mod pick_time_series_filter {
     /// The value reducers that can be applied to a `PickTimeSeriesFilter`.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Method {
         /// Not allowed. You must specify a different `Method` if you specify a
@@ -437,9 +515,31 @@ pub mod pick_time_series_filter {
                 Method::Latest => "METHOD_LATEST",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "METHOD_UNSPECIFIED" => Some(Self::Unspecified),
+                "METHOD_MEAN" => Some(Self::Mean),
+                "METHOD_MAX" => Some(Self::Max),
+                "METHOD_MIN" => Some(Self::Min),
+                "METHOD_SUM" => Some(Self::Sum),
+                "METHOD_LATEST" => Some(Self::Latest),
+                _ => None,
+            }
+        }
     }
     /// Describes the ranking directions.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Direction {
         /// Not allowed. You must specify a different `Direction` if you specify a
@@ -462,11 +562,21 @@ pub mod pick_time_series_filter {
                 Direction::Bottom => "BOTTOM",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DIRECTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "TOP" => Some(Self::Top),
+                "BOTTOM" => Some(Self::Bottom),
+                _ => None,
+            }
+        }
     }
 }
 /// A filter that ranks streams based on their statistical relation to other
 /// streams in a request.
 /// Note: This field is deprecated and completely ignored by the API.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StatisticalTimeSeriesFilter {
     /// `rankingMethod` is applied to a set of time series, and then the produced
@@ -474,16 +584,26 @@ pub struct StatisticalTimeSeriesFilter {
     /// series to others.
     /// These are methods that cannot be applied stream-by-stream, but rather
     /// require the full context of a request to evaluate time series.
-    #[prost(enumeration="statistical_time_series_filter::Method", tag="1")]
+    #[prost(enumeration = "statistical_time_series_filter::Method", tag = "1")]
     pub ranking_method: i32,
     /// How many time series to output.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub num_time_series: i32,
 }
 /// Nested message and enum types in `StatisticalTimeSeriesFilter`.
 pub mod statistical_time_series_filter {
     /// The filter methods that can be applied to a stream.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Method {
         /// Not allowed in well-formed requests.
@@ -502,10 +622,19 @@ pub mod statistical_time_series_filter {
                 Method::ClusterOutlier => "METHOD_CLUSTER_OUTLIER",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "METHOD_UNSPECIFIED" => Some(Self::Unspecified),
+                "METHOD_CLUSTER_OUTLIER" => Some(Self::ClusterOutlier),
+                _ => None,
+            }
+        }
     }
 }
 /// TimeSeriesQuery collects the set of supported methods for querying time
 /// series data from the Stackdriver metrics API.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimeSeriesQuery {
     /// The unit of data contained in fetched time series. If non-empty, this
@@ -513,25 +642,26 @@ pub struct TimeSeriesQuery {
     /// the same as the
     /// \[`unit`\](<https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.metricDescriptors>)
     /// field in `MetricDescriptor`.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub unit_override: ::prost::alloc::string::String,
     /// Parameters needed to obtain data for the chart.
-    #[prost(oneof="time_series_query::Source", tags="1, 2, 3")]
+    #[prost(oneof = "time_series_query::Source", tags = "1, 2, 3")]
     pub source: ::core::option::Option<time_series_query::Source>,
 }
 /// Nested message and enum types in `TimeSeriesQuery`.
 pub mod time_series_query {
     /// Parameters needed to obtain data for the chart.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// Filter parameters to fetch time series.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         TimeSeriesFilter(super::TimeSeriesFilter),
         /// Parameters to fetch a ratio between two time series filters.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         TimeSeriesFilterRatio(super::TimeSeriesFilterRatio),
         /// A query used to fetch time series.
-        #[prost(string, tag="3")]
+        #[prost(string, tag = "3")]
         TimeSeriesQueryLanguage(::prost::alloc::string::String),
     }
 }
@@ -539,103 +669,109 @@ pub mod time_series_query {
 /// widget. Time series data is fetched using the
 /// \[`ListTimeSeries`\](<https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list>)
 /// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimeSeriesFilter {
     /// Required. The [monitoring filter](<https://cloud.google.com/monitoring/api/v3/filters>)
     /// that identifies the metric types, resources, and projects to query.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub filter: ::prost::alloc::string::String,
     /// By default, the raw time series data is returned.
     /// Use this field to combine multiple time series for different views of the
     /// data.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub aggregation: ::core::option::Option<Aggregation>,
     /// Apply a second aggregation after `aggregation` is applied.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub secondary_aggregation: ::core::option::Option<Aggregation>,
     /// Selects an optional time series filter.
-    #[prost(oneof="time_series_filter::OutputFilter", tags="4, 5")]
+    #[prost(oneof = "time_series_filter::OutputFilter", tags = "4, 5")]
     pub output_filter: ::core::option::Option<time_series_filter::OutputFilter>,
 }
 /// Nested message and enum types in `TimeSeriesFilter`.
 pub mod time_series_filter {
     /// Selects an optional time series filter.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OutputFilter {
         /// Ranking based time series filter.
-        #[prost(message, tag="4")]
+        #[prost(message, tag = "4")]
         PickTimeSeriesFilter(super::PickTimeSeriesFilter),
         /// Statistics based time series filter.
         /// Note: This field is deprecated and completely ignored by the API.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         StatisticalTimeSeriesFilter(super::StatisticalTimeSeriesFilter),
     }
 }
 /// A pair of time series filters that define a ratio computation. The output
 /// time series is the pair-wise division of each aligned element from the
 /// numerator and denominator time series.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimeSeriesFilterRatio {
     /// The numerator of the ratio.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub numerator: ::core::option::Option<time_series_filter_ratio::RatioPart>,
     /// The denominator of the ratio.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub denominator: ::core::option::Option<time_series_filter_ratio::RatioPart>,
     /// Apply a second aggregation after the ratio is computed.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub secondary_aggregation: ::core::option::Option<Aggregation>,
     /// Selects an optional filter that is applied to the time series after
     /// computing the ratio.
-    #[prost(oneof="time_series_filter_ratio::OutputFilter", tags="4, 5")]
+    #[prost(oneof = "time_series_filter_ratio::OutputFilter", tags = "4, 5")]
     pub output_filter: ::core::option::Option<time_series_filter_ratio::OutputFilter>,
 }
 /// Nested message and enum types in `TimeSeriesFilterRatio`.
 pub mod time_series_filter_ratio {
     /// Describes a query to build the numerator or denominator of a
     /// TimeSeriesFilterRatio.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct RatioPart {
         /// Required. The [monitoring
         /// filter](<https://cloud.google.com/monitoring/api/v3/filters>) that
         /// identifies the metric types, resources, and projects to query.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub filter: ::prost::alloc::string::String,
         /// By default, the raw time series data is returned.
         /// Use this field to combine multiple time series for different views of the
         /// data.
-        #[prost(message, optional, tag="2")]
+        #[prost(message, optional, tag = "2")]
         pub aggregation: ::core::option::Option<super::Aggregation>,
     }
     /// Selects an optional filter that is applied to the time series after
     /// computing the ratio.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OutputFilter {
         /// Ranking based time series filter.
-        #[prost(message, tag="4")]
+        #[prost(message, tag = "4")]
         PickTimeSeriesFilter(super::PickTimeSeriesFilter),
         /// Statistics based time series filter.
         /// Note: This field is deprecated and completely ignored by the API.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         StatisticalTimeSeriesFilter(super::StatisticalTimeSeriesFilter),
     }
 }
 /// Defines a threshold for categorizing time series values.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Threshold {
     /// A label for the threshold.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub label: ::prost::alloc::string::String,
     /// The value of the threshold. The value should be defined in the native scale
     /// of the metric.
-    #[prost(double, tag="2")]
+    #[prost(double, tag = "2")]
     pub value: f64,
     /// The state color for this threshold. Color is not allowed in a XyChart.
-    #[prost(enumeration="threshold::Color", tag="3")]
+    #[prost(enumeration = "threshold::Color", tag = "3")]
     pub color: i32,
     /// The direction for the current threshold. Direction is not allowed in a
     /// XyChart.
-    #[prost(enumeration="threshold::Direction", tag="4")]
+    #[prost(enumeration = "threshold::Direction", tag = "4")]
     pub direction: i32,
 }
 /// Nested message and enum types in `Threshold`.
@@ -643,7 +779,17 @@ pub mod threshold {
     /// The color suggests an interpretation to the viewer when actual values cross
     /// the threshold. Comments on each color provide UX guidance on how users can
     /// be expected to interpret a given state color.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Color {
         /// Color is unspecified. Not allowed in well-formed requests.
@@ -665,10 +811,29 @@ pub mod threshold {
                 Color::Red => "RED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "COLOR_UNSPECIFIED" => Some(Self::Unspecified),
+                "YELLOW" => Some(Self::Yellow),
+                "RED" => Some(Self::Red),
+                _ => None,
+            }
+        }
     }
     /// Whether the threshold is considered crossed by an actual value above or
     /// below its threshold value.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Direction {
         /// Not allowed in well-formed requests.
@@ -690,6 +855,15 @@ pub mod threshold {
                 Direction::Unspecified => "DIRECTION_UNSPECIFIED",
                 Direction::Above => "ABOVE",
                 Direction::Below => "BELOW",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DIRECTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "ABOVE" => Some(Self::Above),
+                "BELOW" => Some(Self::Below),
+                _ => None,
             }
         }
     }
@@ -717,14 +891,24 @@ impl SparkChartType {
             SparkChartType::SparkBar => "SPARK_BAR",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "SPARK_CHART_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "SPARK_LINE" => Some(Self::SparkLine),
+            "SPARK_BAR" => Some(Self::SparkBar),
+            _ => None,
+        }
+    }
 }
 /// A widget showing the latest value of a metric, and how this value relates to
 /// one or more thresholds.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Scorecard {
     /// Required. Fields for querying time series data from the
     /// Stackdriver metrics API.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub time_series_query: ::core::option::Option<TimeSeriesQuery>,
     /// The thresholds used to determine the state of the scorecard given the
     /// time series' current value. For an actual value x, the scorecard is in a
@@ -761,11 +945,11 @@ pub struct Scorecard {
     /// values strictly between 20 and 70 an OK state, values greater than or equal
     /// to 70 but less than 90 a WARNING state, and values greater than or equal to
     /// 90 a DANGER state.
-    #[prost(message, repeated, tag="6")]
+    #[prost(message, repeated, tag = "6")]
     pub thresholds: ::prost::alloc::vec::Vec<Threshold>,
     /// Defines the optional additional chart shown on the scorecard. If
     /// neither is included - then a default scorecard is shown.
-    #[prost(oneof="scorecard::DataView", tags="4, 5")]
+    #[prost(oneof = "scorecard::DataView", tags = "4, 5")]
     pub data_view: ::core::option::Option<scorecard::DataView>,
 }
 /// Nested message and enum types in `Scorecard`.
@@ -773,60 +957,74 @@ pub mod scorecard {
     /// A gauge chart shows where the current value sits within a pre-defined
     /// range. The upper and lower bounds should define the possible range of
     /// values for the scorecard's query (inclusive).
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct GaugeView {
         /// The lower bound for this gauge chart. The value of the chart should
         /// always be greater than or equal to this.
-        #[prost(double, tag="1")]
+        #[prost(double, tag = "1")]
         pub lower_bound: f64,
         /// The upper bound for this gauge chart. The value of the chart should
         /// always be less than or equal to this.
-        #[prost(double, tag="2")]
+        #[prost(double, tag = "2")]
         pub upper_bound: f64,
     }
     /// A sparkChart is a small chart suitable for inclusion in a table-cell or
     /// inline in text. This message contains the configuration for a sparkChart
     /// to show up on a Scorecard, showing recent trends of the scorecard's
     /// timeseries.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SparkChartView {
         /// Required. The type of sparkchart to show in this chartView.
-        #[prost(enumeration="super::SparkChartType", tag="1")]
+        #[prost(enumeration = "super::SparkChartType", tag = "1")]
         pub spark_chart_type: i32,
         /// The lower bound on data point frequency in the chart implemented by
         /// specifying the minimum alignment period to use in a time series query.
         /// For example, if the data is published once every 10 minutes it would not
         /// make sense to fetch and align data at one minute intervals. This field is
         /// optional and exists only as a hint.
-        #[prost(message, optional, tag="2")]
+        #[prost(message, optional, tag = "2")]
         pub min_alignment_period: ::core::option::Option<::prost_types::Duration>,
     }
     /// Defines the optional additional chart shown on the scorecard. If
     /// neither is included - then a default scorecard is shown.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum DataView {
         /// Will cause the scorecard to show a gauge chart.
-        #[prost(message, tag="4")]
+        #[prost(message, tag = "4")]
         GaugeView(GaugeView),
         /// Will cause the scorecard to show a spark chart.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         SparkChartView(SparkChartView),
     }
 }
 /// A widget that displays textual content.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Text {
     /// The text content to be displayed.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub content: ::prost::alloc::string::String,
     /// How the text content is formatted.
-    #[prost(enumeration="text::Format", tag="2")]
+    #[prost(enumeration = "text::Format", tag = "2")]
     pub format: i32,
 }
 /// Nested message and enum types in `Text`.
 pub mod text {
     /// The format type of the text content.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Format {
         /// Format is unspecified. Defaults to MARKDOWN.
@@ -848,63 +1046,84 @@ pub mod text {
                 Format::Raw => "RAW",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
+                "MARKDOWN" => Some(Self::Markdown),
+                "RAW" => Some(Self::Raw),
+                _ => None,
+            }
+        }
     }
 }
 /// A chart that displays data on a 2D (X and Y axes) plane.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct XyChart {
     /// Required. The data displayed in this chart.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub data_sets: ::prost::alloc::vec::Vec<xy_chart::DataSet>,
     /// The duration used to display a comparison chart. A comparison chart
     /// simultaneously shows values from two similar-length time periods
     /// (e.g., week-over-week metrics).
     /// The duration must be positive, and it can only be applied to charts with
     /// data sets of LINE plot type.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub timeshift_duration: ::core::option::Option<::prost_types::Duration>,
     /// Threshold lines drawn horizontally across the chart.
-    #[prost(message, repeated, tag="5")]
+    #[prost(message, repeated, tag = "5")]
     pub thresholds: ::prost::alloc::vec::Vec<Threshold>,
     /// The properties applied to the X axis.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub x_axis: ::core::option::Option<xy_chart::Axis>,
     /// The properties applied to the Y axis.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub y_axis: ::core::option::Option<xy_chart::Axis>,
     /// Display options for the chart.
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub chart_options: ::core::option::Option<ChartOptions>,
 }
 /// Nested message and enum types in `XyChart`.
 pub mod xy_chart {
     /// Groups a time series query definition with charting options.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct DataSet {
         /// Required. Fields for querying time series data from the
         /// Stackdriver metrics API.
-        #[prost(message, optional, tag="1")]
+        #[prost(message, optional, tag = "1")]
         pub time_series_query: ::core::option::Option<super::TimeSeriesQuery>,
         /// How this data should be plotted on the chart.
-        #[prost(enumeration="data_set::PlotType", tag="2")]
+        #[prost(enumeration = "data_set::PlotType", tag = "2")]
         pub plot_type: i32,
         /// A template string for naming `TimeSeries` in the resulting data set.
         /// This should be a string with interpolations of the form `${label_name}`,
         /// which will resolve to the label's value.
-        #[prost(string, tag="3")]
+        #[prost(string, tag = "3")]
         pub legend_template: ::prost::alloc::string::String,
         /// Optional. The lower bound on data point frequency for this data set, implemented by
         /// specifying the minimum alignment period to use in a time series query
         /// For example, if the data is published once every 10 minutes, the
         /// `min_alignment_period` should be at least 10 minutes. It would not
         /// make sense to fetch and align data at one minute intervals.
-        #[prost(message, optional, tag="4")]
+        #[prost(message, optional, tag = "4")]
         pub min_alignment_period: ::core::option::Option<::prost_types::Duration>,
     }
     /// Nested message and enum types in `DataSet`.
     pub mod data_set {
         /// The types of plotting strategies for data sets.
-        #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
         #[repr(i32)]
         pub enum PlotType {
             /// Plot type is unspecified. The view will default to `LINE`.
@@ -941,22 +1160,44 @@ pub mod xy_chart {
                     PlotType::Heatmap => "HEATMAP",
                 }
             }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "PLOT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "LINE" => Some(Self::Line),
+                    "STACKED_AREA" => Some(Self::StackedArea),
+                    "STACKED_BAR" => Some(Self::StackedBar),
+                    "HEATMAP" => Some(Self::Heatmap),
+                    _ => None,
+                }
+            }
         }
     }
     /// A chart axis.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Axis {
         /// The label of the axis.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub label: ::prost::alloc::string::String,
         /// The axis scale. By default, a linear scale is used.
-        #[prost(enumeration="axis::Scale", tag="2")]
+        #[prost(enumeration = "axis::Scale", tag = "2")]
         pub scale: i32,
     }
     /// Nested message and enum types in `Axis`.
     pub mod axis {
         /// Types of scales used in axes.
-        #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
         #[repr(i32)]
         pub enum Scale {
             /// Scale is unspecified. The view will default to `LINEAR`.
@@ -978,20 +1219,40 @@ pub mod xy_chart {
                     Scale::Log10 => "LOG10",
                 }
             }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "SCALE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "LINEAR" => Some(Self::Linear),
+                    "LOG10" => Some(Self::Log10),
+                    _ => None,
+                }
+            }
         }
     }
 }
 /// Options to control visual rendering of a chart.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChartOptions {
     /// The chart mode.
-    #[prost(enumeration="chart_options::Mode", tag="1")]
+    #[prost(enumeration = "chart_options::Mode", tag = "1")]
     pub mode: i32,
 }
 /// Nested message and enum types in `ChartOptions`.
 pub mod chart_options {
     /// Chart mode options.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Mode {
         /// Mode is unspecified. The view will default to `COLOR`.
@@ -1019,151 +1280,171 @@ pub mod chart_options {
                 Mode::Stats => "STATS",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "COLOR" => Some(Self::Color),
+                "X_RAY" => Some(Self::XRay),
+                "STATS" => Some(Self::Stats),
+                _ => None,
+            }
+        }
     }
 }
 /// Widget contains a single dashboard component and configuration of how to
 /// present the component in the dashboard.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Widget {
     /// Optional. The title of the widget.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub title: ::prost::alloc::string::String,
     /// Content defines the component used to populate the widget.
-    #[prost(oneof="widget::Content", tags="2, 3, 4, 5, 7")]
+    #[prost(oneof = "widget::Content", tags = "2, 3, 4, 5, 7")]
     pub content: ::core::option::Option<widget::Content>,
 }
 /// Nested message and enum types in `Widget`.
 pub mod widget {
     /// Content defines the component used to populate the widget.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Content {
         /// A chart of time series data.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         XyChart(super::XyChart),
         /// A scorecard summarizing time series data.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         Scorecard(super::Scorecard),
         /// A raw string or markdown displaying textual content.
-        #[prost(message, tag="4")]
+        #[prost(message, tag = "4")]
         Text(super::Text),
         /// A blank space.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         Blank(()),
         /// A chart of alert policy data.
-        #[prost(message, tag="7")]
+        #[prost(message, tag = "7")]
         AlertChart(super::AlertChart),
     }
 }
 /// A basic layout divides the available space into vertical columns of equal
 /// width and arranges a list of widgets using a row-first strategy.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GridLayout {
     /// The number of columns into which the view's width is divided. If omitted
     /// or set to zero, a system default will be used while rendering.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub columns: i64,
     /// The informational elements that are arranged into the columns row-first.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub widgets: ::prost::alloc::vec::Vec<Widget>,
 }
 /// A mosaic layout divides the available space into a grid of blocks, and
 /// overlays the grid with tiles. Unlike `GridLayout`, tiles may span multiple
 /// grid blocks and can be placed at arbitrary locations in the grid.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MosaicLayout {
     /// The number of columns in the mosaic grid. The number of columns must be
     /// between 1 and 12, inclusive.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub columns: i32,
     /// The tiles to display.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub tiles: ::prost::alloc::vec::Vec<mosaic_layout::Tile>,
 }
 /// Nested message and enum types in `MosaicLayout`.
 pub mod mosaic_layout {
     /// A single tile in the mosaic. The placement and size of the tile are
     /// configurable.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Tile {
         /// The zero-indexed position of the tile in grid blocks relative to the
         /// left edge of the grid. Tiles must be contained within the specified
         /// number of columns. `x_pos` cannot be negative.
-        #[prost(int32, tag="1")]
+        #[prost(int32, tag = "1")]
         pub x_pos: i32,
         /// The zero-indexed position of the tile in grid blocks relative to the
         /// top edge of the grid. `y_pos` cannot be negative.
-        #[prost(int32, tag="2")]
+        #[prost(int32, tag = "2")]
         pub y_pos: i32,
         /// The width of the tile, measured in grid blocks. Tiles must have a
         /// minimum width of 1.
-        #[prost(int32, tag="3")]
+        #[prost(int32, tag = "3")]
         pub width: i32,
         /// The height of the tile, measured in grid blocks. Tiles must have a
         /// minimum height of 1.
-        #[prost(int32, tag="4")]
+        #[prost(int32, tag = "4")]
         pub height: i32,
         /// The informational widget contained in the tile. For example an `XyChart`.
-        #[prost(message, optional, tag="5")]
+        #[prost(message, optional, tag = "5")]
         pub widget: ::core::option::Option<super::Widget>,
     }
 }
 /// A simplified layout that divides the available space into rows
 /// and arranges a set of widgets horizontally in each row.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RowLayout {
     /// The rows of content to display.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub rows: ::prost::alloc::vec::Vec<row_layout::Row>,
 }
 /// Nested message and enum types in `RowLayout`.
 pub mod row_layout {
     /// Defines the layout properties and content for a row.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Row {
         /// The relative weight of this row. The row weight is used to adjust the
         /// height of rows on the screen (relative to peers). Greater the weight,
         /// greater the height of the row on the screen. If omitted, a value
         /// of 1 is used while rendering.
-        #[prost(int64, tag="1")]
+        #[prost(int64, tag = "1")]
         pub weight: i64,
         /// The display widgets arranged horizontally in this row.
-        #[prost(message, repeated, tag="2")]
+        #[prost(message, repeated, tag = "2")]
         pub widgets: ::prost::alloc::vec::Vec<super::Widget>,
     }
 }
 /// A simplified layout that divides the available space into vertical columns
 /// and arranges a set of widgets vertically in each column.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ColumnLayout {
     /// The columns of content to display.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub columns: ::prost::alloc::vec::Vec<column_layout::Column>,
 }
 /// Nested message and enum types in `ColumnLayout`.
 pub mod column_layout {
     /// Defines the layout properties and content for a column.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Column {
         /// The relative weight of this column. The column weight is used to adjust
         /// the width of columns on the screen (relative to peers).
         /// Greater the weight, greater the width of the column on the screen.
         /// If omitted, a value of 1 is used while rendering.
-        #[prost(int64, tag="1")]
+        #[prost(int64, tag = "1")]
         pub weight: i64,
         /// The display widgets arranged vertically in this column.
-        #[prost(message, repeated, tag="2")]
+        #[prost(message, repeated, tag = "2")]
         pub widgets: ::prost::alloc::vec::Vec<super::Widget>,
     }
 }
 /// A Google Stackdriver dashboard. Dashboards define the content and layout
 /// of pages in the Stackdriver web application.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Dashboard {
     /// Immutable. The resource name of the dashboard.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The mutable, human-readable name.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub display_name: ::prost::alloc::string::String,
     /// `etag` is used for optimistic concurrency control as a way to help
     /// prevent simultaneous updates of a policy from overwriting each other.
@@ -1172,36 +1453,38 @@ pub struct Dashboard {
     /// ensure that their change will be applied to the same version of the
     /// Dashboard configuration. The field should not be passed during
     /// dashboard creation.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub etag: ::prost::alloc::string::String,
     /// A dashboard's root container element that defines the layout style.
-    #[prost(oneof="dashboard::Layout", tags="5, 6, 8, 9")]
+    #[prost(oneof = "dashboard::Layout", tags = "5, 6, 8, 9")]
     pub layout: ::core::option::Option<dashboard::Layout>,
 }
 /// Nested message and enum types in `Dashboard`.
 pub mod dashboard {
     /// A dashboard's root container element that defines the layout style.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Layout {
         /// Content is arranged with a basic layout that re-flows a simple list of
         /// informational elements like widgets or tiles.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         GridLayout(super::GridLayout),
         /// The content is arranged as a grid of tiles, with each content widget
         /// occupying one or more grid blocks.
-        #[prost(message, tag="6")]
+        #[prost(message, tag = "6")]
         MosaicLayout(super::MosaicLayout),
         /// The content is divided into equally spaced rows and the widgets are
         /// arranged horizontally.
-        #[prost(message, tag="8")]
+        #[prost(message, tag = "8")]
         RowLayout(super::RowLayout),
         /// The content is divided into equally spaced columns and the widgets are
         /// arranged vertically.
-        #[prost(message, tag="9")]
+        #[prost(message, tag = "9")]
         ColumnLayout(super::ColumnLayout),
     }
 }
 /// The `CreateDashboard` request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateDashboardRequest {
     /// Required. The project on which to execute the request. The format is:
@@ -1209,47 +1492,50 @@ pub struct CreateDashboardRequest {
     ///      projects/\[PROJECT_ID_OR_NUMBER\]
     ///
     /// The `\[PROJECT_ID_OR_NUMBER\]` must match the dashboard resource name.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The initial dashboard specification.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub dashboard: ::core::option::Option<Dashboard>,
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub validate_only: bool,
 }
 /// The `ListDashboards` request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListDashboardsRequest {
     /// Required. The scope of the dashboards to list. The format is:
     ///
     ///      projects/\[PROJECT_ID_OR_NUMBER\]
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// A positive number that is the maximum number of results to return.
     /// If unspecified, a default of 1000 is used.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// If this field is not empty then it must contain the `nextPageToken` value
     /// returned by a previous call to this method.  Using this field causes the
     /// method to return additional results from the previous method call.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// The `ListDashboards` request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListDashboardsResponse {
     /// The list of requested dashboards.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub dashboards: ::prost::alloc::vec::Vec<Dashboard>,
     /// If there are more results than have been returned, then this field is set
     /// to a non-empty value.  To see the additional results,
     /// use that value as `page_token` in the next call to this method.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The `GetDashboard` request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetDashboardRequest {
     /// Required. The resource name of the Dashboard. The format is one of:
@@ -1257,27 +1543,29 @@ pub struct GetDashboardRequest {
     ///   -  `dashboards/\[DASHBOARD_ID\]` (for system dashboards)
     ///   -  `projects/\[PROJECT_ID_OR_NUMBER]/dashboards/[DASHBOARD_ID\]`
     ///        (for custom dashboards).
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The `DeleteDashboard` request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteDashboardRequest {
     /// Required. The resource name of the Dashboard. The format is:
     ///
     ///      projects/\[PROJECT_ID_OR_NUMBER]/dashboards/[DASHBOARD_ID\]
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The `UpdateDashboard` request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateDashboardRequest {
     /// Required. The dashboard that will replace the existing dashboard.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub dashboard: ::core::option::Option<Dashboard>,
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub validate_only: bool,
 }
 /// Generated client implementations.

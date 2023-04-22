@@ -1,15 +1,16 @@
 /// A geographical point suitable for placing game objects in location-based
 /// games.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PlayableLocation {
     /// Required. The name of this playable location.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// A collection of [Playable Location Types](/maps/tt/games/types) for this
     /// playable location. The first type in the collection is the primary type.
     ///
     /// Type information might not be available for all playable locations.
-    #[prost(string, repeated, tag="4")]
+    #[prost(string, repeated, tag = "4")]
     pub types: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Required. The latitude and longitude associated with the center of the
     /// playable location.
@@ -17,32 +18,36 @@ pub struct PlayableLocation {
     /// By default, the set of playable locations returned from
     /// \[SamplePlayableLocations][google.maps.playablelocations.v3.PlayableLocations.SamplePlayableLocations\]
     /// use center-point coordinates.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub center_point: ::core::option::Option<super::super::super::super::r#type::LatLng>,
     /// The playable location's coordinates, snapped to the sidewalk of the
     /// nearest road, if a nearby road exists.
-    #[prost(message, optional, tag="6")]
-    pub snapped_point: ::core::option::Option<super::super::super::super::r#type::LatLng>,
+    #[prost(message, optional, tag = "6")]
+    pub snapped_point: ::core::option::Option<
+        super::super::super::super::r#type::LatLng,
+    >,
     /// Required.
     /// Each location has one of the following identifiers:
-    #[prost(oneof="playable_location::LocationId", tags="2, 3")]
+    #[prost(oneof = "playable_location::LocationId", tags = "2, 3")]
     pub location_id: ::core::option::Option<playable_location::LocationId>,
 }
 /// Nested message and enum types in `PlayableLocation`.
 pub mod playable_location {
     /// Required.
     /// Each location has one of the following identifiers:
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum LocationId {
         /// A [place ID] (<https://developers.google.com/places/place-id>)
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         PlaceId(::prost::alloc::string::String),
         /// A [plus code] (<http://openlocationcode.com>)
-        #[prost(string, tag="3")]
+        #[prost(string, tag = "3")]
         PlusCode(::prost::alloc::string::String),
     }
 }
 /// A set of options that specifies the separation between playable locations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SpacingOptions {
     /// Required. The minimum spacing between any two playable locations, measured
@@ -84,7 +89,7 @@ pub struct SpacingOptions {
     ///    * X->X: 400m
     ///    * Y->X, Y->Y: unspecified.
     ///    * Z->X, Z->Y, Z->Z: 200m.
-    #[prost(double, tag="1")]
+    #[prost(double, tag = "1")]
     pub min_spacing_meters: f64,
     /// Specifies whether the minimum spacing constraint applies to the
     /// center-point or to the snapped point of playable locations. The default
@@ -94,7 +99,7 @@ pub struct SpacingOptions {
     /// center-point is used instead.
     ///
     /// Set this to the point type used in your game.
-    #[prost(enumeration="spacing_options::PointType", tag="2")]
+    #[prost(enumeration = "spacing_options::PointType", tag = "2")]
     pub point_type: i32,
 }
 /// Nested message and enum types in `SpacingOptions`.
@@ -102,7 +107,17 @@ pub mod spacing_options {
     /// Specifies whether the playable location's geographic coordinates (latitude
     /// and longitude) correspond to its center-point, or to its location snapped
     /// to the sidewalk of the nearest road.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum PointType {
         /// Unspecified point type. Do not use this value.
@@ -125,28 +140,39 @@ pub mod spacing_options {
                 PointType::SnappedPoint => "SNAPPED_POINT",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "POINT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CENTER_POINT" => Some(Self::CenterPoint),
+                "SNAPPED_POINT" => Some(Self::SnappedPoint),
+                _ => None,
+            }
+        }
     }
 }
 /// Specifies the filters to use when searching for playable locations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Filter {
     /// Specifies the maximum number of playable locations to return. This value
     /// must not be greater than 1000. The default value is 100.
     ///
     /// Only the top-ranking playable locations are returned.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub max_location_count: i32,
     /// A set of options that control the spacing between playable locations. By
     /// default the minimum distance between locations is 200m.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub spacing: ::core::option::Option<SpacingOptions>,
     /// Restricts the set of playable locations to just the
     /// \[types\](/maps/tt/games/types) that you want.
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, repeated, tag = "3")]
     pub included_types: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Encapsulates a filter criterion for searching for a set of playable
 /// locations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Criterion {
     /// Required. An arbitrary, developer-defined identifier of the type of game
@@ -159,11 +185,11 @@ pub struct Criterion {
     /// example, 1=monster location, 2=powerup location.
     ///
     /// The response contains a map<game_object_type, Response>.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub game_object_type: i32,
     /// Specifies filtering options, and specifies what will be included in the
     /// result set.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub filter: ::core::option::Option<Filter>,
     /// Specifies which `PlayableLocation` fields are returned.
     ///
@@ -177,10 +203,11 @@ pub struct Criterion {
     ///
     /// Note: The more fields you include, the more expensive in terms of data and
     /// associated latency your query will be.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub fields_to_return: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Specifies the area to search for playable locations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AreaFilter {
     /// Required. The S2 cell ID of the area you want. This must be between cell
@@ -195,13 +222,14 @@ pub struct AreaFilter {
     ///    * \[Java\](<https://github.com/google/s2-geometry-library-java>)
     ///    * \[Go\](<https://github.com/golang/geo>)
     ///    * \[Python\](<https://github.com/google/s2geometry/tree/master/src/python>)
-    #[prost(fixed64, tag="1")]
+    #[prost(fixed64, tag = "1")]
     pub s2_cell_id: u64,
 }
 /// A list of PlayableLocation objects that satisfies a single Criterion.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PlayableLocationList {
     /// A list of playable locations for this game object type.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub locations: ::prost::alloc::vec::Vec<PlayableLocation>,
 }

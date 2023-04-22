@@ -1,60 +1,68 @@
 /// The values associated with a key of an attribute.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AttributeValues {
     /// The list of values associated with a key.
-    #[prost(bytes="vec", repeated, tag="1")]
+    #[prost(bytes = "vec", repeated, tag = "1")]
     pub values: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
 }
 /// A message that is published by publishers and delivered to subscribers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PubSubMessage {
     /// The key used for routing messages to partitions or for compaction (e.g.,
     /// keep the last N messages per key). If the key is empty, the message is
     /// routed to an arbitrary partition.
-    #[prost(bytes="vec", tag="1")]
+    #[prost(bytes = "vec", tag = "1")]
     pub key: ::prost::alloc::vec::Vec<u8>,
     /// The payload of the message.
-    #[prost(bytes="vec", tag="2")]
+    #[prost(bytes = "vec", tag = "2")]
     pub data: ::prost::alloc::vec::Vec<u8>,
     /// Optional attributes that can be used for message metadata/headers.
-    #[prost(map="string, message", tag="3")]
-    pub attributes: ::std::collections::HashMap<::prost::alloc::string::String, AttributeValues>,
+    #[prost(map = "string, message", tag = "3")]
+    pub attributes: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        AttributeValues,
+    >,
     /// An optional, user-specified event time.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub event_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// A cursor that describes the position of a message within a topic partition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Cursor {
     /// The offset of a message within a topic partition. Must be greater than or
     /// equal 0.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub offset: i64,
 }
 /// A message that has been stored and sequenced by the Pub/Sub Lite system.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SequencedMessage {
     /// The position of a message within the partition where it is stored.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub cursor: ::core::option::Option<Cursor>,
     /// The time when the message was received by the server when it was first
     /// published.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub publish_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The user message.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub message: ::core::option::Option<PubSubMessage>,
     /// The size in bytes of this message for flow control and quota purposes.
-    #[prost(int64, tag="4")]
+    #[prost(int64, tag = "4")]
     pub size_bytes: i64,
 }
 /// Metadata about a reservation resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Reservation {
     /// The name of the reservation.
     /// Structured like:
     /// projects/{project_number}/locations/{location}/reservations/{reservation_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The reserved throughput capacity. Every unit of throughput capacity is
     /// equivalent to 1 MiB/s of published messages or 2 MiB/s of subscribed
@@ -63,30 +71,32 @@ pub struct Reservation {
     /// Any topics which are declared as using capacity from a Reservation will
     /// consume resources from this reservation instead of being charged
     /// individually.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub throughput_capacity: i64,
 }
 /// Metadata about a topic resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Topic {
     /// The name of the topic.
     /// Structured like:
     /// projects/{project_number}/locations/{location}/topics/{topic_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The settings for this topic's partitions.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub partition_config: ::core::option::Option<topic::PartitionConfig>,
     /// The settings for this topic's message retention.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub retention_config: ::core::option::Option<topic::RetentionConfig>,
     /// The settings for this topic's Reservation usage.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub reservation_config: ::core::option::Option<topic::ReservationConfig>,
 }
 /// Nested message and enum types in `Topic`.
 pub mod topic {
     /// The settings for a topic's partitions.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct PartitionConfig {
         /// The number of partitions in the topic. Must be at least 1.
@@ -95,27 +105,29 @@ pub mod topic {
         /// but not decreased. Message ordering is not guaranteed across a topic
         /// resize. For more information see
         /// <https://cloud.google.com/pubsub/lite/docs/topics#scaling_capacity>
-        #[prost(int64, tag="1")]
+        #[prost(int64, tag = "1")]
         pub count: i64,
         /// The throughput dimension of this topic.
-        #[prost(oneof="partition_config::Dimension", tags="2, 3")]
+        #[prost(oneof = "partition_config::Dimension", tags = "2, 3")]
         pub dimension: ::core::option::Option<partition_config::Dimension>,
     }
     /// Nested message and enum types in `PartitionConfig`.
     pub mod partition_config {
         /// The throughput capacity configuration for each partition.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct Capacity {
             /// Publish throughput capacity per partition in MiB/s.
             /// Must be >= 4 and <= 16.
-            #[prost(int32, tag="1")]
+            #[prost(int32, tag = "1")]
             pub publish_mib_per_sec: i32,
             /// Subscribe throughput capacity per partition in MiB/s.
             /// Must be >= 4 and <= 32.
-            #[prost(int32, tag="2")]
+            #[prost(int32, tag = "2")]
             pub subscribe_mib_per_sec: i32,
         }
         /// The throughput dimension of this topic.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum Dimension {
             /// DEPRECATED: Use capacity instead which can express a superset of
@@ -126,62 +138,66 @@ pub mod topic {
             /// reflected in the cost of this topic; a topic with `scale` of 2 and
             /// count of 10 is charged for 20 partitions. This value must be in the
             /// range \[1,4\].
-            #[prost(int32, tag="2")]
+            #[prost(int32, tag = "2")]
             Scale(i32),
             /// The capacity configuration.
-            #[prost(message, tag="3")]
+            #[prost(message, tag = "3")]
             Capacity(Capacity),
         }
     }
     /// The settings for a topic's message retention.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct RetentionConfig {
         /// The provisioned storage, in bytes, per partition. If the number of bytes
         /// stored in any of the topic's partitions grows beyond this value, older
         /// messages will be dropped to make room for newer ones, regardless of the
         /// value of `period`.
-        #[prost(int64, tag="1")]
+        #[prost(int64, tag = "1")]
         pub per_partition_bytes: i64,
         /// How long a published message is retained. If unset, messages will be
         /// retained as long as the bytes retained for each partition is below
         /// `per_partition_bytes`.
-        #[prost(message, optional, tag="2")]
+        #[prost(message, optional, tag = "2")]
         pub period: ::core::option::Option<::prost_types::Duration>,
     }
     /// The settings for this topic's Reservation usage.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ReservationConfig {
         /// The Reservation to use for this topic's throughput capacity.
         /// Structured like:
         /// projects/{project_number}/locations/{location}/reservations/{reservation_id}
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub throughput_reservation: ::prost::alloc::string::String,
     }
 }
 /// Metadata about a subscription resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Subscription {
     /// The name of the subscription.
     /// Structured like:
     /// projects/{project_number}/locations/{location}/subscriptions/{subscription_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The name of the topic this subscription is attached to.
     /// Structured like:
     /// projects/{project_number}/locations/{location}/topics/{topic_id}
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub topic: ::prost::alloc::string::String,
     /// The settings for this subscription's message delivery.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub delivery_config: ::core::option::Option<subscription::DeliveryConfig>,
 }
 /// Nested message and enum types in `Subscription`.
 pub mod subscription {
     /// The settings for a subscription's message delivery.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct DeliveryConfig {
         /// The DeliveryRequirement for this subscription.
-        #[prost(enumeration="delivery_config::DeliveryRequirement", tag="3")]
+        #[prost(enumeration = "delivery_config::DeliveryRequirement", tag = "3")]
         pub delivery_requirement: i32,
     }
     /// Nested message and enum types in `DeliveryConfig`.
@@ -189,7 +205,17 @@ pub mod subscription {
         /// When this subscription should send messages to subscribers relative to
         /// messages persistence in storage. For details, see [Creating Lite
         /// subscriptions](<https://cloud.google.com/pubsub/lite/docs/subscriptions#creating_lite_subscriptions>).
-        #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
         #[repr(i32)]
         pub enum DeliveryRequirement {
             /// Default value. This value is unused.
@@ -209,9 +235,20 @@ pub mod subscription {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    DeliveryRequirement::Unspecified => "DELIVERY_REQUIREMENT_UNSPECIFIED",
+                    DeliveryRequirement::Unspecified => {
+                        "DELIVERY_REQUIREMENT_UNSPECIFIED"
+                    }
                     DeliveryRequirement::DeliverImmediately => "DELIVER_IMMEDIATELY",
                     DeliveryRequirement::DeliverAfterStored => "DELIVER_AFTER_STORED",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "DELIVERY_REQUIREMENT_UNSPECIFIED" => Some(Self::Unspecified),
+                    "DELIVER_IMMEDIATELY" => Some(Self::DeliverImmediately),
+                    "DELIVER_AFTER_STORED" => Some(Self::DeliverAfterStored),
+                    _ => None,
                 }
             }
         }
@@ -219,242 +256,271 @@ pub mod subscription {
 }
 /// A target publish or event time. Can be used for seeking to or retrieving the
 /// corresponding cursor.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimeTarget {
     /// The type of message time to query.
-    #[prost(oneof="time_target::Time", tags="1, 2")]
+    #[prost(oneof = "time_target::Time", tags = "1, 2")]
     pub time: ::core::option::Option<time_target::Time>,
 }
 /// Nested message and enum types in `TimeTarget`.
 pub mod time_target {
     /// The type of message time to query.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Time {
         /// Request the cursor of the first message with publish time greater than or
         /// equal to `publish_time`. All messages thereafter are guaranteed to have
         /// publish times >= `publish_time`.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         PublishTime(::prost_types::Timestamp),
         /// Request the cursor of the first message with event time greater than or
         /// equal to `event_time`. If messages are missing an event time, the publish
         /// time is used as a fallback. As event times are user supplied, subsequent
         /// messages may have event times less than `event_time` and should be
         /// filtered by the client, if necessary.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         EventTime(::prost_types::Timestamp),
     }
 }
 /// Request for CreateTopic.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateTopicRequest {
     /// Required. The parent location in which to create the topic.
     /// Structured like `projects/{project_number}/locations/{location}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. Configuration of the topic to create. Its `name` field is ignored.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub topic: ::core::option::Option<Topic>,
     /// Required. The ID to use for the topic, which will become the final component of
     /// the topic's name.
     ///
     /// This value is structured like: `my-topic-name`.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub topic_id: ::prost::alloc::string::String,
 }
 /// Request for GetTopic.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTopicRequest {
     /// Required. The name of the topic whose configuration to return.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for GetTopicPartitions.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetTopicPartitionsRequest {
     /// Required. The topic whose partition information to return.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Response for GetTopicPartitions.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TopicPartitions {
     /// The number of partitions in the topic.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub partition_count: i64,
 }
 /// Request for ListTopics.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTopicsRequest {
     /// Required. The parent whose topics are to be listed.
     /// Structured like `projects/{project_number}/locations/{location}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of topics to return. The service may return fewer than
     /// this value.
     /// If unset or zero, all topics for the parent will be returned.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A page token, received from a previous `ListTopics` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListTopics` must match
     /// the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response for ListTopics.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTopicsResponse {
     /// The list of topic in the requested parent. The order of the topics is
     /// unspecified.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub topics: ::prost::alloc::vec::Vec<Topic>,
     /// A token that can be sent as `page_token` to retrieve the next page of
     /// results. If this field is omitted, there are no more results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request for UpdateTopic.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateTopicRequest {
     /// Required. The topic to update. Its `name` field must be populated.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub topic: ::core::option::Option<Topic>,
     /// Required. A mask specifying the topic fields to change.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request for DeleteTopic.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteTopicRequest {
     /// Required. The name of the topic to delete.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for ListTopicSubscriptions.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTopicSubscriptionsRequest {
     /// Required. The name of the topic whose subscriptions to list.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The maximum number of subscriptions to return. The service may return fewer
     /// than this value.
     /// If unset or zero, all subscriptions for the given topic will be returned.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A page token, received from a previous `ListTopicSubscriptions` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListTopicSubscriptions`
     /// must match the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response for ListTopicSubscriptions.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTopicSubscriptionsResponse {
     /// The names of subscriptions attached to the topic. The order of the
     /// subscriptions is unspecified.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub subscriptions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// A token that can be sent as `page_token` to retrieve the next page of
     /// results. If this field is omitted, there are no more results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request for CreateSubscription.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateSubscriptionRequest {
     /// Required. The parent location in which to create the subscription.
     /// Structured like `projects/{project_number}/locations/{location}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. Configuration of the subscription to create. Its `name` field is ignored.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub subscription: ::core::option::Option<Subscription>,
     /// Required. The ID to use for the subscription, which will become the final component
     /// of the subscription's name.
     ///
     /// This value is structured like: `my-sub-name`.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub subscription_id: ::prost::alloc::string::String,
     /// If true, the newly created subscription will only receive messages
     /// published after the subscription was created. Otherwise, the entire
     /// message backlog will be received on the subscription. Defaults to false.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub skip_backlog: bool,
 }
 /// Request for GetSubscription.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSubscriptionRequest {
     /// Required. The name of the subscription whose configuration to return.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for ListSubscriptions.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSubscriptionsRequest {
     /// Required. The parent whose subscriptions are to be listed.
     /// Structured like `projects/{project_number}/locations/{location}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of subscriptions to return. The service may return fewer
     /// than this value.
     /// If unset or zero, all subscriptions for the parent will be returned.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A page token, received from a previous `ListSubscriptions` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListSubscriptions` must
     /// match the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response for ListSubscriptions.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSubscriptionsResponse {
     /// The list of subscriptions in the requested parent. The order of the
     /// subscriptions is unspecified.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub subscriptions: ::prost::alloc::vec::Vec<Subscription>,
     /// A token that can be sent as `page_token` to retrieve the next page of
     /// results. If this field is omitted, there are no more results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request for UpdateSubscription.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateSubscriptionRequest {
     /// Required. The subscription to update. Its `name` field must be populated.
     /// Topic field must not be populated.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub subscription: ::core::option::Option<Subscription>,
     /// Required. A mask specifying the subscription fields to change.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request for DeleteSubscription.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteSubscriptionRequest {
     /// Required. The name of the subscription to delete.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for SeekSubscription.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SeekSubscriptionRequest {
     /// Required. The name of the subscription to seek.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The target to seek to. Must be set.
-    #[prost(oneof="seek_subscription_request::Target", tags="2, 3")]
+    #[prost(oneof = "seek_subscription_request::Target", tags = "2, 3")]
     pub target: ::core::option::Option<seek_subscription_request::Target>,
 }
 /// Nested message and enum types in `SeekSubscriptionRequest`.
 pub mod seek_subscription_request {
     /// A named position with respect to the message backlog.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum NamedTarget {
         /// Unspecified named target. Do not use.
@@ -477,151 +543,170 @@ pub mod seek_subscription_request {
                 NamedTarget::Head => "HEAD",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "NAMED_TARGET_UNSPECIFIED" => Some(Self::Unspecified),
+                "TAIL" => Some(Self::Tail),
+                "HEAD" => Some(Self::Head),
+                _ => None,
+            }
+        }
     }
     /// The target to seek to. Must be set.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Target {
         /// Seek to a named position with respect to the message backlog.
-        #[prost(enumeration="NamedTarget", tag="2")]
+        #[prost(enumeration = "NamedTarget", tag = "2")]
         NamedTarget(i32),
         /// Seek to the first message whose publish or event time is greater than or
         /// equal to the specified query time. If no such message can be located,
         /// will seek to the end of the message backlog.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         TimeTarget(super::TimeTarget),
     }
 }
 /// Response for SeekSubscription long running operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SeekSubscriptionResponse {
-}
+pub struct SeekSubscriptionResponse {}
 /// Metadata for long running operations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OperationMetadata {
     /// The time the operation was created.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The time the operation finished running. Not set if the operation has not
     /// completed.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Resource path for the target of the operation. For example, targets of
     /// seeks are subscription resources, structured like:
     /// projects/{project_number}/locations/{location}/subscriptions/{subscription_id}
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub target: ::prost::alloc::string::String,
     /// Name of the verb executed by the operation.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub verb: ::prost::alloc::string::String,
 }
 /// Request for CreateReservation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateReservationRequest {
     /// Required. The parent location in which to create the reservation.
     /// Structured like `projects/{project_number}/locations/{location}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. Configuration of the reservation to create. Its `name` field is ignored.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub reservation: ::core::option::Option<Reservation>,
     /// Required. The ID to use for the reservation, which will become the final component of
     /// the reservation's name.
     ///
     /// This value is structured like: `my-reservation-name`.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub reservation_id: ::prost::alloc::string::String,
 }
 /// Request for GetReservation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetReservationRequest {
     /// Required. The name of the reservation whose configuration to return.
     /// Structured like:
     /// projects/{project_number}/locations/{location}/reservations/{reservation_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for ListReservations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListReservationsRequest {
     /// Required. The parent whose reservations are to be listed.
     /// Structured like `projects/{project_number}/locations/{location}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of reservations to return. The service may return fewer
     /// than this value. If unset or zero, all reservations for the parent will be
     /// returned.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A page token, received from a previous `ListReservations` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListReservations` must
     /// match the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response for ListReservations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListReservationsResponse {
     /// The list of reservation in the requested parent. The order of the
     /// reservations is unspecified.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub reservations: ::prost::alloc::vec::Vec<Reservation>,
     /// A token that can be sent as `page_token` to retrieve the next page of
     /// results. If this field is omitted, there are no more results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request for UpdateReservation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateReservationRequest {
     /// Required. The reservation to update. Its `name` field must be populated.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub reservation: ::core::option::Option<Reservation>,
     /// Required. A mask specifying the reservation fields to change.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request for DeleteReservation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteReservationRequest {
     /// Required. The name of the reservation to delete.
     /// Structured like:
     /// projects/{project_number}/locations/{location}/reservations/{reservation_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for ListReservationTopics.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListReservationTopicsRequest {
     /// Required. The name of the reservation whose topics to list.
     /// Structured like:
     /// projects/{project_number}/locations/{location}/reservations/{reservation_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The maximum number of topics to return. The service may return fewer
     /// than this value.
     /// If unset or zero, all topics for the given reservation will be returned.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A page token, received from a previous `ListReservationTopics` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListReservationTopics`
     /// must match the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response for ListReservationTopics.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListReservationTopicsResponse {
     /// The names of topics attached to the reservation. The order of the
     /// topics is unspecified.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub topics: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// A token that can be sent as `page_token` to retrieve the next page of
     /// results. If this field is omitted, there are no more results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -1098,135 +1183,146 @@ pub mod admin_service_client {
 /// The first streaming request that must be sent on a newly-opened stream. The
 /// client must wait for the response before sending subsequent requests on the
 /// stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitialCommitCursorRequest {
     /// The subscription for which to manage committed cursors.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub subscription: ::prost::alloc::string::String,
     /// The partition for which to manage committed cursors. Partitions are zero
     /// indexed, so `partition` must be in the range [0, topic.num_partitions).
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub partition: i64,
 }
 /// Response to an InitialCommitCursorRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InitialCommitCursorResponse {
-}
+pub struct InitialCommitCursorResponse {}
 /// Streaming request to update the committed cursor. Subsequent
 /// SequencedCommitCursorRequests override outstanding ones.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SequencedCommitCursorRequest {
     /// The new value for the committed cursor.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub cursor: ::core::option::Option<Cursor>,
 }
 /// Response to a SequencedCommitCursorRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SequencedCommitCursorResponse {
     /// The number of outstanding SequencedCommitCursorRequests acknowledged by
     /// this response. Note that SequencedCommitCursorRequests are acknowledged in
     /// the order that they are received.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub acknowledged_commits: i64,
 }
 /// A request sent from the client to the server on a stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingCommitCursorRequest {
     /// The type of request this is.
-    #[prost(oneof="streaming_commit_cursor_request::Request", tags="1, 2")]
+    #[prost(oneof = "streaming_commit_cursor_request::Request", tags = "1, 2")]
     pub request: ::core::option::Option<streaming_commit_cursor_request::Request>,
 }
 /// Nested message and enum types in `StreamingCommitCursorRequest`.
 pub mod streaming_commit_cursor_request {
     /// The type of request this is.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Request {
         /// Initial request on the stream.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         Initial(super::InitialCommitCursorRequest),
         /// Request to commit a new cursor value.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Commit(super::SequencedCommitCursorRequest),
     }
 }
 /// Response to a StreamingCommitCursorRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StreamingCommitCursorResponse {
     /// The type of request this is.
-    #[prost(oneof="streaming_commit_cursor_response::Request", tags="1, 2")]
+    #[prost(oneof = "streaming_commit_cursor_response::Request", tags = "1, 2")]
     pub request: ::core::option::Option<streaming_commit_cursor_response::Request>,
 }
 /// Nested message and enum types in `StreamingCommitCursorResponse`.
 pub mod streaming_commit_cursor_response {
     /// The type of request this is.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Request {
         /// Initial response on the stream.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         Initial(super::InitialCommitCursorResponse),
         /// Response to committing a new cursor value.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Commit(super::SequencedCommitCursorResponse),
     }
 }
 /// Request for CommitCursor.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommitCursorRequest {
     /// The subscription for which to update the cursor.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub subscription: ::prost::alloc::string::String,
     /// The partition for which to update the cursor. Partitions are zero indexed,
     /// so `partition` must be in the range [0, topic.num_partitions).
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub partition: i64,
     /// The new value for the committed cursor.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub cursor: ::core::option::Option<Cursor>,
 }
 /// Response for CommitCursor.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CommitCursorResponse {
-}
+pub struct CommitCursorResponse {}
 /// Request for ListPartitionCursors.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPartitionCursorsRequest {
     /// Required. The subscription for which to retrieve cursors.
     /// Structured like
     /// `projects/{project_number}/locations/{location}/subscriptions/{subscription_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of cursors to return. The service may return fewer than
     /// this value.
     /// If unset or zero, all cursors for the parent will be returned.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A page token, received from a previous `ListPartitionCursors` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListPartitionCursors`
     /// must match the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// A pair of a Cursor and the partition it is for.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PartitionCursor {
     /// The partition this is for.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub partition: i64,
     /// The value of the cursor.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub cursor: ::core::option::Option<Cursor>,
 }
 /// Response for ListPartitionCursors
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPartitionCursorsResponse {
     /// The partition cursors from this request.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub partition_cursors: ::prost::alloc::vec::Vec<PartitionCursor>,
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -1363,73 +1459,80 @@ pub mod cursor_service_client {
     }
 }
 /// The first request that must be sent on a newly-opened stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitialPublishRequest {
     /// The topic to which messages will be written.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
     /// The partition within the topic to which messages will be written.
     /// Partitions are zero indexed, so `partition` must be in the range [0,
     /// topic.num_partitions).
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub partition: i64,
 }
 /// Response to an InitialPublishRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct InitialPublishResponse {
-}
+pub struct InitialPublishResponse {}
 /// Request to publish messages to the topic.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessagePublishRequest {
     /// The messages to publish.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub messages: ::prost::alloc::vec::Vec<PubSubMessage>,
 }
 /// Response to a MessagePublishRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessagePublishResponse {
     /// The cursor of the first published message in the batch. The cursors for any
     /// remaining messages in the batch are guaranteed to be sequential.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub start_cursor: ::core::option::Option<Cursor>,
 }
 /// Request sent from the client to the server on a stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PublishRequest {
     /// The type of request this is.
-    #[prost(oneof="publish_request::RequestType", tags="1, 2")]
+    #[prost(oneof = "publish_request::RequestType", tags = "1, 2")]
     pub request_type: ::core::option::Option<publish_request::RequestType>,
 }
 /// Nested message and enum types in `PublishRequest`.
 pub mod publish_request {
     /// The type of request this is.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum RequestType {
         /// Initial request on the stream.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         InitialRequest(super::InitialPublishRequest),
         /// Request to publish messages.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         MessagePublishRequest(super::MessagePublishRequest),
     }
 }
 /// Response to a PublishRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PublishResponse {
     /// The type of response this is.
-    #[prost(oneof="publish_response::ResponseType", tags="1, 2")]
+    #[prost(oneof = "publish_response::ResponseType", tags = "1, 2")]
     pub response_type: ::core::option::Option<publish_response::ResponseType>,
 }
 /// Nested message and enum types in `PublishResponse`.
 pub mod publish_response {
     /// The type of response this is.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum ResponseType {
         /// Initial response on the stream.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         InitialResponse(super::InitialPublishResponse),
         /// Response to publishing messages.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         MessageResponse(super::MessagePublishResponse),
     }
 }
@@ -1528,27 +1631,29 @@ pub mod publisher_service_client {
 }
 /// The first request that must be sent on a newly-opened stream. The client must
 /// wait for the response before sending subsequent requests on the stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitialSubscribeRequest {
     /// The subscription from which to receive messages.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub subscription: ::prost::alloc::string::String,
     /// The partition from which to receive messages. Partitions are zero indexed,
     /// so `partition` must be in the range [0, topic.num_partitions).
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub partition: i64,
     /// Optional. Initial target location within the message backlog. If not set, messages
     /// will be delivered from the commit cursor for the given subscription and
     /// partition.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub initial_location: ::core::option::Option<SeekRequest>,
 }
 /// Response to an InitialSubscribeRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitialSubscribeResponse {
     /// The cursor from which the subscriber will start receiving messages once
     /// flow control tokens become available.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub cursor: ::core::option::Option<Cursor>,
 }
 /// Request to update the stream's delivery cursor based on the given target.
@@ -1557,16 +1662,27 @@ pub struct InitialSubscribeResponse {
 ///
 /// SeekRequests may not be sent while another SeekRequest is outstanding (i.e.,
 /// has not received a SeekResponse) on the same stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SeekRequest {
     /// The target to seek to. Must be set.
-    #[prost(oneof="seek_request::Target", tags="1, 2")]
+    #[prost(oneof = "seek_request::Target", tags = "1, 2")]
     pub target: ::core::option::Option<seek_request::Target>,
 }
 /// Nested message and enum types in `SeekRequest`.
 pub mod seek_request {
     /// A special target in the partition that takes no other parameters.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum NamedTarget {
         /// Default value. This value is unused.
@@ -1590,57 +1706,71 @@ pub mod seek_request {
                 NamedTarget::CommittedCursor => "COMMITTED_CURSOR",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "NAMED_TARGET_UNSPECIFIED" => Some(Self::Unspecified),
+                "HEAD" => Some(Self::Head),
+                "COMMITTED_CURSOR" => Some(Self::CommittedCursor),
+                _ => None,
+            }
+        }
     }
     /// The target to seek to. Must be set.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Target {
         /// A named target.
-        #[prost(enumeration="NamedTarget", tag="1")]
+        #[prost(enumeration = "NamedTarget", tag = "1")]
         NamedTarget(i32),
         /// A target corresponding to the cursor, pointing to anywhere in the
         /// topic partition.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Cursor(super::Cursor),
     }
 }
 /// Response to a SeekRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SeekResponse {
     /// The new delivery cursor for the current stream.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub cursor: ::core::option::Option<Cursor>,
 }
 /// Request to grant tokens to the server, requesting delivery of messages when
 /// they become available.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FlowControlRequest {
     /// The number of message tokens to grant. Must be greater than or equal to 0.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub allowed_messages: i64,
     /// The number of byte tokens to grant. Must be greater than or equal to 0.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub allowed_bytes: i64,
 }
 /// A request sent from the client to the server on a stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SubscribeRequest {
     /// The type of request this is.
-    #[prost(oneof="subscribe_request::Request", tags="1, 2, 3")]
+    #[prost(oneof = "subscribe_request::Request", tags = "1, 2, 3")]
     pub request: ::core::option::Option<subscribe_request::Request>,
 }
 /// Nested message and enum types in `SubscribeRequest`.
 pub mod subscribe_request {
     /// The type of request this is.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Request {
         /// Initial request on the stream.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         Initial(super::InitialSubscribeRequest),
         /// Request to update the stream's delivery cursor.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Seek(super::SeekRequest),
         /// Request to grant tokens to the server,
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         FlowControl(super::FlowControlRequest),
     }
 }
@@ -1650,43 +1780,47 @@ pub mod subscribe_request {
 ///     last message in the list.
 /// *  Subtracts the total number of bytes and messages from the tokens available
 ///     to the server.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessageResponse {
     /// Messages from the topic partition.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub messages: ::prost::alloc::vec::Vec<SequencedMessage>,
 }
 /// Response to SubscribeRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SubscribeResponse {
     /// The type of response this is.
-    #[prost(oneof="subscribe_response::Response", tags="1, 2, 3")]
+    #[prost(oneof = "subscribe_response::Response", tags = "1, 2, 3")]
     pub response: ::core::option::Option<subscribe_response::Response>,
 }
 /// Nested message and enum types in `SubscribeResponse`.
 pub mod subscribe_response {
     /// The type of response this is.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Response {
         /// Initial response on the stream.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         Initial(super::InitialSubscribeResponse),
         /// Response to a Seek operation.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Seek(super::SeekResponse),
         /// Response containing messages from the topic partition.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         Messages(super::MessageResponse),
     }
 }
 /// The first request that must be sent on a newly-opened stream. The client must
 /// wait for the response before sending subsequent requests on the stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InitialPartitionAssignmentRequest {
     /// The subscription name. Structured like:
     /// projects/<project number>/locations/<zone name>/subscriptions/<subscription
     /// id>
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub subscription: ::prost::alloc::string::String,
     /// An opaque, unique client identifier. This field must be exactly 16 bytes
     /// long and is interpreted as an unsigned 128 bit integer. Other size values
@@ -1696,16 +1830,17 @@ pub struct InitialPartitionAssignmentRequest {
     /// uuid1 or uuid4, which should be used to generate this number. The same
     /// identifier should be reused following disconnections with retryable stream
     /// errors.
-    #[prost(bytes="vec", tag="2")]
+    #[prost(bytes = "vec", tag = "2")]
     pub client_id: ::prost::alloc::vec::Vec<u8>,
 }
 /// PartitionAssignments should not race with acknowledgements. There
 /// should be exactly one unacknowledged PartitionAssignment at a time. If not,
 /// the client must break the stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PartitionAssignment {
     /// The list of partition numbers this subscriber is assigned to.
-    #[prost(int64, repeated, tag="1")]
+    #[prost(int64, repeated, tag = "1")]
     pub partitions: ::prost::alloc::vec::Vec<i64>,
 }
 /// Acknowledge receipt and handling of the previous assignment.
@@ -1713,26 +1848,28 @@ pub struct PartitionAssignment {
 /// partitions may remain unassigned for a period of time until the
 /// client is known to be inactive, after which time the server will break the
 /// stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PartitionAssignmentAck {
-}
+pub struct PartitionAssignmentAck {}
 /// A request on the PartitionAssignment stream.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PartitionAssignmentRequest {
     /// The type of request this is.
-    #[prost(oneof="partition_assignment_request::Request", tags="1, 2")]
+    #[prost(oneof = "partition_assignment_request::Request", tags = "1, 2")]
     pub request: ::core::option::Option<partition_assignment_request::Request>,
 }
 /// Nested message and enum types in `PartitionAssignmentRequest`.
 pub mod partition_assignment_request {
     /// The type of request this is.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Request {
         /// Initial request on the stream.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         Initial(super::InitialPartitionAssignmentRequest),
         /// Acknowledgement of a partition assignment.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         Ack(super::PartitionAssignmentAck),
     }
 }
@@ -1917,83 +2054,89 @@ pub mod partition_assignment_service_client {
     }
 }
 /// Compute statistics about a range of messages in a given topic and partition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComputeMessageStatsRequest {
     /// Required. The topic for which we should compute message stats.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
     /// Required. The partition for which we should compute message stats.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub partition: i64,
     /// The inclusive start of the range.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub start_cursor: ::core::option::Option<Cursor>,
     /// The exclusive end of the range. The range is empty if end_cursor <=
     /// start_cursor. Specifying a start_cursor before the first message and an
     /// end_cursor after the last message will retrieve all messages.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub end_cursor: ::core::option::Option<Cursor>,
 }
 /// Response containing stats for messages in the requested topic and partition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComputeMessageStatsResponse {
     /// The count of messages.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub message_count: i64,
     /// The number of quota bytes accounted to these messages.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub message_bytes: i64,
     /// The minimum publish timestamp across these messages. Note that publish
     /// timestamps within a partition are not guaranteed to be non-decreasing. The
     /// timestamp will be unset if there are no messages.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub minimum_publish_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The minimum event timestamp across these messages. For the purposes of this
     /// computation, if a message does not have an event time, we use the publish
     /// time. The timestamp will be unset if there are no messages.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub minimum_event_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Compute the current head cursor for a partition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComputeHeadCursorRequest {
     /// Required. The topic for which we should compute the head cursor.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
     /// Required. The partition for which we should compute the head cursor.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub partition: i64,
 }
 /// Response containing the head cursor for the requested topic and partition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComputeHeadCursorResponse {
     /// The head cursor.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub head_cursor: ::core::option::Option<Cursor>,
 }
 /// Compute the corresponding cursor for a publish or event time in a topic
 /// partition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComputeTimeCursorRequest {
     /// Required. The topic for which we should compute the cursor.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
     /// Required. The partition for which we should compute the cursor.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub partition: i64,
     /// Required. The target publish or event time. Specifying a future time will return an
     /// unset cursor.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub target: ::core::option::Option<TimeTarget>,
 }
 /// Response containing the cursor corresponding to a publish or event time in a
 /// topic partition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ComputeTimeCursorResponse {
     /// If present, the cursor references the first message with time greater than
     /// or equal to the specified target time. If such a message cannot be found,
     /// the cursor will be unset (i.e. `cursor` is not present).
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub cursor: ::core::option::Option<Cursor>,
 }
 /// Generated client implementations.

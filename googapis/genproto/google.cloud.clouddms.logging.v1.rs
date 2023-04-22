@@ -1,68 +1,83 @@
 /// A message defining the database engine and provider.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DatabaseType {
     /// The database provider.
-    #[prost(enumeration="DatabaseProvider", tag="1")]
+    #[prost(enumeration = "DatabaseProvider", tag = "1")]
     pub provider: i32,
     /// The database engine.
-    #[prost(enumeration="DatabaseEngine", tag="2")]
+    #[prost(enumeration = "DatabaseEngine", tag = "2")]
     pub engine: i32,
 }
 /// Migration job as stored in Cloud Logging logs.
 /// NEXT_TAG = 36.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoggedMigrationJob {
     /// Required. The unique identifier for a migration job.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. Labels.
-    #[prost(map="string, string", tag="2")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "2")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Required. The display name.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub display_name: ::prost::alloc::string::String,
     /// Required. The current migration job state.
-    #[prost(enumeration="logged_migration_job::State", tag="4")]
+    #[prost(enumeration = "logged_migration_job::State", tag = "4")]
     pub state: i32,
     /// Required. The current migration job phase.
-    #[prost(enumeration="logged_migration_job::Phase", tag="5")]
+    #[prost(enumeration = "logged_migration_job::Phase", tag = "5")]
     pub phase: i32,
     /// Required. The migration job type.
-    #[prost(enumeration="logged_migration_job::Type", tag="6")]
+    #[prost(enumeration = "logged_migration_job::Type", tag = "6")]
     pub r#type: i32,
     /// Optional. An optional dump path (gs://\[BUCKET_NAME]/[OBJECT_NAME\]).
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub dump_path: ::prost::alloc::string::String,
     /// Required. The migration job source connection profile name.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub source: ::prost::alloc::string::String,
     /// Required. The migration job destination connection profile name.
-    #[prost(string, tag="9")]
+    #[prost(string, tag = "9")]
     pub destination: ::prost::alloc::string::String,
     /// Required. the migration job duration in seconds.
-    #[prost(message, optional, tag="10")]
+    #[prost(message, optional, tag = "10")]
     pub duration: ::core::option::Option<::prost_types::Duration>,
     /// Required. Type of connectivity to source database.
-    #[prost(enumeration="logged_migration_job::ConnectivityType", tag="11")]
+    #[prost(enumeration = "logged_migration_job::ConnectivityType", tag = "11")]
     pub connectivity_type: i32,
     /// Required. The error details in case of state FAILED.
-    #[prost(message, optional, tag="12")]
+    #[prost(message, optional, tag = "12")]
     pub error: ::core::option::Option<super::super::super::super::rpc::Status>,
     /// Required. The time when this migration job was completed. Should only be set when the
     /// phase of the migration job is COMPLETED.
-    #[prost(message, optional, tag="13")]
+    #[prost(message, optional, tag = "13")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Required. The indicative source database.
-    #[prost(message, optional, tag="14")]
+    #[prost(message, optional, tag = "14")]
     pub source_database: ::core::option::Option<DatabaseType>,
     /// Required. The indicative destination database.
-    #[prost(message, optional, tag="15")]
+    #[prost(message, optional, tag = "15")]
     pub destination_database: ::core::option::Option<DatabaseType>,
 }
 /// Nested message and enum types in `LoggedMigrationJob`.
 pub mod logged_migration_job {
     /// The migration job states enum.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The state of the migration job is unknown.
@@ -123,9 +138,41 @@ pub mod logged_migration_job {
                 State::Resuming => "RESUMING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "MAINTENANCE" => Some(Self::Maintenance),
+                "DRAFT" => Some(Self::Draft),
+                "CREATING" => Some(Self::Creating),
+                "NOT_STARTED" => Some(Self::NotStarted),
+                "RUNNING" => Some(Self::Running),
+                "FAILED" => Some(Self::Failed),
+                "COMPLETED" => Some(Self::Completed),
+                "DELETING" => Some(Self::Deleting),
+                "STOPPING" => Some(Self::Stopping),
+                "STOPPED" => Some(Self::Stopped),
+                "DELETED" => Some(Self::Deleted),
+                "UPDATING" => Some(Self::Updating),
+                "STARTING" => Some(Self::Starting),
+                "RESTARTING" => Some(Self::Restarting),
+                "RESUMING" => Some(Self::Resuming),
+                _ => None,
+            }
+        }
     }
     /// The migration job phases enum.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Phase {
         /// The phase of the migration job is unknown.
@@ -152,13 +199,39 @@ pub mod logged_migration_job {
                 Phase::FullDump => "FULL_DUMP",
                 Phase::Cdc => "CDC",
                 Phase::PromoteInProgress => "PROMOTE_IN_PROGRESS",
-                Phase::WaitingForSourceWritesToStop => "WAITING_FOR_SOURCE_WRITES_TO_STOP",
+                Phase::WaitingForSourceWritesToStop => {
+                    "WAITING_FOR_SOURCE_WRITES_TO_STOP"
+                }
                 Phase::PreparingTheDump => "PREPARING_THE_DUMP",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "PHASE_UNSPECIFIED" => Some(Self::Unspecified),
+                "FULL_DUMP" => Some(Self::FullDump),
+                "CDC" => Some(Self::Cdc),
+                "PROMOTE_IN_PROGRESS" => Some(Self::PromoteInProgress),
+                "WAITING_FOR_SOURCE_WRITES_TO_STOP" => {
+                    Some(Self::WaitingForSourceWritesToStop)
+                }
+                "PREPARING_THE_DUMP" => Some(Self::PreparingTheDump),
+                _ => None,
             }
         }
     }
     /// The migration job types.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Type {
         /// The type of the migration job is unknown.
@@ -180,9 +253,28 @@ pub mod logged_migration_job {
                 Type::Continuous => "CONTINUOUS",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ONE_TIME" => Some(Self::OneTime),
+                "CONTINUOUS" => Some(Self::Continuous),
+                _ => None,
+            }
+        }
     }
     /// Type of connectivity to source database.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ConnectivityType {
         /// No data defined.
@@ -207,22 +299,43 @@ pub mod logged_migration_job {
                 ConnectivityType::VpcPeering => "VPC_PEERING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CONNECTIVITY_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "STATIC_IP" => Some(Self::StaticIp),
+                "REVERSE_SSH" => Some(Self::ReverseSsh),
+                "VPC_PEERING" => Some(Self::VpcPeering),
+                _ => None,
+            }
+        }
     }
 }
 /// An MySQL database connection profile.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MySqlConnectionProfile {
     /// The database version.
-    #[prost(enumeration="my_sql_connection_profile::Version", tag="1")]
+    #[prost(enumeration = "my_sql_connection_profile::Version", tag = "1")]
     pub version: i32,
     /// The Cloud SQL id for a Cloud SQL instance.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub cloud_sql_id: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `MySqlConnectionProfile`.
 pub mod my_sql_connection_profile {
     /// The MySQL database version.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Version {
         /// Unspecified version.
@@ -250,22 +363,44 @@ pub mod my_sql_connection_profile {
                 Version::V80 => "V8_0",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "VERSION_UNSPECIFIED" => Some(Self::Unspecified),
+                "V5_5" => Some(Self::V55),
+                "V5_6" => Some(Self::V56),
+                "V5_7" => Some(Self::V57),
+                "V8_0" => Some(Self::V80),
+                _ => None,
+            }
+        }
     }
 }
 /// An PostgreSQL connection profile.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PostgreSqlConnectionProfile {
     /// The database version.
-    #[prost(enumeration="postgre_sql_connection_profile::Version", tag="1")]
+    #[prost(enumeration = "postgre_sql_connection_profile::Version", tag = "1")]
     pub version: i32,
     /// The Cloud SQL id for a Cloud SQL instance.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub cloud_sql_id: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `PostgreSqlConnectionProfile`.
 pub mod postgre_sql_connection_profile {
     /// The PostgreSQL database version.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Version {
         /// Unspecified version.
@@ -296,45 +431,77 @@ pub mod postgre_sql_connection_profile {
                 Version::V13 => "V13",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "VERSION_UNSPECIFIED" => Some(Self::Unspecified),
+                "V9_6" => Some(Self::V96),
+                "V11" => Some(Self::V11),
+                "V10" => Some(Self::V10),
+                "V12" => Some(Self::V12),
+                "V13" => Some(Self::V13),
+                _ => None,
+            }
+        }
     }
 }
 /// A CloudSQL connection profile.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CloudSqlConnectionProfile {
     /// The Cloud SQL id.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub cloud_sql_id: ::prost::alloc::string::String,
 }
 /// An producer connection profile definition.
 /// NEXT_TAG = 18.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoggedConnectionProfile {
     /// The unique identifier for a connection profile.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Labels.
-    #[prost(map="string, string", tag="2")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "2")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// The current connection profile state.
-    #[prost(enumeration="logged_connection_profile::State", tag="3")]
+    #[prost(enumeration = "logged_connection_profile::State", tag = "3")]
     pub state: i32,
     /// The display name.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub display_name: ::prost::alloc::string::String,
     /// The error details in case of state FAILED.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub error: ::core::option::Option<super::super::super::super::rpc::Status>,
     /// The database provider.
-    #[prost(enumeration="DatabaseProvider", tag="6")]
+    #[prost(enumeration = "DatabaseProvider", tag = "6")]
     pub provider: i32,
     /// The connection profile definition
-    #[prost(oneof="logged_connection_profile::ConnectionProfile", tags="100, 101, 102")]
-    pub connection_profile: ::core::option::Option<logged_connection_profile::ConnectionProfile>,
+    #[prost(
+        oneof = "logged_connection_profile::ConnectionProfile",
+        tags = "100, 101, 102"
+    )]
+    pub connection_profile: ::core::option::Option<
+        logged_connection_profile::ConnectionProfile,
+    >,
 }
 /// Nested message and enum types in `LoggedConnectionProfile`.
 pub mod logged_connection_profile {
     /// The connection profile states enum.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The state of the connection profile is unknown.
@@ -371,82 +538,103 @@ pub mod logged_connection_profile {
                 State::Failed => "FAILED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "DRAFT" => Some(Self::Draft),
+                "CREATING" => Some(Self::Creating),
+                "READY" => Some(Self::Ready),
+                "UPDATING" => Some(Self::Updating),
+                "DELETING" => Some(Self::Deleting),
+                "DELETED" => Some(Self::Deleted),
+                "FAILED" => Some(Self::Failed),
+                _ => None,
+            }
+        }
     }
     /// The connection profile definition
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum ConnectionProfile {
         /// A MySQL database connection profile.
-        #[prost(message, tag="100")]
+        #[prost(message, tag = "100")]
         Mysql(super::MySqlConnectionProfile),
         /// A PostgreSQL database connection profile.
-        #[prost(message, tag="101")]
+        #[prost(message, tag = "101")]
         Postgresql(super::PostgreSqlConnectionProfile),
         /// A CloudSQL database connection profile.
-        #[prost(message, tag="102")]
+        #[prost(message, tag = "102")]
         Cloudsql(super::CloudSqlConnectionProfile),
     }
 }
 /// Log definition for Migration Job event
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MigrationJobEventLog {
     /// The migration job resource
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub migration_job: ::core::option::Option<LoggedMigrationJob>,
     /// Timestamp of the event
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub occurrence_timestamp: ::core::option::Option<::prost_types::Timestamp>,
     /// Event code
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub code: i32,
     /// Event message
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub text_message: ::prost::alloc::string::String,
     /// Original event data
-    #[prost(oneof="migration_job_event_log::OriginalCause", tags="200, 201")]
+    #[prost(oneof = "migration_job_event_log::OriginalCause", tags = "200, 201")]
     pub original_cause: ::core::option::Option<migration_job_event_log::OriginalCause>,
 }
 /// Nested message and enum types in `MigrationJobEventLog`.
 pub mod migration_job_event_log {
     /// Original event data
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OriginalCause {
         /// Original event code
-        #[prost(int32, tag="200")]
+        #[prost(int32, tag = "200")]
         OriginalCode(i32),
         /// Original event message
-        #[prost(string, tag="201")]
+        #[prost(string, tag = "201")]
         OriginalMessage(::prost::alloc::string::String),
     }
 }
 /// Log definition for Connection Profile event
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConnectionProfileEventLog {
     /// The connection profilr resource
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub connection_profile: ::core::option::Option<LoggedConnectionProfile>,
     /// Timestamp of the event
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub occurrence_timestamp: ::core::option::Option<::prost_types::Timestamp>,
     /// Event code
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub code: i32,
     /// Event message
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub text_message: ::prost::alloc::string::String,
     /// Original event data
-    #[prost(oneof="connection_profile_event_log::OriginalCause", tags="200, 201")]
-    pub original_cause: ::core::option::Option<connection_profile_event_log::OriginalCause>,
+    #[prost(oneof = "connection_profile_event_log::OriginalCause", tags = "200, 201")]
+    pub original_cause: ::core::option::Option<
+        connection_profile_event_log::OriginalCause,
+    >,
 }
 /// Nested message and enum types in `ConnectionProfileEventLog`.
 pub mod connection_profile_event_log {
     /// Original event data
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum OriginalCause {
         /// Original event code
-        #[prost(int32, tag="200")]
+        #[prost(int32, tag = "200")]
         OriginalCode(i32),
         /// Original event message
-        #[prost(string, tag="201")]
+        #[prost(string, tag = "201")]
         OriginalMessage(::prost::alloc::string::String),
     }
 }
@@ -476,6 +664,16 @@ impl DatabaseEngine {
             DatabaseEngine::Sqlserver => "SQLSERVER",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "DATABASE_ENGINE_UNSPECIFIED" => Some(Self::Unspecified),
+            "MYSQL" => Some(Self::Mysql),
+            "POSTGRESQL" => Some(Self::Postgresql),
+            "SQLSERVER" => Some(Self::Sqlserver),
+            _ => None,
+        }
+    }
 }
 /// The database providers.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -498,6 +696,15 @@ impl DatabaseProvider {
             DatabaseProvider::Unspecified => "DATABASE_PROVIDER_UNSPECIFIED",
             DatabaseProvider::Cloudsql => "CLOUDSQL",
             DatabaseProvider::Rds => "RDS",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "DATABASE_PROVIDER_UNSPECIFIED" => Some(Self::Unspecified),
+            "CLOUDSQL" => Some(Self::Cloudsql),
+            "RDS" => Some(Self::Rds),
+            _ => None,
         }
     }
 }

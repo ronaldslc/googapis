@@ -1,47 +1,51 @@
 /// Request for creating a workload.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateWorkloadRequest {
     /// Required. The resource name of the new Workload's parent.
     /// Must be of the form `organizations/{org_id}/locations/{location_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. Assured Workload to create
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub workload: ::core::option::Option<Workload>,
     /// Optional. A identifier associated with the workload and underlying projects which
     /// allows for the break down of billing costs for a workload. The value
     /// provided for the identifier will add a label to the workload and contained
     /// projects with the identifier as the value.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub external_id: ::prost::alloc::string::String,
 }
 /// Request for Updating a workload.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateWorkloadRequest {
     /// Required. The workload to update.
     /// The workload’s `name` field is used to identify the workload to be updated.
     /// Format:
     /// organizations/{org_id}/locations/{location_id}/workloads/{workload_id}
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub workload: ::core::option::Option<Workload>,
     /// Required. The list of fields to be updated.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request for deleting a Workload.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteWorkloadRequest {
     /// Required. The `name` field is used to identify the workload.
     /// Format:
     /// organizations/{org_id}/locations/{location_id}/workloads/{workload_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. The etag of the workload.
     /// If this is provided, it must match the server's etag.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub etag: ::prost::alloc::string::String,
 }
 /// Request for fetching a workload.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetWorkloadRequest {
     /// Required. The resource name of the Workload to fetch. This is the workloads's
@@ -49,41 +53,44 @@ pub struct GetWorkloadRequest {
     /// "organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}".
     /// For example,
     /// "organizations/123/locations/us-east1/workloads/assured-workload-1".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for fetching workloads in an organization.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListWorkloadsRequest {
     /// Required. Parent Resource to list workloads from.
     /// Must be of the form `organizations/{org_id}/locations/{location}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Page size.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Page token returned from previous request. Page token contains context from
     /// previous request. Page token needs to be passed in the second and following
     /// requests.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// A custom filter for filtering by properties of a workload. At this time,
     /// only filtering by labels is supported.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub filter: ::prost::alloc::string::String,
 }
 /// Response of ListWorkloads endpoint.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListWorkloadsResponse {
     /// List of Workloads under a given parent.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub workloads: ::prost::alloc::vec::Vec<Workload>,
     /// The next page token. Return empty if reached the last page.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// An Workload object for managing highly regulated workloads of cloud
 /// customers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Workload {
     /// Optional. The resource name of the workload.
@@ -91,7 +98,7 @@ pub struct Workload {
     /// organizations/{organization}/locations/{location}/workloads/{workload}
     ///
     /// Read-only.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The user-assigned display name of the Workload.
     /// When present it must be between 4 to 30 characters.
@@ -99,19 +106,19 @@ pub struct Workload {
     /// hyphen, and spaces.
     ///
     /// Example: My Workload
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub display_name: ::prost::alloc::string::String,
     /// Output only. The resources associated with this workload.
     /// These resources will be created when creating the workload.
     /// If any of the projects already exist, the workload creation will fail.
     /// Always read only.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub resources: ::prost::alloc::vec::Vec<workload::ResourceInfo>,
     /// Required. Immutable. Compliance Regime associated with this workload.
-    #[prost(enumeration="workload::ComplianceRegime", tag="4")]
+    #[prost(enumeration = "workload::ComplianceRegime", tag = "4")]
     pub compliance_regime: i32,
     /// Output only. Immutable. The Workload creation timestamp.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Required. Input only. The billing account used for the resources which are
     /// direct children of workload. This billing account is initially associated
@@ -121,51 +128,65 @@ pub struct Workload {
     /// The resource name has the form
     /// `billingAccounts/{billing_account_id}`. For example,
     /// `billingAccounts/012345-567890-ABCDEF`.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub billing_account: ::prost::alloc::string::String,
     /// Optional. ETag of the workload, it is calculated on the basis
     /// of the Workload contents. It will be used in Update & Delete operations.
-    #[prost(string, tag="9")]
+    #[prost(string, tag = "9")]
     pub etag: ::prost::alloc::string::String,
     /// Optional. Labels applied to the workload.
-    #[prost(map="string, string", tag="10")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "10")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Input only. The parent resource for the resources managed by this Assured Workload. May
     /// be either empty or a folder resource which is a child of the
     /// Workload parent. If not specified all resources are created under the
     /// parent organization.
     /// Format:
     /// folders/{folder_id}
-    #[prost(string, tag="13")]
+    #[prost(string, tag = "13")]
     pub provisioned_resources_parent: ::prost::alloc::string::String,
     /// Input only. Settings used to create a CMEK crypto key. When set a project with a KMS
     /// CMEK key is provisioned. This field is mandatory for a subset of Compliance
     /// Regimes.
-    #[prost(message, optional, tag="14")]
+    #[prost(message, optional, tag = "14")]
     pub kms_settings: ::core::option::Option<workload::KmsSettings>,
     /// Input only. Resource properties that are used to customize workload resources.
     /// These properties (such as custom project id) will be used to create
     /// workload resources if possible. This field is optional.
-    #[prost(message, repeated, tag="15")]
+    #[prost(message, repeated, tag = "15")]
     pub resource_settings: ::prost::alloc::vec::Vec<workload::ResourceSettings>,
 }
 /// Nested message and enum types in `Workload`.
 pub mod workload {
     /// Represent the resources that are children of this Workload.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ResourceInfo {
         /// Resource identifier.
         /// For a project this represents project_number.
-        #[prost(int64, tag="1")]
+        #[prost(int64, tag = "1")]
         pub resource_id: i64,
         /// Indicates the type of resource.
-        #[prost(enumeration="resource_info::ResourceType", tag="2")]
+        #[prost(enumeration = "resource_info::ResourceType", tag = "2")]
         pub resource_type: i32,
     }
     /// Nested message and enum types in `ResourceInfo`.
     pub mod resource_info {
         /// The type of resource.
-        #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
         #[repr(i32)]
         pub enum ResourceType {
             /// Unknown resource type.
@@ -190,42 +211,64 @@ pub mod workload {
                     ResourceType::Keyring => "KEYRING",
                 }
             }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "RESOURCE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "CONSUMER_PROJECT" => Some(Self::ConsumerProject),
+                    "ENCRYPTION_KEYS_PROJECT" => Some(Self::EncryptionKeysProject),
+                    "KEYRING" => Some(Self::Keyring),
+                    _ => None,
+                }
+            }
         }
     }
     /// Settings specific to the Key Management Service.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct KmsSettings {
         /// Required. Input only. Immutable. The time at which the Key Management Service will automatically create a
         /// new version of the crypto key and mark it as the primary.
-        #[prost(message, optional, tag="1")]
+        #[prost(message, optional, tag = "1")]
         pub next_rotation_time: ::core::option::Option<::prost_types::Timestamp>,
         /// Required. Input only. Immutable. \[next_rotation_time\] will be advanced by this period when the Key
         /// Management Service automatically rotates a key. Must be at least 24 hours
         /// and at most 876,000 hours.
-        #[prost(message, optional, tag="2")]
+        #[prost(message, optional, tag = "2")]
         pub rotation_period: ::core::option::Option<::prost_types::Duration>,
     }
     /// Represent the custom settings for the resources to be created.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ResourceSettings {
         /// Resource identifier.
         /// For a project this represents project_id. If the project is already
         /// taken, the workload creation will fail.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub resource_id: ::prost::alloc::string::String,
         /// Indicates the type of resource. This field should be specified to
         /// correspond the id to the right project type (CONSUMER_PROJECT or
         /// ENCRYPTION_KEYS_PROJECT)
-        #[prost(enumeration="resource_info::ResourceType", tag="2")]
+        #[prost(enumeration = "resource_info::ResourceType", tag = "2")]
         pub resource_type: i32,
         /// User-assigned resource display name.
         /// If not empty it will be used to create a resource with the specified
         /// name.
-        #[prost(string, tag="3")]
+        #[prost(string, tag = "3")]
         pub display_name: ::prost::alloc::string::String,
     }
     /// Supported Compliance Regimes.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ComplianceRegime {
         /// Unknown compliance regime.
@@ -268,23 +311,40 @@ pub mod workload {
                 ComplianceRegime::CaRegionsAndSupport => "CA_REGIONS_AND_SUPPORT",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "COMPLIANCE_REGIME_UNSPECIFIED" => Some(Self::Unspecified),
+                "IL4" => Some(Self::Il4),
+                "CJIS" => Some(Self::Cjis),
+                "FEDRAMP_HIGH" => Some(Self::FedrampHigh),
+                "FEDRAMP_MODERATE" => Some(Self::FedrampModerate),
+                "US_REGIONAL_ACCESS" => Some(Self::UsRegionalAccess),
+                "HIPAA" => Some(Self::Hipaa),
+                "HITRUST" => Some(Self::Hitrust),
+                "EU_REGIONS_AND_SUPPORT" => Some(Self::EuRegionsAndSupport),
+                "CA_REGIONS_AND_SUPPORT" => Some(Self::CaRegionsAndSupport),
+                _ => None,
+            }
+        }
     }
 }
 /// Operation metadata to give request details of CreateWorkload.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateWorkloadOperationMetadata {
     /// Optional. Time when the operation was created.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Optional. The display name of the workload.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub display_name: ::prost::alloc::string::String,
     /// Optional. The parent of the workload.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. Compliance controls that should be applied to the resources managed by
     /// the workload.
-    #[prost(enumeration="workload::ComplianceRegime", tag="4")]
+    #[prost(enumeration = "workload::ComplianceRegime", tag = "4")]
     pub compliance_regime: i32,
 }
 /// Generated client implementations.

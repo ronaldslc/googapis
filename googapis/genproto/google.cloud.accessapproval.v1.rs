@@ -1,4 +1,5 @@
 /// Home office and physical location of the principal.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AccessLocations {
     /// The "home office" location of the principal. A two-letter country code
@@ -16,7 +17,7 @@ pub struct AccessLocations {
     /// - ANT: Antarctica
     /// - ANY: Any location
     ///
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub principal_office_country: ::prost::alloc::string::String,
     /// Physical location of the principal at the time of the access. A
     /// two-letter country code (ISO 3166-1 alpha-2), such as "US", "DE" or "GB" or
@@ -33,22 +34,33 @@ pub struct AccessLocations {
     /// - ANT: Antarctica
     /// - ANY: Any location
     ///
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub principal_physical_location_country: ::prost::alloc::string::String,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AccessReason {
     /// Type of access justification.
-    #[prost(enumeration="access_reason::Type", tag="1")]
+    #[prost(enumeration = "access_reason::Type", tag = "1")]
     pub r#type: i32,
     /// More detail about certain reason types. See comments for each type above.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub detail: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `AccessReason`.
 pub mod access_reason {
     /// Type of access justification.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Type {
         /// Default value for proto, shouldn't be used.
@@ -86,39 +98,53 @@ pub mod access_reason {
                 Type::GoogleInitiatedReview => "GOOGLE_INITIATED_REVIEW",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CUSTOMER_INITIATED_SUPPORT" => Some(Self::CustomerInitiatedSupport),
+                "GOOGLE_INITIATED_SERVICE" => Some(Self::GoogleInitiatedService),
+                "GOOGLE_INITIATED_REVIEW" => Some(Self::GoogleInitiatedReview),
+                _ => None,
+            }
+        }
     }
 }
 /// A decision that has been made to approve access to a resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ApproveDecision {
     /// The time at which approval was granted.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub approve_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The time at which the approval expires.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub expire_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// A decision that has been made to dismiss an approval request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DismissDecision {
     /// The time at which the approval request was dismissed.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub dismiss_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// The properties associated with the resource of the request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResourceProperties {
     /// Whether an approval will exclude the descendants of the resource being
     /// requested.
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub excludes_descendants: bool,
 }
 /// A request for the customer to approve access to a resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ApprovalRequest {
     /// The resource name of the request. Format is
     /// "{projects|folders|organizations}/{id}/approvalRequests/{approval_request_id}".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The resource for which approval is being requested. The format of the
     /// resource name is defined at
@@ -127,42 +153,44 @@ pub struct ApprovalRequest {
     /// "//library.googleapis.com/shelves/shelf1/books/book2") or a "relative"
     /// resource name (e.g. "shelves/shelf1/books/book2") as described in the
     /// resource name specification.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub requested_resource_name: ::prost::alloc::string::String,
     /// Properties related to the resource represented by requested_resource_name.
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag = "9")]
     pub requested_resource_properties: ::core::option::Option<ResourceProperties>,
     /// The justification for which approval is being requested.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub requested_reason: ::core::option::Option<AccessReason>,
     /// The locations for which approval is being requested.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub requested_locations: ::core::option::Option<AccessLocations>,
     /// The time at which approval was requested.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub request_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The requested expiration for the approval. If the request is approved,
     /// access will be granted from the time of approval until the expiration time.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub requested_expiration: ::core::option::Option<::prost_types::Timestamp>,
     /// The current decision on the approval request.
-    #[prost(oneof="approval_request::Decision", tags="7, 8")]
+    #[prost(oneof = "approval_request::Decision", tags = "7, 8")]
     pub decision: ::core::option::Option<approval_request::Decision>,
 }
 /// Nested message and enum types in `ApprovalRequest`.
 pub mod approval_request {
     /// The current decision on the approval request.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Decision {
         /// Access was approved.
-        #[prost(message, tag="7")]
+        #[prost(message, tag = "7")]
         Approve(super::ApproveDecision),
         /// The request was dismissed.
-        #[prost(message, tag="8")]
+        #[prost(message, tag = "8")]
         Dismiss(super::DismissDecision),
     }
 }
 /// Represents the enrollment of a cloud resource into a specific service.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EnrolledService {
     /// The product for which Access Approval will be enrolled. Allowed values are
@@ -179,13 +207,14 @@ pub struct EnrolledService {
     /// - pubsub.googleapis.com
     /// - storage.googleapis.com
     ///
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub cloud_product: ::prost::alloc::string::String,
     /// The enrollment level of the service.
-    #[prost(enumeration="EnrollmentLevel", tag="2")]
+    #[prost(enumeration = "EnrollmentLevel", tag = "2")]
     pub enrollment_level: i32,
 }
 /// Settings on a Project/Folder/Organization related to Access Approval.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AccessApprovalSettings {
     /// The resource name of the settings. Format is one of:
@@ -194,13 +223,13 @@ pub struct AccessApprovalSettings {
     /// - "folders/{folder_id}/accessApprovalSettings"
     /// - "organizations/{organization_id}/accessApprovalSettings"
     ///
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// A list of email addresses to which notifications relating to approval
     /// requests should be sent. Notifications relating to a resource will be sent
     /// to all emails in the settings of ancestor resources of that resource. A
     /// maximum of 50 email addresses are allowed.
-    #[prost(string, repeated, tag="2")]
+    #[prost(string, repeated, tag = "2")]
     pub notification_emails: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// A list of Google Cloud Services for which the given resource has Access
     /// Approval enrolled. Access requests for the resource given by name against
@@ -213,22 +242,23 @@ pub struct AccessApprovalSettings {
     /// honored and all following entries will be discarded. A maximum of 10
     /// enrolled services will be enforced, to be expanded as the set of supported
     /// services is expanded.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub enrolled_services: ::prost::alloc::vec::Vec<EnrolledService>,
     /// Output only. This field is read only (not settable via
     /// UpdateAccessAccessApprovalSettings method). If the field is true, that
     /// indicates that at least one service is enrolled for Access Approval in one
     /// or more ancestors of the Project or Folder (this field will always be
     /// unset for the organization since organizations do not have ancestors).
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub enrolled_ancestor: bool,
 }
 /// Request to list approval requests.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListApprovalRequestsMessage {
     /// The parent resource. This may be "projects/{project_id}",
     /// "folders/{folder_id}", or "organizations/{organization_id}".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// A filter on the type of approval requests to retrieve. Must be one of the
     /// following values:
@@ -239,61 +269,67 @@ pub struct ListApprovalRequestsMessage {
     /// - ACTIVE: Only active (i.e. currently approved) requests.
     /// - DISMISSED: Only dismissed (including expired) requests.
     ///
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub filter: ::prost::alloc::string::String,
     /// Requested page size.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
     /// A token identifying the page of results to return.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response to listing of ApprovalRequest objects.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListApprovalRequestsResponse {
     /// Approval request details.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub approval_requests: ::prost::alloc::vec::Vec<ApprovalRequest>,
     /// Token to retrieve the next page of results, or empty if there are no more.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request to get an approval request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetApprovalRequestMessage {
     /// Name of the approval request to retrieve.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request to approve an ApprovalRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ApproveApprovalRequestMessage {
     /// Name of the approval request to approve.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The expiration time of this approval.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub expire_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Request to dismiss an approval request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DismissApprovalRequestMessage {
     /// Name of the ApprovalRequest to dismiss.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request to get access approval settings.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetAccessApprovalSettingsMessage {
     /// Name of the AccessApprovalSettings to retrieve.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request to update access approval settings.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateAccessApprovalSettingsMessage {
     /// The new AccessApprovalSettings.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub settings: ::core::option::Option<AccessApprovalSettings>,
     /// The update mask applies to the settings. Only the top level fields of
     /// AccessApprovalSettings (notification_emails & enrolled_services) are
@@ -305,14 +341,15 @@ pub struct UpdateAccessApprovalSettingsMessage {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#fieldmask>
     /// If this field is left unset, only the notification_emails field will be
     /// updated.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request to delete access approval settings.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteAccessApprovalSettingsMessage {
     /// Name of the AccessApprovalSettings to delete.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Represents the type of enrollment for a given service to Access Approval.
@@ -333,6 +370,14 @@ impl EnrollmentLevel {
         match self {
             EnrollmentLevel::Unspecified => "ENROLLMENT_LEVEL_UNSPECIFIED",
             EnrollmentLevel::BlockAll => "BLOCK_ALL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "ENROLLMENT_LEVEL_UNSPECIFIED" => Some(Self::Unspecified),
+            "BLOCK_ALL" => Some(Self::BlockAll),
+            _ => None,
         }
     }
 }

@@ -1,4 +1,5 @@
 /// Encapsulates settings provided to GetIamPolicy.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPolicyOptions {
     /// Optional. The policy format version to be returned.
@@ -9,7 +10,7 @@ pub struct GetPolicyOptions {
     /// Requests for policies with any conditional bindings must specify version 3.
     /// Policies without any conditional bindings may specify any valid value or
     /// leave the field unset.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub requested_policy_version: i32,
 }
 /// Defines an Identity and Access Management (IAM) policy. It is used to
@@ -69,6 +70,7 @@ pub struct GetPolicyOptions {
 ///
 /// For a description of IAM and its features, see the
 /// [IAM developer's guide](<https://cloud.google.com/iam/docs>).
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Policy {
     /// Specifies the format of the policy.
@@ -85,12 +87,12 @@ pub struct Policy {
     ///
     /// If no etag is provided in the call to `setIamPolicy`, version compliance
     /// checks against the stored policy is skipped.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub version: i32,
     /// Associates a list of `members` to a `role`. Optionally may specify a
     /// `condition` that determines when binding is in effect.
     /// `bindings` with no members will result in an error.
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub bindings: ::prost::alloc::vec::Vec<Binding>,
     /// `etag` is used for optimistic concurrency control as a way to help
     /// prevent simultaneous updates of a policy from overwriting each other.
@@ -104,15 +106,16 @@ pub struct Policy {
     /// policy is overwritten. Due to blind-set semantics of an etag-less policy,
     /// 'setIamPolicy' will not fail even if the incoming policy version does not
     /// meet the requirements for modifying the stored policy.
-    #[prost(bytes="vec", tag="3")]
+    #[prost(bytes = "vec", tag = "3")]
     pub etag: ::prost::alloc::vec::Vec<u8>,
 }
 /// Associates `members` with a `role`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Binding {
     /// Role that is assigned to `members`.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub role: ::prost::alloc::string::String,
     /// Specifies the identities requesting access for a Cloud Platform resource.
     /// `members` can have the following values:
@@ -138,51 +141,63 @@ pub struct Binding {
     ///     users of that domain. For example, `google.com` or `example.com`.
     ///
     ///
-    #[prost(string, repeated, tag="2")]
+    #[prost(string, repeated, tag = "2")]
     pub members: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// The condition that is associated with this binding.
     /// NOTE: An unsatisfied condition will not allow user access via current
     /// binding. Different bindings, including their conditions, are examined
     /// independently.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub condition: ::core::option::Option<super::super::r#type::Expr>,
 }
 /// The difference delta between two policies.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PolicyDelta {
     /// The delta for Bindings between two policies.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub binding_deltas: ::prost::alloc::vec::Vec<BindingDelta>,
     /// The delta for AuditConfigs between two policies.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub audit_config_deltas: ::prost::alloc::vec::Vec<AuditConfigDelta>,
 }
 /// One delta entry for Binding. Each individual change (only one member in each
 /// entry) to a binding will be a separate entry.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BindingDelta {
     /// The action that was performed on a Binding.
     /// Required
-    #[prost(enumeration="binding_delta::Action", tag="1")]
+    #[prost(enumeration = "binding_delta::Action", tag = "1")]
     pub action: i32,
     /// Role that is assigned to `members`.
     /// For example, `roles/viewer`, `roles/editor`, or `roles/owner`.
     /// Required
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub role: ::prost::alloc::string::String,
     /// A single identity requesting access for a Cloud Platform resource.
     /// Follows the same format of Binding.members.
     /// Required
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub member: ::prost::alloc::string::String,
     /// The condition that is associated with this binding.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub condition: ::core::option::Option<super::super::r#type::Expr>,
 }
 /// Nested message and enum types in `BindingDelta`.
 pub mod binding_delta {
     /// The type of action performed on a Binding in a policy.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Action {
         /// Unspecified.
@@ -204,37 +219,57 @@ pub mod binding_delta {
                 Action::Remove => "REMOVE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ACTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "ADD" => Some(Self::Add),
+                "REMOVE" => Some(Self::Remove),
+                _ => None,
+            }
+        }
     }
 }
 /// One delta entry for AuditConfig. Each individual change (only one
 /// exempted_member in each entry) to a AuditConfig will be a separate entry.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AuditConfigDelta {
     /// The action that was performed on an audit configuration in a policy.
     /// Required
-    #[prost(enumeration="audit_config_delta::Action", tag="1")]
+    #[prost(enumeration = "audit_config_delta::Action", tag = "1")]
     pub action: i32,
     /// Specifies a service that was configured for Cloud Audit Logging.
     /// For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
     /// `allServices` is a special value that covers all services.
     /// Required
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub service: ::prost::alloc::string::String,
     /// A single identity that is exempted from "data access" audit
     /// logging for the `service` specified above.
     /// Follows the same format of Binding.members.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub exempted_member: ::prost::alloc::string::String,
     /// Specifies the log_type that was be enabled. ADMIN_ACTIVITY is always
     /// enabled, and cannot be configured.
     /// Required
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub log_type: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `AuditConfigDelta`.
 pub mod audit_config_delta {
     /// The type of action performed on an audit configuration in a policy.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Action {
         /// Unspecified.
@@ -256,54 +291,67 @@ pub mod audit_config_delta {
                 Action::Remove => "REMOVE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ACTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "ADD" => Some(Self::Add),
+                "REMOVE" => Some(Self::Remove),
+                _ => None,
+            }
+        }
     }
 }
 /// Request message for `SetIamPolicy` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being specified.
     /// See the operation documentation for the appropriate value for this field.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub resource: ::prost::alloc::string::String,
     /// REQUIRED: The complete policy to be applied to the `resource`. The size of
     /// the policy is limited to a few 10s of KB. An empty policy is a
     /// valid policy but certain Cloud Platform services (such as Projects)
     /// might reject them.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub policy: ::core::option::Option<Policy>,
 }
 /// Request message for `GetIamPolicy` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetIamPolicyRequest {
     /// REQUIRED: The resource for which the policy is being requested.
     /// See the operation documentation for the appropriate value for this field.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub resource: ::prost::alloc::string::String,
     /// OPTIONAL: A `GetPolicyOptions` object for specifying options to
     /// `GetIamPolicy`. This field is only used by Cloud IAM.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub options: ::core::option::Option<GetPolicyOptions>,
 }
 /// Request message for `TestIamPermissions` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TestIamPermissionsRequest {
     /// REQUIRED: The resource for which the policy detail is being requested.
     /// See the operation documentation for the appropriate value for this field.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub resource: ::prost::alloc::string::String,
     /// The set of permissions to check for the `resource`. Permissions with
     /// wildcards (such as '*' or 'storage.*') are not allowed. For more
     /// information see
     /// [IAM Overview](<https://cloud.google.com/iam/docs/overview#permissions>).
-    #[prost(string, repeated, tag="2")]
+    #[prost(string, repeated, tag = "2")]
     pub permissions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Response message for `TestIamPermissions` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub permissions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Generated client implementations.

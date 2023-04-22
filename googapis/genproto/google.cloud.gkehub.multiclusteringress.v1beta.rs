@@ -1,13 +1,14 @@
 /// **Multi-cluster Ingress**: The configuration for the MultiClusterIngress
 /// feature.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FeatureSpec {
     /// Fully-qualified Membership name which hosts the MultiClusterIngress CRD.
     /// Example: `projects/foo-proj/locations/global/memberships/bar`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub config_membership: ::prost::alloc::string::String,
     /// Customer's billing structure
-    #[prost(enumeration="Billing", tag="2")]
+    #[prost(enumeration = "Billing", tag = "2")]
     pub billing: i32,
 }
 /// Billing identifies which billing structure the customer is using.
@@ -31,6 +32,15 @@ impl Billing {
             Billing::Unspecified => "BILLING_UNSPECIFIED",
             Billing::PayAsYouGo => "PAY_AS_YOU_GO",
             Billing::AnthosLicense => "ANTHOS_LICENSE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "BILLING_UNSPECIFIED" => Some(Self::Unspecified),
+            "PAY_AS_YOU_GO" => Some(Self::PayAsYouGo),
+            "ANTHOS_LICENSE" => Some(Self::AnthosLicense),
+            _ => None,
         }
     }
 }

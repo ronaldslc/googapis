@@ -1,71 +1,85 @@
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AllocationRequest {
     /// The required realm name in the following form:
     /// `{location}/{realm}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub realm: ::prost::alloc::string::String,
     /// The default game server deployment name.
     /// This is used to increase the likelihood of a successful
     /// allocation.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub default_game_server_deployment: ::prost::alloc::string::String,
     /// The ordered list of game server labels to match for allocations.
     /// If the first game server selector is not matched, the selection attempts
     /// the second game server selector, and so on.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub game_server_selectors: ::prost::alloc::vec::Vec<GameServerSelector>,
     /// Metadata is optional custom metadata that is added to the game server at
     /// allocation. You can use this to tell the server necessary session data.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub metadata: ::core::option::Option<MetaPatch>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AllocationResponse {
     /// The name of the allocated game server.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub game_server_name: ::prost::alloc::string::String,
     /// The allocated game server's port information.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub ports: ::prost::alloc::vec::Vec<allocation_response::GameServerStatusPort>,
     /// The address of the allocated game server.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub address: ::prost::alloc::string::String,
     /// The node name of the allocated game server.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub node_name: ::prost::alloc::string::String,
     /// The game server cluster from which the game server was allocated.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub game_server_cluster_name: ::prost::alloc::string::String,
     /// The game server deployment from which the game server was allocated.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub deployment_name: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `AllocationResponse`.
 pub mod allocation_response {
     /// The game server port info that is allocated.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct GameServerStatusPort {
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub name: ::prost::alloc::string::String,
-        #[prost(int32, tag="2")]
+        #[prost(int32, tag = "2")]
         pub port: i32,
     }
 }
 /// MetaPatch is the metadata used to patch the Game Server metadata on
 /// allocation. It behaves exactly as it does in OSS.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MetaPatch {
-    #[prost(map="string, string", tag="1")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
-    #[prost(map="string, string", tag="2")]
-    pub annotations: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "1")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    #[prost(map = "string, string", tag = "2")]
+    pub annotations: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 /// GameServerSelector used for finding a GameServer with matching labels.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GameServerSelector {
     /// Labels to match.
-    #[prost(map="string, string", tag="1")]
-    pub match_labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "1")]
+    pub match_labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
 }
 /// Generated client implementations.
 pub mod allocation_endpoint_service_client {

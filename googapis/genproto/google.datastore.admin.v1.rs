@@ -1,40 +1,52 @@
 /// Datastore composite index definition.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Index {
     /// Output only. Project ID.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
     /// Output only. The resource ID of the index.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub index_id: ::prost::alloc::string::String,
     /// Required. The entity kind to which this index applies.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub kind: ::prost::alloc::string::String,
     /// Required. The index's ancestor mode.  Must not be ANCESTOR_MODE_UNSPECIFIED.
-    #[prost(enumeration="index::AncestorMode", tag="5")]
+    #[prost(enumeration = "index::AncestorMode", tag = "5")]
     pub ancestor: i32,
     /// Required. An ordered sequence of property names and their index attributes.
-    #[prost(message, repeated, tag="6")]
+    #[prost(message, repeated, tag = "6")]
     pub properties: ::prost::alloc::vec::Vec<index::IndexedProperty>,
     /// Output only. The state of the index.
-    #[prost(enumeration="index::State", tag="7")]
+    #[prost(enumeration = "index::State", tag = "7")]
     pub state: i32,
 }
 /// Nested message and enum types in `Index`.
 pub mod index {
     /// A property of an index.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct IndexedProperty {
         /// Required. The property name to index.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub name: ::prost::alloc::string::String,
         /// Required. The indexed property's direction.  Must not be DIRECTION_UNSPECIFIED.
-        #[prost(enumeration="Direction", tag="2")]
+        #[prost(enumeration = "Direction", tag = "2")]
         pub direction: i32,
     }
     /// For an ordered index, specifies whether each of the entity's ancestors
     /// will be included.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum AncestorMode {
         /// The ancestor mode is unspecified.
@@ -56,9 +68,28 @@ pub mod index {
                 AncestorMode::AllAncestors => "ALL_ANCESTORS",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ANCESTOR_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "NONE" => Some(Self::None),
+                "ALL_ANCESTORS" => Some(Self::AllAncestors),
+                _ => None,
+            }
+        }
     }
     /// The direction determines how a property is indexed.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Direction {
         /// The direction is unspecified.
@@ -82,9 +113,28 @@ pub mod index {
                 Direction::Descending => "DESCENDING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DIRECTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "ASCENDING" => Some(Self::Ascending),
+                "DESCENDING" => Some(Self::Descending),
+                _ => None,
+            }
+        }
     }
     /// The possible set of states of an index.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The state is unspecified.
@@ -125,33 +175,58 @@ pub mod index {
                 State::Error => "ERROR",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "READY" => Some(Self::Ready),
+                "DELETING" => Some(Self::Deleting),
+                "ERROR" => Some(Self::Error),
+                _ => None,
+            }
+        }
     }
 }
 /// Metadata common to all Datastore Admin operations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommonMetadata {
     /// The time that work began on the operation.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The time the operation ended, either successfully or otherwise.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The type of the operation. Can be used as a filter in
     /// ListOperationsRequest.
-    #[prost(enumeration="OperationType", tag="3")]
+    #[prost(enumeration = "OperationType", tag = "3")]
     pub operation_type: i32,
     /// The client-assigned labels which were provided when the operation was
     /// created. May also include additional labels.
-    #[prost(map="string, string", tag="4")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "4")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// The current state of the Operation.
-    #[prost(enumeration="common_metadata::State", tag="5")]
+    #[prost(enumeration = "common_metadata::State", tag = "5")]
     pub state: i32,
 }
 /// Nested message and enum types in `CommonMetadata`.
 pub mod common_metadata {
     /// The various possible states for an ongoing Operation.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// Unspecified.
@@ -190,32 +265,51 @@ pub mod common_metadata {
                 State::Cancelled => "CANCELLED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "INITIALIZING" => Some(Self::Initializing),
+                "PROCESSING" => Some(Self::Processing),
+                "CANCELLING" => Some(Self::Cancelling),
+                "FINALIZING" => Some(Self::Finalizing),
+                "SUCCESSFUL" => Some(Self::Successful),
+                "FAILED" => Some(Self::Failed),
+                "CANCELLED" => Some(Self::Cancelled),
+                _ => None,
+            }
+        }
     }
 }
 /// Measures the progress of a particular metric.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Progress {
     /// The amount of work that has been completed. Note that this may be greater
     /// than work_estimated.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub work_completed: i64,
     /// An estimate of how much work needs to be performed. May be zero if the
     /// work estimate is unavailable.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub work_estimated: i64,
 }
 /// The request for
 /// \[google.datastore.admin.v1.DatastoreAdmin.ExportEntities][google.datastore.admin.v1.DatastoreAdmin.ExportEntities\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportEntitiesRequest {
     /// Required. Project ID against which to make the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
     /// Client-assigned labels.
-    #[prost(map="string, string", tag="2")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "2")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Description of what data from the project is included in the export.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub entity_filter: ::core::option::Option<EntityFilter>,
     /// Required. Location for the export metadata and data files.
     ///
@@ -235,19 +329,23 @@ pub struct ExportEntitiesRequest {
     ///
     /// By nesting the data files deeper, the same Cloud Storage bucket can be used
     /// in multiple ExportEntities operations without conflict.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub output_url_prefix: ::prost::alloc::string::String,
 }
 /// The request for
 /// \[google.datastore.admin.v1.DatastoreAdmin.ImportEntities][google.datastore.admin.v1.DatastoreAdmin.ImportEntities\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportEntitiesRequest {
     /// Required. Project ID against which to make the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
     /// Client-assigned labels.
-    #[prost(map="string, string", tag="2")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "2")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Required. The full resource URL of the external storage location. Currently, only
     /// Google Cloud Storage is supported. So input_url should be of the form:
     /// `gs://BUCKET_NAME\[/NAMESPACE_PATH\]/OVERALL_EXPORT_METADATA_FILE`, where
@@ -261,67 +359,70 @@ pub struct ImportEntitiesRequest {
     ///
     /// For more information, see
     /// \[google.datastore.admin.v1.ExportEntitiesResponse.output_url][google.datastore.admin.v1.ExportEntitiesResponse.output_url\].
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub input_url: ::prost::alloc::string::String,
     /// Optionally specify which kinds/namespaces are to be imported. If provided,
     /// the list must be a subset of the EntityFilter used in creating the export,
     /// otherwise a FAILED_PRECONDITION error will be returned. If no filter is
     /// specified then all entities from the export are imported.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub entity_filter: ::core::option::Option<EntityFilter>,
 }
 /// The response for
 /// \[google.datastore.admin.v1.DatastoreAdmin.ExportEntities][google.datastore.admin.v1.DatastoreAdmin.ExportEntities\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportEntitiesResponse {
     /// Location of the output metadata file. This can be used to begin an import
     /// into Cloud Datastore (this project or another project). See
     /// \[google.datastore.admin.v1.ImportEntitiesRequest.input_url][google.datastore.admin.v1.ImportEntitiesRequest.input_url\].
     /// Only present if the operation completed successfully.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub output_url: ::prost::alloc::string::String,
 }
 /// Metadata for ExportEntities operations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportEntitiesMetadata {
     /// Metadata common to all Datastore Admin operations.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonMetadata>,
     /// An estimate of the number of entities processed.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub progress_entities: ::core::option::Option<Progress>,
     /// An estimate of the number of bytes processed.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub progress_bytes: ::core::option::Option<Progress>,
     /// Description of which entities are being exported.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub entity_filter: ::core::option::Option<EntityFilter>,
     /// Location for the export metadata and data files. This will be the same
     /// value as the
     /// \[google.datastore.admin.v1.ExportEntitiesRequest.output_url_prefix][google.datastore.admin.v1.ExportEntitiesRequest.output_url_prefix\]
     /// field. The final output location is provided in
     /// \[google.datastore.admin.v1.ExportEntitiesResponse.output_url][google.datastore.admin.v1.ExportEntitiesResponse.output_url\].
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub output_url_prefix: ::prost::alloc::string::String,
 }
 /// Metadata for ImportEntities operations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportEntitiesMetadata {
     /// Metadata common to all Datastore Admin operations.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonMetadata>,
     /// An estimate of the number of entities processed.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub progress_entities: ::core::option::Option<Progress>,
     /// An estimate of the number of bytes processed.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub progress_bytes: ::core::option::Option<Progress>,
     /// Description of which entities are being imported.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub entity_filter: ::core::option::Option<EntityFilter>,
     /// The location of the import metadata file. This will be the same value as
     /// the \[google.datastore.admin.v1.ExportEntitiesResponse.output_url][google.datastore.admin.v1.ExportEntitiesResponse.output_url\] field.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub input_url: ::prost::alloc::string::String,
 }
 /// Identifies a subset of entities in a project. This is specified as
@@ -343,10 +444,11 @@ pub struct ImportEntitiesMetadata {
 ///
 /// The entire Baz namespace:
 ///    kinds=[], namespace_ids=\['Baz'\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EntityFilter {
     /// If empty, then this represents all kinds.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub kinds: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// An empty list represents all namespaces. This is the preferred
     /// usage for projects that don't use namespaces.
@@ -355,81 +457,87 @@ pub struct EntityFilter {
     /// used if the project has data in non-default namespaces, but doesn't want to
     /// include them.
     /// Each namespace in this list must be unique.
-    #[prost(string, repeated, tag="2")]
+    #[prost(string, repeated, tag = "2")]
     pub namespace_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// The request for
 /// \[google.datastore.admin.v1.DatastoreAdmin.CreateIndex][google.datastore.admin.v1.DatastoreAdmin.CreateIndex\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateIndexRequest {
     /// Project ID against which to make the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
     /// The index to create. The name and state fields are output only and will be
     /// ignored. Single property indexes cannot be created or deleted.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub index: ::core::option::Option<Index>,
 }
 /// The request for
 /// \[google.datastore.admin.v1.DatastoreAdmin.DeleteIndex][google.datastore.admin.v1.DatastoreAdmin.DeleteIndex\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteIndexRequest {
     /// Project ID against which to make the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
     /// The resource ID of the index to delete.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub index_id: ::prost::alloc::string::String,
 }
 /// The request for \[google.datastore.admin.v1.DatastoreAdmin.GetIndex][google.datastore.admin.v1.DatastoreAdmin.GetIndex\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetIndexRequest {
     /// Project ID against which to make the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
     /// The resource ID of the index to get.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub index_id: ::prost::alloc::string::String,
 }
 /// The request for
 /// \[google.datastore.admin.v1.DatastoreAdmin.ListIndexes][google.datastore.admin.v1.DatastoreAdmin.ListIndexes\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListIndexesRequest {
     /// Project ID against which to make the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub project_id: ::prost::alloc::string::String,
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub filter: ::prost::alloc::string::String,
     /// The maximum number of items to return.  If zero, then all results will be
     /// returned.
-    #[prost(int32, tag="4")]
+    #[prost(int32, tag = "4")]
     pub page_size: i32,
     /// The next_page_token value returned from a previous List request, if any.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// The response for
 /// \[google.datastore.admin.v1.DatastoreAdmin.ListIndexes][google.datastore.admin.v1.DatastoreAdmin.ListIndexes\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListIndexesResponse {
     /// The indexes.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub indexes: ::prost::alloc::vec::Vec<Index>,
     /// The standard List next-page token.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Metadata for Index operations.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct IndexOperationMetadata {
     /// Metadata common to all Datastore Admin operations.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonMetadata>,
     /// An estimate of the number of entities processed.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub progress_entities: ::core::option::Option<Progress>,
     /// The index resource ID that this operation is acting on.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub index_id: ::prost::alloc::string::String,
 }
 /// Operation types.
@@ -459,6 +567,17 @@ impl OperationType {
             OperationType::ImportEntities => "IMPORT_ENTITIES",
             OperationType::CreateIndex => "CREATE_INDEX",
             OperationType::DeleteIndex => "DELETE_INDEX",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "OPERATION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "EXPORT_ENTITIES" => Some(Self::ExportEntities),
+            "IMPORT_ENTITIES" => Some(Self::ImportEntities),
+            "CREATE_INDEX" => Some(Self::CreateIndex),
+            "DELETE_INDEX" => Some(Self::DeleteIndex),
+            _ => None,
         }
     }
 }
@@ -753,46 +872,60 @@ pub mod datastore_admin_client {
 /// An event signifying a change in state of a [migration from Cloud Datastore to
 /// Cloud Firestore in Datastore
 /// mode](<https://cloud.google.com/datastore/docs/upgrade-to-firestore>).
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MigrationStateEvent {
     /// The new state of the migration.
-    #[prost(enumeration="MigrationState", tag="1")]
+    #[prost(enumeration = "MigrationState", tag = "1")]
     pub state: i32,
 }
 /// An event signifying the start of a new step in a [migration from Cloud
 /// Datastore to Cloud Firestore in Datastore
 /// mode](<https://cloud.google.com/datastore/docs/upgrade-to-firestore>).
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MigrationProgressEvent {
     /// The step that is starting.
     ///
     /// An event with step set to `START` indicates that the migration
     /// has been reverted back to the initial pre-migration state.
-    #[prost(enumeration="MigrationStep", tag="1")]
+    #[prost(enumeration = "MigrationStep", tag = "1")]
     pub step: i32,
     /// Details about this step.
-    #[prost(oneof="migration_progress_event::StepDetails", tags="2, 3")]
+    #[prost(oneof = "migration_progress_event::StepDetails", tags = "2, 3")]
     pub step_details: ::core::option::Option<migration_progress_event::StepDetails>,
 }
 /// Nested message and enum types in `MigrationProgressEvent`.
 pub mod migration_progress_event {
     /// Details for the `PREPARE` step.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct PrepareStepDetails {
         /// The concurrency mode this database will use when it reaches the
         /// `REDIRECT_WRITES` step.
-        #[prost(enumeration="ConcurrencyMode", tag="1")]
+        #[prost(enumeration = "ConcurrencyMode", tag = "1")]
         pub concurrency_mode: i32,
     }
     /// Details for the `REDIRECT_WRITES` step.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct RedirectWritesStepDetails {
         /// Ths concurrency mode for this database.
-        #[prost(enumeration="ConcurrencyMode", tag="1")]
+        #[prost(enumeration = "ConcurrencyMode", tag = "1")]
         pub concurrency_mode: i32,
     }
     /// Concurrency modes for transactions in Cloud Firestore.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ConcurrencyMode {
         /// Unspecified.
@@ -814,15 +947,25 @@ pub mod migration_progress_event {
                 ConcurrencyMode::Optimistic => "OPTIMISTIC",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CONCURRENCY_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PESSIMISTIC" => Some(Self::Pessimistic),
+                "OPTIMISTIC" => Some(Self::Optimistic),
+                _ => None,
+            }
+        }
     }
     /// Details about this step.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum StepDetails {
         /// Details for the `PREPARE` step.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         PrepareStepDetails(PrepareStepDetails),
         /// Details for the `REDIRECT_WRITES` step.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         RedirectWritesStepDetails(RedirectWritesStepDetails),
     }
 }
@@ -850,6 +993,16 @@ impl MigrationState {
             MigrationState::Running => "RUNNING",
             MigrationState::Paused => "PAUSED",
             MigrationState::Complete => "COMPLETE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "MIGRATION_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+            "RUNNING" => Some(Self::Running),
+            "PAUSED" => Some(Self::Paused),
+            "COMPLETE" => Some(Self::Complete),
+            _ => None,
         }
     }
 }
@@ -887,9 +1040,31 @@ impl MigrationStep {
             MigrationStep::Start => "START",
             MigrationStep::ApplyWritesSynchronously => "APPLY_WRITES_SYNCHRONOUSLY",
             MigrationStep::CopyAndVerify => "COPY_AND_VERIFY",
-            MigrationStep::RedirectEventuallyConsistentReads => "REDIRECT_EVENTUALLY_CONSISTENT_READS",
-            MigrationStep::RedirectStronglyConsistentReads => "REDIRECT_STRONGLY_CONSISTENT_READS",
+            MigrationStep::RedirectEventuallyConsistentReads => {
+                "REDIRECT_EVENTUALLY_CONSISTENT_READS"
+            }
+            MigrationStep::RedirectStronglyConsistentReads => {
+                "REDIRECT_STRONGLY_CONSISTENT_READS"
+            }
             MigrationStep::RedirectWrites => "REDIRECT_WRITES",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "MIGRATION_STEP_UNSPECIFIED" => Some(Self::Unspecified),
+            "PREPARE" => Some(Self::Prepare),
+            "START" => Some(Self::Start),
+            "APPLY_WRITES_SYNCHRONOUSLY" => Some(Self::ApplyWritesSynchronously),
+            "COPY_AND_VERIFY" => Some(Self::CopyAndVerify),
+            "REDIRECT_EVENTUALLY_CONSISTENT_READS" => {
+                Some(Self::RedirectEventuallyConsistentReads)
+            }
+            "REDIRECT_STRONGLY_CONSISTENT_READS" => {
+                Some(Self::RedirectStronglyConsistentReads)
+            }
+            "REDIRECT_WRITES" => Some(Self::RedirectWrites),
+            _ => None,
         }
     }
 }

@@ -12,6 +12,7 @@
 /// `Constraints` have a default behavior determined by the `constraint_default`
 /// field, which is the enforcement behavior that is used in the absence of a
 /// `policy` being defined or inherited for the resource in question.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Constraint {
     /// Immutable. The resource name of the Constraint. Must be in one of
@@ -21,44 +22,45 @@ pub struct Constraint {
     /// * `organizations/{organization_id}/constraints/{constraint_name}`
     ///
     /// For example, "/projects/123/constraints/compute.disableSerialPortAccess".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The human readable name.
     ///
     /// Mutable.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub display_name: ::prost::alloc::string::String,
     /// Detailed description of what this `Constraint` controls as well as how and
     /// where it is enforced.
     ///
     /// Mutable.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub description: ::prost::alloc::string::String,
     /// The evaluation behavior of this constraint in the absence of 'Policy'.
-    #[prost(enumeration="constraint::ConstraintDefault", tag="4")]
+    #[prost(enumeration = "constraint::ConstraintDefault", tag = "4")]
     pub constraint_default: i32,
     /// The type of restrictions for this `Constraint`.
     ///
     /// Immutable after creation.
-    #[prost(oneof="constraint::ConstraintType", tags="5, 6")]
+    #[prost(oneof = "constraint::ConstraintType", tags = "5, 6")]
     pub constraint_type: ::core::option::Option<constraint::ConstraintType>,
 }
 /// Nested message and enum types in `Constraint`.
 pub mod constraint {
     /// A `Constraint` that allows or disallows a list of string values, which are
     /// configured by an Organization's policy administrator with a `Policy`.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ListConstraint {
         /// Indicates whether values grouped into categories can be used in
         /// `Policy.allowed_values` and `Policy.denied_values`. For example,
         /// `"in:Python"` would match any value in the 'Python' group.
-        #[prost(bool, tag="1")]
+        #[prost(bool, tag = "1")]
         pub supports_in: bool,
         /// Indicates whether subtrees of Cloud Resource Manager resource hierarchy
         /// can be used in `Policy.allowed_values` and `Policy.denied_values`. For
         /// example, `"under:folders/123"` would match any resource under the
         /// 'folders/123' folder.
-        #[prost(bool, tag="2")]
+        #[prost(bool, tag = "2")]
         pub supports_under: bool,
     }
     /// A `Constraint` that is either enforced or not.
@@ -66,14 +68,24 @@ pub mod constraint {
     /// For example a constraint `constraints/compute.disableSerialPortAccess`.
     /// If it is enforced on a VM instance, serial port connections will not be
     /// opened to that instance.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct BooleanConstraint {
-    }
+    pub struct BooleanConstraint {}
     /// Specifies the default behavior in the absence of any `Policy` for the
     /// `Constraint`. This must not be `CONSTRAINT_DEFAULT_UNSPECIFIED`.
     ///
     /// Immutable after creation.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ConstraintDefault {
         /// This is only used for distinguishing unset values and should never be
@@ -98,22 +110,33 @@ pub mod constraint {
                 ConstraintDefault::Deny => "DENY",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CONSTRAINT_DEFAULT_UNSPECIFIED" => Some(Self::Unspecified),
+                "ALLOW" => Some(Self::Allow),
+                "DENY" => Some(Self::Deny),
+                _ => None,
+            }
+        }
     }
     /// The type of restrictions for this `Constraint`.
     ///
     /// Immutable after creation.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum ConstraintType {
         /// Defines this constraint as being a ListConstraint.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         ListConstraint(ListConstraint),
         /// Defines this constraint as being a BooleanConstraint.
-        #[prost(message, tag="6")]
+        #[prost(message, tag = "6")]
         BooleanConstraint(BooleanConstraint),
     }
 }
 /// Defines a Cloud Organization `Policy` which is used to specify `Constraints`
 /// for configurations of Cloud Platform resources.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Policy {
     /// Immutable. The resource name of the Policy. Must be one of the following
@@ -128,33 +151,35 @@ pub struct Policy {
     /// Note: `projects/{project_id}/policies/{constraint_name}` is also an
     /// acceptable name for API requests, but responses will return the name using
     /// the equivalent project number.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Basic information about the Organization Policy.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub spec: ::core::option::Option<PolicySpec>,
     /// An alternate policy configuration that will be used instead of the baseline
     /// policy configurations as determined by the launch.
     /// Currently the only way the launch can trigger the alternate configuration
     /// is via dry-run/darklaunch.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub alternate: ::core::option::Option<AlternatePolicySpec>,
 }
 /// Similar to PolicySpec but with an extra 'launch' field for launch reference.
 /// The PolicySpec here is specific for dry-run/darklaunch.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AlternatePolicySpec {
     /// Reference to the launch that will be used while audit logging and to
     /// control the launch.
     /// Should be set only in the alternate policy.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub launch: ::prost::alloc::string::String,
     /// Specify `Constraint` for configurations of Cloud Platform resources.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub spec: ::core::option::Option<PolicySpec>,
 }
 /// Defines a Cloud Organization `PolicySpec` which is used to specify
 /// `Constraints` for configurations of Cloud Platform resources.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PolicySpec {
     /// An opaque tag indicating the current version of the `Policy`, used for
@@ -168,12 +193,12 @@ pub struct PolicySpec {
     ///
     /// When the `Policy` is returned from a `GetEffectivePolicy` request, the
     /// `etag` will be unset.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub etag: ::prost::alloc::string::String,
     /// Output only. The time stamp this was previously updated. This
     /// represents the last time a call to `CreatePolicy` or `UpdatePolicy` was
     /// made for that `Policy`.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Up to 10 PolicyRules are allowed.
     ///
@@ -183,7 +208,7 @@ pub struct PolicySpec {
     ///      of the PolicyRule without a condition.
     ///    - During policy evaluation, PolicyRules with conditions that are
     ///      true for a target resource take precedence.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub rules: ::prost::alloc::vec::Vec<policy_spec::PolicyRule>,
     /// Determines the inheritance behavior for this `Policy`.
     ///
@@ -192,7 +217,7 @@ pub struct PolicySpec {
     /// effective policy. If it is false, then no rules are inherited, and this
     /// Policy becomes the new root for evaluation.
     /// This field can be set only for Policies which configure list constraints.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub inherit_from_parent: bool,
     /// Ignores policies set above this resource and restores the
     /// `constraint_default` enforcement behavior of the specific `Constraint` at
@@ -200,12 +225,13 @@ pub struct PolicySpec {
     /// This field can be set in policies for either list or boolean
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
-    #[prost(bool, tag="5")]
+    #[prost(bool, tag = "5")]
     pub reset: bool,
 }
 /// Nested message and enum types in `PolicySpec`.
 pub mod policy_spec {
     /// A rule used to express this policy.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct PolicyRule {
         /// A condition which determines whether this rule is used
@@ -217,9 +243,9 @@ pub mod policy_spec {
         /// and Values. These names are available from the Label Manager Service. An
         /// example expression is:
         /// "resource.matchLabels('labelKeys/123, 'labelValues/456')".
-        #[prost(message, optional, tag="5")]
+        #[prost(message, optional, tag = "5")]
         pub condition: ::core::option::Option<super::super::super::super::r#type::Expr>,
-        #[prost(oneof="policy_rule::Kind", tags="1, 2, 3, 4")]
+        #[prost(oneof = "policy_rule::Kind", tags = "1, 2, 3, 4")]
         pub kind: ::core::option::Option<policy_rule::Kind>,
     }
     /// Nested message and enum types in `PolicyRule`.
@@ -239,39 +265,42 @@ pub mod policy_spec {
         ///      - "organizations/<organization-id>", e.g. "organizations/1234"
         /// The `supports_under` field of the associated `Constraint`  defines
         /// whether ancestry prefixes can be used.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct StringValues {
             /// List of values allowed at this resource.
-            #[prost(string, repeated, tag="1")]
+            #[prost(string, repeated, tag = "1")]
             pub allowed_values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
             /// List of values denied at this resource.
-            #[prost(string, repeated, tag="2")]
+            #[prost(string, repeated, tag = "2")]
             pub denied_values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
         }
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum Kind {
             /// List of values to be used for this PolicyRule. This field can be set
             /// only in Policies for list constraints.
-            #[prost(message, tag="1")]
+            #[prost(message, tag = "1")]
             Values(StringValues),
             /// Setting this to true means that all values are allowed. This field can
             /// be set only in Policies for list constraints.
-            #[prost(bool, tag="2")]
+            #[prost(bool, tag = "2")]
             AllowAll(bool),
             /// Setting this to true means that all values are denied. This field can
             /// be set only in Policies for list constraints.
-            #[prost(bool, tag="3")]
+            #[prost(bool, tag = "3")]
             DenyAll(bool),
             /// If `true`, then the `Policy` is enforced. If `false`, then any
             /// configuration is acceptable.
             /// This field can be set only in Policies for boolean constraints.
-            #[prost(bool, tag="4")]
+            #[prost(bool, tag = "4")]
             Enforce(bool),
         }
     }
 }
 /// The request sent to the \[ListConstraints\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.ListConstraints\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConstraintsRequest {
     /// Required. The Cloud resource that parents the constraint. Must be in one of the
@@ -280,31 +309,33 @@ pub struct ListConstraintsRequest {
     /// * `projects/{project_id}`
     /// * `folders/{folder_id}`
     /// * `organizations/{organization_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Page token used to retrieve the next page. This is currently unsupported
     /// and will be ignored. The server may at any point start using this field.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// The response returned from the \[ListConstraints\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.ListConstraints\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConstraintsResponse {
     /// The collection of constraints that are available on the targeted resource.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub constraints: ::prost::alloc::vec::Vec<Constraint>,
     /// Page token used to retrieve the next page. This is currently not used.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request sent to the \[ListPolicies\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.ListPolicies\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPoliciesRequest {
     /// Required. The target Cloud resource that parents the set of constraints and policies
@@ -314,50 +345,54 @@ pub struct ListPoliciesRequest {
     /// * `projects/{project_id}`
     /// * `folders/{folder_id}`
     /// * `organizations/{organization_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Size of the pages to be returned. This is currently unsupported and will
     /// be ignored. The server may at any point start using this field to limit
     /// page size.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Page token used to retrieve the next page. This is currently unsupported
     /// and will be ignored. The server may at any point start using this field.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// The response returned from the \[ListPolicies\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.ListPolicies\] method. It will be empty
 /// if no `Policies` are set on the resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPoliciesResponse {
     /// All `Policies` that exist on the resource. It will be empty if no
     /// `Policies` are set.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub policies: ::prost::alloc::vec::Vec<Policy>,
     /// Page token used to retrieve the next page. This is currently not used, but
     /// the server may at any point start supplying a valid token.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request sent to the \[GetPolicy\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.GetPolicy\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetPolicyRequest {
     /// Required. Resource name of the policy. See `Policy` for naming requirements.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request sent to the \[GetEffectivePolicy\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.GetEffectivePolicy\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEffectivePolicyRequest {
     /// Required. The effective policy to compute. See `Policy` for naming rules.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request sent to the \[CreatePolicyRequest\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.CreatePolicy\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreatePolicyRequest {
     /// Required. The Cloud resource that will parent the new Policy. Must be in one of the
@@ -366,27 +401,29 @@ pub struct CreatePolicyRequest {
     /// * `projects/{project_id}`
     /// * `folders/{folder_id}`
     /// * `organizations/{organization_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. `Policy` to create.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub policy: ::core::option::Option<Policy>,
 }
 /// The request sent to the \[UpdatePolicyRequest\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.UpdatePolicy\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdatePolicyRequest {
     /// Required. `Policy` to update.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub policy: ::core::option::Option<Policy>,
 }
 /// The request sent to the \[DeletePolicy\]
 /// \[google.cloud.orgpolicy.v2.OrgPolicy.DeletePolicy\] method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeletePolicyRequest {
     /// Required. Name of the policy to delete.
     /// See `Policy` for naming rules.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Generated client implementations.

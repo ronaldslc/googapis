@@ -1,4 +1,5 @@
 /// **Cloud Audit Logging**: Spec for Audit Logging Allowlisting.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FeatureSpec {
     /// Service account that should be allowlisted to send the audit logs; eg
@@ -6,6 +7,8 @@ pub struct FeatureSpec {
     /// already exist, but do not need to have any permissions granted to them.
     /// The customer's entitlements will be checked prior to allowlisting (i.e.
     /// the customer must be an Anthos customer.)
-    #[prost(string, repeated, tag="1")]
-    pub allowlisted_service_accounts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "1")]
+    pub allowlisted_service_accounts: ::prost::alloc::vec::Vec<
+        ::prost::alloc::string::String,
+    >,
 }

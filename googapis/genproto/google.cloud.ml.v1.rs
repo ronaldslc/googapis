@@ -1,9 +1,10 @@
 /// Represents input parameters for a training job.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TrainingInput {
     /// Required. Specifies the machine types, the number of replicas for workers
     /// and parameter servers.
-    #[prost(enumeration="training_input::ScaleTier", tag="1")]
+    #[prost(enumeration = "training_input::ScaleTier", tag = "1")]
     pub scale_tier: i32,
     /// Optional. Specifies the type of virtual machine to use for your training
     /// job's master worker.
@@ -54,7 +55,7 @@ pub struct TrainingInput {
     /// </dl>
     ///
     /// You must set this value when `scaleTier` is set to `CUSTOM`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub master_type: ::prost::alloc::string::String,
     /// Optional. Specifies the type of virtual machine to use for your training
     /// job's worker nodes.
@@ -64,7 +65,7 @@ pub struct TrainingInput {
     ///
     /// This value must be present when `scaleTier` is set to `CUSTOM` and
     /// `workerCount` is greater than zero.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub worker_type: ::prost::alloc::string::String,
     /// Optional. Specifies the type of virtual machine to use for your training
     /// job's parameter server.
@@ -74,14 +75,14 @@ pub struct TrainingInput {
     ///
     /// This value must be present when `scaleTier` is set to `CUSTOM` and
     /// `parameter_server_count` is greater than zero.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub parameter_server_type: ::prost::alloc::string::String,
     /// Optional. The number of worker replicas to use for the training job. Each
     /// replica in the cluster will be of the type specified in `worker_type`.
     ///
     /// This value can only be used when `scale_tier` is set to `CUSTOM`. If you
     /// set this value, you must also set `worker_type`.
-    #[prost(int64, tag="5")]
+    #[prost(int64, tag = "5")]
     pub worker_count: i64,
     /// Optional. The number of parameter server replicas to use for the training
     /// job. Each replica in the cluster will be of the type specified in
@@ -89,33 +90,33 @@ pub struct TrainingInput {
     ///
     /// This value can only be used when `scale_tier` is set to `CUSTOM`.If you
     /// set this value, you must also set `parameter_server_type`.
-    #[prost(int64, tag="6")]
+    #[prost(int64, tag = "6")]
     pub parameter_server_count: i64,
     /// Required. The Google Cloud Storage location of the packages with
     /// the training program and any additional dependencies.
-    #[prost(string, repeated, tag="7")]
+    #[prost(string, repeated, tag = "7")]
     pub package_uris: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Required. The Python module name to run after installing the packages.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub python_module: ::prost::alloc::string::String,
     /// Optional. Command line arguments to pass to the program.
-    #[prost(string, repeated, tag="10")]
+    #[prost(string, repeated, tag = "10")]
     pub args: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Optional. The set of Hyperparameters to tune.
-    #[prost(message, optional, tag="12")]
+    #[prost(message, optional, tag = "12")]
     pub hyperparameters: ::core::option::Option<HyperparameterSpec>,
     /// Required. The Google Compute Engine region to run the training job in.
-    #[prost(string, tag="14")]
+    #[prost(string, tag = "14")]
     pub region: ::prost::alloc::string::String,
     /// Optional. A Google Cloud Storage path in which to store training outputs
     /// and other data needed for training. This path is passed to your TensorFlow
     /// program as the 'job_dir' command-line argument. The benefit of specifying
     /// this field is that Cloud ML validates the path for use in training.
-    #[prost(string, tag="16")]
+    #[prost(string, tag = "16")]
     pub job_dir: ::prost::alloc::string::String,
     /// Optional. The Google Cloud ML runtime version to use for training.  If not
     /// set, Google Cloud ML will choose the latest stable version.
-    #[prost(string, tag="15")]
+    #[prost(string, tag = "15")]
     pub runtime_version: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `TrainingInput`.
@@ -131,7 +132,17 @@ pub mod training_input {
     /// [pricing guide](/ml/pricing) for more details. Note that in addition to
     /// incurring costs, your use of training resources is constrained by the
     /// [quota policy](/ml/quota).
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ScaleTier {
         /// A single worker instance. This tier is suitable for learning how to use
@@ -182,25 +193,37 @@ pub mod training_input {
                 ScaleTier::Custom => "CUSTOM",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "BASIC" => Some(Self::Basic),
+                "STANDARD_1" => Some(Self::Standard1),
+                "PREMIUM_1" => Some(Self::Premium1),
+                "BASIC_GPU" => Some(Self::BasicGpu),
+                "CUSTOM" => Some(Self::Custom),
+                _ => None,
+            }
+        }
     }
 }
 /// Represents a set of hyperparameters to optimize.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HyperparameterSpec {
     /// Required. The type of goal to use for tuning. Available types are
     /// `MAXIMIZE` and `MINIMIZE`.
     ///
     /// Defaults to `MAXIMIZE`.
-    #[prost(enumeration="hyperparameter_spec::GoalType", tag="1")]
+    #[prost(enumeration = "hyperparameter_spec::GoalType", tag = "1")]
     pub goal: i32,
     /// Required. The set of parameters to tune.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub params: ::prost::alloc::vec::Vec<ParameterSpec>,
     /// Optional. How many training trials should be attempted to optimize
     /// the specified hyperparameters.
     ///
     /// Defaults to one.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub max_trials: i32,
     /// Optional. The number of training trials to run concurrently.
     /// You can reduce the time it takes to perform hyperparameter tuning by adding
@@ -212,20 +235,30 @@ pub struct HyperparameterSpec {
     /// Each trial will use the same scale tier and machine types.
     ///
     /// Defaults to one.
-    #[prost(int32, tag="4")]
+    #[prost(int32, tag = "4")]
     pub max_parallel_trials: i32,
     /// Optional. The Tensorflow summary tag name to use for optimizing trials. For
     /// current versions of Tensorflow, this tag name should exactly match what is
     /// shown in Tensorboard, including all scopes.  For versions of Tensorflow
     /// prior to 0.12, this should be only the tag passed to tf.Summary.
     /// By default, "training/hptuning/metric" will be used.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub hyperparameter_metric_tag: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `HyperparameterSpec`.
 pub mod hyperparameter_spec {
     /// The available types of optimization goals.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum GoalType {
         /// Goal Type will default to maximize.
@@ -247,49 +280,69 @@ pub mod hyperparameter_spec {
                 GoalType::Minimize => "MINIMIZE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "GOAL_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "MAXIMIZE" => Some(Self::Maximize),
+                "MINIMIZE" => Some(Self::Minimize),
+                _ => None,
+            }
+        }
     }
 }
 /// Represents a single hyperparameter to optimize.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ParameterSpec {
     /// Required. The parameter name must be unique amongst all ParameterConfigs in
     /// a HyperparameterSpec message. E.g., "learning_rate".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parameter_name: ::prost::alloc::string::String,
     /// Required. The type of the parameter.
-    #[prost(enumeration="parameter_spec::ParameterType", tag="4")]
+    #[prost(enumeration = "parameter_spec::ParameterType", tag = "4")]
     pub r#type: i32,
     /// Required if type is `DOUBLE` or `INTEGER`. This field
     /// should be unset if type is `CATEGORICAL`. This value should be integers if
     /// type is INTEGER.
-    #[prost(double, tag="2")]
+    #[prost(double, tag = "2")]
     pub min_value: f64,
     /// Required if typeis `DOUBLE` or `INTEGER`. This field
     /// should be unset if type is `CATEGORICAL`. This value should be integers if
     /// type is `INTEGER`.
-    #[prost(double, tag="3")]
+    #[prost(double, tag = "3")]
     pub max_value: f64,
     /// Required if type is `CATEGORICAL`. The list of possible categories.
-    #[prost(string, repeated, tag="5")]
+    #[prost(string, repeated, tag = "5")]
     pub categorical_values: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Required if type is `DISCRETE`.
     /// A list of feasible points.
     /// The list should be in strictly increasing order. For instance, this
     /// parameter might have possible settings of 1.5, 2.5, and 4.0. This list
     /// should not contain more than 1,000 values.
-    #[prost(double, repeated, tag="6")]
+    #[prost(double, repeated, tag = "6")]
     pub discrete_values: ::prost::alloc::vec::Vec<f64>,
     /// Optional. How the parameter should be scaled to the hypercube.
     /// Leave unset for categorical parameters.
     /// Some kind of scaling is strongly recommended for real or integral
     /// parameters (e.g., `UNIT_LINEAR_SCALE`).
-    #[prost(enumeration="parameter_spec::ScaleType", tag="7")]
+    #[prost(enumeration = "parameter_spec::ScaleType", tag = "7")]
     pub scale_type: i32,
 }
 /// Nested message and enum types in `ParameterSpec`.
 pub mod parameter_spec {
     /// The type of the parameter.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ParameterType {
         /// You must specify a valid type. Using this unspecified type will result in
@@ -321,9 +374,30 @@ pub mod parameter_spec {
                 ParameterType::Discrete => "DISCRETE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "PARAMETER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "DOUBLE" => Some(Self::Double),
+                "INTEGER" => Some(Self::Integer),
+                "CATEGORICAL" => Some(Self::Categorical),
+                "DISCRETE" => Some(Self::Discrete),
+                _ => None,
+            }
+        }
     }
     /// The type of scaling that should be applied to this parameter.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ScaleType {
         /// By default, no scaling is applied.
@@ -352,93 +426,124 @@ pub mod parameter_spec {
                 ScaleType::UnitReverseLogScale => "UNIT_REVERSE_LOG_SCALE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "NONE" => Some(Self::None),
+                "UNIT_LINEAR_SCALE" => Some(Self::UnitLinearScale),
+                "UNIT_LOG_SCALE" => Some(Self::UnitLogScale),
+                "UNIT_REVERSE_LOG_SCALE" => Some(Self::UnitReverseLogScale),
+                _ => None,
+            }
+        }
     }
 }
 /// Represents the result of a single hyperparameter tuning trial from a
 /// training job. The TrainingOutput object that is returned on successful
 /// completion of a training job with hyperparameter tuning includes a list
 /// of HyperparameterOutput objects, one for each successful trial.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct HyperparameterOutput {
     /// The trial id for these results.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub trial_id: ::prost::alloc::string::String,
     /// The hyperparameters given to this trial.
-    #[prost(map="string, string", tag="2")]
-    pub hyperparameters: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "2")]
+    pub hyperparameters: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// The final objective metric seen for this trial.
-    #[prost(message, optional, tag="3")]
-    pub final_metric: ::core::option::Option<hyperparameter_output::HyperparameterMetric>,
+    #[prost(message, optional, tag = "3")]
+    pub final_metric: ::core::option::Option<
+        hyperparameter_output::HyperparameterMetric,
+    >,
     /// All recorded object metrics for this trial.
-    #[prost(message, repeated, tag="4")]
-    pub all_metrics: ::prost::alloc::vec::Vec<hyperparameter_output::HyperparameterMetric>,
+    #[prost(message, repeated, tag = "4")]
+    pub all_metrics: ::prost::alloc::vec::Vec<
+        hyperparameter_output::HyperparameterMetric,
+    >,
 }
 /// Nested message and enum types in `HyperparameterOutput`.
 pub mod hyperparameter_output {
     /// An observed value of a metric.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct HyperparameterMetric {
         /// The global training step for this metric.
-        #[prost(int64, tag="1")]
+        #[prost(int64, tag = "1")]
         pub training_step: i64,
         /// The objective value at this training step.
-        #[prost(double, tag="2")]
+        #[prost(double, tag = "2")]
         pub objective_value: f64,
     }
 }
 /// Represents results of a training job. Output only.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TrainingOutput {
     /// The number of hyperparameter tuning trials that completed successfully.
     /// Only set for hyperparameter tuning jobs.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub completed_trial_count: i64,
     /// Results for individual Hyperparameter trials.
     /// Only set for hyperparameter tuning jobs.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub trials: ::prost::alloc::vec::Vec<HyperparameterOutput>,
     /// The amount of ML units consumed by the job.
-    #[prost(double, tag="3")]
+    #[prost(double, tag = "3")]
     pub consumed_ml_units: f64,
     /// Whether this job is a hyperparameter tuning job.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub is_hyperparameter_tuning_job: bool,
 }
 /// Represents input parameters for a prediction job.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PredictionInput {
     /// Required. The format of the input data files.
-    #[prost(enumeration="prediction_input::DataFormat", tag="3")]
+    #[prost(enumeration = "prediction_input::DataFormat", tag = "3")]
     pub data_format: i32,
     /// Required. The Google Cloud Storage location of the input data files.
     /// May contain wildcards.
-    #[prost(string, repeated, tag="4")]
+    #[prost(string, repeated, tag = "4")]
     pub input_paths: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Required. The output Google Cloud Storage location.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub output_path: ::prost::alloc::string::String,
     /// Optional. The maximum number of workers to be used for parallel processing.
     /// Defaults to 10 if not specified.
-    #[prost(int64, tag="6")]
+    #[prost(int64, tag = "6")]
     pub max_worker_count: i64,
     /// Required. The Google Compute Engine region to run the prediction job in.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub region: ::prost::alloc::string::String,
     /// Optional. The Google Cloud ML runtime version to use for this batch
     /// prediction. If not set, Google Cloud ML will pick the runtime version used
     /// during the CreateVersion request for this model version, or choose the
     /// latest stable version when model version information is not available
     /// such as when the model is specified by uri.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub runtime_version: ::prost::alloc::string::String,
     /// Required. The model or the version to use for prediction.
-    #[prost(oneof="prediction_input::ModelVersion", tags="1, 2, 9")]
+    #[prost(oneof = "prediction_input::ModelVersion", tags = "1, 2, 9")]
     pub model_version: ::core::option::Option<prediction_input::ModelVersion>,
 }
 /// Nested message and enum types in `PredictionInput`.
 pub mod prediction_input {
     /// The format used to separate data instances in the source files.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum DataFormat {
         /// Unspecified format.
@@ -464,77 +569,100 @@ pub mod prediction_input {
                 DataFormat::TfRecordGzip => "TF_RECORD_GZIP",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DATA_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
+                "TEXT" => Some(Self::Text),
+                "TF_RECORD" => Some(Self::TfRecord),
+                "TF_RECORD_GZIP" => Some(Self::TfRecordGzip),
+                _ => None,
+            }
+        }
     }
     /// Required. The model or the version to use for prediction.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum ModelVersion {
         /// Use this field if you want to use the default version for the specified
         /// model. The string must use the following format:
         ///
         /// `"projects/<var>\[YOUR_PROJECT]</var>/models/<var>[YOUR_MODEL\]</var>"`
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         ModelName(::prost::alloc::string::String),
         /// Use this field if you want to specify a version of the model to use. The
         /// string is formatted the same way as `model_version`, with the addition
         /// of the version information:
         ///
         /// `"projects/<var>\[YOUR_PROJECT]</var>/models/<var>YOUR_MODEL/versions/<var>[YOUR_VERSION\]</var>"`
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         VersionName(::prost::alloc::string::String),
         /// Use this field if you want to specify a Google Cloud Storage path for
         /// the model to use.
-        #[prost(string, tag="9")]
+        #[prost(string, tag = "9")]
         Uri(::prost::alloc::string::String),
     }
 }
 /// Represents results of a prediction job.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PredictionOutput {
     /// The output Google Cloud Storage location provided at the job creation time.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub output_path: ::prost::alloc::string::String,
     /// The number of generated predictions.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub prediction_count: i64,
     /// The number of data instances which resulted in errors.
-    #[prost(int64, tag="3")]
+    #[prost(int64, tag = "3")]
     pub error_count: i64,
     /// Node hours used by the batch prediction job.
-    #[prost(double, tag="4")]
+    #[prost(double, tag = "4")]
     pub node_hours: f64,
 }
 /// Represents a training or prediction job.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Job {
     /// Required. The user-specified id of the job.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub job_id: ::prost::alloc::string::String,
     /// Output only. When the job was created.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. When the job processing was started.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. When the job processing was completed.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The detailed state of a job.
-    #[prost(enumeration="job::State", tag="7")]
+    #[prost(enumeration = "job::State", tag = "7")]
     pub state: i32,
     /// Output only. The details of a failure or a cancellation.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub error_message: ::prost::alloc::string::String,
     /// Required. Parameters to create a job.
-    #[prost(oneof="job::Input", tags="2, 3")]
+    #[prost(oneof = "job::Input", tags = "2, 3")]
     pub input: ::core::option::Option<job::Input>,
     /// Output only. The current result of the job.
-    #[prost(oneof="job::Output", tags="9, 10")]
+    #[prost(oneof = "job::Output", tags = "9, 10")]
     pub output: ::core::option::Option<job::Output>,
 }
 /// Nested message and enum types in `Job`.
 pub mod job {
     /// Describes the job state.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The job state is unspecified.
@@ -574,92 +702,113 @@ pub mod job {
                 State::Cancelled => "CANCELLED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "QUEUED" => Some(Self::Queued),
+                "PREPARING" => Some(Self::Preparing),
+                "RUNNING" => Some(Self::Running),
+                "SUCCEEDED" => Some(Self::Succeeded),
+                "FAILED" => Some(Self::Failed),
+                "CANCELLING" => Some(Self::Cancelling),
+                "CANCELLED" => Some(Self::Cancelled),
+                _ => None,
+            }
+        }
     }
     /// Required. Parameters to create a job.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Input {
         /// Input parameters to create a training job.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         TrainingInput(super::TrainingInput),
         /// Input parameters to create a prediction job.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         PredictionInput(super::PredictionInput),
     }
     /// Output only. The current result of the job.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Output {
         /// The current training job result.
-        #[prost(message, tag="9")]
+        #[prost(message, tag = "9")]
         TrainingOutput(super::TrainingOutput),
         /// The current prediction job result.
-        #[prost(message, tag="10")]
+        #[prost(message, tag = "10")]
         PredictionOutput(super::PredictionOutput),
     }
 }
 /// Request message for the CreateJob method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateJobRequest {
     /// Required. The project name.
     ///
     /// Authorization: requires `Editor` role on the specified project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The job to create.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub job: ::core::option::Option<Job>,
 }
 /// Request message for the ListJobs method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListJobsRequest {
     /// Required. The name of the project for which to list jobs.
     ///
     /// Authorization: requires `Viewer` role on the specified project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. Specifies the subset of jobs to retrieve.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. A page token to request the next page of results.
     ///
     /// You get the token from the `next_page_token` field of the response from
     /// the previous call.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The number of jobs to retrieve per "page" of results. If there
     /// are more remaining results than this number, the response message will
     /// contain a valid value in the `next_page_token` field.
     ///
     /// The default value is 20, and the maximum page size is 100.
-    #[prost(int32, tag="5")]
+    #[prost(int32, tag = "5")]
     pub page_size: i32,
 }
 /// Response message for the ListJobs method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListJobsResponse {
     /// The list of jobs.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub jobs: ::prost::alloc::vec::Vec<Job>,
     /// Optional. Pass this token as the `page_token` field of the request for a
     /// subsequent call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for the GetJob method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetJobRequest {
     /// Required. The name of the job to get the description of.
     ///
     /// Authorization: requires `Viewer` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for the CancelJob method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CancelJobRequest {
     /// Required. The name of the job to cancel.
     ///
     /// Authorization: requires `Editor` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -808,31 +957,32 @@ pub mod job_service_client {
 /// A model can have multiple versions, each of which is a deployed, trained
 /// model ready to receive prediction requests. The model itself is just a
 /// container.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Model {
     /// Required. The name specified for the model when it was created.
     ///
     /// The model name must be unique within the project it is created in.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. The description specified for the model when it was created.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Output only. The default version of the model. This version will be used to
     /// handle prediction requests that do not specify a version.
     ///
     /// You can change the default version by calling
     /// \[projects.methods.versions.setDefault\](/ml/reference/rest/v1/projects.models.versions/setDefault).
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub default_version: ::core::option::Option<Version>,
     /// Optional. The list of regions where the model is going to be deployed.
     /// Currently only one region per model is supported.
     /// Defaults to 'us-central1' if nothing is set.
-    #[prost(string, repeated, tag="4")]
+    #[prost(string, repeated, tag = "4")]
     pub regions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Optional. If true, enables StackDriver Logging for online prediction.
     /// Default is false.
-    #[prost(bool, tag="5")]
+    #[prost(bool, tag = "5")]
     pub online_prediction_logging: bool,
 }
 /// Represents a version of the model.
@@ -841,22 +991,23 @@ pub struct Model {
 /// prediction requests. A model can have multiple versions. You can get
 /// information about all of the versions of a given model by calling
 /// \[projects.models.versions.list\](/ml/reference/rest/v1/projects.models.versions/list).
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Version {
     /// Required.The name specified for the version when it was created.
     ///
     /// The version name must be unique within the model it is created in.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. The description specified for the version when it was created.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Output only. If true, this version will be used to handle prediction
     /// requests that do not specify a version.
     ///
     /// You can change the default version by calling
     /// \[projects.methods.versions.setDefault\](/ml/reference/rest/v1/projects.models.versions/setDefault).
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub is_default: bool,
     /// Required. The Google Cloud Storage location of the trained model used to
     /// create the version. See the
@@ -868,17 +1019,17 @@ pub struct Version {
     /// the model service uses the specified location as the source of the model.
     /// Once deployed, the model version is hosted by the prediction service, so
     /// this location is useful only as a historical record.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub deployment_uri: ::prost::alloc::string::String,
     /// Output only. The time the version was created.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The time the version was last used for prediction.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub last_use_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Optional. The Google Cloud ML runtime version to use for this deployment.
     /// If not set, Google Cloud ML will choose a version.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub runtime_version: ::prost::alloc::string::String,
     /// Optional. Manually select the number of nodes to use for serving the
     /// model. If unset (i.e., by default), the number of nodes used to serve
@@ -886,137 +1037,148 @@ pub struct Version {
     /// taken to ramp up traffic according to the model's ability to scale. If
     /// your model needs to handle bursts of traffic beyond it's ability to
     /// scale, it is recommended you set this field appropriately.
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag = "9")]
     pub manual_scaling: ::core::option::Option<ManualScaling>,
 }
 /// Options for manually scaling a model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ManualScaling {
     /// The number of nodes to allocate for this model. These nodes are always up,
     /// starting from the time the model is deployed, so the cost of operating
     /// this model will be proportional to nodes * number of hours since
     /// deployment.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub nodes: i32,
 }
 /// Request message for the CreateModel method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateModelRequest {
     /// Required. The project name.
     ///
     /// Authorization: requires `Editor` role on the specified project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The model to create.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub model: ::core::option::Option<Model>,
 }
 /// Request message for the ListModels method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListModelsRequest {
     /// Required. The name of the project whose models are to be listed.
     ///
     /// Authorization: requires `Viewer` role on the specified project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. A page token to request the next page of results.
     ///
     /// You get the token from the `next_page_token` field of the response from
     /// the previous call.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The number of models to retrieve per "page" of results. If there
     /// are more remaining results than this number, the response message will
     /// contain a valid value in the `next_page_token` field.
     ///
     /// The default value is 20, and the maximum page size is 100.
-    #[prost(int32, tag="5")]
+    #[prost(int32, tag = "5")]
     pub page_size: i32,
 }
 /// Response message for the ListModels method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListModelsResponse {
     /// The list of models.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub models: ::prost::alloc::vec::Vec<Model>,
     /// Optional. Pass this token as the `page_token` field of the request for a
     /// subsequent call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for the GetModel method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetModelRequest {
     /// Required. The name of the model.
     ///
     /// Authorization: requires `Viewer` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for the DeleteModel method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteModelRequest {
     /// Required. The name of the model.
     ///
     /// Authorization: requires `Editor` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Uploads the provided trained model version to Cloud Machine Learning.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateVersionRequest {
     /// Required. The name of the model.
     ///
     /// Authorization: requires `Editor` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The version details.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub version: ::core::option::Option<Version>,
 }
 /// Request message for the ListVersions method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListVersionsRequest {
     /// Required. The name of the model for which to list the version.
     ///
     /// Authorization: requires `Viewer` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. A page token to request the next page of results.
     ///
     /// You get the token from the `next_page_token` field of the response from
     /// the previous call.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The number of versions to retrieve per "page" of results. If
     /// there are more remaining results than this number, the response message
     /// will contain a valid value in the `next_page_token` field.
     ///
     /// The default value is 20, and the maximum page size is 100.
-    #[prost(int32, tag="5")]
+    #[prost(int32, tag = "5")]
     pub page_size: i32,
 }
 /// Response message for the ListVersions method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListVersionsResponse {
     /// The list of versions.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub versions: ::prost::alloc::vec::Vec<Version>,
     /// Optional. Pass this token as the `page_token` field of the request for a
     /// subsequent call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for the GetVersion method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetVersionRequest {
     /// Required. The name of the version.
     ///
     /// Authorization: requires `Viewer` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for the DeleteVerionRequest method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteVersionRequest {
     /// Required. The name of the version. You can get the names of all the
@@ -1024,10 +1186,11 @@ pub struct DeleteVersionRequest {
     /// \[projects.models.versions.list\](/ml/reference/rest/v1/projects.models.versions/list).
     ///
     /// Authorization: requires `Editor` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for the SetDefaultVersion request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetDefaultVersionRequest {
     /// Required. The name of the version to make the default for the model. You
@@ -1035,7 +1198,7 @@ pub struct SetDefaultVersionRequest {
     /// \[projects.models.versions.list\](/ml/reference/rest/v1/projects.models.versions/list).
     ///
     /// Authorization: requires `Editor` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -1355,40 +1518,46 @@ pub mod model_service_client {
         }
     }
 }
-// Copyright 2017 Google Inc. All Rights Reserved.
-//
-// Proto file for the Google Cloud Machine Learning Engine.
-// Describes the metadata for longrunning operations.
-
 /// Represents the metadata of the long-running operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OperationMetadata {
     /// The time the operation was submitted.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The time operation processing started.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The time operation processing completed.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Indicates whether a request to cancel this operation has been made.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub is_cancellation_requested: bool,
     /// The operation type.
-    #[prost(enumeration="operation_metadata::OperationType", tag="5")]
+    #[prost(enumeration = "operation_metadata::OperationType", tag = "5")]
     pub operation_type: i32,
     /// Contains the name of the model associated with the operation.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub model_name: ::prost::alloc::string::String,
     /// Contains the version associated with the operation.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub version: ::core::option::Option<Version>,
 }
 /// Nested message and enum types in `OperationMetadata`.
 pub mod operation_metadata {
     /// The operation type.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum OperationType {
         /// Unspecified operation type.
@@ -1411,6 +1580,16 @@ pub mod operation_metadata {
                 OperationType::CreateVersion => "CREATE_VERSION",
                 OperationType::DeleteVersion => "DELETE_VERSION",
                 OperationType::DeleteModel => "DELETE_MODEL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "OPERATION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATE_VERSION" => Some(Self::CreateVersion),
+                "DELETE_VERSION" => Some(Self::DeleteVersion),
+                "DELETE_MODEL" => Some(Self::DeleteModel),
+                _ => None,
             }
         }
     }
@@ -1601,16 +1780,17 @@ pub mod operation_metadata {
 /// entry per instance in the request body. If prediction fails for any
 /// instance, the response body will contain no predictions and will contian
 /// a single error entry instead.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PredictRequest {
     /// Required. The resource name of a model or a version.
     ///
     /// Authorization: requires `Viewer` role on the parent project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     ///
     /// Required. The prediction request body.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub http_body: ::core::option::Option<super::super::super::api::HttpBody>,
 }
 /// Generated client implementations.
@@ -1703,22 +1883,24 @@ pub mod online_prediction_service_client {
     }
 }
 /// Requests service account information associated with a project.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConfigRequest {
     /// Required. The project name.
     ///
     /// Authorization: requires `Viewer` role on the specified project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Returns service account information associated with a project.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConfigResponse {
     /// The service account Cloud ML uses to access resources in the project.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub service_account: ::prost::alloc::string::String,
     /// The project number for `service_account`.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub service_account_project: i64,
 }
 /// Generated client implementations.

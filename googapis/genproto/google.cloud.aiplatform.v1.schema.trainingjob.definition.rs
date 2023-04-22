@@ -1,23 +1,25 @@
 /// A TrainingJob that trains and uploads an AutoML Image Classification Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageClassification {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlImageClassificationInputs>,
     /// The metadata information.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub metadata: ::core::option::Option<AutoMlImageClassificationMetadata>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageClassificationInputs {
-    #[prost(enumeration="auto_ml_image_classification_inputs::ModelType", tag="1")]
+    #[prost(enumeration = "auto_ml_image_classification_inputs::ModelType", tag = "1")]
     pub model_type: i32,
     /// The ID of the `base` model. If it is specified, the new model will be
     /// trained based on the `base` model. Otherwise, the new model will be
     /// trained from scratch. The `base` model must be in the same
     /// Project and Location as the new Model to train, and have the same
     /// modelType.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub base_model_id: ::prost::alloc::string::String,
     /// The training budget of creating this model, expressed in milli node
     /// hours i.e. 1,000 value in this field means 1 node hour. The actual
@@ -34,24 +36,34 @@ pub struct AutoMlImageClassificationInputs {
     /// 1,000 and 100,000 milli node hours, inclusive.
     /// The default value is 24,000 which represents one day in wall time on a
     /// single node that is used.
-    #[prost(int64, tag="3")]
+    #[prost(int64, tag = "3")]
     pub budget_milli_node_hours: i64,
     /// Use the entire training budget. This disables the early stopping feature.
     /// When false the early stopping feature is enabled, which means that
     /// AutoML Image Classification might stop training before the entire
     /// training budget has been used.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub disable_early_stopping: bool,
     /// If false, a single-label (multi-class) Model will be trained (i.e.
     /// assuming that for each image just up to one annotation may be
     /// applicable). If true, a multi-label Model will be trained (i.e.
     /// assuming that for each image multiple annotations may be applicable).
-    #[prost(bool, tag="5")]
+    #[prost(bool, tag = "5")]
     pub multi_label: bool,
 }
 /// Nested message and enum types in `AutoMlImageClassificationInputs`.
 pub mod auto_ml_image_classification_inputs {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ModelType {
         /// Should not be set.
@@ -91,23 +103,48 @@ pub mod auto_ml_image_classification_inputs {
                 ModelType::MobileTfHighAccuracy1 => "MOBILE_TF_HIGH_ACCURACY_1",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MODEL_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CLOUD" => Some(Self::Cloud),
+                "MOBILE_TF_LOW_LATENCY_1" => Some(Self::MobileTfLowLatency1),
+                "MOBILE_TF_VERSATILE_1" => Some(Self::MobileTfVersatile1),
+                "MOBILE_TF_HIGH_ACCURACY_1" => Some(Self::MobileTfHighAccuracy1),
+                _ => None,
+            }
+        }
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageClassificationMetadata {
     /// The actual training cost of creating this model, expressed in
     /// milli node hours, i.e. 1,000 value in this field means 1 node hour.
     /// Guaranteed to not exceed inputs.budgetMilliNodeHours.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub cost_milli_node_hours: i64,
     /// For successful job completions, this is the reason why the job has
     /// finished.
-    #[prost(enumeration="auto_ml_image_classification_metadata::SuccessfulStopReason", tag="2")]
+    #[prost(
+        enumeration = "auto_ml_image_classification_metadata::SuccessfulStopReason",
+        tag = "2"
+    )]
     pub successful_stop_reason: i32,
 }
 /// Nested message and enum types in `AutoMlImageClassificationMetadata`.
 pub mod auto_ml_image_classification_metadata {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SuccessfulStopReason {
         /// Should not be set.
@@ -130,21 +167,32 @@ pub mod auto_ml_image_classification_metadata {
                 SuccessfulStopReason::ModelConverged => "MODEL_CONVERGED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SUCCESSFUL_STOP_REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                "BUDGET_REACHED" => Some(Self::BudgetReached),
+                "MODEL_CONVERGED" => Some(Self::ModelConverged),
+                _ => None,
+            }
+        }
     }
 }
 /// A TrainingJob that trains and uploads an AutoML Image Object Detection Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageObjectDetection {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlImageObjectDetectionInputs>,
     /// The metadata information
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub metadata: ::core::option::Option<AutoMlImageObjectDetectionMetadata>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageObjectDetectionInputs {
-    #[prost(enumeration="auto_ml_image_object_detection_inputs::ModelType", tag="1")]
+    #[prost(enumeration = "auto_ml_image_object_detection_inputs::ModelType", tag = "1")]
     pub model_type: i32,
     /// The training budget of creating this model, expressed in milli node
     /// hours i.e. 1,000 value in this field means 1 node hour. The actual
@@ -161,18 +209,28 @@ pub struct AutoMlImageObjectDetectionInputs {
     /// the training budget must be between 1,000 and 100,000 milli node hours,
     /// inclusive. The default value is 24,000 which represents one day in
     /// wall time on a single node that is used.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub budget_milli_node_hours: i64,
     /// Use the entire training budget. This disables the early stopping feature.
     /// When false the early stopping feature is enabled, which means that AutoML
     /// Image Object Detection might stop training before the entire training
     /// budget has been used.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub disable_early_stopping: bool,
 }
 /// Nested message and enum types in `AutoMlImageObjectDetectionInputs`.
 pub mod auto_ml_image_object_detection_inputs {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ModelType {
         /// Should not be set.
@@ -217,23 +275,49 @@ pub mod auto_ml_image_object_detection_inputs {
                 ModelType::MobileTfHighAccuracy1 => "MOBILE_TF_HIGH_ACCURACY_1",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MODEL_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CLOUD_HIGH_ACCURACY_1" => Some(Self::CloudHighAccuracy1),
+                "CLOUD_LOW_LATENCY_1" => Some(Self::CloudLowLatency1),
+                "MOBILE_TF_LOW_LATENCY_1" => Some(Self::MobileTfLowLatency1),
+                "MOBILE_TF_VERSATILE_1" => Some(Self::MobileTfVersatile1),
+                "MOBILE_TF_HIGH_ACCURACY_1" => Some(Self::MobileTfHighAccuracy1),
+                _ => None,
+            }
+        }
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageObjectDetectionMetadata {
     /// The actual training cost of creating this model, expressed in
     /// milli node hours, i.e. 1,000 value in this field means 1 node hour.
     /// Guaranteed to not exceed inputs.budgetMilliNodeHours.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub cost_milli_node_hours: i64,
     /// For successful job completions, this is the reason why the job has
     /// finished.
-    #[prost(enumeration="auto_ml_image_object_detection_metadata::SuccessfulStopReason", tag="2")]
+    #[prost(
+        enumeration = "auto_ml_image_object_detection_metadata::SuccessfulStopReason",
+        tag = "2"
+    )]
     pub successful_stop_reason: i32,
 }
 /// Nested message and enum types in `AutoMlImageObjectDetectionMetadata`.
 pub mod auto_ml_image_object_detection_metadata {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SuccessfulStopReason {
         /// Should not be set.
@@ -256,21 +340,32 @@ pub mod auto_ml_image_object_detection_metadata {
                 SuccessfulStopReason::ModelConverged => "MODEL_CONVERGED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SUCCESSFUL_STOP_REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                "BUDGET_REACHED" => Some(Self::BudgetReached),
+                "MODEL_CONVERGED" => Some(Self::ModelConverged),
+                _ => None,
+            }
+        }
     }
 }
 /// A TrainingJob that trains and uploads an AutoML Image Segmentation Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageSegmentation {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlImageSegmentationInputs>,
     /// The metadata information.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub metadata: ::core::option::Option<AutoMlImageSegmentationMetadata>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageSegmentationInputs {
-    #[prost(enumeration="auto_ml_image_segmentation_inputs::ModelType", tag="1")]
+    #[prost(enumeration = "auto_ml_image_segmentation_inputs::ModelType", tag = "1")]
     pub model_type: i32,
     /// The training budget of creating this model, expressed in milli node
     /// hours i.e. 1,000 value in this field means 1 node hour. The actual
@@ -285,19 +380,29 @@ pub struct AutoMlImageSegmentationInputs {
     /// 20,000 and 2,000,000 milli node hours, inclusive. The default value is
     /// 192,000 which represents one day in wall time
     /// (1000 milli * 24 hours * 8 nodes).
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub budget_milli_node_hours: i64,
     /// The ID of the `base` model. If it is specified, the new model will be
     /// trained based on the `base` model. Otherwise, the new model will be
     /// trained from scratch. The `base` model must be in the same
     /// Project and Location as the new Model to train, and have the same
     /// modelType.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub base_model_id: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `AutoMlImageSegmentationInputs`.
 pub mod auto_ml_image_segmentation_inputs {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ModelType {
         /// Should not be set.
@@ -329,23 +434,47 @@ pub mod auto_ml_image_segmentation_inputs {
                 ModelType::MobileTfLowLatency1 => "MOBILE_TF_LOW_LATENCY_1",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MODEL_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CLOUD_HIGH_ACCURACY_1" => Some(Self::CloudHighAccuracy1),
+                "CLOUD_LOW_ACCURACY_1" => Some(Self::CloudLowAccuracy1),
+                "MOBILE_TF_LOW_LATENCY_1" => Some(Self::MobileTfLowLatency1),
+                _ => None,
+            }
+        }
     }
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlImageSegmentationMetadata {
     /// The actual training cost of creating this model, expressed in
     /// milli node hours, i.e. 1,000 value in this field means 1 node hour.
     /// Guaranteed to not exceed inputs.budgetMilliNodeHours.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub cost_milli_node_hours: i64,
     /// For successful job completions, this is the reason why the job has
     /// finished.
-    #[prost(enumeration="auto_ml_image_segmentation_metadata::SuccessfulStopReason", tag="2")]
+    #[prost(
+        enumeration = "auto_ml_image_segmentation_metadata::SuccessfulStopReason",
+        tag = "2"
+    )]
     pub successful_stop_reason: i32,
 }
 /// Nested message and enum types in `AutoMlImageSegmentationMetadata`.
 pub mod auto_ml_image_segmentation_metadata {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SuccessfulStopReason {
         /// Should not be set.
@@ -368,9 +497,19 @@ pub mod auto_ml_image_segmentation_metadata {
                 SuccessfulStopReason::ModelConverged => "MODEL_CONVERGED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SUCCESSFUL_STOP_REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                "BUDGET_REACHED" => Some(Self::BudgetReached),
+                "MODEL_CONVERGED" => Some(Self::ModelConverged),
+                _ => None,
+            }
+        }
     }
 }
 /// Configuration for exporting test set predictions to a BigQuery table.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExportEvaluatedDataItemsConfig {
     /// URI of desired destination BigQuery table. Expected format:
@@ -379,24 +518,26 @@ pub struct ExportEvaluatedDataItemsConfig {
     /// If not specified, then results are exported to the following auto-created
     /// BigQuery table:
     /// <project_id>:export_evaluated_examples_<model_name>_<yyyy_MM_dd'T'HH_mm_ss_SSS'Z'>.evaluated_examples
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub destination_bigquery_uri: ::prost::alloc::string::String,
     /// If true and an export destination is specified, then the contents of the
     /// destination are overwritten. Otherwise, if the export destination already
     /// exists, then the export operation fails.
-    #[prost(bool, tag="2")]
+    #[prost(bool, tag = "2")]
     pub override_existing_table: bool,
 }
 /// A TrainingJob that trains and uploads an AutoML Tables Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTables {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlTablesInputs>,
     /// The metadata information.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub metadata: ::core::option::Option<AutoMlTablesMetadata>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTablesInputs {
     /// The type of prediction the Model is to produce.
@@ -406,16 +547,16 @@ pub struct AutoMlTablesInputs {
     ///                   This type is available only to columns that contain
     ///                   semantically numeric values, i.e. integers or floating
     ///                   point number, even if stored as e.g. strings.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub prediction_type: ::prost::alloc::string::String,
     /// The column name of the target column that the model is to predict.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub target_column: ::prost::alloc::string::String,
     /// Each transformation will apply transform function to given input column.
     /// And the result will be used for training.
     /// When creating transformation for BigQuery Struct column, the column should
     /// be flattened using "." as the delimiter.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub transformations: ::prost::alloc::vec::Vec<auto_ml_tables_inputs::Transformation>,
     /// Objective function the model is optimizing towards. The training process
     /// creates a model that maximizes/minimizes the value of the objective
@@ -441,7 +582,7 @@ pub struct AutoMlTablesInputs {
     ///    "minimize-rmse" (default) - Minimize root-mean-squared error (RMSE).
     ///    "minimize-mae" - Minimize mean-absolute error (MAE).
     ///    "minimize-rmsle" - Minimize root-mean-squared log error (RMSLE).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub optimization_objective: ::prost::alloc::string::String,
     /// Required. The train budget of creating this model, expressed in milli node
     /// hours i.e. 1,000 value in this field means 1 node hour.
@@ -457,12 +598,12 @@ pub struct AutoMlTablesInputs {
     ///
     /// The train budget must be between 1,000 and 72,000 milli node hours,
     /// inclusive.
-    #[prost(int64, tag="7")]
+    #[prost(int64, tag = "7")]
     pub train_budget_milli_node_hours: i64,
     /// Use the entire training budget. This disables the early stopping feature.
     /// By default, the early stopping feature is enabled, which means that AutoML
     /// Tables might stop training before the entire training budget has been used.
-    #[prost(bool, tag="8")]
+    #[prost(bool, tag = "8")]
     pub disable_early_stopping: bool,
     /// Column name that should be used as the weight column.
     /// Higher values in this column give more importance to the row
@@ -470,37 +611,51 @@ pub struct AutoMlTablesInputs {
     /// 10000 inclusively; 0 means the row is ignored for training. If weight
     /// column field is not set, then all rows are assumed to have equal weight
     /// of 1.
-    #[prost(string, tag="9")]
+    #[prost(string, tag = "9")]
     pub weight_column_name: ::prost::alloc::string::String,
     /// Configuration for exporting test set predictions to a BigQuery table. If
     /// this configuration is absent, then the export is not performed.
-    #[prost(message, optional, tag="10")]
-    pub export_evaluated_data_items_config: ::core::option::Option<ExportEvaluatedDataItemsConfig>,
+    #[prost(message, optional, tag = "10")]
+    pub export_evaluated_data_items_config: ::core::option::Option<
+        ExportEvaluatedDataItemsConfig,
+    >,
     /// Additional experiment flags for the Tables training pipeline.
-    #[prost(string, repeated, tag="11")]
+    #[prost(string, repeated, tag = "11")]
     pub additional_experiments: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Additional optimization objective configuration. Required for
     /// `maximize-precision-at-recall` and `maximize-recall-at-precision`,
     /// otherwise unused.
-    #[prost(oneof="auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig", tags="5, 6")]
-    pub additional_optimization_objective_config: ::core::option::Option<auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig>,
+    #[prost(
+        oneof = "auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig",
+        tags = "5, 6"
+    )]
+    pub additional_optimization_objective_config: ::core::option::Option<
+        auto_ml_tables_inputs::AdditionalOptimizationObjectiveConfig,
+    >,
 }
 /// Nested message and enum types in `AutoMlTablesInputs`.
 pub mod auto_ml_tables_inputs {
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Transformation {
         /// The transformation that the training pipeline will apply to the input
         /// columns.
-        #[prost(oneof="transformation::TransformationDetail", tags="1, 2, 3, 4, 5, 6, 7, 8")]
-        pub transformation_detail: ::core::option::Option<transformation::TransformationDetail>,
+        #[prost(
+            oneof = "transformation::TransformationDetail",
+            tags = "1, 2, 3, 4, 5, 6, 7, 8"
+        )]
+        pub transformation_detail: ::core::option::Option<
+            transformation::TransformationDetail,
+        >,
     }
     /// Nested message and enum types in `Transformation`.
     pub mod transformation {
         /// Training pipeline will infer the proper transformation based on the
         /// statistic of dataset.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct AutoTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
         }
         /// Training pipeline will perform following transformation functions.
@@ -513,15 +668,16 @@ pub mod auto_ml_tables_inputs {
         ///     Otherwise, this transformation is not applied and the value is
         ///     considered a missing value.
         /// *  A boolean value that indicates whether the value is valid.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct NumericTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
             /// If invalid values is allowed, the training pipeline will create a
             /// boolean feature that indicated whether the value is valid.
             /// Otherwise, the training pipeline will discard the input row from
             /// trainining data.
-            #[prost(bool, tag="2")]
+            #[prost(bool, tag = "2")]
             pub invalid_values_allowed: bool,
         }
         /// Training pipeline will perform following transformation functions.
@@ -533,9 +689,10 @@ pub mod auto_ml_tables_inputs {
         /// *  Categories that appear less than 5 times in the training dataset are
         ///     treated as the "unknown" category. The "unknown" category gets its own
         ///     special lookup index and resulting embedding.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct CategoricalTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
         }
         /// Training pipeline will perform following transformation functions.
@@ -545,9 +702,10 @@ pub mod auto_ml_tables_inputs {
         /// *  Invalid numerical values (for example, values that fall outside of a
         ///     typical timestamp range, or are extreme values) receive no special
         ///     treatment and are not removed.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct TimestampTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
             /// The format in which that time field is expressed. The time_format must
             /// either be one of:
@@ -560,13 +718,13 @@ pub mod auto_ml_tables_inputs {
             /// or be written in `strftime` syntax. If time_format is not set, then the
             /// default format is RFC 3339 `date-time` format, where
             /// `time-offset` = `"Z"` (e.g. 1985-04-12T23:20:50.52Z)
-            #[prost(string, tag="2")]
+            #[prost(string, tag = "2")]
             pub time_format: ::prost::alloc::string::String,
             /// If invalid values is allowed, the training pipeline will create a
             /// boolean feature that indicated whether the value is valid.
             /// Otherwise, the training pipeline will discard the input row from
             /// trainining data.
-            #[prost(bool, tag="3")]
+            #[prost(bool, tag = "3")]
             pub invalid_values_allowed: bool,
         }
         /// Training pipeline will perform following transformation functions.
@@ -580,9 +738,10 @@ pub mod auto_ml_tables_inputs {
         /// *  Tokenization is based on unicode script boundaries.
         /// *  Missing values get their own lookup index and resulting embedding.
         /// *  Stop-words receive no special treatment and are not removed.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct TextTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
         }
         /// Treats the column as numerical array and performs following
@@ -590,15 +749,16 @@ pub mod auto_ml_tables_inputs {
         /// *  All transformations for Numerical types applied to the average of the
         ///     all elements.
         /// *  The average of empty arrays is treated as zero.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct NumericArrayTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
             /// If invalid values is allowed, the training pipeline will create a
             /// boolean feature that indicated whether the value is valid.
             /// Otherwise, the training pipeline will discard the input row from
             /// trainining data.
-            #[prost(bool, tag="2")]
+            #[prost(bool, tag = "2")]
             pub invalid_values_allowed: bool,
         }
         /// Treats the column as categorical array and performs following
@@ -609,9 +769,10 @@ pub mod auto_ml_tables_inputs {
         ///     Combine the embedding of all elements into a single embedding using
         ///     the mean.
         /// *  Empty arrays treated as an embedding of zeroes.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct CategoricalArrayTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
         }
         /// Treats the column as text array and performs following transformation
@@ -621,86 +782,95 @@ pub mod auto_ml_tables_inputs {
         ///     a space (" ") as a delimiter, and then treat the result as a single
         ///     text value. Apply the transformations for Text columns.
         /// *  Empty arrays treated as an empty text.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Message)]
         pub struct TextArrayTransformation {
-            #[prost(string, tag="1")]
+            #[prost(string, tag = "1")]
             pub column_name: ::prost::alloc::string::String,
         }
         /// The transformation that the training pipeline will apply to the input
         /// columns.
+        #[allow(clippy::derive_partial_eq_without_eq)]
         #[derive(Clone, PartialEq, ::prost::Oneof)]
         pub enum TransformationDetail {
-            #[prost(message, tag="1")]
+            #[prost(message, tag = "1")]
             Auto(AutoTransformation),
-            #[prost(message, tag="2")]
+            #[prost(message, tag = "2")]
             Numeric(NumericTransformation),
-            #[prost(message, tag="3")]
+            #[prost(message, tag = "3")]
             Categorical(CategoricalTransformation),
-            #[prost(message, tag="4")]
+            #[prost(message, tag = "4")]
             Timestamp(TimestampTransformation),
-            #[prost(message, tag="5")]
+            #[prost(message, tag = "5")]
             Text(TextTransformation),
-            #[prost(message, tag="6")]
+            #[prost(message, tag = "6")]
             RepeatedNumeric(NumericArrayTransformation),
-            #[prost(message, tag="7")]
+            #[prost(message, tag = "7")]
             RepeatedCategorical(CategoricalArrayTransformation),
-            #[prost(message, tag="8")]
+            #[prost(message, tag = "8")]
             RepeatedText(TextArrayTransformation),
         }
     }
     /// Additional optimization objective configuration. Required for
     /// `maximize-precision-at-recall` and `maximize-recall-at-precision`,
     /// otherwise unused.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum AdditionalOptimizationObjectiveConfig {
         /// Required when optimization_objective is "maximize-precision-at-recall".
         /// Must be between 0 and 1, inclusive.
-        #[prost(float, tag="5")]
+        #[prost(float, tag = "5")]
         OptimizationObjectiveRecallValue(f32),
         /// Required when optimization_objective is "maximize-recall-at-precision".
         /// Must be between 0 and 1, inclusive.
-        #[prost(float, tag="6")]
+        #[prost(float, tag = "6")]
         OptimizationObjectivePrecisionValue(f32),
     }
 }
 /// Model metadata specific to AutoML Tables.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTablesMetadata {
     /// Output only. The actual training cost of the model, expressed in milli
     /// node hours, i.e. 1,000 value in this field means 1 node hour. Guaranteed
     /// to not exceed the train budget.
-    #[prost(int64, tag="1")]
+    #[prost(int64, tag = "1")]
     pub train_cost_milli_node_hours: i64,
 }
 /// A TrainingJob that trains and uploads an AutoML Text Classification Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTextClassification {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlTextClassificationInputs>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTextClassificationInputs {
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub multi_label: bool,
 }
 /// A TrainingJob that trains and uploads an AutoML Text Extraction Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTextExtraction {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlTextExtractionInputs>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AutoMlTextExtractionInputs {
-}
+pub struct AutoMlTextExtractionInputs {}
 /// A TrainingJob that trains and uploads an AutoML Text Sentiment Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTextSentiment {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlTextSentimentInputs>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlTextSentimentInputs {
     /// A sentiment is expressed as an integer ordinal, where higher value
@@ -710,25 +880,40 @@ pub struct AutoMlTextSentimentInputs {
     /// created.
     /// Only the Annotations with this sentimentMax will be used for training.
     /// sentimentMax value must be between 1 and 10 (inclusive).
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub sentiment_max: i32,
 }
 /// A TrainingJob that trains and uploads an AutoML Video Action Recognition
 /// Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlVideoActionRecognition {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlVideoActionRecognitionInputs>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlVideoActionRecognitionInputs {
-    #[prost(enumeration="auto_ml_video_action_recognition_inputs::ModelType", tag="1")]
+    #[prost(
+        enumeration = "auto_ml_video_action_recognition_inputs::ModelType",
+        tag = "1"
+    )]
     pub model_type: i32,
 }
 /// Nested message and enum types in `AutoMlVideoActionRecognitionInputs`.
 pub mod auto_ml_video_action_recognition_inputs {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ModelType {
         /// Should not be set.
@@ -763,23 +948,46 @@ pub mod auto_ml_video_action_recognition_inputs {
                 ModelType::MobileCoralVersatile1 => "MOBILE_CORAL_VERSATILE_1",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MODEL_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CLOUD" => Some(Self::Cloud),
+                "MOBILE_VERSATILE_1" => Some(Self::MobileVersatile1),
+                "MOBILE_JETSON_VERSATILE_1" => Some(Self::MobileJetsonVersatile1),
+                "MOBILE_CORAL_VERSATILE_1" => Some(Self::MobileCoralVersatile1),
+                _ => None,
+            }
+        }
     }
 }
 /// A TrainingJob that trains and uploads an AutoML Video Classification Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlVideoClassification {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlVideoClassificationInputs>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlVideoClassificationInputs {
-    #[prost(enumeration="auto_ml_video_classification_inputs::ModelType", tag="1")]
+    #[prost(enumeration = "auto_ml_video_classification_inputs::ModelType", tag = "1")]
     pub model_type: i32,
 }
 /// Nested message and enum types in `AutoMlVideoClassificationInputs`.
 pub mod auto_ml_video_classification_inputs {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ModelType {
         /// Should not be set.
@@ -809,23 +1017,45 @@ pub mod auto_ml_video_classification_inputs {
                 ModelType::MobileJetsonVersatile1 => "MOBILE_JETSON_VERSATILE_1",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MODEL_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CLOUD" => Some(Self::Cloud),
+                "MOBILE_VERSATILE_1" => Some(Self::MobileVersatile1),
+                "MOBILE_JETSON_VERSATILE_1" => Some(Self::MobileJetsonVersatile1),
+                _ => None,
+            }
+        }
     }
 }
 /// A TrainingJob that trains and uploads an AutoML Video ObjectTracking Model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlVideoObjectTracking {
     /// The input parameters of this TrainingJob.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub inputs: ::core::option::Option<AutoMlVideoObjectTrackingInputs>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AutoMlVideoObjectTrackingInputs {
-    #[prost(enumeration="auto_ml_video_object_tracking_inputs::ModelType", tag="1")]
+    #[prost(enumeration = "auto_ml_video_object_tracking_inputs::ModelType", tag = "1")]
     pub model_type: i32,
 }
 /// Nested message and enum types in `AutoMlVideoObjectTrackingInputs`.
 pub mod auto_ml_video_object_tracking_inputs {
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ModelType {
         /// Should not be set.
@@ -864,6 +1094,19 @@ pub mod auto_ml_video_object_tracking_inputs {
                 ModelType::MobileCoralLowLatency1 => "MOBILE_CORAL_LOW_LATENCY_1",
                 ModelType::MobileJetsonVersatile1 => "MOBILE_JETSON_VERSATILE_1",
                 ModelType::MobileJetsonLowLatency1 => "MOBILE_JETSON_LOW_LATENCY_1",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MODEL_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CLOUD" => Some(Self::Cloud),
+                "MOBILE_VERSATILE_1" => Some(Self::MobileVersatile1),
+                "MOBILE_CORAL_VERSATILE_1" => Some(Self::MobileCoralVersatile1),
+                "MOBILE_CORAL_LOW_LATENCY_1" => Some(Self::MobileCoralLowLatency1),
+                "MOBILE_JETSON_VERSATILE_1" => Some(Self::MobileJetsonVersatile1),
+                "MOBILE_JETSON_LOW_LATENCY_1" => Some(Self::MobileJetsonLowLatency1),
+                _ => None,
             }
         }
     }

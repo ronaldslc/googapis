@@ -1,4 +1,5 @@
 /// Video annotation request.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnnotateVideoRequest {
     /// Input video location. Currently, only
@@ -11,18 +12,18 @@ pub struct AnnotateVideoRequest {
     /// multiple videos. Supported wildcards: '*' to match 0 or more characters;
     /// '?' to match 1 character. If unset, the input video should be embedded
     /// in the request as `input_content`. If set, `input_content` should be unset.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub input_uri: ::prost::alloc::string::String,
     /// The video data bytes.
     /// If unset, the input video(s) should be specified via `input_uri`.
     /// If set, `input_uri` should be unset.
-    #[prost(bytes="vec", tag="6")]
+    #[prost(bytes = "vec", tag = "6")]
     pub input_content: ::prost::alloc::vec::Vec<u8>,
     /// Required. Requested video annotation features.
-    #[prost(enumeration="Feature", repeated, packed="false", tag="2")]
+    #[prost(enumeration = "Feature", repeated, packed = "false", tag = "2")]
     pub features: ::prost::alloc::vec::Vec<i32>,
     /// Additional video context and/or feature-specific parameters.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub video_context: ::core::option::Option<VideoContext>,
     /// Optional. Location where the output (in JSON format) should be stored.
     /// Currently, only [Google Cloud Storage](<https://cloud.google.com/storage/>)
@@ -30,73 +31,80 @@ pub struct AnnotateVideoRequest {
     /// `gs://bucket-id/object-id` (other URI formats return
     /// \[google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT\]). For more information, see
     /// [Request URIs](<https://cloud.google.com/storage/docs/request-endpoints>).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub output_uri: ::prost::alloc::string::String,
     /// Optional. Cloud region where annotation should take place. Supported cloud
     /// regions: `us-east1`, `us-west1`, `europe-west1`, `asia-east1`. If no region
     /// is specified, a region will be determined based on video file location.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub location_id: ::prost::alloc::string::String,
 }
 /// Video context and/or feature-specific parameters.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VideoContext {
     /// Video segments to annotate. The segments may overlap and are not required
     /// to be contiguous or span the whole video. If unspecified, each video is
     /// treated as a single segment.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub segments: ::prost::alloc::vec::Vec<VideoSegment>,
     /// Config for LABEL_DETECTION.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub label_detection_config: ::core::option::Option<LabelDetectionConfig>,
     /// Config for SHOT_CHANGE_DETECTION.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub shot_change_detection_config: ::core::option::Option<ShotChangeDetectionConfig>,
     /// Config for EXPLICIT_CONTENT_DETECTION.
-    #[prost(message, optional, tag="4")]
-    pub explicit_content_detection_config: ::core::option::Option<ExplicitContentDetectionConfig>,
+    #[prost(message, optional, tag = "4")]
+    pub explicit_content_detection_config: ::core::option::Option<
+        ExplicitContentDetectionConfig,
+    >,
     /// Config for TEXT_DETECTION.
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub text_detection_config: ::core::option::Option<TextDetectionConfig>,
 }
 /// Config for LABEL_DETECTION.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LabelDetectionConfig {
     /// What labels should be detected with LABEL_DETECTION, in addition to
     /// video-level labels or segment-level labels.
     /// If unspecified, defaults to `SHOT_MODE`.
-    #[prost(enumeration="LabelDetectionMode", tag="1")]
+    #[prost(enumeration = "LabelDetectionMode", tag = "1")]
     pub label_detection_mode: i32,
     /// Whether the video has been shot from a stationary (i.e. non-moving) camera.
     /// When set to true, might improve detection accuracy for moving objects.
     /// Should be used with `SHOT_AND_FRAME_MODE` enabled.
-    #[prost(bool, tag="2")]
+    #[prost(bool, tag = "2")]
     pub stationary_camera: bool,
     /// Model to use for label detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub model: ::prost::alloc::string::String,
 }
 /// Config for SHOT_CHANGE_DETECTION.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ShotChangeDetectionConfig {
     /// Model to use for shot change detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub model: ::prost::alloc::string::String,
 }
 /// Config for EXPLICIT_CONTENT_DETECTION.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExplicitContentDetectionConfig {
     /// Model to use for explicit content detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub model: ::prost::alloc::string::String,
 }
 /// Config for TEXT_DETECTION.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextDetectionConfig {
     /// Language hint can be specified if the language to be detected is known a
@@ -104,198 +112,211 @@ pub struct TextDetectionConfig {
     /// be language code in BCP-47 format.
     ///
     /// Automatic language detection is performed if no hint is provided.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub language_hints: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Video segment.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VideoSegment {
     /// Time-offset, relative to the beginning of the video,
     /// corresponding to the start of the segment (inclusive).
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub start_time_offset: ::core::option::Option<::prost_types::Duration>,
     /// Time-offset, relative to the beginning of the video,
     /// corresponding to the end of the segment (inclusive).
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub end_time_offset: ::core::option::Option<::prost_types::Duration>,
 }
 /// Video segment level annotation results for label detection.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LabelSegment {
     /// Video segment where a label was detected.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub segment: ::core::option::Option<VideoSegment>,
     /// Confidence that the label is accurate. Range: [0, 1].
-    #[prost(float, tag="2")]
+    #[prost(float, tag = "2")]
     pub confidence: f32,
 }
 /// Video frame level annotation results for label detection.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LabelFrame {
     /// Time-offset, relative to the beginning of the video, corresponding to the
     /// video frame for this location.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub time_offset: ::core::option::Option<::prost_types::Duration>,
     /// Confidence that the label is accurate. Range: [0, 1].
-    #[prost(float, tag="2")]
+    #[prost(float, tag = "2")]
     pub confidence: f32,
 }
 /// Detected entity from video analysis.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Entity {
     /// Opaque entity ID. Some IDs may be available in
     /// [Google Knowledge Graph Search
     /// API](<https://developers.google.com/knowledge-graph/>).
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub entity_id: ::prost::alloc::string::String,
     /// Textual description, e.g. `Fixed-gear bicycle`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Language code for `description` in BCP-47 format.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub language_code: ::prost::alloc::string::String,
 }
 /// Label annotation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LabelAnnotation {
     /// Detected entity.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub entity: ::core::option::Option<Entity>,
     /// Common categories for the detected entity.
     /// E.g. when the label is `Terrier` the category is likely `dog`. And in some
     /// cases there might be more than one categories e.g. `Terrier` could also be
     /// a `pet`.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub category_entities: ::prost::alloc::vec::Vec<Entity>,
     /// All video segments where a label was detected.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub segments: ::prost::alloc::vec::Vec<LabelSegment>,
     /// All video frames where a label was detected.
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub frames: ::prost::alloc::vec::Vec<LabelFrame>,
 }
 /// Video frame level annotation results for explicit content.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExplicitContentFrame {
     /// Time-offset, relative to the beginning of the video, corresponding to the
     /// video frame for this location.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub time_offset: ::core::option::Option<::prost_types::Duration>,
     /// Likelihood of the pornography content..
-    #[prost(enumeration="Likelihood", tag="2")]
+    #[prost(enumeration = "Likelihood", tag = "2")]
     pub pornography_likelihood: i32,
 }
 /// Explicit content annotation (based on per-frame visual signals only).
 /// If no explicit content has been detected in a frame, no annotations are
 /// present for that frame.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ExplicitContentAnnotation {
     /// All video frames where explicit content was detected.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub frames: ::prost::alloc::vec::Vec<ExplicitContentFrame>,
 }
 /// Normalized bounding box.
 /// The normalized vertex coordinates are relative to the original image.
 /// Range: [0, 1].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
-    #[prost(float, tag="1")]
+    #[prost(float, tag = "1")]
     pub left: f32,
     /// Top Y coordinate.
-    #[prost(float, tag="2")]
+    #[prost(float, tag = "2")]
     pub top: f32,
     /// Right X coordinate.
-    #[prost(float, tag="3")]
+    #[prost(float, tag = "3")]
     pub right: f32,
     /// Bottom Y coordinate.
-    #[prost(float, tag="4")]
+    #[prost(float, tag = "4")]
     pub bottom: f32,
 }
 /// Annotation results for a single video.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VideoAnnotationResults {
     /// Video file location in
     /// [Google Cloud Storage](<https://cloud.google.com/storage/>).
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub input_uri: ::prost::alloc::string::String,
     /// Label annotations on video level or user specified segment level.
     /// There is exactly one element for each unique label.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub segment_label_annotations: ::prost::alloc::vec::Vec<LabelAnnotation>,
     /// Label annotations on shot level.
     /// There is exactly one element for each unique label.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub shot_label_annotations: ::prost::alloc::vec::Vec<LabelAnnotation>,
     /// Label annotations on frame level.
     /// There is exactly one element for each unique label.
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub frame_label_annotations: ::prost::alloc::vec::Vec<LabelAnnotation>,
     /// Shot annotations. Each shot is represented as a video segment.
-    #[prost(message, repeated, tag="6")]
+    #[prost(message, repeated, tag = "6")]
     pub shot_annotations: ::prost::alloc::vec::Vec<VideoSegment>,
     /// Explicit content annotation.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub explicit_annotation: ::core::option::Option<ExplicitContentAnnotation>,
     /// OCR text detection and tracking.
     /// Annotations for list of detected text snippets. Each will have list of
     /// frame information associated with it.
-    #[prost(message, repeated, tag="12")]
+    #[prost(message, repeated, tag = "12")]
     pub text_annotations: ::prost::alloc::vec::Vec<TextAnnotation>,
     /// Annotations for list of objects detected and tracked in video.
-    #[prost(message, repeated, tag="14")]
+    #[prost(message, repeated, tag = "14")]
     pub object_annotations: ::prost::alloc::vec::Vec<ObjectTrackingAnnotation>,
     /// If set, indicates an error. Note that for a single `AnnotateVideoRequest`
     /// some videos may succeed and some may fail.
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag = "9")]
     pub error: ::core::option::Option<super::super::super::rpc::Status>,
 }
 /// Video annotation response. Included in the `response`
 /// field of the `Operation` returned by the `GetOperation`
 /// call of the `google::longrunning::Operations` service.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnnotateVideoResponse {
     /// Annotation results for all videos specified in `AnnotateVideoRequest`.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub annotation_results: ::prost::alloc::vec::Vec<VideoAnnotationResults>,
 }
 /// Annotation progress for a single video.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VideoAnnotationProgress {
     /// Video file location in
     /// [Google Cloud Storage](<https://cloud.google.com/storage/>).
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub input_uri: ::prost::alloc::string::String,
     /// Approximate percentage processed thus far. Guaranteed to be
     /// 100 when fully processed.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub progress_percent: i32,
     /// Time when the request was received.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Time of the most recent update.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Video annotation progress. Included in the `metadata`
 /// field of the `Operation` returned by the `GetOperation`
 /// call of the `google::longrunning::Operations` service.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AnnotateVideoProgress {
     /// Progress metadata for all videos specified in `AnnotateVideoRequest`.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub annotation_progress: ::prost::alloc::vec::Vec<VideoAnnotationProgress>,
 }
 /// A vertex represents a 2D point in the image.
 /// NOTE: the normalized vertex coordinates are relative to the original image
 /// and range from 0 to 1.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NormalizedVertex {
     /// X coordinate.
-    #[prost(float, tag="1")]
+    #[prost(float, tag = "1")]
     pub x: f32,
     /// Y coordinate.
-    #[prost(float, tag="2")]
+    #[prost(float, tag = "2")]
     pub y: f32,
 }
 /// Normalized bounding polygon for text (that might not be aligned with axis).
@@ -315,75 +336,81 @@ pub struct NormalizedVertex {
 /// and the vertex order will still be (0, 1, 2, 3). Note that values can be less
 /// than 0, or greater than 1 due to trignometric calculations for location of
 /// the box.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NormalizedBoundingPoly {
     /// Normalized vertices of the bounding polygon.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub vertices: ::prost::alloc::vec::Vec<NormalizedVertex>,
 }
 /// Video segment level annotation results for text detection.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextSegment {
     /// Video segment where a text snippet was detected.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub segment: ::core::option::Option<VideoSegment>,
     /// Confidence for the track of detected text. It is calculated as the highest
     /// over all frames where OCR detected text appears.
-    #[prost(float, tag="2")]
+    #[prost(float, tag = "2")]
     pub confidence: f32,
     /// Information related to the frames where OCR detected text appears.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub frames: ::prost::alloc::vec::Vec<TextFrame>,
 }
 /// Video frame level annotation results for text annotation (OCR).
 /// Contains information regarding timestamp and bounding box locations for the
 /// frames containing detected OCR text snippets.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextFrame {
     /// Bounding polygon of the detected text for this frame.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub rotated_bounding_box: ::core::option::Option<NormalizedBoundingPoly>,
     /// Timestamp of this frame.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub time_offset: ::core::option::Option<::prost_types::Duration>,
 }
 /// Annotations related to one detected OCR text snippet. This will contain the
 /// corresponding text, confidence value, and frame level information for each
 /// detection.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TextAnnotation {
     /// The detected text.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub text: ::prost::alloc::string::String,
     /// All video segments where OCR detected text appears.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub segments: ::prost::alloc::vec::Vec<TextSegment>,
 }
 /// Video frame level annotations for object detection and tracking. This field
 /// stores per frame location, time offset, and confidence.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ObjectTrackingFrame {
     /// The normalized bounding box location of this object track for the frame.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub normalized_bounding_box: ::core::option::Option<NormalizedBoundingBox>,
     /// The timestamp of the frame in microseconds.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub time_offset: ::core::option::Option<::prost_types::Duration>,
 }
 /// Annotations corresponding to one tracked object.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ObjectTrackingAnnotation {
     /// Entity to specify the object category that this track is labeled as.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub entity: ::core::option::Option<Entity>,
     /// Object category's labeling confidence of this track.
-    #[prost(float, tag="4")]
+    #[prost(float, tag = "4")]
     pub confidence: f32,
     /// Information corresponding to all frames where this object track appears.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub frames: ::prost::alloc::vec::Vec<ObjectTrackingFrame>,
     /// Each object track corresponds to one video segment where it appears.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub segment: ::core::option::Option<VideoSegment>,
 }
 /// Video annotation feature.
@@ -418,6 +445,18 @@ impl Feature {
             Feature::ObjectTracking => "OBJECT_TRACKING",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FEATURE_UNSPECIFIED" => Some(Self::Unspecified),
+            "LABEL_DETECTION" => Some(Self::LabelDetection),
+            "SHOT_CHANGE_DETECTION" => Some(Self::ShotChangeDetection),
+            "EXPLICIT_CONTENT_DETECTION" => Some(Self::ExplicitContentDetection),
+            "TEXT_DETECTION" => Some(Self::TextDetection),
+            "OBJECT_TRACKING" => Some(Self::ObjectTracking),
+            _ => None,
+        }
+    }
 }
 /// Label detection mode.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -443,6 +482,16 @@ impl LabelDetectionMode {
             LabelDetectionMode::ShotMode => "SHOT_MODE",
             LabelDetectionMode::FrameMode => "FRAME_MODE",
             LabelDetectionMode::ShotAndFrameMode => "SHOT_AND_FRAME_MODE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "LABEL_DETECTION_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+            "SHOT_MODE" => Some(Self::ShotMode),
+            "FRAME_MODE" => Some(Self::FrameMode),
+            "SHOT_AND_FRAME_MODE" => Some(Self::ShotAndFrameMode),
+            _ => None,
         }
     }
 }
@@ -476,6 +525,18 @@ impl Likelihood {
             Likelihood::Possible => "POSSIBLE",
             Likelihood::Likely => "LIKELY",
             Likelihood::VeryLikely => "VERY_LIKELY",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "LIKELIHOOD_UNSPECIFIED" => Some(Self::Unspecified),
+            "VERY_UNLIKELY" => Some(Self::VeryUnlikely),
+            "UNLIKELY" => Some(Self::Unlikely),
+            "POSSIBLE" => Some(Self::Possible),
+            "LIKELY" => Some(Self::Likely),
+            "VERY_LIKELY" => Some(Self::VeryLikely),
+            _ => None,
         }
     }
 }

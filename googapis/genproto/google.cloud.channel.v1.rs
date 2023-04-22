@@ -1,20 +1,31 @@
 /// Required Edu Attributes
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EduData {
     /// Designated institute type of customer.
-    #[prost(enumeration="edu_data::InstituteType", tag="1")]
+    #[prost(enumeration = "edu_data::InstituteType", tag = "1")]
     pub institute_type: i32,
     /// Size of the institute.
-    #[prost(enumeration="edu_data::InstituteSize", tag="2")]
+    #[prost(enumeration = "edu_data::InstituteSize", tag = "2")]
     pub institute_size: i32,
     /// Web address for the edu customer's institution.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub website: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `EduData`.
 pub mod edu_data {
     /// Enum to specify the institute type.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum InstituteType {
         /// Default value.  This state doesn't show unless an error occurs.
@@ -36,9 +47,28 @@ pub mod edu_data {
                 InstituteType::University => "UNIVERSITY",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "INSTITUTE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "K12" => Some(Self::K12),
+                "UNIVERSITY" => Some(Self::University),
+                _ => None,
+            }
+        }
     }
     /// Number of students and staff the institute has.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum InstituteSize {
         /// Default value. This state doesn't show unless an error occurs.
@@ -75,44 +105,69 @@ pub mod edu_data {
                 InstituteSize::Size10001OrMore => "SIZE_10001_OR_MORE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "INSTITUTE_SIZE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SIZE_1_100" => Some(Self::Size1100),
+                "SIZE_101_500" => Some(Self::Size101500),
+                "SIZE_501_1000" => Some(Self::Size5011000),
+                "SIZE_1001_2000" => Some(Self::Size10012000),
+                "SIZE_2001_5000" => Some(Self::Size20015000),
+                "SIZE_5001_10000" => Some(Self::Size500110000),
+                "SIZE_10001_OR_MORE" => Some(Self::Size10001OrMore),
+                _ => None,
+            }
+        }
     }
 }
 /// Cloud Identity information for the Cloud Channel Customer.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CloudIdentityInfo {
     /// CustomerType indicates verification type needed for using services.
-    #[prost(enumeration="cloud_identity_info::CustomerType", tag="1")]
+    #[prost(enumeration = "cloud_identity_info::CustomerType", tag = "1")]
     pub customer_type: i32,
     /// Output only. The primary domain name.
-    #[prost(string, tag="9")]
+    #[prost(string, tag = "9")]
     pub primary_domain: ::prost::alloc::string::String,
     /// Output only. Whether the domain is verified.
     /// This field is not returned for a Customer's cloud_identity_info resource.
     /// Partners can use the domains.get() method of the Workspace SDK's
     /// Directory API, or listen to the PRIMARY_DOMAIN_VERIFIED Pub/Sub event in
     /// to track domain verification of their resolve Workspace customers.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub is_domain_verified: bool,
     /// The alternate email.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub alternate_email: ::prost::alloc::string::String,
     /// Phone number associated with the Cloud Identity.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub phone_number: ::prost::alloc::string::String,
     /// Language code.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub language_code: ::prost::alloc::string::String,
     /// Output only. URI of Customer's Admin console dashboard.
-    #[prost(string, tag="10")]
+    #[prost(string, tag = "10")]
     pub admin_console_uri: ::prost::alloc::string::String,
     /// Edu information about the customer.
-    #[prost(message, optional, tag="22")]
+    #[prost(message, optional, tag = "22")]
     pub edu_data: ::core::option::Option<EduData>,
 }
 /// Nested message and enum types in `CloudIdentityInfo`.
 pub mod cloud_identity_info {
     /// CustomerType of the customer
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum CustomerType {
         /// Default value. This state doesn't show unless an error occurs.
@@ -134,79 +189,92 @@ pub mod cloud_identity_info {
                 CustomerType::Team => "TEAM",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CUSTOMER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "DOMAIN" => Some(Self::Domain),
+                "TEAM" => Some(Self::Team),
+                _ => None,
+            }
+        }
     }
 }
 /// Data type and value of a parameter.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Value {
     /// The kind of value.
-    #[prost(oneof="value::Kind", tags="1, 2, 3, 4, 5")]
+    #[prost(oneof = "value::Kind", tags = "1, 2, 3, 4, 5")]
     pub kind: ::core::option::Option<value::Kind>,
 }
 /// Nested message and enum types in `Value`.
 pub mod value {
     /// The kind of value.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Kind {
         /// Represents an int64 value.
-        #[prost(int64, tag="1")]
+        #[prost(int64, tag = "1")]
         Int64Value(i64),
         /// Represents a string value.
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         StringValue(::prost::alloc::string::String),
         /// Represents a double value.
-        #[prost(double, tag="3")]
+        #[prost(double, tag = "3")]
         DoubleValue(f64),
         /// Represents an 'Any' proto value.
-        #[prost(message, tag="4")]
+        #[prost(message, tag = "4")]
         ProtoValue(::prost_types::Any),
         /// Represents a boolean value.
-        #[prost(bool, tag="5")]
+        #[prost(bool, tag = "5")]
         BoolValue(bool),
     }
 }
 /// Information needed to create an Admin User for Google Workspace.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AdminUser {
     /// Primary email of the admin user.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub email: ::prost::alloc::string::String,
     /// Given name of the admin user.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub given_name: ::prost::alloc::string::String,
     /// Family name of the admin user.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub family_name: ::prost::alloc::string::String,
 }
 /// Entity representing a link between distributors and their indirect
 /// resellers in an n-tier resale channel.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChannelPartnerLink {
     /// Output only. Resource name for the channel partner link, in the format
     /// accounts/{account_id}/channelPartnerLinks/{id}.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. Cloud Identity ID of the linked reseller.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub reseller_cloud_identity_id: ::prost::alloc::string::String,
     /// Required. State of the channel partner link.
-    #[prost(enumeration="ChannelPartnerLinkState", tag="3")]
+    #[prost(enumeration = "ChannelPartnerLinkState", tag = "3")]
     pub link_state: i32,
     /// Output only. URI of the web page where partner accepts the link invitation.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub invite_link_uri: ::prost::alloc::string::String,
     /// Output only. Timestamp of when the channel partner link is created.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Timestamp of when the channel partner link is updated.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Public identifier that a customer must use to generate a transfer token
     /// to move to this distributor-reseller combination.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub public_id: ::prost::alloc::string::String,
     /// Output only. Cloud Identity info of the channel partner (IR).
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub channel_partner_cloud_identity_info: ::core::option::Option<CloudIdentityInfo>,
 }
 /// The level of granularity the \[ChannelPartnerLink][google.cloud.channel.v1.ChannelPartnerLink\] will display.
@@ -234,6 +302,15 @@ impl ChannelPartnerLinkView {
             ChannelPartnerLinkView::Full => "FULL",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "UNSPECIFIED" => Some(Self::Unspecified),
+            "BASIC" => Some(Self::Basic),
+            "FULL" => Some(Self::Full),
+            _ => None,
+        }
+    }
 }
 /// ChannelPartnerLinkState represents state of a channel partner link.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -258,146 +335,167 @@ impl ChannelPartnerLinkState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ChannelPartnerLinkState::Unspecified => "CHANNEL_PARTNER_LINK_STATE_UNSPECIFIED",
+            ChannelPartnerLinkState::Unspecified => {
+                "CHANNEL_PARTNER_LINK_STATE_UNSPECIFIED"
+            }
             ChannelPartnerLinkState::Invited => "INVITED",
             ChannelPartnerLinkState::Active => "ACTIVE",
             ChannelPartnerLinkState::Revoked => "REVOKED",
             ChannelPartnerLinkState::Suspended => "SUSPENDED",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "CHANNEL_PARTNER_LINK_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+            "INVITED" => Some(Self::Invited),
+            "ACTIVE" => Some(Self::Active),
+            "REVOKED" => Some(Self::Revoked),
+            "SUSPENDED" => Some(Self::Suspended),
+            _ => None,
+        }
+    }
 }
 /// Entity representing a customer of a reseller or distributor.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Customer {
     /// Output only. Resource name of the customer.
     /// Format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. Name of the organization that the customer entity represents.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub org_display_name: ::prost::alloc::string::String,
     /// Required. The organization address for the customer. To enforce US laws and
     /// embargoes, we require a region and zip code. You must provide valid
     /// addresses for every customer. To set the customer's language, use the
     /// Customer-level language code.
-    #[prost(message, optional, tag="3")]
-    pub org_postal_address: ::core::option::Option<super::super::super::r#type::PostalAddress>,
+    #[prost(message, optional, tag = "3")]
+    pub org_postal_address: ::core::option::Option<
+        super::super::super::r#type::PostalAddress,
+    >,
     /// Primary contact info.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub primary_contact_info: ::core::option::Option<ContactInfo>,
     /// Secondary contact email. You need to provide an alternate email to create
     /// different domains if a primary contact email already exists. Users will
     /// receive a notification with credentials when you create an admin.google.com
     /// account. Secondary emails are also recovery email addresses. Alternate
     /// emails are optional when you create Team customers.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub alternate_email: ::prost::alloc::string::String,
     /// Required. The customer's primary domain. Must match the primary contact
     /// email's domain.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub domain: ::prost::alloc::string::String,
     /// Output only. Time when the customer was created.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Time when the customer was updated.
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The customer's Cloud Identity ID if the customer has a Cloud
     /// Identity resource.
-    #[prost(string, tag="9")]
+    #[prost(string, tag = "9")]
     pub cloud_identity_id: ::prost::alloc::string::String,
     /// Optional. The BCP-47 language code, such as "en-US" or "sr-Latn". For more
     /// information, see
     /// <https://www.unicode.org/reports/tr35/#Unicode_locale_identifier.>
-    #[prost(string, tag="10")]
+    #[prost(string, tag = "10")]
     pub language_code: ::prost::alloc::string::String,
     /// Output only. Cloud Identity information for the customer.
     /// Populated only if a Cloud Identity account exists for this customer.
-    #[prost(message, optional, tag="12")]
+    #[prost(message, optional, tag = "12")]
     pub cloud_identity_info: ::core::option::Option<CloudIdentityInfo>,
     /// Cloud Identity ID of the customer's channel partner.
     /// Populated only if a channel partner exists for this customer.
-    #[prost(string, tag="13")]
+    #[prost(string, tag = "13")]
     pub channel_partner_id: ::prost::alloc::string::String,
 }
 /// Contact information for a customer account.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ContactInfo {
     /// The customer account contact's first name. Optional for Team customers.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub first_name: ::prost::alloc::string::String,
     /// The customer account contact's last name. Optional for Team customers.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub last_name: ::prost::alloc::string::String,
     /// Output only. The customer account contact's display name, formatted as a
     /// combination of the customer's first and last name.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub display_name: ::prost::alloc::string::String,
     /// The customer account's contact email. Required for entitlements that create
     /// admin.google.com accounts, and serves as the customer's username for those
     /// accounts. Use this email to invite Team customers.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub email: ::prost::alloc::string::String,
     /// Optional. The customer account contact's job title.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub title: ::prost::alloc::string::String,
     /// The customer account's contact phone number.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub phone: ::prost::alloc::string::String,
 }
 /// A Product is the entity a customer uses when placing an order. For example,
 /// Google Workspace, Google Voice, etc.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Product {
     /// Resource Name of the Product.
     /// Format: products/{product_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Marketing information for the product.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub marketing_info: ::core::option::Option<MarketingInfo>,
 }
 /// Represents a product's purchasable Stock Keeping Unit (SKU).
 /// SKUs represent the different variations of the product. For example, Google
 /// Workspace Business Standard and Google Workspace Business Plus are Google
 /// Workspace product SKUs.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Sku {
     /// Resource Name of the SKU.
     /// Format: products/{product_id}/skus/{sku_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Marketing information for the SKU.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub marketing_info: ::core::option::Option<MarketingInfo>,
     /// Product the SKU is associated with.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub product: ::core::option::Option<Product>,
 }
 /// Represents the marketing information for a Product, SKU or Offer.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MarketingInfo {
     /// Human readable name.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// Human readable description. Description can contain HTML.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Default logo.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub default_logo: ::core::option::Option<Media>,
 }
 /// Represents media information.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Media {
     /// Title of the media.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub title: ::prost::alloc::string::String,
     /// URL of the media.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub content: ::prost::alloc::string::String,
     /// Type of the media.
-    #[prost(enumeration="MediaType", tag="3")]
+    #[prost(enumeration = "MediaType", tag = "3")]
     pub r#type: i32,
 }
 /// Type of media used.
@@ -420,75 +518,95 @@ impl MediaType {
             MediaType::Image => "MEDIA_TYPE_IMAGE",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "MEDIA_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "MEDIA_TYPE_IMAGE" => Some(Self::Image),
+            _ => None,
+        }
+    }
 }
 /// Represents an offer made to resellers for purchase.
 /// An offer is associated with a \[Sku][google.cloud.channel.v1.Sku\], has a plan for payment, a price, and
 /// defines the constraints for buying.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Offer {
     /// Resource Name of the Offer.
     /// Format: accounts/{account_id}/offers/{offer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Marketing information for the Offer.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub marketing_info: ::core::option::Option<MarketingInfo>,
     /// SKU the offer is associated with.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub sku: ::core::option::Option<Sku>,
     /// Describes the payment plan for the Offer.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub plan: ::core::option::Option<Plan>,
     /// Constraints on transacting the Offer.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub constraints: ::core::option::Option<Constraints>,
     /// Price for each monetizable resource type.
-    #[prost(message, repeated, tag="6")]
+    #[prost(message, repeated, tag = "6")]
     pub price_by_resources: ::prost::alloc::vec::Vec<PriceByResource>,
     /// Start of the Offer validity time.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. End of the Offer validity time.
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Parameters required to use current Offer to purchase.
-    #[prost(message, repeated, tag="9")]
+    #[prost(message, repeated, tag = "9")]
     pub parameter_definitions: ::prost::alloc::vec::Vec<ParameterDefinition>,
 }
 /// Parameter's definition. Specifies what parameter is required to use the
 /// current Offer to purchase.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ParameterDefinition {
     /// Name of the parameter.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Data type of the parameter. Minimal value, Maximum value and allowed values
     /// will use specified data type here.
-    #[prost(enumeration="parameter_definition::ParameterType", tag="2")]
+    #[prost(enumeration = "parameter_definition::ParameterType", tag = "2")]
     pub parameter_type: i32,
     /// Minimal value of the parameter, if applicable. Inclusive. For example,
     /// minimal commitment when purchasing Anthos is 0.01.
     /// Applicable to INT64 and DOUBLE parameter types.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub min_value: ::core::option::Option<Value>,
     /// Maximum value of the parameter, if applicable. Inclusive. For example,
     /// maximum seats when purchasing Google Workspace Business Standard.
     /// Applicable to INT64 and DOUBLE parameter types.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub max_value: ::core::option::Option<Value>,
     /// If not empty, parameter values must be drawn from this list.
     /// For example, [us-west1, us-west2, ...]
     /// Applicable to STRING parameter type.
-    #[prost(message, repeated, tag="5")]
+    #[prost(message, repeated, tag = "5")]
     pub allowed_values: ::prost::alloc::vec::Vec<Value>,
     /// If set to true, parameter is optional to purchase this Offer.
-    #[prost(bool, tag="6")]
+    #[prost(bool, tag = "6")]
     pub optional: bool,
 }
 /// Nested message and enum types in `ParameterDefinition`.
 pub mod parameter_definition {
     /// Data type of the parameter.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ParameterType {
         /// Not used.
@@ -513,40 +631,53 @@ pub mod parameter_definition {
                 ParameterType::Double => "DOUBLE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "PARAMETER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "INT64" => Some(Self::Int64),
+                "STRING" => Some(Self::String),
+                "DOUBLE" => Some(Self::Double),
+                _ => None,
+            }
+        }
     }
 }
 /// Represents the constraints for buying the Offer.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Constraints {
     /// Represents constraints required to purchase the Offer for a customer.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub customer_constraints: ::core::option::Option<CustomerConstraints>,
 }
 /// Represents constraints required to purchase the Offer for a customer.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CustomerConstraints {
     /// Allowed geographical regions of the customer.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub allowed_regions: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Allowed Customer Type.
-    #[prost(enumeration="cloud_identity_info::CustomerType", repeated, tag="2")]
+    #[prost(enumeration = "cloud_identity_info::CustomerType", repeated, tag = "2")]
     pub allowed_customer_types: ::prost::alloc::vec::Vec<i32>,
     /// Allowed Promotional Order Type. Present for Promotional offers.
-    #[prost(enumeration="PromotionalOrderType", repeated, tag="3")]
+    #[prost(enumeration = "PromotionalOrderType", repeated, tag = "3")]
     pub promotional_order_types: ::prost::alloc::vec::Vec<i32>,
 }
 /// The payment plan for the Offer. Describes how to make a payment.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Plan {
     /// Describes how a reseller will be billed.
-    #[prost(enumeration="PaymentPlan", tag="1")]
+    #[prost(enumeration = "PaymentPlan", tag = "1")]
     pub payment_plan: i32,
     /// Specifies when the payment needs to happen.
-    #[prost(enumeration="PaymentType", tag="2")]
+    #[prost(enumeration = "PaymentType", tag = "2")]
     pub payment_type: i32,
     /// Describes how frequently the reseller will be billed, such as
     /// once per month.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub payment_cycle: ::core::option::Option<Period>,
     /// Present for Offers with a trial period.
     /// For trial-only Offers, a paid service needs to start before the trial
@@ -554,62 +685,65 @@ pub struct Plan {
     /// For Regular Offers with a trial period, the regular pricing goes into
     /// effect when trial period ends, or if paid service is started before the end
     /// of the trial period.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub trial_period: ::core::option::Option<Period>,
     /// Reseller Billing account to charge after an offer transaction.
     /// Only present for Google Cloud Platform offers.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub billing_account: ::prost::alloc::string::String,
 }
 /// Represents price by resource type.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PriceByResource {
     /// Resource Type. Example: SEAT
-    #[prost(enumeration="ResourceType", tag="1")]
+    #[prost(enumeration = "ResourceType", tag = "1")]
     pub resource_type: i32,
     /// Price of the Offer. Present if there are no price phases.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub price: ::core::option::Option<Price>,
     /// Specifies the price by time range.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub price_phases: ::prost::alloc::vec::Vec<PricePhase>,
 }
 /// Represents the price of the Offer.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Price {
     /// Base price.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub base_price: ::core::option::Option<super::super::super::r#type::Money>,
     /// Discount percentage, represented as decimal.
     /// For example, a 20% discount will be represent as 0.2.
-    #[prost(double, tag="2")]
+    #[prost(double, tag = "2")]
     pub discount: f64,
     /// Effective Price after applying the discounts.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub effective_price: ::core::option::Option<super::super::super::r#type::Money>,
     /// Link to external price list, such as link to Google Voice rate card.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub external_price_uri: ::prost::alloc::string::String,
 }
 /// Specifies the price by the duration of months.
 /// For example, a 20% discount for the first six months, then a 10% discount
 /// starting on the seventh month.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PricePhase {
     /// Defines the phase period type.
-    #[prost(enumeration="PeriodType", tag="1")]
+    #[prost(enumeration = "PeriodType", tag = "1")]
     pub period_type: i32,
     /// Defines first period for the phase.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub first_period: i32,
     /// Defines first period for the phase.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub last_period: i32,
     /// Price of the phase. Present if there are no price tiers.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub price: ::core::option::Option<Price>,
     /// Price by the resource tiers.
-    #[prost(message, repeated, tag="5")]
+    #[prost(message, repeated, tag = "5")]
     pub price_tiers: ::prost::alloc::vec::Vec<PriceTier>,
 }
 /// Defines price at resource tier level.
@@ -620,26 +754,28 @@ pub struct PricePhase {
 /// * Tier 3: Provide flat 15% discount for all seats above 100.
 ///
 /// Each of these tiers is represented as a PriceTier.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PriceTier {
     /// First resource for which the tier price applies.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub first_resource: i32,
     /// Last resource for which the tier price applies.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub last_resource: i32,
     /// Price of the tier.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub price: ::core::option::Option<Price>,
 }
 /// Represents period in days/months/years.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Period {
     /// Total duration of Period Type defined.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub duration: i32,
     /// Period Type.
-    #[prost(enumeration="PeriodType", tag="2")]
+    #[prost(enumeration = "PeriodType", tag = "2")]
     pub period_type: i32,
 }
 /// Constraints type for Promotional offers.
@@ -662,10 +798,22 @@ impl PromotionalOrderType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PromotionalOrderType::PromotionalTypeUnspecified => "PROMOTIONAL_TYPE_UNSPECIFIED",
+            PromotionalOrderType::PromotionalTypeUnspecified => {
+                "PROMOTIONAL_TYPE_UNSPECIFIED"
+            }
             PromotionalOrderType::NewUpgrade => "NEW_UPGRADE",
             PromotionalOrderType::Transfer => "TRANSFER",
             PromotionalOrderType::PromotionSwitch => "PROMOTION_SWITCH",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "PROMOTIONAL_TYPE_UNSPECIFIED" => Some(Self::PromotionalTypeUnspecified),
+            "NEW_UPGRADE" => Some(Self::NewUpgrade),
+            "TRANSFER" => Some(Self::Transfer),
+            "PROMOTION_SWITCH" => Some(Self::PromotionSwitch),
+            _ => None,
         }
     }
 }
@@ -701,6 +849,18 @@ impl PaymentPlan {
             PaymentPlan::Offline => "OFFLINE",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "PAYMENT_PLAN_UNSPECIFIED" => Some(Self::Unspecified),
+            "COMMITMENT" => Some(Self::Commitment),
+            "FLEXIBLE" => Some(Self::Flexible),
+            "FREE" => Some(Self::Free),
+            "TRIAL" => Some(Self::Trial),
+            "OFFLINE" => Some(Self::Offline),
+            _ => None,
+        }
+    }
 }
 /// Specifies when the payment needs to happen.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -723,6 +883,15 @@ impl PaymentType {
             PaymentType::Unspecified => "PAYMENT_TYPE_UNSPECIFIED",
             PaymentType::Prepay => "PREPAY",
             PaymentType::Postpay => "POSTPAY",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "PAYMENT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "PREPAY" => Some(Self::Prepay),
+            "POSTPAY" => Some(Self::Postpay),
+            _ => None,
         }
     }
 }
@@ -770,6 +939,20 @@ impl ResourceType {
             ResourceType::Subscription => "SUBSCRIPTION",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "RESOURCE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "SEAT" => Some(Self::Seat),
+            "MAU" => Some(Self::Mau),
+            "GB" => Some(Self::Gb),
+            "LICENSED_USER" => Some(Self::LicensedUser),
+            "MINUTES" => Some(Self::Minutes),
+            "IAAS_USAGE" => Some(Self::IaasUsage),
+            "SUBSCRIPTION" => Some(Self::Subscription),
+            _ => None,
+        }
+    }
 }
 /// Period Type.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -797,48 +980,64 @@ impl PeriodType {
             PeriodType::Year => "YEAR",
         }
     }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "PERIOD_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "DAY" => Some(Self::Day),
+            "MONTH" => Some(Self::Month),
+            "YEAR" => Some(Self::Year),
+            _ => None,
+        }
+    }
 }
 /// An entitlement is a representation of a customer's ability to use a service.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Entitlement {
     /// Output only. Resource name of an entitlement in the form:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Output only. The time at which the entitlement is created.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The time at which the entitlement is updated.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Required. The offer resource name for which the entitlement is to be
     /// created. Takes the form: accounts/{account_id}/offers/{offer_id}.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub offer: ::prost::alloc::string::String,
     /// Commitment settings for a commitment-based Offer.
     /// Required for commitment based offers.
-    #[prost(message, optional, tag="12")]
+    #[prost(message, optional, tag = "12")]
     pub commitment_settings: ::core::option::Option<CommitmentSettings>,
     /// Output only. Current provisioning state of the entitlement.
-    #[prost(enumeration="entitlement::ProvisioningState", tag="13")]
+    #[prost(enumeration = "entitlement::ProvisioningState", tag = "13")]
     pub provisioning_state: i32,
     /// Output only. Service provisioning details for the entitlement.
-    #[prost(message, optional, tag="16")]
+    #[prost(message, optional, tag = "16")]
     pub provisioned_service: ::core::option::Option<ProvisionedService>,
     /// Output only. Enumerable of all current suspension reasons for an entitlement.
-    #[prost(enumeration="entitlement::SuspensionReason", repeated, packed="false", tag="18")]
+    #[prost(
+        enumeration = "entitlement::SuspensionReason",
+        repeated,
+        packed = "false",
+        tag = "18"
+    )]
     pub suspension_reasons: ::prost::alloc::vec::Vec<i32>,
     /// Optional. This purchase order (PO) information is for resellers to use for their
     /// company tracking usage. If a purchaseOrderId value is given, it appears in
     /// the API responses and shows up in the invoice. The property accepts up to
     /// 80 plain text characters.
-    #[prost(string, tag="19")]
+    #[prost(string, tag = "19")]
     pub purchase_order_id: ::prost::alloc::string::String,
     /// Output only. Settings for trial offers.
-    #[prost(message, optional, tag="21")]
+    #[prost(message, optional, tag = "21")]
     pub trial_settings: ::core::option::Option<TrialSettings>,
     /// Association information to other entitlements.
-    #[prost(message, optional, tag="23")]
+    #[prost(message, optional, tag = "23")]
     pub association_info: ::core::option::Option<AssociationInfo>,
     /// Extended entitlement parameters. When creating an entitlement, valid
     /// parameter names and values are defined in the
@@ -851,13 +1050,23 @@ pub struct Entitlement {
     /// - max_units: The maximum assignable units for a flexible offer.
     ///
     /// - num_units: The total commitment for commitment-based offers.
-    #[prost(message, repeated, tag="26")]
+    #[prost(message, repeated, tag = "26")]
     pub parameters: ::prost::alloc::vec::Vec<Parameter>,
 }
 /// Nested message and enum types in `Entitlement`.
 pub mod entitlement {
     /// Indicates the current provisioning state of the entitlement.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ProvisioningState {
         /// Default value. This state doesn't show unless an error occurs.
@@ -879,9 +1088,28 @@ pub mod entitlement {
                 ProvisioningState::Suspended => "SUSPENDED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "PROVISIONING_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "SUSPENDED" => Some(Self::Suspended),
+                _ => None,
+            }
+        }
     }
     /// Suspension reason for an entitlement if \[provisioning_state][google.cloud.channel.v1.Entitlement.provisioning_state\] = SUSPENDED.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SuspensionReason {
         /// Default value. This state doesn't show unless an error occurs.
@@ -913,123 +1141,153 @@ pub mod entitlement {
                 SuspensionReason::Other => "OTHER",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SUSPENSION_REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                "RESELLER_INITIATED" => Some(Self::ResellerInitiated),
+                "TRIAL_ENDED" => Some(Self::TrialEnded),
+                "RENEWAL_WITH_TYPE_CANCEL" => Some(Self::RenewalWithTypeCancel),
+                "PENDING_TOS_ACCEPTANCE" => Some(Self::PendingTosAcceptance),
+                "OTHER" => Some(Self::Other),
+                _ => None,
+            }
+        }
     }
 }
 /// Definition for extended entitlement parameters.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Parameter {
     /// Name of the parameter.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Value of the parameter.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub value: ::core::option::Option<Value>,
     /// Output only. Specifies whether this parameter is allowed to be changed. For example, for
     /// a Google Workspace Business Starter entitlement in commitment plan,
     /// num_units is editable when entitlement is active.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub editable: bool,
 }
 /// Association links that an entitlement has to other entitlements.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AssociationInfo {
     /// The name of the base entitlement, for which this entitlement is an add-on.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub base_entitlement: ::prost::alloc::string::String,
 }
 /// Service provisioned for an entitlement.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ProvisionedService {
     /// Output only. Provisioning ID of the entitlement. For Google Workspace, this would be the
     /// underlying Subscription ID.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub provisioning_id: ::prost::alloc::string::String,
     /// Output only. The product pertaining to the provisioning resource as specified in the
     /// Offer.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub product_id: ::prost::alloc::string::String,
     /// Output only. The SKU pertaining to the provisioning resource as specified in the Offer.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub sku_id: ::prost::alloc::string::String,
 }
 /// Commitment settings for commitment-based offers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommitmentSettings {
     /// Output only. Commitment start timestamp.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Commitment end timestamp.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Optional. Renewal settings applicable for a commitment-based Offer.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub renewal_settings: ::core::option::Option<RenewalSettings>,
 }
 /// Renewal settings for renewable Offers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RenewalSettings {
     /// If false, the plan will be completed at the end date.
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub enable_renewal: bool,
     /// If true and enable_renewal = true, the unit (for example seats or licenses)
     /// will be set to the number of active units at renewal time.
-    #[prost(bool, tag="2")]
+    #[prost(bool, tag = "2")]
     pub resize_unit_count: bool,
     /// Describes how a reseller will be billed.
-    #[prost(enumeration="PaymentPlan", tag="5")]
+    #[prost(enumeration = "PaymentPlan", tag = "5")]
     pub payment_plan: i32,
     /// Describes how frequently the reseller will be billed, such as
     /// once per month.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub payment_cycle: ::core::option::Option<Period>,
 }
 /// Settings for trial offers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TrialSettings {
     /// Determines if the entitlement is in a trial or not:
     ///
     /// * `true` - The entitlement is in trial.
     /// * `false` - The entitlement is not in trial.
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub trial: bool,
     /// Date when the trial ends. The value is in milliseconds
     /// using the UNIX Epoch format. See an example [Epoch
     /// converter](<https://www.epochconverter.com>).
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// TransferableSku represents information a reseller needs to view existing
 /// provisioned services for a customer that they do not own.
 /// Read-only.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferableSku {
     /// Describes the transfer eligibility of a SKU.
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag = "9")]
     pub transfer_eligibility: ::core::option::Option<TransferEligibility>,
     /// The SKU pertaining to the provisioning resource as specified in the Offer.
-    #[prost(message, optional, tag="11")]
+    #[prost(message, optional, tag = "11")]
     pub sku: ::core::option::Option<Sku>,
     /// Optional. The customer to transfer has an entitlement with the populated legacy SKU.
-    #[prost(message, optional, tag="12")]
+    #[prost(message, optional, tag = "12")]
     pub legacy_sku: ::core::option::Option<Sku>,
 }
 /// Specifies transfer eligibility of a SKU.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferEligibility {
     /// Whether reseller is eligible to transfer the SKU.
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub is_eligible: bool,
     /// Localized description if reseller is not eligible to transfer the SKU.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Specified the reason for ineligibility.
-    #[prost(enumeration="transfer_eligibility::Reason", tag="3")]
+    #[prost(enumeration = "transfer_eligibility::Reason", tag = "3")]
     pub ineligibility_reason: i32,
 }
 /// Nested message and enum types in `TransferEligibility`.
 pub mod transfer_eligibility {
     /// Reason of ineligibility.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Reason {
         /// Reason is not available.
@@ -1054,19 +1312,40 @@ pub mod transfer_eligibility {
                 Reason::SkuSuspended => "SKU_SUSPENDED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                "PENDING_TOS_ACCEPTANCE" => Some(Self::PendingTosAcceptance),
+                "SKU_NOT_ELIGIBLE" => Some(Self::SkuNotEligible),
+                "SKU_SUSPENDED" => Some(Self::SkuSuspended),
+                _ => None,
+            }
+        }
     }
 }
 /// Provides contextual information about a \[google.longrunning.Operation][google.longrunning.Operation\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OperationMetadata {
     /// The RPC that initiated this Long Running Operation.
-    #[prost(enumeration="operation_metadata::OperationType", tag="1")]
+    #[prost(enumeration = "operation_metadata::OperationType", tag = "1")]
     pub operation_type: i32,
 }
 /// Nested message and enum types in `OperationMetadata`.
 pub mod operation_metadata {
     /// RPCs that return a Long Running Operation.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum OperationType {
         /// Default value. This state doesn't show unless an error occurs.
@@ -1109,156 +1388,190 @@ pub mod operation_metadata {
                 OperationType::SuspendEntitlement => "SUSPEND_ENTITLEMENT",
                 OperationType::CancelEntitlement => "CANCEL_ENTITLEMENT",
                 OperationType::TransferEntitlements => "TRANSFER_ENTITLEMENTS",
-                OperationType::TransferEntitlementsToGoogle => "TRANSFER_ENTITLEMENTS_TO_GOOGLE",
+                OperationType::TransferEntitlementsToGoogle => {
+                    "TRANSFER_ENTITLEMENTS_TO_GOOGLE"
+                }
                 OperationType::ChangeOffer => "CHANGE_OFFER",
                 OperationType::ChangeParameters => "CHANGE_PARAMETERS",
                 OperationType::ProvisionCloudIdentity => "PROVISION_CLOUD_IDENTITY",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "OPERATION_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATE_ENTITLEMENT" => Some(Self::CreateEntitlement),
+                "CHANGE_RENEWAL_SETTINGS" => Some(Self::ChangeRenewalSettings),
+                "START_PAID_SERVICE" => Some(Self::StartPaidService),
+                "ACTIVATE_ENTITLEMENT" => Some(Self::ActivateEntitlement),
+                "SUSPEND_ENTITLEMENT" => Some(Self::SuspendEntitlement),
+                "CANCEL_ENTITLEMENT" => Some(Self::CancelEntitlement),
+                "TRANSFER_ENTITLEMENTS" => Some(Self::TransferEntitlements),
+                "TRANSFER_ENTITLEMENTS_TO_GOOGLE" => {
+                    Some(Self::TransferEntitlementsToGoogle)
+                }
+                "CHANGE_OFFER" => Some(Self::ChangeOffer),
+                "CHANGE_PARAMETERS" => Some(Self::ChangeParameters),
+                "PROVISION_CLOUD_IDENTITY" => Some(Self::ProvisionCloudIdentity),
+                _ => None,
+            }
+        }
     }
 }
 /// Request message for \[CloudChannelService.CheckCloudIdentityAccountsExist][google.cloud.channel.v1.CloudChannelService.CheckCloudIdentityAccountsExist\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CheckCloudIdentityAccountsExistRequest {
     /// Required. The reseller account's resource name.
     /// Parent uses the format: accounts/{account_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. Domain to fetch for Cloud Identity account customer.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub domain: ::prost::alloc::string::String,
 }
 /// Entity representing a Cloud Identity account that may be
 /// associated with a Channel Services API partner.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CloudIdentityCustomerAccount {
     /// Returns true if a Cloud Identity account exists for a specific domain.
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub existing: bool,
     /// Returns true if the Cloud Identity account is associated with a customer
     /// of the Channel Services partner.
-    #[prost(bool, tag="2")]
+    #[prost(bool, tag = "2")]
     pub owned: bool,
     /// If owned = true, the name of the customer that owns the Cloud Identity
     /// account.
     /// Customer_name uses the format:
     /// accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub customer_name: ::prost::alloc::string::String,
     /// If existing = true, the Cloud Identity ID of the customer.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub customer_cloud_identity_id: ::prost::alloc::string::String,
 }
 /// Response message for
 /// \[CloudChannelService.CheckCloudIdentityAccountsExist][google.cloud.channel.v1.CloudChannelService.CheckCloudIdentityAccountsExist\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CheckCloudIdentityAccountsExistResponse {
     /// The Cloud Identity accounts associated with the domain.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub cloud_identity_accounts: ::prost::alloc::vec::Vec<CloudIdentityCustomerAccount>,
 }
 /// Request message for \[CloudChannelService.ListCustomers][google.cloud.channel.v1.CloudChannelService.ListCustomers\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListCustomersRequest {
     /// Required. The resource name of the reseller account to list customers from.
     /// Parent uses the format: accounts/{account_id}.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The maximum number of customers to return. The service may return fewer
     /// than this value. If unspecified, returns at most 10 customers. The
     /// maximum value is 50.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. A token identifying a page of results other than the first page.
     /// Obtained through
     /// \[ListCustomersResponse.next_page_token][google.cloud.channel.v1.ListCustomersResponse.next_page_token\] of the previous
     /// \[CloudChannelService.ListCustomers][google.cloud.channel.v1.CloudChannelService.ListCustomers\] call.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response message for \[CloudChannelService.ListCustomers][google.cloud.channel.v1.CloudChannelService.ListCustomers\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListCustomersResponse {
     /// The customers belonging to a reseller or distributor.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub customers: ::prost::alloc::vec::Vec<Customer>,
     /// A token to retrieve the next page of results.
     /// Pass to \[ListCustomersRequest.page_token][google.cloud.channel.v1.ListCustomersRequest.page_token\] to obtain that page.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.GetCustomer][google.cloud.channel.v1.CloudChannelService.GetCustomer\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCustomerRequest {
     /// Required. The resource name of the customer to retrieve.
     /// Name uses the format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.CreateCustomer][google.cloud.channel.v1.CloudChannelService.CreateCustomer\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateCustomerRequest {
     /// Required. The resource name of reseller account in which to create the customer.
     /// Parent uses the format: accounts/{account_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The customer to create.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub customer: ::core::option::Option<Customer>,
 }
 /// Request message for \[CloudChannelService.UpdateCustomer][google.cloud.channel.v1.CloudChannelService.UpdateCustomer\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateCustomerRequest {
     /// Required. New contents of the customer.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub customer: ::core::option::Option<Customer>,
     /// The update mask that applies to the resource.
     /// Optional.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request message for \[CloudChannelService.DeleteCustomer][google.cloud.channel.v1.CloudChannelService.DeleteCustomer\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteCustomerRequest {
     /// Required. The resource name of the customer to delete.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ImportCustomer][google.cloud.channel.v1.CloudChannelService.ImportCustomer\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ImportCustomerRequest {
     /// Required. The resource name of the reseller's account.
     /// Parent takes the format: accounts/{account_id} or
     /// accounts/{account_id}/channelPartnerLinks/{channel_partner_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The super admin of the resold customer generates this token to
     /// authorize a reseller to access their Cloud Identity and purchase
     /// entitlements on their behalf. You can omit this token after authorization.
     /// See <https://support.google.com/a/answer/7643790> for more details.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub auth_token: ::prost::alloc::string::String,
     /// Required. Choose to overwrite an existing customer if found.
     /// This must be set to true if there is an existing customer with a
     /// conflicting region code or domain.
-    #[prost(bool, tag="5")]
+    #[prost(bool, tag = "5")]
     pub overwrite_if_exists: bool,
     /// Optional. Cloud Identity ID of a channel partner who will be the direct reseller for
     /// the customer's order. This field is required for 2-tier transfer scenarios
     /// and can be provided via the request Parent binding as well.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub channel_partner_id: ::prost::alloc::string::String,
     /// Optional. Specifies the customer that will receive imported Cloud Identity
     /// information.
     /// Format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub customer: ::prost::alloc::string::String,
     /// Specifies the identity of the transfer customer.
     /// A customer's cloud_identity_id or domain is required to look up the
     /// customer's Cloud Identity. For Team customers, only the cloud_identity_id
     /// option is valid.
-    #[prost(oneof="import_customer_request::CustomerIdentity", tags="2, 3")]
-    pub customer_identity: ::core::option::Option<import_customer_request::CustomerIdentity>,
+    #[prost(oneof = "import_customer_request::CustomerIdentity", tags = "2, 3")]
+    pub customer_identity: ::core::option::Option<
+        import_customer_request::CustomerIdentity,
+    >,
 }
 /// Nested message and enum types in `ImportCustomerRequest`.
 pub mod import_customer_request {
@@ -1266,297 +1579,325 @@ pub mod import_customer_request {
     /// A customer's cloud_identity_id or domain is required to look up the
     /// customer's Cloud Identity. For Team customers, only the cloud_identity_id
     /// option is valid.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum CustomerIdentity {
         /// Required. Customer domain.
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         Domain(::prost::alloc::string::String),
         /// Required. Customer's Cloud Identity ID
-        #[prost(string, tag="3")]
+        #[prost(string, tag = "3")]
         CloudIdentityId(::prost::alloc::string::String),
     }
 }
 /// Request message for \[CloudChannelService.ProvisionCloudIdentity][google.cloud.channel.v1.CloudChannelService.ProvisionCloudIdentity\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ProvisionCloudIdentityRequest {
     /// Required. Resource name of the customer.
     /// Format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub customer: ::prost::alloc::string::String,
     /// CloudIdentity-specific customer information.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub cloud_identity_info: ::core::option::Option<CloudIdentityInfo>,
     /// Admin user information.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub user: ::core::option::Option<AdminUser>,
     /// Validate the request and preview the review, but do not post it.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub validate_only: bool,
 }
 /// Request message for \[CloudChannelService.ListEntitlements][google.cloud.channel.v1.CloudChannelService.ListEntitlements\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEntitlementsRequest {
     /// Required. The resource name of the reseller's customer account to list
     /// entitlements for.
     /// Parent uses the format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. Requested page size. Server might return fewer results than requested.
     /// If unspecified, return at most 50 entitlements.
     /// The maximum value is 100; the server will coerce values above 100.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. A token for a page of results other than the first page.
     /// Obtained using
     /// \[ListEntitlementsResponse.next_page_token][google.cloud.channel.v1.ListEntitlementsResponse.next_page_token\] of the previous
     /// \[CloudChannelService.ListEntitlements][google.cloud.channel.v1.CloudChannelService.ListEntitlements\] call.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response message for \[CloudChannelService.ListEntitlements][google.cloud.channel.v1.CloudChannelService.ListEntitlements\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEntitlementsResponse {
     /// The reseller customer's entitlements.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub entitlements: ::prost::alloc::vec::Vec<Entitlement>,
     /// A token to list the next page of results.
     /// Pass to \[ListEntitlementsRequest.page_token][google.cloud.channel.v1.ListEntitlementsRequest.page_token\] to obtain that page.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ListTransferableSkus][google.cloud.channel.v1.CloudChannelService.ListTransferableSkus\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTransferableSkusRequest {
     /// Required. The reseller account's resource name.
     /// Parent uses the format: accounts/{account_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The requested page size. Server might return fewer results than requested.
     /// If unspecified, returns at most 100 SKUs.
     /// The maximum value is 1000; the server will coerce values above 1000.
     /// Optional.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A token for a page of results other than the first page.
     /// Obtained using
     /// \[ListTransferableSkusResponse.next_page_token][google.cloud.channel.v1.ListTransferableSkusResponse.next_page_token\] of the previous
     /// \[CloudChannelService.ListTransferableSkus][google.cloud.channel.v1.CloudChannelService.ListTransferableSkus\] call.
     /// Optional.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// The super admin of the resold customer generates this token to
     /// authorize a reseller to access their Cloud Identity and purchase
     /// entitlements on their behalf. You can omit this token after authorization.
     /// See <https://support.google.com/a/answer/7643790> for more details.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub auth_token: ::prost::alloc::string::String,
     /// The BCP-47 language code. For example, "en-US". The
     /// response will localize in the corresponding language code, if specified.
     /// The default value is "en-US".
     /// Optional.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub language_code: ::prost::alloc::string::String,
     /// Specifies the identity of transferred customer.
     /// Either a cloud_identity_id of the customer or the customer name is
     /// required to look up transferable SKUs.
-    #[prost(oneof="list_transferable_skus_request::TransferredCustomerIdentity", tags="4, 7")]
-    pub transferred_customer_identity: ::core::option::Option<list_transferable_skus_request::TransferredCustomerIdentity>,
+    #[prost(
+        oneof = "list_transferable_skus_request::TransferredCustomerIdentity",
+        tags = "4, 7"
+    )]
+    pub transferred_customer_identity: ::core::option::Option<
+        list_transferable_skus_request::TransferredCustomerIdentity,
+    >,
 }
 /// Nested message and enum types in `ListTransferableSkusRequest`.
 pub mod list_transferable_skus_request {
     /// Specifies the identity of transferred customer.
     /// Either a cloud_identity_id of the customer or the customer name is
     /// required to look up transferable SKUs.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum TransferredCustomerIdentity {
         /// Customer's Cloud Identity ID
-        #[prost(string, tag="4")]
+        #[prost(string, tag = "4")]
         CloudIdentityId(::prost::alloc::string::String),
         /// A reseller is required to create a customer and use the resource name of
         /// the created customer here.
         /// Customer_name uses the format:
         /// accounts/{account_id}/customers/{customer_id}
-        #[prost(string, tag="7")]
+        #[prost(string, tag = "7")]
         CustomerName(::prost::alloc::string::String),
     }
 }
 /// Response message for \[CloudChannelService.ListTransferableSkus][google.cloud.channel.v1.CloudChannelService.ListTransferableSkus\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTransferableSkusResponse {
     /// Information about existing SKUs for a customer that needs a transfer.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub transferable_skus: ::prost::alloc::vec::Vec<TransferableSku>,
     /// A token to retrieve the next page of results.
     /// Pass to \[ListTransferableSkusRequest.page_token][google.cloud.channel.v1.ListTransferableSkusRequest.page_token\] to obtain
     /// that page.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ListTransferableOffers][google.cloud.channel.v1.CloudChannelService.ListTransferableOffers\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTransferableOffersRequest {
     /// Required. The resource name of the reseller's account.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Requested page size. Server might return fewer results than requested.
     /// If unspecified, returns at most 100 offers.
     /// The maximum value is 1000; the server will coerce values above 1000.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A token for a page of results other than the first page.
     /// Obtained using
     /// \[ListTransferableOffersResponse.next_page_token][google.cloud.channel.v1.ListTransferableOffersResponse.next_page_token\] of the previous
     /// \[CloudChannelService.ListTransferableOffers][google.cloud.channel.v1.CloudChannelService.ListTransferableOffers\] call.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Required. The SKU to look up Offers for.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub sku: ::prost::alloc::string::String,
     /// The BCP-47 language code. For example, "en-US". The
     /// response will localize in the corresponding language code, if specified.
     /// The default value is "en-US".
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub language_code: ::prost::alloc::string::String,
     /// Specifies the identity of transferred customer.
     /// Either a cloud_identity_id of the customer or the customer name is
     /// required to look up transferrable Offers.
-    #[prost(oneof="list_transferable_offers_request::TransferredCustomerIdentity", tags="4, 5")]
-    pub transferred_customer_identity: ::core::option::Option<list_transferable_offers_request::TransferredCustomerIdentity>,
+    #[prost(
+        oneof = "list_transferable_offers_request::TransferredCustomerIdentity",
+        tags = "4, 5"
+    )]
+    pub transferred_customer_identity: ::core::option::Option<
+        list_transferable_offers_request::TransferredCustomerIdentity,
+    >,
 }
 /// Nested message and enum types in `ListTransferableOffersRequest`.
 pub mod list_transferable_offers_request {
     /// Specifies the identity of transferred customer.
     /// Either a cloud_identity_id of the customer or the customer name is
     /// required to look up transferrable Offers.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum TransferredCustomerIdentity {
         /// Customer's Cloud Identity ID
-        #[prost(string, tag="4")]
+        #[prost(string, tag = "4")]
         CloudIdentityId(::prost::alloc::string::String),
         /// A reseller should create a customer and use the resource name of
         /// that customer here.
-        #[prost(string, tag="5")]
+        #[prost(string, tag = "5")]
         CustomerName(::prost::alloc::string::String),
     }
 }
 /// Response message for \[CloudChannelService.ListTransferableOffers][google.cloud.channel.v1.CloudChannelService.ListTransferableOffers\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListTransferableOffersResponse {
     /// Information about Offers for a customer that can be used for
     /// transfer.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub transferable_offers: ::prost::alloc::vec::Vec<TransferableOffer>,
     /// A token to retrieve the next page of results.
     /// Pass to \[ListTransferableOffersRequest.page_token][google.cloud.channel.v1.ListTransferableOffersRequest.page_token\] to obtain
     /// that page.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// TransferableOffer represents an Offer that can be used in Transfer.
 /// Read-only.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferableOffer {
     /// Offer with parameter constraints updated to allow the Transfer.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub offer: ::core::option::Option<Offer>,
 }
 /// Request message for \[CloudChannelService.GetEntitlement][google.cloud.channel.v1.CloudChannelService.GetEntitlement\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEntitlementRequest {
     /// Required. The resource name of the entitlement to retrieve.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ListChannelPartnerLinks][google.cloud.channel.v1.CloudChannelService.ListChannelPartnerLinks\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListChannelPartnerLinksRequest {
     /// Required. The resource name of the reseller account for listing channel partner
     /// links.
     /// Parent uses the format: accounts/{account_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. Requested page size. Server might return fewer results than requested.
     /// If unspecified, server will pick a default size (25).
     /// The maximum value is 200; the server will coerce values above 200.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. A token for a page of results other than the first page.
     /// Obtained using
     /// \[ListChannelPartnerLinksResponse.next_page_token][google.cloud.channel.v1.ListChannelPartnerLinksResponse.next_page_token\] of the previous
     /// \[CloudChannelService.ListChannelPartnerLinks][google.cloud.channel.v1.CloudChannelService.ListChannelPartnerLinks\] call.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The level of granularity the ChannelPartnerLink will display.
-    #[prost(enumeration="ChannelPartnerLinkView", tag="4")]
+    #[prost(enumeration = "ChannelPartnerLinkView", tag = "4")]
     pub view: i32,
 }
 /// Response message for \[CloudChannelService.ListChannelPartnerLinks][google.cloud.channel.v1.CloudChannelService.ListChannelPartnerLinks\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListChannelPartnerLinksResponse {
     /// The Channel partner links for a reseller.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub channel_partner_links: ::prost::alloc::vec::Vec<ChannelPartnerLink>,
     /// A token to retrieve the next page of results.
     /// Pass to \[ListChannelPartnerLinksRequest.page_token][google.cloud.channel.v1.ListChannelPartnerLinksRequest.page_token\] to obtain that page.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.GetChannelPartnerLink][google.cloud.channel.v1.CloudChannelService.GetChannelPartnerLink\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetChannelPartnerLinkRequest {
     /// Required. The resource name of the channel partner link to retrieve.
     /// Name uses the format: accounts/{account_id}/channelPartnerLinks/{id}
     /// where {id} is the Cloud Identity ID of the partner.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. The level of granularity the ChannelPartnerLink will display.
-    #[prost(enumeration="ChannelPartnerLinkView", tag="2")]
+    #[prost(enumeration = "ChannelPartnerLinkView", tag = "2")]
     pub view: i32,
 }
 /// Request message for \[CloudChannelService.CreateChannelPartnerLink][google.cloud.channel.v1.CloudChannelService.CreateChannelPartnerLink\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateChannelPartnerLinkRequest {
     /// Required. Create a channel partner link for the provided reseller account's
     /// resource name.
     /// Parent uses the format: accounts/{account_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The channel partner link to create.
     /// Either channel_partner_link.reseller_cloud_identity_id or domain can be
     /// used to create a link.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub channel_partner_link: ::core::option::Option<ChannelPartnerLink>,
 }
 /// Request message for \[CloudChannelService.UpdateChannelPartnerLink][google.cloud.channel.v1.CloudChannelService.UpdateChannelPartnerLink\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateChannelPartnerLinkRequest {
     /// Required. The resource name of the channel partner link to cancel.
     /// Name uses the format: accounts/{account_id}/channelPartnerLinks/{id}
     /// where {id} is the Cloud Identity ID of the partner.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The channel partner link to update. Only channel_partner_link.link_state
     /// is allowed for updates.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub channel_partner_link: ::core::option::Option<ChannelPartnerLink>,
     /// Required. The update mask that applies to the resource.
     /// The only allowable value for an update mask is
     /// channel_partner_link.link_state.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Request message for \[CloudChannelService.CreateEntitlement][google.cloud.channel.v1.CloudChannelService.CreateEntitlement\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateEntitlementRequest {
     /// Required. The resource name of the reseller's customer account in which to create the
     /// entitlement.
     /// Parent uses the format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The entitlement to create.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub entitlement: ::core::option::Option<Entitlement>,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1569,25 +1910,26 @@ pub struct CreateEntitlementRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.TransferEntitlements][google.cloud.channel.v1.CloudChannelService.TransferEntitlements\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferEntitlementsRequest {
     /// Required. The resource name of the reseller's customer account that will receive
     /// transferred entitlements.
     /// Parent uses the format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The new entitlements to create or transfer.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub entitlements: ::prost::alloc::vec::Vec<Entitlement>,
     /// The super admin of the resold customer generates this token to
     /// authorize a reseller to access their Cloud Identity and purchase
     /// entitlements on their behalf. You can omit this token after authorization.
     /// See <https://support.google.com/a/answer/7643790> for more details.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub auth_token: ::prost::alloc::string::String,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1600,27 +1942,29 @@ pub struct TransferEntitlementsRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Response message for \[CloudChannelService.TransferEntitlements][google.cloud.channel.v1.CloudChannelService.TransferEntitlements\].
 /// This is put in the response field of google.longrunning.Operation.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferEntitlementsResponse {
     /// The transferred entitlements.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub entitlements: ::prost::alloc::vec::Vec<Entitlement>,
 }
 /// Request message for \[CloudChannelService.TransferEntitlementsToGoogle][google.cloud.channel.v1.CloudChannelService.TransferEntitlementsToGoogle\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TransferEntitlementsToGoogleRequest {
     /// Required. The resource name of the reseller's customer account where the entitlements
     /// transfer from.
     /// Parent uses the format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The entitlements to transfer to Google.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub entitlements: ::prost::alloc::vec::Vec<Entitlement>,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1633,22 +1977,23 @@ pub struct TransferEntitlementsToGoogleRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ChangeParametersRequest][\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeParametersRequest {
     /// Required. The name of the entitlement to update.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. Entitlement parameters to update. You can only change editable parameters.
     ///
     /// To view the available Parameters for a request, refer to the
     /// \[Offer.parameter_definitions][google.cloud.channel.v1.Offer.parameter_definitions\] from the desired offer.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub parameters: ::prost::alloc::vec::Vec<Parameter>,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1661,22 +2006,23 @@ pub struct ChangeParametersRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub request_id: ::prost::alloc::string::String,
     /// Optional. Purchase order ID provided by the reseller.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub purchase_order_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ChangeRenewalSettings][google.cloud.channel.v1.CloudChannelService.ChangeRenewalSettings\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeRenewalSettingsRequest {
     /// Required. The name of the entitlement to update.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. New renewal settings.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub renewal_settings: ::core::option::Option<RenewalSettings>,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1689,27 +2035,28 @@ pub struct ChangeRenewalSettingsRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ChangeOffer][google.cloud.channel.v1.CloudChannelService.ChangeOffer\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeOfferRequest {
     /// Required. The resource name of the entitlement to update.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. New Offer.
     /// Format: accounts/{account_id}/offers/{offer_id}.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub offer: ::prost::alloc::string::String,
     /// Optional. Parameters needed to purchase the Offer. To view the available Parameters
     /// refer to the \[Offer.parameter_definitions][google.cloud.channel.v1.Offer.parameter_definitions\] from the desired offer.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub parameters: ::prost::alloc::vec::Vec<Parameter>,
     /// Optional. Purchase order id provided by the reseller.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub purchase_order_id: ::prost::alloc::string::String,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1722,16 +2069,17 @@ pub struct ChangeOfferRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.StartPaidService][google.cloud.channel.v1.CloudChannelService.StartPaidService\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StartPaidServiceRequest {
     /// Required. The name of the entitlement to start a paid service for.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1744,16 +2092,17 @@ pub struct StartPaidServiceRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.CancelEntitlement][google.cloud.channel.v1.CloudChannelService.CancelEntitlement\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CancelEntitlementRequest {
     /// Required. The resource name of the entitlement to cancel.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1766,16 +2115,17 @@ pub struct CancelEntitlementRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.SuspendEntitlement][google.cloud.channel.v1.CloudChannelService.SuspendEntitlement\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SuspendEntitlementRequest {
     /// Required. The resource name of the entitlement to suspend.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1788,16 +2138,17 @@ pub struct SuspendEntitlementRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for \[CloudChannelService.ActivateEntitlement][google.cloud.channel.v1.CloudChannelService.ActivateEntitlement\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ActivateEntitlementRequest {
     /// Required. The resource name of the entitlement to activate.
     /// Name uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. You can specify an optional unique request ID, and if you need to retry
     /// your request, the server will know to ignore the request if it's complete.
@@ -1810,177 +2161,199 @@ pub struct ActivateEntitlementRequest {
     /// The request ID must be a valid \[UUID\](<https://tools.ietf.org/html/rfc4122>)
     /// with the exception that zero UUID is not supported
     /// (`00000000-0000-0000-0000-000000000000`).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub request_id: ::prost::alloc::string::String,
 }
 /// Request message for LookupOffer.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LookupOfferRequest {
     /// Required. The resource name of the entitlement to retrieve the Offer.
     /// Entitlement uses the format:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub entitlement: ::prost::alloc::string::String,
 }
 /// Request message for ListProducts.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListProductsRequest {
     /// Required. The resource name of the reseller account.
     /// Format: accounts/{account_id}.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub account: ::prost::alloc::string::String,
     /// Optional. Requested page size. Server might return fewer results than requested.
     /// If unspecified, returns at most 100 Products.
     /// The maximum value is 1000; the server will coerce values above 1000.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. A token for a page of results other than the first page.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The BCP-47 language code. For example, "en-US". The
     /// response will localize in the corresponding language code, if specified.
     /// The default value is "en-US".
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub language_code: ::prost::alloc::string::String,
 }
 /// Response message for ListProducts.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListProductsResponse {
     /// List of Products requested.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub products: ::prost::alloc::vec::Vec<Product>,
     /// A token to retrieve the next page of results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for ListSkus.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSkusRequest {
     /// Required. The resource name of the Product to list SKUs for.
     /// Parent uses the format: products/{product_id}.
     /// Supports products/- to retrieve SKUs for all products.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. Resource name of the reseller.
     /// Format: accounts/{account_id}.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub account: ::prost::alloc::string::String,
     /// Optional. Requested page size. Server might return fewer results than requested.
     /// If unspecified, returns at most 100 SKUs.
     /// The maximum value is 1000; the server will coerce values above 1000.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
     /// Optional. A token for a page of results other than the first page.
     /// Optional.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The BCP-47 language code. For example, "en-US". The
     /// response will localize in the corresponding language code, if specified.
     /// The default value is "en-US".
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub language_code: ::prost::alloc::string::String,
 }
 /// Response message for ListSkus.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSkusResponse {
     /// The list of SKUs requested.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub skus: ::prost::alloc::vec::Vec<Sku>,
     /// A token to retrieve the next page of results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for ListOffers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListOffersRequest {
     /// Required. The resource name of the reseller account from which to list Offers.
     /// Parent uses the format: accounts/{account_id}.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. Requested page size. Server might return fewer results than requested.
     /// If unspecified, returns at most 500 Offers.
     /// The maximum value is 1000; the server will coerce values above 1000.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. A token for a page of results other than the first page.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The expression to filter results by name (name of
     /// the Offer), sku.name (name of the SKU), or sku.product.name (name of the
     /// Product).
     /// Example 1: sku.product.name=products/p1 AND sku.name!=products/p1/skus/s1
     /// Example 2: name=accounts/a1/offers/o1
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. The BCP-47 language code. For example, "en-US". The
     /// response will localize in the corresponding language code, if specified.
     /// The default value is "en-US".
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub language_code: ::prost::alloc::string::String,
 }
 /// Response message for ListOffers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListOffersResponse {
     /// The list of Offers requested.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub offers: ::prost::alloc::vec::Vec<Offer>,
     /// A token to retrieve the next page of results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for ListPurchasableSkus.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPurchasableSkusRequest {
     /// Required. The resource name of the customer to list SKUs for.
     /// Format: accounts/{account_id}/customers/{customer_id}.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub customer: ::prost::alloc::string::String,
     /// Optional. Requested page size. Server might return fewer results than requested.
     /// If unspecified, returns at most 100 SKUs.
     /// The maximum value is 1000; the server will coerce values above 1000.
-    #[prost(int32, tag="4")]
+    #[prost(int32, tag = "4")]
     pub page_size: i32,
     /// Optional. A token for a page of results other than the first page.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The BCP-47 language code. For example, "en-US". The
     /// response will localize in the corresponding language code, if specified.
     /// The default value is "en-US".
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub language_code: ::prost::alloc::string::String,
     /// Defines the intended purchase.
-    #[prost(oneof="list_purchasable_skus_request::PurchaseOption", tags="2, 3")]
-    pub purchase_option: ::core::option::Option<list_purchasable_skus_request::PurchaseOption>,
+    #[prost(oneof = "list_purchasable_skus_request::PurchaseOption", tags = "2, 3")]
+    pub purchase_option: ::core::option::Option<
+        list_purchasable_skus_request::PurchaseOption,
+    >,
 }
 /// Nested message and enum types in `ListPurchasableSkusRequest`.
 pub mod list_purchasable_skus_request {
     /// List SKUs for a new entitlement. Make the purchase using
     /// \[CloudChannelService.CreateEntitlement][google.cloud.channel.v1.CloudChannelService.CreateEntitlement\].
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct CreateEntitlementPurchase {
         /// Required. List SKUs belonging to this Product.
         /// Format: products/{product_id}.
         /// Supports products/- to retrieve SKUs for all products.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub product: ::prost::alloc::string::String,
     }
     /// List SKUs for upgrading or downgrading an entitlement. Make the purchase
     /// using \[CloudChannelService.ChangeOffer][google.cloud.channel.v1.CloudChannelService.ChangeOffer\].
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ChangeOfferPurchase {
         /// Required. Resource name of the entitlement.
         /// Format:
         /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub entitlement: ::prost::alloc::string::String,
         /// Required. Change Type for the entitlement.
-        #[prost(enumeration="change_offer_purchase::ChangeType", tag="2")]
+        #[prost(enumeration = "change_offer_purchase::ChangeType", tag = "2")]
         pub change_type: i32,
     }
     /// Nested message and enum types in `ChangeOfferPurchase`.
     pub mod change_offer_purchase {
         /// Change Type enum.
-        #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
         #[repr(i32)]
         pub enum ChangeType {
             /// Not used.
@@ -2002,180 +2375,206 @@ pub mod list_purchasable_skus_request {
                     ChangeType::Downgrade => "DOWNGRADE",
                 }
             }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "CHANGE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "UPGRADE" => Some(Self::Upgrade),
+                    "DOWNGRADE" => Some(Self::Downgrade),
+                    _ => None,
+                }
+            }
         }
     }
     /// Defines the intended purchase.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum PurchaseOption {
         /// List SKUs for CreateEntitlement purchase.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         CreateEntitlementPurchase(CreateEntitlementPurchase),
         /// List SKUs for ChangeOffer purchase with a new SKU.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         ChangeOfferPurchase(ChangeOfferPurchase),
     }
 }
 /// Response message for ListPurchasableSkus.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPurchasableSkusResponse {
     /// The list of SKUs requested.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub purchasable_skus: ::prost::alloc::vec::Vec<PurchasableSku>,
     /// A token to retrieve the next page of results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// SKU that you can purchase. This is used in ListPurchasableSku API
 /// response.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PurchasableSku {
     /// SKU
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub sku: ::core::option::Option<Sku>,
 }
 /// Request message for ListPurchasableOffers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPurchasableOffersRequest {
     /// Required. The resource name of the customer to list Offers for.
     /// Format: accounts/{account_id}/customers/{customer_id}.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub customer: ::prost::alloc::string::String,
     /// Optional. Requested page size. Server might return fewer results than requested.
     /// If unspecified, returns at most 100 Offers.
     /// The maximum value is 1000; the server will coerce values above 1000.
-    #[prost(int32, tag="4")]
+    #[prost(int32, tag = "4")]
     pub page_size: i32,
     /// Optional. A token for a page of results other than the first page.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The BCP-47 language code. For example, "en-US". The
     /// response will localize in the corresponding language code, if specified.
     /// The default value is "en-US".
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub language_code: ::prost::alloc::string::String,
     /// Defines the intended purchase.
-    #[prost(oneof="list_purchasable_offers_request::PurchaseOption", tags="2, 3")]
-    pub purchase_option: ::core::option::Option<list_purchasable_offers_request::PurchaseOption>,
+    #[prost(oneof = "list_purchasable_offers_request::PurchaseOption", tags = "2, 3")]
+    pub purchase_option: ::core::option::Option<
+        list_purchasable_offers_request::PurchaseOption,
+    >,
 }
 /// Nested message and enum types in `ListPurchasableOffersRequest`.
 pub mod list_purchasable_offers_request {
     /// List Offers for CreateEntitlement purchase.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct CreateEntitlementPurchase {
         /// Required. SKU that the result should be restricted to.
         /// Format: products/{product_id}/skus/{sku_id}.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub sku: ::prost::alloc::string::String,
     }
     /// List Offers for ChangeOffer purchase.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct ChangeOfferPurchase {
         /// Required. Resource name of the entitlement.
         /// Format:
         /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub entitlement: ::prost::alloc::string::String,
         /// Optional. Resource name of the new target SKU. Provide this SKU when
         /// upgrading or downgrading an entitlement. Format:
         /// products/{product_id}/skus/{sku_id}
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         pub new_sku: ::prost::alloc::string::String,
     }
     /// Defines the intended purchase.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum PurchaseOption {
         /// List Offers for CreateEntitlement purchase.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         CreateEntitlementPurchase(CreateEntitlementPurchase),
         /// List Offers for ChangeOffer purchase.
-        #[prost(message, tag="3")]
+        #[prost(message, tag = "3")]
         ChangeOfferPurchase(ChangeOfferPurchase),
     }
 }
 /// Response message for ListPurchasableOffers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListPurchasableOffersResponse {
     /// The list of Offers requested.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub purchasable_offers: ::prost::alloc::vec::Vec<PurchasableOffer>,
     /// A token to retrieve the next page of results.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Offer that you can purchase for a customer. This is used in the
 /// ListPurchasableOffer API response.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PurchasableOffer {
     /// Offer.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub offer: ::core::option::Option<Offer>,
 }
 /// Request Message for RegisterSubscriber.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RegisterSubscriberRequest {
     /// Required. Resource name of the account.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub account: ::prost::alloc::string::String,
     /// Required. Service account that provides subscriber access to the registered topic.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub service_account: ::prost::alloc::string::String,
 }
 /// Response Message for RegisterSubscriber.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RegisterSubscriberResponse {
     /// Name of the topic the subscriber will listen to.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
 }
 /// Request Message for UnregisterSubscriber.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UnregisterSubscriberRequest {
     /// Required. Resource name of the account.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub account: ::prost::alloc::string::String,
     /// Required. Service account to unregister from subscriber access to the topic.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub service_account: ::prost::alloc::string::String,
 }
 /// Response Message for UnregisterSubscriber.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UnregisterSubscriberResponse {
     /// Name of the topic the service account subscriber access was removed from.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
 }
 /// Request Message for ListSubscribers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSubscribersRequest {
     /// Required. Resource name of the account.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub account: ::prost::alloc::string::String,
     /// Optional. The maximum number of service accounts to return. The service may return
     /// fewer than this value.
     /// If unspecified, returns at most 100 service accounts.
     /// The maximum value is 1000; the server will coerce values above 1000.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. A page token, received from a previous `ListSubscribers` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListSubscribers` must
     /// match the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Response Message for ListSubscribers.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSubscribersResponse {
     /// Name of the topic registered with the reseller.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub topic: ::prost::alloc::string::String,
     /// List of service accounts which have subscriber access to the topic.
-    #[prost(string, repeated, tag="2")]
+    #[prost(string, repeated, tag = "2")]
     pub service_accounts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
@@ -3565,20 +3964,31 @@ pub mod cloud_channel_service_client {
     }
 }
 /// Represents Pub/Sub message content describing customer update.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CustomerEvent {
     /// Resource name of the customer.
     /// Format: accounts/{account_id}/customers/{customer_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub customer: ::prost::alloc::string::String,
     /// Type of event which happened on the customer.
-    #[prost(enumeration="customer_event::Type", tag="2")]
+    #[prost(enumeration = "customer_event::Type", tag = "2")]
     pub event_type: i32,
 }
 /// Nested message and enum types in `CustomerEvent`.
 pub mod customer_event {
     /// Type of customer event.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Type {
         /// Default value. This state doesn't show unless an error occurs.
@@ -3600,23 +4010,43 @@ pub mod customer_event {
                 Type::PrimaryDomainVerified => "PRIMARY_DOMAIN_VERIFIED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PRIMARY_DOMAIN_CHANGED" => Some(Self::PrimaryDomainChanged),
+                "PRIMARY_DOMAIN_VERIFIED" => Some(Self::PrimaryDomainVerified),
+                _ => None,
+            }
+        }
     }
 }
 /// Represents Pub/Sub message content describing entitlement update.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EntitlementEvent {
     /// Resource name of an entitlement of the form:
     /// accounts/{account_id}/customers/{customer_id}/entitlements/{entitlement_id}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub entitlement: ::prost::alloc::string::String,
     /// Type of event which happened on the entitlement.
-    #[prost(enumeration="entitlement_event::Type", tag="2")]
+    #[prost(enumeration = "entitlement_event::Type", tag = "2")]
     pub event_type: i32,
 }
 /// Nested message and enum types in `EntitlementEvent`.
 pub mod entitlement_event {
     /// Type of entitlement event.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Type {
         /// Default value. This state doesn't show unless an error occurs.
@@ -3671,28 +4101,49 @@ pub mod entitlement_event {
                 Type::LicenseCapChanged => "LICENSE_CAP_CHANGED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATED" => Some(Self::Created),
+                "PRICE_PLAN_SWITCHED" => Some(Self::PricePlanSwitched),
+                "COMMITMENT_CHANGED" => Some(Self::CommitmentChanged),
+                "RENEWED" => Some(Self::Renewed),
+                "SUSPENDED" => Some(Self::Suspended),
+                "ACTIVATED" => Some(Self::Activated),
+                "CANCELLED" => Some(Self::Cancelled),
+                "SKU_CHANGED" => Some(Self::SkuChanged),
+                "RENEWAL_SETTING_CHANGED" => Some(Self::RenewalSettingChanged),
+                "PAID_SERVICE_STARTED" => Some(Self::PaidServiceStarted),
+                "LICENSE_ASSIGNMENT_CHANGED" => Some(Self::LicenseAssignmentChanged),
+                "LICENSE_CAP_CHANGED" => Some(Self::LicenseCapChanged),
+                _ => None,
+            }
+        }
     }
 }
 /// Represents information which resellers will get as part of notification from
 /// Cloud Pub/Sub.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SubscriberEvent {
     /// Specifies the Pub/Sub event provided to the partners.
     /// This is a required field.
-    #[prost(oneof="subscriber_event::Event", tags="1, 2")]
+    #[prost(oneof = "subscriber_event::Event", tags = "1, 2")]
     pub event: ::core::option::Option<subscriber_event::Event>,
 }
 /// Nested message and enum types in `SubscriberEvent`.
 pub mod subscriber_event {
     /// Specifies the Pub/Sub event provided to the partners.
     /// This is a required field.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Event {
         /// Customer event send as part of Pub/Sub event to partners.
-        #[prost(message, tag="1")]
+        #[prost(message, tag = "1")]
         CustomerEvent(super::CustomerEvent),
         /// Entitlement event send as part of Pub/Sub event to partners.
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         EntitlementEvent(super::EntitlementEvent),
     }
 }

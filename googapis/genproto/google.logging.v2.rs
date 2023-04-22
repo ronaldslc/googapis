@@ -1,6 +1,7 @@
 /// An individual entry in a log.
 ///
 ///
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogEntry {
     /// Required. The resource name of the log to which this log entry belongs:
@@ -25,14 +26,14 @@ pub struct LogEntry {
     /// forward-slash is removed. Listing the log entry will not show the leading
     /// slash and filtering for a log name with a leading slash will never return
     /// any results.
-    #[prost(string, tag="12")]
+    #[prost(string, tag = "12")]
     pub log_name: ::prost::alloc::string::String,
     /// Required. The monitored resource that produced this log entry.
     ///
     /// Example: a log entry that reports a database error would be associated with
     /// the monitored resource designating the particular database that reported
     /// the error.
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub resource: ::core::option::Option<super::super::api::MonitoredResource>,
     /// Optional. The time the event described by the log entry occurred. This time is used
     /// to compute the log entry's age and to enforce the logs retention period.
@@ -45,13 +46,13 @@ pub struct LogEntry {
     /// period](<https://cloud.google.com/logging/quotas#logs_retention_periods>) in
     /// the past, and that don't exceed 24 hours in the future. Log entries outside
     /// those time boundaries aren't ingested by Logging.
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag = "9")]
     pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The time the log entry was received by Logging.
-    #[prost(message, optional, tag="24")]
+    #[prost(message, optional, tag = "24")]
     pub receive_timestamp: ::core::option::Option<::prost_types::Timestamp>,
     /// Optional. The severity of the log entry. The default value is `LogSeverity.DEFAULT`.
-    #[prost(enumeration="super::r#type::LogSeverity", tag="10")]
+    #[prost(enumeration = "super::r#type::LogSeverity", tag = "10")]
     pub severity: i32,
     /// Optional. A unique identifier for the log entry. If you provide a value, then
     /// Logging considers other log entries in the same project, with the same
@@ -64,32 +65,35 @@ pub struct LogEntry {
     ///
     /// In queries, the `insert_id` is also used to order log entries that have
     /// the same `log_name` and `timestamp` values.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub insert_id: ::prost::alloc::string::String,
     /// Optional. Information about the HTTP request associated with this log entry, if
     /// applicable.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub http_request: ::core::option::Option<super::r#type::HttpRequest>,
     /// Optional. A set of user-defined (key, value) data that provides additional
     /// information about the log entry.
-    #[prost(map="string, string", tag="11")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "11")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Optional. Information about an operation associated with the log entry, if
     /// applicable.
-    #[prost(message, optional, tag="15")]
+    #[prost(message, optional, tag = "15")]
     pub operation: ::core::option::Option<LogEntryOperation>,
     /// Optional. Resource name of the trace associated with the log entry, if any. If it
     /// contains a relative resource name, the name is assumed to be relative to
     /// `//tracing.googleapis.com`. Example:
     /// `projects/my-projectid/traces/06796866738c859f2f19b7cfb3214824`
-    #[prost(string, tag="22")]
+    #[prost(string, tag = "22")]
     pub trace: ::prost::alloc::string::String,
     /// Optional. The span ID within the trace associated with the log entry.
     ///
     /// For Trace spans, this is the same format that the Trace API v2 uses: a
     /// 16-character hexadecimal encoding of an 8-byte array, such as
     /// `000000000000004a`.
-    #[prost(string, tag="27")]
+    #[prost(string, tag = "27")]
     pub span_id: ::prost::alloc::string::String,
     /// Optional. The sampling decision of the trace associated with the log entry.
     ///
@@ -98,18 +102,19 @@ pub struct LogEntry {
     /// for storage when this log entry was written, or the sampling decision was
     /// unknown at the time. A non-sampled `trace` value is still useful as a
     /// request correlation identifier. The default is False.
-    #[prost(bool, tag="30")]
+    #[prost(bool, tag = "30")]
     pub trace_sampled: bool,
     /// Optional. Source code location information associated with the log entry, if any.
-    #[prost(message, optional, tag="23")]
+    #[prost(message, optional, tag = "23")]
     pub source_location: ::core::option::Option<LogEntrySourceLocation>,
     /// The log entry payload, which can be one of multiple types.
-    #[prost(oneof="log_entry::Payload", tags="2, 3, 6")]
+    #[prost(oneof = "log_entry::Payload", tags = "2, 3, 6")]
     pub payload: ::core::option::Option<log_entry::Payload>,
 }
 /// Nested message and enum types in `LogEntry`.
 pub mod log_entry {
     /// The log entry payload, which can be one of multiple types.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Payload {
         /// The log entry payload, represented as a protocol buffer. Some Google
@@ -120,48 +125,50 @@ pub mod log_entry {
         ///
         ///    "type.googleapis.com/google.cloud.audit.AuditLog"
         ///    "type.googleapis.com/google.appengine.logging.v1.RequestLog"
-        #[prost(message, tag="2")]
+        #[prost(message, tag = "2")]
         ProtoPayload(::prost_types::Any),
         /// The log entry payload, represented as a Unicode string (UTF-8).
-        #[prost(string, tag="3")]
+        #[prost(string, tag = "3")]
         TextPayload(::prost::alloc::string::String),
         /// The log entry payload, represented as a structure that is
         /// expressed as a JSON object.
-        #[prost(message, tag="6")]
+        #[prost(message, tag = "6")]
         JsonPayload(::prost_types::Struct),
     }
 }
 /// Additional information about a potentially long-running operation with which
 /// a log entry is associated.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogEntryOperation {
     /// Optional. An arbitrary operation identifier. Log entries with the same
     /// identifier are assumed to be part of the same operation.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub id: ::prost::alloc::string::String,
     /// Optional. An arbitrary producer identifier. The combination of `id` and
     /// `producer` must be globally unique. Examples for `producer`:
     /// `"MyDivision.MyBigCompany.com"`, `"github.com/MyProject/MyApplication"`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub producer: ::prost::alloc::string::String,
     /// Optional. Set this to True if this is the first log entry in the operation.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub first: bool,
     /// Optional. Set this to True if this is the last log entry in the operation.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub last: bool,
 }
 /// Additional information about the source code location that produced the log
 /// entry.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogEntrySourceLocation {
     /// Optional. Source file name. Depending on the runtime environment, this
     /// might be a simple name or a fully-qualified name.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub file: ::prost::alloc::string::String,
     /// Optional. Line within the source file. 1-based; 0 indicates no line number
     /// available.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub line: i64,
     /// Optional. Human-readable name of the function or method being invoked, with
     /// optional context such as the class or package name. This information may be
@@ -169,10 +176,11 @@ pub struct LogEntrySourceLocation {
     /// less meaningful. The format can vary by language. For example:
     /// `qual.if.ied.Class.method` (Java), `dir/package.func` (Go), `function`
     /// (Python).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub function: ::prost::alloc::string::String,
 }
 /// Describes a repository of logs.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogBucket {
     /// The resource name of the bucket.
@@ -184,49 +192,50 @@ pub struct LogBucket {
     /// For the location of `global` it is unspecified where logs are actually
     /// stored.
     /// Once a bucket has been created, the location can not be changed.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Describes this bucket.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub description: ::prost::alloc::string::String,
     /// Output only. The creation timestamp of the bucket. This is not set for any of the
     /// default buckets.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The last update timestamp of the bucket.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Logs will be retained by default for this amount of time, after which they
     /// will automatically be deleted. The minimum retention period is 1 day.
     /// If this value is set to zero at bucket creation time, the default time of
     /// 30 days will be used.
-    #[prost(int32, tag="11")]
+    #[prost(int32, tag = "11")]
     pub retention_days: i32,
     /// Whether the bucket has been locked.
     /// The retention period on a locked bucket may not be changed.
     /// Locked buckets may only be deleted if they are empty.
-    #[prost(bool, tag="9")]
+    #[prost(bool, tag = "9")]
     pub locked: bool,
     /// Output only. The bucket lifecycle state.
-    #[prost(enumeration="LifecycleState", tag="12")]
+    #[prost(enumeration = "LifecycleState", tag = "12")]
     pub lifecycle_state: i32,
 }
 /// Describes a view over logs in a bucket.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogView {
     /// The resource name of the view.
     /// For example
     /// "projects/my-project-id/locations/my-location/buckets/my-bucket-id/views/my-view
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Describes this view.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub description: ::prost::alloc::string::String,
     /// Output only. The creation timestamp of the view.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The last update timestamp of the view.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Filter that restricts which log entries in a bucket are visible in this
     /// view. Filters are restricted to be a logical AND of ==/!= of any of the
@@ -236,7 +245,7 @@ pub struct LogView {
     ///    log id
     /// Example: SOURCE("projects/myproject") AND resource.type = "gce_instance"
     ///              AND LOG_ID("stdout")
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub filter: ::prost::alloc::string::String,
 }
 /// Describes a sink used to export log entries to one of the following
@@ -244,6 +253,7 @@ pub struct LogView {
 /// Cloud Pub/Sub topic. A logs filter controls which log entries are exported.
 /// The sink must be created within a project, organization, billing account, or
 /// folder.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogSink {
     /// Required. The client-assigned sink identifier, unique within the project. Example:
@@ -251,7 +261,7 @@ pub struct LogSink {
     /// characters and can include only the following characters: upper and
     /// lower-case alphanumeric characters, underscores, hyphens, and periods.
     /// First character has to be alphanumeric.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The export destination:
     ///
@@ -264,7 +274,7 @@ pub struct LogSink {
     /// entries are not exported. For more information, see
     /// [Exporting Logs with
     /// Sinks](<https://cloud.google.com/logging/docs/api/tasks/exporting-logs>).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub destination: ::prost::alloc::string::String,
     /// Optional. An [advanced logs
     /// filter](<https://cloud.google.com/logging/docs/view/advanced-queries>). The
@@ -272,24 +282,24 @@ pub struct LogSink {
     /// sink and that match the filter. For example:
     ///
     ///      logName="projects/\[PROJECT_ID]/logs/[LOG_ID\]" AND severity>=ERROR
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. A description of this sink.
     /// The maximum length of the description is 8000 characters.
-    #[prost(string, tag="18")]
+    #[prost(string, tag = "18")]
     pub description: ::prost::alloc::string::String,
     /// Optional. If set to True, then this sink is disabled and it does not
     /// export any log entries.
-    #[prost(bool, tag="19")]
+    #[prost(bool, tag = "19")]
     pub disabled: bool,
     /// Optional. Log entries that match any of the exclusion filters will not be exported.
     /// If a log entry is matched by both `filter` and one of `exclusion_filters`
     /// it will not be exported.
-    #[prost(message, repeated, tag="16")]
+    #[prost(message, repeated, tag = "16")]
     pub exclusions: ::prost::alloc::vec::Vec<LogExclusion>,
     /// Deprecated. This field is unused.
     #[deprecated]
-    #[prost(enumeration="log_sink::VersionFormat", tag="6")]
+    #[prost(enumeration = "log_sink::VersionFormat", tag = "6")]
     pub output_version_format: i32,
     /// Output only. An IAM identity&mdash;a service account or group&mdash;under which Logging
     /// writes the exported log entries to the sink's destination. This field is
@@ -303,7 +313,7 @@ pub struct LogSink {
     /// Resource](<https://cloud.google.com/iam/docs/granting-roles-to-service-accounts#granting_access_to_a_service_account_for_a_resource>).
     /// Consult the destination service's documentation to determine the
     /// appropriate IAM roles to assign to the identity.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub writer_identity: ::prost::alloc::string::String,
     /// Optional. This field applies only to sinks owned by organizations and
     /// folders. If the field is false, the default, only the logs owned by the
@@ -318,26 +328,36 @@ pub struct LogSink {
     ///
     ///      logName:("projects/test-project1/" OR "projects/test-project2/") AND
     ///      resource.type=gce_instance
-    #[prost(bool, tag="9")]
+    #[prost(bool, tag = "9")]
     pub include_children: bool,
     /// Output only. The creation timestamp of the sink.
     ///
     /// This field may not be present for older sinks.
-    #[prost(message, optional, tag="13")]
+    #[prost(message, optional, tag = "13")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The last update timestamp of the sink.
     ///
     /// This field may not be present for older sinks.
-    #[prost(message, optional, tag="14")]
+    #[prost(message, optional, tag = "14")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Destination dependent options.
-    #[prost(oneof="log_sink::Options", tags="12")]
+    #[prost(oneof = "log_sink::Options", tags = "12")]
     pub options: ::core::option::Option<log_sink::Options>,
 }
 /// Nested message and enum types in `LogSink`.
 pub mod log_sink {
     /// Deprecated. This is unused.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum VersionFormat {
         /// An unspecified format version that will default to V2.
@@ -359,16 +379,27 @@ pub mod log_sink {
                 VersionFormat::V1 => "V1",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "VERSION_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
+                "V2" => Some(Self::V2),
+                "V1" => Some(Self::V1),
+                _ => None,
+            }
+        }
     }
     /// Destination dependent options.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Options {
         /// Optional. Options that affect sinks exporting data to BigQuery.
-        #[prost(message, tag="12")]
+        #[prost(message, tag = "12")]
         BigqueryOptions(super::BigQueryOptions),
     }
 }
 /// Options that change functionality of a sink exporting data to BigQuery.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BigQueryOptions {
     /// Optional. Whether to use [BigQuery's partition
@@ -379,7 +410,7 @@ pub struct BigQueryOptions {
     /// syntax](<https://cloud.google.com/bigquery/docs/querying-partitioned-tables>)
     /// has to be used instead. In both cases, tables are sharded based on UTC
     /// timezone.
-    #[prost(bool, tag="1")]
+    #[prost(bool, tag = "1")]
     pub use_partitioned_tables: bool,
     /// Output only. True if new timestamp column based partitioning is in use,
     /// false if legacy ingestion-time partitioning is in use.
@@ -387,10 +418,11 @@ pub struct BigQueryOptions {
     /// based partitioning. If use_partitioned_tables is false, this value has no
     /// meaning and will be false. Legacy sinks using partitioned tables will have
     /// this field set to false.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub uses_timestamp_column_partitioning: bool,
 }
 /// The parameters to `ListBuckets`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListBucketsRequest {
     /// Required. The parent resource whose buckets are to be listed:
@@ -403,33 +435,35 @@ pub struct ListBucketsRequest {
     /// Note: The locations portion of the resource must be specified, but
     /// supplying the character `-` in place of \[LOCATION_ID\] will return all
     /// buckets.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method. `pageToken` must be the value of
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
 }
 /// The response from ListBuckets.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListBucketsResponse {
     /// A list of buckets.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub buckets: ::prost::alloc::vec::Vec<LogBucket>,
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to `CreateBucket`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateBucketRequest {
     /// Required. The resource in which to create the bucket:
@@ -437,20 +471,21 @@ pub struct CreateBucketRequest {
     ///      "projects/\[PROJECT_ID]/locations/[LOCATION_ID\]"
     ///
     /// Example: `"projects/my-logging-project/locations/global"`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. A client-assigned identifier such as `"my-bucket"`. Identifiers are
     /// limited to 100 characters and can include only letters, digits,
     /// underscores, hyphens, and periods.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub bucket_id: ::prost::alloc::string::String,
     /// Required. The new bucket. The region specified in the new bucket must be compliant
     /// with any Location Restriction Org Policy. The name field in the bucket is
     /// ignored.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub bucket: ::core::option::Option<LogBucket>,
 }
 /// The parameters to `UpdateBucket`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateBucketRequest {
     /// Required. The full resource name of the bucket to update.
@@ -464,10 +499,10 @@ pub struct UpdateBucketRequest {
     /// `"projects/my-project-id/locations/my-location/buckets/my-bucket-id"`. Also
     /// requires permission "resourcemanager.projects.updateLiens" to set the
     /// locked property
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The updated bucket.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub bucket: ::core::option::Option<LogBucket>,
     /// Required. Field mask that specifies the fields in `bucket` that need an update. A
     /// bucket field will be overwritten if, and only if, it is in the update
@@ -477,10 +512,11 @@ pub struct UpdateBucketRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.FieldMask>
     ///
     /// Example: `updateMask=retention_days`.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The parameters to `GetBucket`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetBucketRequest {
     /// Required. The resource name of the bucket:
@@ -492,10 +528,11 @@ pub struct GetBucketRequest {
     ///
     /// Example:
     /// `"projects/my-project-id/locations/my-location/buckets/my-bucket-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to `DeleteBucket`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteBucketRequest {
     /// Required. The full resource name of the bucket to delete.
@@ -507,10 +544,11 @@ pub struct DeleteBucketRequest {
     ///
     /// Example:
     /// `"projects/my-project-id/locations/my-location/buckets/my-bucket-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to `UndeleteBucket`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UndeleteBucketRequest {
     /// Required. The full resource name of the bucket to undelete.
@@ -522,42 +560,45 @@ pub struct UndeleteBucketRequest {
     ///
     /// Example:
     /// `"projects/my-project-id/locations/my-location/buckets/my-bucket-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to `ListViews`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListViewsRequest {
     /// Required. The bucket whose views are to be listed:
     ///
     ///      "projects/\[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID\]"
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method. `pageToken` must be the value of
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
 }
 /// The response from ListViews.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListViewsResponse {
     /// A list of views.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub views: ::prost::alloc::vec::Vec<LogView>,
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to `CreateView`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateViewRequest {
     /// Required. The bucket in which to create the view
@@ -566,16 +607,17 @@ pub struct CreateViewRequest {
     ///
     /// Example:
     /// `"projects/my-logging-project/locations/my-location/buckets/my-bucket"`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The id to use for this view.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub view_id: ::prost::alloc::string::String,
     /// Required. The new view.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub view: ::core::option::Option<LogView>,
 }
 /// The parameters to `UpdateView`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateViewRequest {
     /// Required. The full resource name of the view to update
@@ -584,10 +626,10 @@ pub struct UpdateViewRequest {
     ///
     /// Example:
     ///    `"projects/my-project-id/locations/my-location/buckets/my-bucket-id/views/my-view-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The updated view.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub view: ::core::option::Option<LogView>,
     /// Optional. Field mask that specifies the fields in `view` that need
     /// an update. A field will be overwritten if, and only if, it is
@@ -597,10 +639,11 @@ pub struct UpdateViewRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.FieldMask>
     ///
     /// Example: `updateMask=filter`.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The parameters to `GetView`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetViewRequest {
     /// Required. The resource name of the policy:
@@ -609,10 +652,11 @@ pub struct GetViewRequest {
     ///
     /// Example:
     /// `"projects/my-project-id/locations/my-location/buckets/my-bucket-id/views/my-view-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to `DeleteView`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteViewRequest {
     /// Required. The full resource name of the view to delete:
@@ -621,10 +665,11 @@ pub struct DeleteViewRequest {
     ///
     /// Example:
     ///     `"projects/my-project-id/locations/my-location/buckets/my-bucket-id/views/my-view-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to `ListSinks`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSinksRequest {
     /// Required. The parent resource whose sinks are to be listed:
@@ -633,33 +678,35 @@ pub struct ListSinksRequest {
     ///      "organizations/\[ORGANIZATION_ID\]"
     ///      "billingAccounts/\[BILLING_ACCOUNT_ID\]"
     ///      "folders/\[FOLDER_ID\]"
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method. `pageToken` must be the value of
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
 }
 /// Result returned from `ListSinks`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListSinksResponse {
     /// A list of sinks.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub sinks: ::prost::alloc::vec::Vec<LogSink>,
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to `GetSink`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetSinkRequest {
     /// Required. The resource name of the sink:
@@ -670,10 +717,11 @@ pub struct GetSinkRequest {
     ///      "folders/\[FOLDER_ID]/sinks/[SINK_ID\]"
     ///
     /// Example: `"projects/my-project-id/sinks/my-sink-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub sink_name: ::prost::alloc::string::String,
 }
 /// The parameters to `CreateSink`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateSinkRequest {
     /// Required. The resource in which to create the sink:
@@ -684,11 +732,11 @@ pub struct CreateSinkRequest {
     ///      "folders/\[FOLDER_ID\]"
     ///
     /// Examples: `"projects/my-logging-project"`, `"organizations/123456789"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The new sink, whose `name` parameter is a sink identifier that
     /// is not already in use.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub sink: ::core::option::Option<LogSink>,
     /// Optional. Determines the kind of IAM identity returned as `writer_identity`
     /// in the new sink. If this value is omitted or set to false, and if the
@@ -701,10 +749,11 @@ pub struct CreateSinkRequest {
     /// resource such as an organization, then the value of `writer_identity` will
     /// be a unique service account used only for exports from the new sink. For
     /// more information, see `writer_identity` in \[LogSink][google.logging.v2.LogSink\].
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub unique_writer_identity: bool,
 }
 /// The parameters to `UpdateSink`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateSinkRequest {
     /// Required. The full resource name of the sink to update, including the parent
@@ -716,11 +765,11 @@ pub struct UpdateSinkRequest {
     ///      "folders/\[FOLDER_ID]/sinks/[SINK_ID\]"
     ///
     /// Example: `"projects/my-project-id/sinks/my-sink-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub sink_name: ::prost::alloc::string::String,
     /// Required. The updated sink, whose name is the same identifier that appears as part
     /// of `sink_name`.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub sink: ::core::option::Option<LogSink>,
     /// Optional. See \[sinks.create][google.logging.v2.ConfigServiceV2.CreateSink\]
     /// for a description of this field. When updating a sink, the effect of this
@@ -733,7 +782,7 @@ pub struct UpdateSinkRequest {
     ///      `writer_identity` is changed to a unique service account.
     /// +   It is an error if the old value is true and the new value is
     ///      set to false or defaulted to false.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub unique_writer_identity: bool,
     /// Optional. Field mask that specifies the fields in `sink` that need
     /// an update. A sink field will be overwritten if, and only if, it is
@@ -749,10 +798,11 @@ pub struct UpdateSinkRequest {
     /// <https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.FieldMask>
     ///
     /// Example: `updateMask=filter`.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The parameters to `DeleteSink`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteSinkRequest {
     /// Required. The full resource name of the sink to delete, including the parent
@@ -764,7 +814,7 @@ pub struct DeleteSinkRequest {
     ///      "folders/\[FOLDER_ID]/sinks/[SINK_ID\]"
     ///
     /// Example: `"projects/my-project-id/sinks/my-sink-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub sink_name: ::prost::alloc::string::String,
 }
 /// Specifies a set of log entries that are not to be stored in
@@ -773,16 +823,17 @@ pub struct DeleteSinkRequest {
 /// processed after log sinks, so you can export log entries before they are
 /// excluded. Note that organization-level and folder-level exclusions don't
 /// apply to child resources, and that you can't exclude audit log entries.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogExclusion {
     /// Required. A client-assigned identifier, such as `"load-balancer-exclusion"`.
     /// Identifiers are limited to 100 characters and can include only letters,
     /// digits, underscores, hyphens, and periods. First character has to be
     /// alphanumeric.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. A description of this exclusion.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Required. An [advanced logs
     /// filter](<https://cloud.google.com/logging/docs/view/advanced-queries>) that
@@ -793,26 +844,27 @@ pub struct LogExclusion {
     /// entries from Google Cloud Storage buckets:
     ///
     /// `"resource.type=gcs_bucket severity<ERROR sample(insertId, 0.99)"`
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. If set to True, then this exclusion is disabled and it does not
     /// exclude any log entries. You can [update an
     /// exclusion]\[google.logging.v2.ConfigServiceV2.UpdateExclusion\] to change the
     /// value of this field.
-    #[prost(bool, tag="4")]
+    #[prost(bool, tag = "4")]
     pub disabled: bool,
     /// Output only. The creation timestamp of the exclusion.
     ///
     /// This field may not be present for older exclusions.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The last update timestamp of the exclusion.
     ///
     /// This field may not be present for older exclusions.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// The parameters to `ListExclusions`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListExclusionsRequest {
     /// Required. The parent resource whose exclusions are to be listed.
@@ -821,33 +873,35 @@ pub struct ListExclusionsRequest {
     ///      "organizations/\[ORGANIZATION_ID\]"
     ///      "billingAccounts/\[BILLING_ACCOUNT_ID\]"
     ///      "folders/\[FOLDER_ID\]"
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method. `pageToken` must be the value of
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
 }
 /// Result returned from `ListExclusions`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListExclusionsResponse {
     /// A list of exclusions.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub exclusions: ::prost::alloc::vec::Vec<LogExclusion>,
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call the same
     /// method again using the value of `nextPageToken` as `pageToken`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to `GetExclusion`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetExclusionRequest {
     /// Required. The resource name of an existing exclusion:
@@ -858,10 +912,11 @@ pub struct GetExclusionRequest {
     ///      "folders/\[FOLDER_ID]/exclusions/[EXCLUSION_ID\]"
     ///
     /// Example: `"projects/my-project-id/exclusions/my-exclusion-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to `CreateExclusion`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateExclusionRequest {
     /// Required. The parent resource in which to create the exclusion:
@@ -872,14 +927,15 @@ pub struct CreateExclusionRequest {
     ///      "folders/\[FOLDER_ID\]"
     ///
     /// Examples: `"projects/my-logging-project"`, `"organizations/123456789"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The new exclusion, whose `name` parameter is an exclusion name
     /// that is not already used in the parent resource.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub exclusion: ::core::option::Option<LogExclusion>,
 }
 /// The parameters to `UpdateExclusion`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateExclusionRequest {
     /// Required. The resource name of the exclusion to update:
@@ -890,11 +946,11 @@ pub struct UpdateExclusionRequest {
     ///      "folders/\[FOLDER_ID]/exclusions/[EXCLUSION_ID\]"
     ///
     /// Example: `"projects/my-project-id/exclusions/my-exclusion-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. New values for the existing exclusion. Only the fields specified in
     /// `update_mask` are relevant.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub exclusion: ::core::option::Option<LogExclusion>,
     /// Required. A non-empty list of fields to change in the existing exclusion. New values
     /// for the fields are taken from the corresponding fields in the
@@ -903,10 +959,11 @@ pub struct UpdateExclusionRequest {
     ///
     /// For example, to change the filter and description of an exclusion,
     /// specify an `update_mask` of `"filter,description"`.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The parameters to `DeleteExclusion`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteExclusionRequest {
     /// Required. The resource name of an existing exclusion to delete:
@@ -917,7 +974,7 @@ pub struct DeleteExclusionRequest {
     ///      "folders/\[FOLDER_ID]/exclusions/[EXCLUSION_ID\]"
     ///
     /// Example: `"projects/my-project-id/exclusions/my-exclusion-id"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to
@@ -926,6 +983,7 @@ pub struct DeleteExclusionRequest {
 /// See [Enabling CMEK for Logs
 /// Router](<https://cloud.google.com/logging/docs/routing/managed-encryption>) for
 /// more information.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetCmekSettingsRequest {
     /// Required. The resource for which to retrieve CMEK settings.
@@ -940,7 +998,7 @@ pub struct GetCmekSettingsRequest {
     /// Note: CMEK for the Logs Router can currently only be configured for GCP
     /// organizations. Once configured, it applies to all projects and folders in
     /// the GCP organization.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The parameters to
@@ -949,6 +1007,7 @@ pub struct GetCmekSettingsRequest {
 /// See [Enabling CMEK for Logs
 /// Router](<https://cloud.google.com/logging/docs/routing/managed-encryption>) for
 /// more information.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateCmekSettingsRequest {
     /// Required. The resource name for the CMEK settings to update.
@@ -963,14 +1022,14 @@ pub struct UpdateCmekSettingsRequest {
     /// Note: CMEK for the Logs Router can currently only be configured for GCP
     /// organizations. Once configured, it applies to all projects and folders in
     /// the GCP organization.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. The CMEK settings to update.
     ///
     /// See [Enabling CMEK for Logs
     /// Router](<https://cloud.google.com/logging/docs/routing/managed-encryption>)
     /// for more information.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub cmek_settings: ::core::option::Option<CmekSettings>,
     /// Optional. Field mask identifying which fields from `cmek_settings` should
     /// be updated. A field will be overwritten if and only if it is in the update
@@ -979,7 +1038,7 @@ pub struct UpdateCmekSettingsRequest {
     /// See \[FieldMask][google.protobuf.FieldMask\] for more information.
     ///
     /// Example: `"updateMask=kmsKeyName"`
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// Describes the customer-managed encryption key (CMEK) settings associated with
@@ -992,10 +1051,11 @@ pub struct UpdateCmekSettingsRequest {
 /// See [Enabling CMEK for Logs
 /// Router](<https://cloud.google.com/logging/docs/routing/managed-encryption>) for
 /// more information.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CmekSettings {
     /// Output only. The resource name of the CMEK settings.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The resource name for the configured Cloud KMS key.
     ///
@@ -1022,7 +1082,7 @@ pub struct CmekSettings {
     /// See [Enabling CMEK for Logs
     /// Router](<https://cloud.google.com/logging/docs/routing/managed-encryption>)
     /// for more information.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub kms_key_name: ::prost::alloc::string::String,
     /// Output only. The service account that will be used by the Logs Router to access your
     /// Cloud KMS key.
@@ -1036,7 +1096,7 @@ pub struct CmekSettings {
     /// See [Enabling CMEK for Logs
     /// Router](<https://cloud.google.com/logging/docs/routing/managed-encryption>)
     /// for more information.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub service_account_id: ::prost::alloc::string::String,
 }
 /// LogBucket lifecycle states.
@@ -1061,6 +1121,15 @@ impl LifecycleState {
             LifecycleState::Unspecified => "LIFECYCLE_STATE_UNSPECIFIED",
             LifecycleState::Active => "ACTIVE",
             LifecycleState::DeleteRequested => "DELETE_REQUESTED",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "LIFECYCLE_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+            "ACTIVE" => Some(Self::Active),
+            "DELETE_REQUESTED" => Some(Self::DeleteRequested),
+            _ => None,
         }
     }
 }
@@ -1634,6 +1703,7 @@ pub mod config_service_v2_client {
     }
 }
 /// The parameters to DeleteLog.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteLogRequest {
     /// Required. The resource name of the log to delete:
@@ -1648,10 +1718,11 @@ pub struct DeleteLogRequest {
     /// `"organizations/1234567890/logs/cloudresourcemanager.googleapis.com%2Factivity"`.
     /// For more information about log names, see
     /// \[LogEntry][google.logging.v2.LogEntry\].
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub log_name: ::prost::alloc::string::String,
 }
 /// The parameters to WriteLogEntries.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WriteLogEntriesRequest {
     /// Optional. A default log resource name that is assigned to all log entries
@@ -1671,7 +1742,7 @@ pub struct WriteLogEntriesRequest {
     /// organization, billing account, or folder that is receiving new log
     /// entries, whether the resource is specified in `logName` or in an
     /// individual log entry.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub log_name: ::prost::alloc::string::String,
     /// Optional. A default monitored resource object that is assigned to all log
     /// entries in `entries` that do not specify a value for `resource`. Example:
@@ -1681,14 +1752,17 @@ pub struct WriteLogEntriesRequest {
     ///          "zone": "us-central1-a", "instance_id": "00000000000000000000" }}
     ///
     /// See \[LogEntry][google.logging.v2.LogEntry\].
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub resource: ::core::option::Option<super::super::api::MonitoredResource>,
     /// Optional. Default labels that are added to the `labels` field of all log
     /// entries in `entries`. If a log entry already has a label with the same key
     /// as a label in this parameter, then the log entry's label is not changed.
     /// See \[LogEntry][google.logging.v2.LogEntry\].
-    #[prost(map="string, string", tag="3")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "3")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Required. The log entries to send to Logging. The order of log
     /// entries in this list does not matter. Values supplied in this method's
     /// `log_name`, `resource`, and `labels` fields are copied into those log
@@ -1713,26 +1787,27 @@ pub struct WriteLogEntriesRequest {
     /// [quota limit](<https://cloud.google.com/logging/quota-policy>) for calls to
     /// `entries.write`, you should try to include several log entries in this
     /// list, rather than calling this method for each individual log entry.
-    #[prost(message, repeated, tag="4")]
+    #[prost(message, repeated, tag = "4")]
     pub entries: ::prost::alloc::vec::Vec<LogEntry>,
     /// Optional. Whether valid entries should be written even if some other
     /// entries fail due to INVALID_ARGUMENT or PERMISSION_DENIED errors. If any
     /// entry is not written, then the response status is the error associated
     /// with one of the failed entries and the response includes error details
     /// keyed by the entries' zero-based index in the `entries.write` method.
-    #[prost(bool, tag="5")]
+    #[prost(bool, tag = "5")]
     pub partial_success: bool,
     /// Optional. If true, the request should expect normal response, but the
     /// entries won't be persisted nor exported. Useful for checking whether the
     /// logging API endpoints are working properly before sending valuable data.
-    #[prost(bool, tag="6")]
+    #[prost(bool, tag = "6")]
     pub dry_run: bool,
 }
 /// Result returned from WriteLogEntries.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct WriteLogEntriesResponse {
-}
+pub struct WriteLogEntriesResponse {}
 /// Error details for WriteLogEntries with partial success.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WriteLogEntriesPartialErrors {
     /// When `WriteLogEntriesRequest.partial_success` is true, records the error
@@ -1741,10 +1816,11 @@ pub struct WriteLogEntriesPartialErrors {
     ///
     /// Failed requests for which no entries are written will not include
     /// per-entry errors.
-    #[prost(map="int32, message", tag="1")]
+    #[prost(map = "int32, message", tag = "1")]
     pub log_entry_errors: ::std::collections::HashMap<i32, super::super::rpc::Status>,
 }
 /// The parameters to `ListLogEntries`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListLogEntriesRequest {
     /// Required. Names of one or more parent resources from which to
@@ -1762,7 +1838,7 @@ pub struct ListLogEntriesRequest {
     ///    folders/\[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID\]
     ///
     /// Projects listed in the `project_ids` field are added to this list.
-    #[prost(string, repeated, tag="8")]
+    #[prost(string, repeated, tag = "8")]
     pub resource_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Optional. A filter that chooses which log entries to return.  See [Advanced
     /// Logs Queries](<https://cloud.google.com/logging/docs/view/advanced-queries>).
@@ -1771,7 +1847,7 @@ pub struct ListLogEntriesRequest {
     /// Referencing a parent resource that is not listed in `resource_names` will
     /// cause the filter to return no results. The maximum length of the filter is
     /// 20000 characters.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. How the results should be sorted.  Presently, the only permitted
     /// values are `"timestamp asc"` (default) and `"timestamp desc"`. The first
@@ -1779,28 +1855,29 @@ pub struct ListLogEntriesRequest {
     /// `LogEntry.timestamp` (oldest first), and the second option returns entries
     /// in order of decreasing timestamps (newest first).  Entries with equal
     /// timestamps are returned in order of their `insert_id` values.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub order_by: ::prost::alloc::string::String,
     /// Optional. The maximum number of results to return from this request.
     /// Default is 50. If the value is negative or exceeds 1000,
     /// the request is rejected. The presence of `next_page_token` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="4")]
+    #[prost(int32, tag = "4")]
     pub page_size: i32,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method.  `page_token` must be the value of
     /// `next_page_token` from the previous response.  The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Result returned from `ListLogEntries`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListLogEntriesResponse {
     /// A list of log entries.  If `entries` is empty, `nextPageToken` may still be
     /// returned, indicating that more entries may exist.  See `nextPageToken` for
     /// more information.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub entries: ::prost::alloc::vec::Vec<LogEntry>,
     /// If there might be more results than those appearing in this response, then
     /// `nextPageToken` is included.  To get the next set of results, call this
@@ -1812,37 +1889,42 @@ pub struct ListLogEntriesResponse {
     /// value for `page_token` to continue the search.  Alternatively, consider
     /// speeding up the search by changing your filter to specify a single log name
     /// or resource type, or to narrow the time range of the search.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to ListMonitoredResourceDescriptors
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMonitoredResourceDescriptorsRequest {
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub page_size: i32,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method.  `pageToken` must be the value of
     /// `nextPageToken` from the previous response.  The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
 }
 /// Result returned from ListMonitoredResourceDescriptors.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListMonitoredResourceDescriptorsResponse {
     /// A list of resource descriptors.
-    #[prost(message, repeated, tag="1")]
-    pub resource_descriptors: ::prost::alloc::vec::Vec<super::super::api::MonitoredResourceDescriptor>,
+    #[prost(message, repeated, tag = "1")]
+    pub resource_descriptors: ::prost::alloc::vec::Vec<
+        super::super::api::MonitoredResourceDescriptor,
+    >,
     /// If there might be more results than those appearing in this response, then
     /// `nextPageToken` is included.  To get the next set of results, call this
     /// method again using the value of `nextPageToken` as `pageToken`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to ListLogs.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListLogsRequest {
     /// Required. The resource name that owns the logs:
@@ -1851,18 +1933,18 @@ pub struct ListLogsRequest {
     ///      "organizations/\[ORGANIZATION_ID\]"
     ///      "billingAccounts/\[BILLING_ACCOUNT_ID\]"
     ///      "folders/\[FOLDER_ID\]"
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored.  The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method.  `pageToken` must be the value of
     /// `nextPageToken` from the previous response.  The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The resource name that owns the logs:
     ///    projects/\[PROJECT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID\]
@@ -1875,24 +1957,26 @@ pub struct ListLogsRequest {
     ///      "organizations/\[ORGANIZATION_ID\]"
     ///      "billingAccounts/\[BILLING_ACCOUNT_ID\]"
     ///      "folders/\[FOLDER_ID\]"
-    #[prost(string, repeated, tag="8")]
+    #[prost(string, repeated, tag = "8")]
     pub resource_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Result returned from ListLogs.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListLogsResponse {
     /// A list of log names. For example,
     /// `"projects/my-project/logs/syslog"` or
     /// `"organizations/123/logs/cloudresourcemanager.googleapis.com%2Factivity"`.
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, repeated, tag = "3")]
     pub log_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// If there might be more results than those appearing in this response, then
     /// `nextPageToken` is included.  To get the next set of results, call this
     /// method again using the value of `nextPageToken` as `pageToken`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to `TailLogEntries`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TailLogEntriesRequest {
     /// Required. Name of a parent resource from which to retrieve log entries:
@@ -1907,7 +1991,7 @@ pub struct TailLogEntriesRequest {
     ///      "organization/\[ORGANIZATION_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID\]"
     ///      "billingAccounts/\[BILLING_ACCOUNT_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID\]"
     ///      "folders/\[FOLDER_ID]/locations/[LOCATION_ID]/buckets/[BUCKET_ID]/views/[VIEW_ID\]"
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub resource_names: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Optional. A filter that chooses which log entries to return.  See [Advanced
     /// Logs Filters](<https://cloud.google.com/logging/docs/view/advanced_filters>).
@@ -1916,47 +2000,61 @@ pub struct TailLogEntriesRequest {
     /// Referencing a parent resource that is not in `resource_names` will cause
     /// the filter to return no results. The maximum length of the filter is 20000
     /// characters.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. The amount of time to buffer log entries at the server before
     /// being returned to prevent out of order results due to late arriving log
     /// entries. Valid values are between 0-60000 milliseconds. Defaults to 2000
     /// milliseconds.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub buffer_window: ::core::option::Option<::prost_types::Duration>,
 }
 /// Result returned from `TailLogEntries`.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TailLogEntriesResponse {
     /// A list of log entries. Each response in the stream will order entries with
     /// increasing values of `LogEntry.timestamp`. Ordering is not guaranteed
     /// between separate responses.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub entries: ::prost::alloc::vec::Vec<LogEntry>,
     /// If entries that otherwise would have been included in the session were not
     /// sent back to the client, counts of relevant entries omitted from the
     /// session with the reason that they were not included. There will be at most
     /// one of each reason per response. The counts represent the number of
     /// suppressed entries since the last streamed response.
-    #[prost(message, repeated, tag="2")]
-    pub suppression_info: ::prost::alloc::vec::Vec<tail_log_entries_response::SuppressionInfo>,
+    #[prost(message, repeated, tag = "2")]
+    pub suppression_info: ::prost::alloc::vec::Vec<
+        tail_log_entries_response::SuppressionInfo,
+    >,
 }
 /// Nested message and enum types in `TailLogEntriesResponse`.
 pub mod tail_log_entries_response {
     /// Information about entries that were omitted from the session.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct SuppressionInfo {
         /// The reason that entries were omitted from the session.
-        #[prost(enumeration="suppression_info::Reason", tag="1")]
+        #[prost(enumeration = "suppression_info::Reason", tag = "1")]
         pub reason: i32,
         /// A lower bound on the count of entries omitted due to `reason`.
-        #[prost(int32, tag="2")]
+        #[prost(int32, tag = "2")]
         pub suppressed_count: i32,
     }
     /// Nested message and enum types in `SuppressionInfo`.
     pub mod suppression_info {
         /// An indicator of why entries were omitted.
-        #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
         #[repr(i32)]
         pub enum Reason {
             /// Unexpected default.
@@ -1980,6 +2078,15 @@ pub mod tail_log_entries_response {
                     Reason::Unspecified => "REASON_UNSPECIFIED",
                     Reason::RateLimit => "RATE_LIMIT",
                     Reason::NotConsumed => "NOT_CONSUMED",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                    "RATE_LIMIT" => Some(Self::RateLimit),
+                    "NOT_CONSUMED" => Some(Self::NotConsumed),
+                    _ => None,
                 }
             }
         }
@@ -2197,6 +2304,7 @@ pub mod logging_service_v2_client {
 /// distribution of the values. The distribution records the statistics of the
 /// extracted values along with an optional histogram of the values as specified
 /// by the bucket options.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LogMetric {
     /// Required. The client-assigned metric identifier.
@@ -2212,11 +2320,11 @@ pub struct LogMetric {
     /// However, when the metric identifier appears as the `\[METRIC_ID\]` part of a
     /// `metric_name` API parameter, then the metric identifier must be
     /// URL-encoded. Example: `"projects/my-project/metrics/nginx%2Frequests"`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. A description of this metric, which is used in documentation.
     /// The maximum length of the description is 8000 characters.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Required. An [advanced logs
     /// filter](<https://cloud.google.com/logging/docs/view/advanced_filters>) which
@@ -2225,7 +2333,7 @@ pub struct LogMetric {
     ///      "resource.type=gae_app AND severity>=ERROR"
     ///
     /// The maximum length of the filter is 20000 characters.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. The metric descriptor associated with the logs-based metric.
     /// If unspecified, it uses a default metric descriptor with a DELTA metric
@@ -2248,7 +2356,7 @@ pub struct LogMetric {
     /// be updated once initially configured. New labels can be added in the
     /// `metric_descriptor`, but existing labels cannot be modified except for
     /// their description.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub metric_descriptor: ::core::option::Option<super::super::api::MetricDescriptor>,
     /// Optional. A `value_extractor` is required when using a distribution
     /// logs-based metric to extract the values to record from a log entry.
@@ -2269,7 +2377,7 @@ pub struct LogMetric {
     /// distribution.
     ///
     /// Example: `REGEXP_EXTRACT(jsonPayload.request, ".*quantity=(\d+).*")`
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub value_extractor: ::prost::alloc::string::String,
     /// Optional. A map from a label key string to an extractor expression which is
     /// used to extract data from a log entry field and assign as the label value.
@@ -2285,33 +2393,48 @@ pub struct LogMetric {
     ///
     /// Note that there are upper bounds on the maximum number of labels and the
     /// number of active time series that are allowed in a project.
-    #[prost(map="string, string", tag="7")]
-    pub label_extractors: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "7")]
+    pub label_extractors: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Optional. The `bucket_options` are required when the logs-based metric is
     /// using a DISTRIBUTION value type and it describes the bucket boundaries
     /// used to create a histogram of the extracted values.
-    #[prost(message, optional, tag="8")]
-    pub bucket_options: ::core::option::Option<super::super::api::distribution::BucketOptions>,
+    #[prost(message, optional, tag = "8")]
+    pub bucket_options: ::core::option::Option<
+        super::super::api::distribution::BucketOptions,
+    >,
     /// Output only. The creation timestamp of the metric.
     ///
     /// This field may not be present for older metrics.
-    #[prost(message, optional, tag="9")]
+    #[prost(message, optional, tag = "9")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The last update timestamp of the metric.
     ///
     /// This field may not be present for older metrics.
-    #[prost(message, optional, tag="10")]
+    #[prost(message, optional, tag = "10")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Deprecated. The API version that created or updated this metric.
     /// The v2 format is used by default and cannot be changed.
     #[deprecated]
-    #[prost(enumeration="log_metric::ApiVersion", tag="4")]
+    #[prost(enumeration = "log_metric::ApiVersion", tag = "4")]
     pub version: i32,
 }
 /// Nested message and enum types in `LogMetric`.
 pub mod log_metric {
     /// Logging API version.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ApiVersion {
         /// Logging API v2.
@@ -2330,50 +2453,62 @@ pub mod log_metric {
                 ApiVersion::V1 => "V1",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "V2" => Some(Self::V2),
+                "V1" => Some(Self::V1),
+                _ => None,
+            }
+        }
     }
 }
 /// The parameters to ListLogMetrics.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListLogMetricsRequest {
     /// Required. The name of the project containing the metrics:
     ///
     ///      "projects/\[PROJECT_ID\]"
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. If present, then retrieve the next batch of results from the
     /// preceding call to this method. `pageToken` must be the value of
     /// `nextPageToken` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The maximum number of results to return from this request.
     /// Non-positive values are ignored. The presence of `nextPageToken` in the
     /// response indicates that more results might be available.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub page_size: i32,
 }
 /// Result returned from ListLogMetrics.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListLogMetricsResponse {
     /// A list of logs-based metrics.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub metrics: ::prost::alloc::vec::Vec<LogMetric>,
     /// If there might be more results than appear in this response, then
     /// `nextPageToken` is included. To get the next set of results, call this
     /// method again using the value of `nextPageToken` as `pageToken`.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The parameters to GetLogMetric.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetLogMetricRequest {
     /// Required. The resource name of the desired metric:
     ///
     ///      "projects/\[PROJECT_ID]/metrics/[METRIC_ID\]"
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub metric_name: ::prost::alloc::string::String,
 }
 /// The parameters to CreateLogMetric.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateLogMetricRequest {
     /// Required. The resource name of the project in which to create the metric:
@@ -2381,14 +2516,15 @@ pub struct CreateLogMetricRequest {
     ///      "projects/\[PROJECT_ID\]"
     ///
     /// The new metric must be provided in the request.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The new logs-based metric, which must not have an identifier that
     /// already exists.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub metric: ::core::option::Option<LogMetric>,
 }
 /// The parameters to UpdateLogMetric.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateLogMetricRequest {
     /// Required. The resource name of the metric to update:
@@ -2398,19 +2534,20 @@ pub struct UpdateLogMetricRequest {
     /// The updated metric must be provided in the request and it's
     /// `name` field must be the same as `\[METRIC_ID\]` If the metric
     /// does not exist in `\[PROJECT_ID\]`, then a new metric is created.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub metric_name: ::prost::alloc::string::String,
     /// Required. The updated metric.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub metric: ::core::option::Option<LogMetric>,
 }
 /// The parameters to DeleteLogMetric.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteLogMetricRequest {
     /// Required. The resource name of the metric to delete:
     ///
     ///      "projects/\[PROJECT_ID]/metrics/[METRIC_ID\]"
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub metric_name: ::prost::alloc::string::String,
 }
 /// Generated client implementations.

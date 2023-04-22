@@ -2,6 +2,7 @@
 /// image specifying what is installed on the environment and a home directory
 /// containing the user's data that will remain across sessions. Each user has
 /// at least an environment with the ID "default".
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Environment {
     /// Immutable. Full name of this resource, in the format
@@ -9,47 +10,57 @@ pub struct Environment {
     /// email address of the user to whom this environment belongs, and
     /// `{environment_id}` is the identifier of this environment. For example,
     /// `users/someone@example.com/environments/default`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Output only. The environment's identifier, unique among the user's
     /// environments.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub id: ::prost::alloc::string::String,
     /// Required. Immutable. Full path to the Docker image used to run this environment, e.g.
     /// "gcr.io/dev-con/cloud-devshell:latest".
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub docker_image: ::prost::alloc::string::String,
     /// Output only. Current execution state of this environment.
-    #[prost(enumeration="environment::State", tag="4")]
+    #[prost(enumeration = "environment::State", tag = "4")]
     pub state: i32,
     /// Output only. Host to which clients can connect to initiate HTTPS or WSS
     /// connections with the environment.
-    #[prost(string, tag="12")]
+    #[prost(string, tag = "12")]
     pub web_host: ::prost::alloc::string::String,
     /// Output only. Username that clients should use when initiating SSH sessions
     /// with the environment.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub ssh_username: ::prost::alloc::string::String,
     /// Output only. Host to which clients can connect to initiate SSH sessions
     /// with the environment.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub ssh_host: ::prost::alloc::string::String,
     /// Output only. Port to which clients can connect to initiate SSH sessions
     /// with the environment.
-    #[prost(int32, tag="7")]
+    #[prost(int32, tag = "7")]
     pub ssh_port: i32,
     /// Output only. Public keys associated with the environment. Clients can
     /// connect to this environment via SSH only if they possess a private key
     /// corresponding to at least one of these public keys. Keys can be added to or
     /// removed from the environment using the AddPublicKey and RemovePublicKey
     /// methods.
-    #[prost(string, repeated, tag="8")]
+    #[prost(string, repeated, tag = "8")]
     pub public_keys: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Nested message and enum types in `Environment`.
 pub mod environment {
     /// Possible execution states for an environment.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The environment's states is unknown.
@@ -81,82 +92,97 @@ pub mod environment {
                 State::Deleting => "DELETING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SUSPENDED" => Some(Self::Suspended),
+                "PENDING" => Some(Self::Pending),
+                "RUNNING" => Some(Self::Running),
+                "DELETING" => Some(Self::Deleting),
+                _ => None,
+            }
+        }
     }
 }
 /// Request message for
 /// \[GetEnvironment][google.cloud.shell.v1.CloudShellService.GetEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEnvironmentRequest {
     /// Required. Name of the requested resource, for example `users/me/environments/default`
     /// or `users/someone@example.com/environments/default`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Message included in the metadata field of operations returned from
 /// \[CreateEnvironment][google.cloud.shell.v1.CloudShellService.CreateEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateEnvironmentMetadata {
-}
+pub struct CreateEnvironmentMetadata {}
 /// Message included in the metadata field of operations returned from
 /// \[DeleteEnvironment][google.cloud.shell.v1.CloudShellService.DeleteEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteEnvironmentMetadata {
-}
+pub struct DeleteEnvironmentMetadata {}
 /// Request message for
 /// \[StartEnvironment][google.cloud.shell.v1.CloudShellService.StartEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StartEnvironmentRequest {
     /// Name of the resource that should be started, for example
     /// `users/me/environments/default` or
     /// `users/someone@example.com/environments/default`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The initial access token passed to the environment. If this is present and
     /// valid, the environment will be pre-authenticated with gcloud so that the
     /// user can run gcloud commands in Cloud Shell without having to log in. This
     /// code can be updated later by calling AuthorizeEnvironment.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub access_token: ::prost::alloc::string::String,
     /// Public keys that should be added to the environment before it is started.
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, repeated, tag = "3")]
     pub public_keys: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Request message for
 /// \[AuthorizeEnvironment][google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AuthorizeEnvironmentRequest {
     /// Name of the resource that should receive the credentials, for example
     /// `users/me/environments/default` or
     /// `users/someone@example.com/environments/default`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The OAuth access token that should be sent to the environment.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub access_token: ::prost::alloc::string::String,
     /// The OAuth ID token that should be sent to the environment.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub id_token: ::prost::alloc::string::String,
     /// The time when the credentials expire. If not set, defaults to one hour from
     /// when the server received the request.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub expire_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Response message for
 /// \[AuthorizeEnvironment][google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AuthorizeEnvironmentResponse {
-}
+pub struct AuthorizeEnvironmentResponse {}
 /// Message included in the metadata field of operations returned from
 /// \[AuthorizeEnvironment][google.cloud.shell.v1.CloudShellService.AuthorizeEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AuthorizeEnvironmentMetadata {
-}
+pub struct AuthorizeEnvironmentMetadata {}
 /// Message included in the metadata field of operations returned from
 /// \[StartEnvironment][google.cloud.shell.v1.CloudShellService.StartEnvironment\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StartEnvironmentMetadata {
     /// Current state of the environment being started.
-    #[prost(enumeration="start_environment_metadata::State", tag="1")]
+    #[prost(enumeration = "start_environment_metadata::State", tag = "1")]
     pub state: i32,
 }
 /// Nested message and enum types in `StartEnvironmentMetadata`.
@@ -166,7 +192,17 @@ pub mod start_environment_metadata {
     /// show a progress message to the user. An environment won't necessarily go
     /// through all of these states when starting. More states are likely to be
     /// added in the future.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The environment's start state is unknown.
@@ -202,24 +238,37 @@ pub mod start_environment_metadata {
                 State::Finished => "FINISHED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "STARTING" => Some(Self::Starting),
+                "UNARCHIVING_DISK" => Some(Self::UnarchivingDisk),
+                "AWAITING_COMPUTE_RESOURCES" => Some(Self::AwaitingComputeResources),
+                "FINISHED" => Some(Self::Finished),
+                _ => None,
+            }
+        }
     }
 }
 /// Message included in the response field of operations returned from
 /// \[StartEnvironment][google.cloud.shell.v1.CloudShellService.StartEnvironment\]
 /// once the operation is complete.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct StartEnvironmentResponse {
     /// Environment that was started.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub environment: ::core::option::Option<Environment>,
 }
 /// Request message for
 /// \[AddPublicKey][google.cloud.shell.v1.CloudShellService.AddPublicKey\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddPublicKeyRequest {
     /// Environment this key should be added to, e.g.
     /// `users/me/environments/default`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub environment: ::prost::alloc::string::String,
     /// Key that should be added to the environment. Supported formats are
     /// `ssh-dss` (see RFC4253), `ssh-rsa` (see RFC4253), `ecdsa-sha2-nistp256`
@@ -227,56 +276,69 @@ pub struct AddPublicKeyRequest {
     /// `ecdsa-sha2-nistp521` (see RFC5656). It should be structured as
     /// &lt;format&gt; &lt;content&gt;, where &lt;content&gt; part is encoded with
     /// Base64.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub key: ::prost::alloc::string::String,
 }
 /// Response message for
 /// \[AddPublicKey][google.cloud.shell.v1.CloudShellService.AddPublicKey\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AddPublicKeyResponse {
     /// Key that was added to the environment.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub key: ::prost::alloc::string::String,
 }
 /// Message included in the metadata field of operations returned from
 /// \[AddPublicKey][google.cloud.shell.v1.CloudShellService.AddPublicKey\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AddPublicKeyMetadata {
-}
+pub struct AddPublicKeyMetadata {}
 /// Request message for
 /// \[RemovePublicKey][google.cloud.shell.v1.CloudShellService.RemovePublicKey\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RemovePublicKeyRequest {
     /// Environment this key should be removed from, e.g.
     /// `users/me/environments/default`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub environment: ::prost::alloc::string::String,
     /// Key that should be removed from the environment.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub key: ::prost::alloc::string::String,
 }
 /// Response message for
 /// \[RemovePublicKey][google.cloud.shell.v1.CloudShellService.RemovePublicKey\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemovePublicKeyResponse {
-}
+pub struct RemovePublicKeyResponse {}
 /// Message included in the metadata field of operations returned from
 /// \[RemovePublicKey][google.cloud.shell.v1.CloudShellService.RemovePublicKey\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RemovePublicKeyMetadata {
-}
+pub struct RemovePublicKeyMetadata {}
 /// Cloud-shell specific information that will be included as details in failure
 /// responses.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CloudShellErrorDetails {
     /// Code indicating the specific error the occurred.
-    #[prost(enumeration="cloud_shell_error_details::CloudShellErrorCode", tag="1")]
+    #[prost(enumeration = "cloud_shell_error_details::CloudShellErrorCode", tag = "1")]
     pub code: i32,
 }
 /// Nested message and enum types in `CloudShellErrorDetails`.
 pub mod cloud_shell_error_details {
     /// Set of possible errors returned from API calls.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum CloudShellErrorCode {
         /// An unknown error occurred.
@@ -306,6 +368,17 @@ pub mod cloud_shell_error_details {
                 CloudShellErrorCode::CloudShellDisabled => "CLOUD_SHELL_DISABLED",
                 CloudShellErrorCode::TosViolation => "TOS_VIOLATION",
                 CloudShellErrorCode::QuotaExceeded => "QUOTA_EXCEEDED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CLOUD_SHELL_ERROR_CODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "IMAGE_UNAVAILABLE" => Some(Self::ImageUnavailable),
+                "CLOUD_SHELL_DISABLED" => Some(Self::CloudShellDisabled),
+                "TOS_VIOLATION" => Some(Self::TosViolation),
+                "QUOTA_EXCEEDED" => Some(Self::QuotaExceeded),
+                _ => None,
             }
         }
     }

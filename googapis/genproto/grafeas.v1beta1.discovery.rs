@@ -1,42 +1,57 @@
 /// A note that indicates a type of analysis a provider would perform. This note
 /// exists in a provider's project. A `Discovery` occurrence is created in a
 /// consumer's project at the start of analysis.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Discovery {
     /// Required. Immutable. The kind of analysis that is handled by this
     /// discovery.
-    #[prost(enumeration="super::NoteKind", tag="1")]
+    #[prost(enumeration = "super::NoteKind", tag = "1")]
     pub analysis_kind: i32,
 }
 /// Details of a discovery occurrence.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Details {
     /// Required. Analysis status for the discovered resource.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub discovered: ::core::option::Option<Discovered>,
 }
 /// Provides information about the analysis status of a discovered resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Discovered {
     /// Whether the resource is continuously analyzed.
-    #[prost(enumeration="discovered::ContinuousAnalysis", tag="1")]
+    #[prost(enumeration = "discovered::ContinuousAnalysis", tag = "1")]
     pub continuous_analysis: i32,
     /// The last time continuous analysis was done for this resource.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub last_analysis_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The status of discovery for the resource.
-    #[prost(enumeration="discovered::AnalysisStatus", tag="3")]
+    #[prost(enumeration = "discovered::AnalysisStatus", tag = "3")]
     pub analysis_status: i32,
     /// When an error is encountered this will contain a LocalizedMessage under
     /// details to show to the user. The LocalizedMessage is output only and
     /// populated by the API.
-    #[prost(message, optional, tag="4")]
-    pub analysis_status_error: ::core::option::Option<super::super::super::google::rpc::Status>,
+    #[prost(message, optional, tag = "4")]
+    pub analysis_status_error: ::core::option::Option<
+        super::super::super::google::rpc::Status,
+    >,
 }
 /// Nested message and enum types in `Discovered`.
 pub mod discovered {
     /// Whether the resource is continuously analyzed.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ContinuousAnalysis {
         /// Unknown.
@@ -58,10 +73,29 @@ pub mod discovered {
                 ContinuousAnalysis::Inactive => "INACTIVE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CONTINUOUS_ANALYSIS_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "INACTIVE" => Some(Self::Inactive),
+                _ => None,
+            }
+        }
     }
     /// Analysis status for a resource. Currently for initial analysis only (not
     /// updated in continuous analysis).
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum AnalysisStatus {
         /// Unknown.
@@ -91,6 +125,18 @@ pub mod discovered {
                 AnalysisStatus::FinishedSuccess => "FINISHED_SUCCESS",
                 AnalysisStatus::FinishedFailed => "FINISHED_FAILED",
                 AnalysisStatus::FinishedUnsupported => "FINISHED_UNSUPPORTED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ANALYSIS_STATUS_UNSPECIFIED" => Some(Self::Unspecified),
+                "PENDING" => Some(Self::Pending),
+                "SCANNING" => Some(Self::Scanning),
+                "FINISHED_SUCCESS" => Some(Self::FinishedSuccess),
+                "FINISHED_FAILED" => Some(Self::FinishedFailed),
+                "FINISHED_UNSUPPORTED" => Some(Self::FinishedUnsupported),
+                _ => None,
             }
         }
     }

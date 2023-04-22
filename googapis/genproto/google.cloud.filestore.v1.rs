@@ -1,14 +1,15 @@
 /// Network configuration for the instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NetworkConfig {
     /// The name of the Google Compute Engine
     /// [VPC network](<https://cloud.google.com/vpc/docs/vpc>) to which the
     /// instance is connected.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub network: ::prost::alloc::string::String,
     /// Internet protocol versions for which the instance has IP addresses
     /// assigned. For this version, only MODE_IPV4 is supported.
-    #[prost(enumeration="network_config::AddressMode", repeated, tag="3")]
+    #[prost(enumeration = "network_config::AddressMode", repeated, tag = "3")]
     pub modes: ::prost::alloc::vec::Vec<i32>,
     /// A /29 CIDR block in one of the
     /// [internal IP address
@@ -17,19 +18,29 @@ pub struct NetworkConfig {
     /// example, 10.0.0.0/29 or 192.168.0.0/29. The range you specify can't overlap
     /// with either existing subnets or assigned IP address ranges for other Cloud
     /// Filestore instances in the selected VPC network.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub reserved_ip_range: ::prost::alloc::string::String,
     /// Output only. IPv4 addresses in the format
     /// IPv4 addresses in the format `{octet1}.{octet2}.{octet3}.{octet4}` or
     /// IPv6 addresses in the format
     /// `{block1}:{block2}:{block3}:{block4}:{block5}:{block6}:{block7}:{block8}`.
-    #[prost(string, repeated, tag="5")]
+    #[prost(string, repeated, tag = "5")]
     pub ip_addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Nested message and enum types in `NetworkConfig`.
 pub mod network_config {
     /// Internet protocol versions supported by Cloud Filestore.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum AddressMode {
         /// Internet protocol not set.
@@ -48,41 +59,52 @@ pub mod network_config {
                 AddressMode::ModeIpv4 => "MODE_IPV4",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ADDRESS_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "MODE_IPV4" => Some(Self::ModeIpv4),
+                _ => None,
+            }
+        }
     }
 }
 /// File share configuration for the instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FileShareConfig {
     /// The name of the file share (must be 16 characters or less).
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// File share capacity in gigabytes (GB).
     /// Cloud Filestore defines 1 GB as 1024^3 bytes.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub capacity_gb: i64,
     /// Nfs Export Options.
     /// There is a limit of 10 export options per file share.
-    #[prost(message, repeated, tag="7")]
+    #[prost(message, repeated, tag = "7")]
     pub nfs_export_options: ::prost::alloc::vec::Vec<NfsExportOptions>,
     /// The source that this file share has been restored from. Empty if the file
     /// share is created from scratch.
-    #[prost(oneof="file_share_config::Source", tags="8")]
+    #[prost(oneof = "file_share_config::Source", tags = "8")]
     pub source: ::core::option::Option<file_share_config::Source>,
 }
 /// Nested message and enum types in `FileShareConfig`.
 pub mod file_share_config {
     /// The source that this file share has been restored from. Empty if the file
     /// share is created from scratch.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// The resource name of the backup, in the format
         /// `projects/{project_number}/locations/{location_id}/backups/{backup_id}`,
         /// that this file share has been restored from.
-        #[prost(string, tag="8")]
+        #[prost(string, tag = "8")]
         SourceBackup(::prost::alloc::string::String),
     }
 }
 /// NFS export options specifications.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NfsExportOptions {
     /// List of either an IPv4 addresses in the format
@@ -93,35 +115,45 @@ pub struct NfsExportOptions {
     /// NfsExportOptions. An error will be returned.
     /// The limit is 64 IP ranges/addresses for each FileShareConfig among all
     /// NfsExportOptions.
-    #[prost(string, repeated, tag="1")]
+    #[prost(string, repeated, tag = "1")]
     pub ip_ranges: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Either READ_ONLY, for allowing only read requests on the exported
     /// directory, or READ_WRITE, for allowing both read and write requests.
     /// The default is READ_WRITE.
-    #[prost(enumeration="nfs_export_options::AccessMode", tag="2")]
+    #[prost(enumeration = "nfs_export_options::AccessMode", tag = "2")]
     pub access_mode: i32,
     /// Either NO_ROOT_SQUASH, for allowing root access on the exported directory,
     /// or ROOT_SQUASH, for not allowing root access. The default is
     /// NO_ROOT_SQUASH.
-    #[prost(enumeration="nfs_export_options::SquashMode", tag="3")]
+    #[prost(enumeration = "nfs_export_options::SquashMode", tag = "3")]
     pub squash_mode: i32,
     /// An integer representing the anonymous user id with a default value of
     /// 65534.
     /// Anon_uid may only be set with squash_mode of ROOT_SQUASH.  An error will be
     /// returned if this field is specified for other squash_mode settings.
-    #[prost(int64, tag="4")]
+    #[prost(int64, tag = "4")]
     pub anon_uid: i64,
     /// An integer representing the anonymous group id with a default value of
     /// 65534.
     /// Anon_gid may only be set with squash_mode of ROOT_SQUASH.  An error will be
     /// returned if this field is specified for other squash_mode settings.
-    #[prost(int64, tag="5")]
+    #[prost(int64, tag = "5")]
     pub anon_gid: i64,
 }
 /// Nested message and enum types in `NfsExportOptions`.
 pub mod nfs_export_options {
     /// The access mode.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum AccessMode {
         /// AccessMode not set.
@@ -143,9 +175,28 @@ pub mod nfs_export_options {
                 AccessMode::ReadWrite => "READ_WRITE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ACCESS_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "READ_ONLY" => Some(Self::ReadOnly),
+                "READ_WRITE" => Some(Self::ReadWrite),
+                _ => None,
+            }
+        }
     }
     /// The squash mode.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum SquashMode {
         /// SquashMode not set.
@@ -167,53 +218,76 @@ pub mod nfs_export_options {
                 SquashMode::RootSquash => "ROOT_SQUASH",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SQUASH_MODE_UNSPECIFIED" => Some(Self::Unspecified),
+                "NO_ROOT_SQUASH" => Some(Self::NoRootSquash),
+                "ROOT_SQUASH" => Some(Self::RootSquash),
+                _ => None,
+            }
+        }
     }
 }
 /// A Cloud Filestore instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Instance {
     /// Output only. The resource name of the instance, in the format
     /// `projects/{project}/locations/{location}/instances/{instance}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The description of the instance (2048 characters or less).
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Output only. The instance state.
-    #[prost(enumeration="instance::State", tag="5")]
+    #[prost(enumeration = "instance::State", tag = "5")]
     pub state: i32,
     /// Output only. Additional information about the instance state, if available.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub status_message: ::prost::alloc::string::String,
     /// Output only. The time when the instance was created.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The service tier of the instance.
-    #[prost(enumeration="instance::Tier", tag="8")]
+    #[prost(enumeration = "instance::Tier", tag = "8")]
     pub tier: i32,
     /// Resource labels to represent user provided metadata.
-    #[prost(map="string, string", tag="9")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "9")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// File system shares on the instance.
     /// For this version, only a single file share is supported.
-    #[prost(message, repeated, tag="10")]
+    #[prost(message, repeated, tag = "10")]
     pub file_shares: ::prost::alloc::vec::Vec<FileShareConfig>,
     /// VPC networks to which the instance is connected.
     /// For this version, only a single network is supported.
-    #[prost(message, repeated, tag="11")]
+    #[prost(message, repeated, tag = "11")]
     pub networks: ::prost::alloc::vec::Vec<NetworkConfig>,
     /// Server-specified ETag for the instance resource to prevent simultaneous
     /// updates from overwriting each other.
-    #[prost(string, tag="12")]
+    #[prost(string, tag = "12")]
     pub etag: ::prost::alloc::string::String,
     /// Output only. Reserved for future use.
-    #[prost(message, optional, tag="13")]
+    #[prost(message, optional, tag = "13")]
     pub satisfies_pzs: ::core::option::Option<bool>,
 }
 /// Nested message and enum types in `Instance`.
 pub mod instance {
     /// The instance state.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// State not set.
@@ -251,9 +325,32 @@ pub mod instance {
                 State::Restoring => "RESTORING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "READY" => Some(Self::Ready),
+                "REPAIRING" => Some(Self::Repairing),
+                "DELETING" => Some(Self::Deleting),
+                "ERROR" => Some(Self::Error),
+                "RESTORING" => Some(Self::Restoring),
+                _ => None,
+            }
+        }
     }
     /// Available service tiers.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Tier {
         /// Not set.
@@ -289,33 +386,48 @@ pub mod instance {
                 Tier::HighScaleSsd => "HIGH_SCALE_SSD",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TIER_UNSPECIFIED" => Some(Self::Unspecified),
+                "STANDARD" => Some(Self::Standard),
+                "PREMIUM" => Some(Self::Premium),
+                "BASIC_HDD" => Some(Self::BasicHdd),
+                "BASIC_SSD" => Some(Self::BasicSsd),
+                "HIGH_SCALE_SSD" => Some(Self::HighScaleSsd),
+                _ => None,
+            }
+        }
     }
 }
 /// CreateInstanceRequest creates an instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateInstanceRequest {
     /// Required. The instance's project and location, in the format
     /// `projects/{project_id}/locations/{location}`. In Cloud Filestore,
     /// locations map to GCP zones, for example **us-west1-b**.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The name of the instance to create.
     /// The name must be unique for the specified project and location.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub instance_id: ::prost::alloc::string::String,
     /// Required. An [instance resource]\[google.cloud.filestore.v1.Instance\]
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub instance: ::core::option::Option<Instance>,
 }
 /// GetInstanceRequest gets the state of an instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetInstanceRequest {
     /// Required. The instance resource name, in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// UpdateInstanceRequest updates the settings of an instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateInstanceRequest {
     /// Mask of fields to update.  At least one path must be supplied in this
@@ -325,46 +437,50 @@ pub struct UpdateInstanceRequest {
     /// * "description"
     /// * "file_shares"
     /// * "labels"
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Only fields specified in update_mask are updated.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub instance: ::core::option::Option<Instance>,
 }
 /// RestoreInstanceRequest restores an existing instances's file share from a
 /// backup.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RestoreInstanceRequest {
     /// Required. The resource name of the instance, in the format
     /// `projects/{project_number}/locations/{location_id}/instances/{instance_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Required. Name of the file share in the Cloud Filestore instance that the
     /// backup is being restored to.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub file_share: ::prost::alloc::string::String,
-    #[prost(oneof="restore_instance_request::Source", tags="3")]
+    #[prost(oneof = "restore_instance_request::Source", tags = "3")]
     pub source: ::core::option::Option<restore_instance_request::Source>,
 }
 /// Nested message and enum types in `RestoreInstanceRequest`.
 pub mod restore_instance_request {
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Source {
         /// The resource name of the backup, in the format
         /// `projects/{project_number}/locations/{location_id}/backups/{backup_id}`.
-        #[prost(string, tag="3")]
+        #[prost(string, tag = "3")]
         SourceBackup(::prost::alloc::string::String),
     }
 }
 /// DeleteInstanceRequest deletes an instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteInstanceRequest {
     /// Required. The instance resource name, in the format
     /// `projects/{project_id}/locations/{location}/instances/{instance_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// ListInstancesRequest lists instances.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListInstancesRequest {
     /// Required. The project and location for which to retrieve instance
@@ -372,23 +488,24 @@ pub struct ListInstancesRequest {
     /// Cloud Filestore, locations map to GCP zones, for example **us-west1-b**. To
     /// retrieve instance information for all locations, use "-" for the
     /// `{location}` value.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of items to return.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub order_by: ::prost::alloc::string::String,
     /// List filter.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub filter: ::prost::alloc::string::String,
 }
 /// ListInstancesResponse is the result of ListInstancesRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListInstancesResponse {
     /// A list of instances in the project for the specified location.
@@ -397,69 +514,83 @@ pub struct ListInstancesResponse {
     /// list of instances from all locations. If any location is unreachable, the
     /// response will only return instances in reachable locations and the
     /// "unreachable" field will be populated with a list of unreachable locations.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub instances: ::prost::alloc::vec::Vec<Instance>,
     /// The token you can use to retrieve the next page of results. Not returned
     /// if there are no more results in the list.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
     /// Locations that could not be reached.
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, repeated, tag = "3")]
     pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// A Cloud Filestore backup.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Backup {
     /// Output only. The resource name of the backup, in the format
     /// `projects/{project_number}/locations/{location_id}/backups/{backup_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// A description of the backup with 2048 characters or less.
     /// Requests with longer descriptions will be rejected.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Output only. The backup state.
-    #[prost(enumeration="backup::State", tag="3")]
+    #[prost(enumeration = "backup::State", tag = "3")]
     pub state: i32,
     /// Output only. The time when the backup was created.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Resource labels to represent user provided metadata.
-    #[prost(map="string, string", tag="5")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "5")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Output only. Capacity of the source file share when the backup was created.
-    #[prost(int64, tag="6")]
+    #[prost(int64, tag = "6")]
     pub capacity_gb: i64,
     /// Output only. The size of the storage used by the backup. As backups share
     /// storage, this number is expected to change with backup creation/deletion.
-    #[prost(int64, tag="7")]
+    #[prost(int64, tag = "7")]
     pub storage_bytes: i64,
     /// The resource name of the source Cloud Filestore instance, in the format
     /// `projects/{project_number}/locations/{location_id}/instances/{instance_id}`,
     /// used to create this backup.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub source_instance: ::prost::alloc::string::String,
     /// Name of the file share in the source Cloud Filestore instance that the
     /// backup is created from.
-    #[prost(string, tag="9")]
+    #[prost(string, tag = "9")]
     pub source_file_share: ::prost::alloc::string::String,
     /// Output only. The service tier of the source Cloud Filestore instance that
     /// this backup is created from.
-    #[prost(enumeration="instance::Tier", tag="10")]
+    #[prost(enumeration = "instance::Tier", tag = "10")]
     pub source_instance_tier: i32,
     /// Output only. Amount of bytes that will be downloaded if the backup is
     /// restored. This may be different than storage bytes, since sequential
     /// backups of the same disk will share storage.
-    #[prost(int64, tag="11")]
+    #[prost(int64, tag = "11")]
     pub download_bytes: i64,
     /// Output only. Reserved for future use.
-    #[prost(message, optional, tag="12")]
+    #[prost(message, optional, tag = "12")]
     pub satisfies_pzs: ::core::option::Option<bool>,
 }
 /// Nested message and enum types in `Backup`.
 pub mod backup {
     /// The backup state.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// State not set.
@@ -488,18 +619,30 @@ pub mod backup {
                 State::Deleting => "DELETING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "FINALIZING" => Some(Self::Finalizing),
+                "READY" => Some(Self::Ready),
+                "DELETING" => Some(Self::Deleting),
+                _ => None,
+            }
+        }
     }
 }
 /// CreateBackupRequest creates a backup.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateBackupRequest {
     /// Required. The backup's project and location, in the format
     /// `projects/{project_number}/locations/{location}`. In Cloud Filestore,
     /// backup locations map to GCP regions, for example **us-west1**.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. A [backup resource]\[google.cloud.filestore.v1.Backup\]
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub backup: ::core::option::Option<Backup>,
     /// Required. The ID to use for the backup.
     /// The ID must be unique within the specified project and location.
@@ -508,37 +651,41 @@ pub struct CreateBackupRequest {
     /// lowercase letters, numbers, or hyphens, and cannot end with a hyphen.
     /// Values that do not match this pattern will trigger an INVALID_ARGUMENT
     /// error.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub backup_id: ::prost::alloc::string::String,
 }
 /// DeleteBackupRequest deletes a backup.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteBackupRequest {
     /// Required. The backup resource name, in the format
     /// `projects/{project_number}/locations/{location}/backups/{backup_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// UpdateBackupRequest updates description and/or labels for a backup.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateBackupRequest {
     /// Required. A [backup resource]\[google.cloud.filestore.v1.Backup\]
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub backup: ::core::option::Option<Backup>,
     /// Required. Mask of fields to update.  At least one path must be supplied in
     /// this field.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// GetBackupRequest gets the state of a backup.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetBackupRequest {
     /// Required. The backup resource name, in the format
     /// `projects/{project_number}/locations/{location}/backups/{backup_id}`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// ListBackupsRequest lists backups.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListBackupsRequest {
     /// Required. The project and location for which to retrieve backup
@@ -547,23 +694,24 @@ pub struct ListBackupsRequest {
     /// backup locations map to GCP regions, for example **us-west1**. To retrieve
     /// backup information for all locations, use "-" for the
     /// `{location}` value.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// The maximum number of items to return.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub order_by: ::prost::alloc::string::String,
     /// List filter.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub filter: ::prost::alloc::string::String,
 }
 /// ListBackupsResponse is the result of ListBackupsRequest.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListBackupsResponse {
     /// A list of backups in the project for the specified location.
@@ -573,14 +721,14 @@ pub struct ListBackupsResponse {
     /// response will only return backups in reachable locations and the
     /// "unreachable" field will be populated with a list of unreachable
     /// locations.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub backups: ::prost::alloc::vec::Vec<Backup>,
     /// The token you can use to retrieve the next page of results. Not returned
     /// if there are no more results in the list.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
     /// Locations that could not be reached.
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, repeated, tag = "3")]
     pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Generated client implementations.

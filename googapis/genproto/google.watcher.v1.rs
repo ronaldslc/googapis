@@ -1,4 +1,5 @@
 /// The message used by the client to register interest in an entity.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Request {
     /// The `target` value **must** be a valid URL path pointing to an entity
@@ -25,7 +26,7 @@ pub struct Request {
     /// contains a special character, it must be %-encoded.  We recommend that
     /// clients and servers use their runtime's URL library to produce and consume
     /// target values.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub target: ::prost::alloc::string::String,
     /// The `resume_marker` specifies how much of the existing underlying state is
     /// delivered to the client when the watch request is received by the
@@ -56,48 +57,60 @@ pub struct Request {
     /// An implementation MUST support an unspecified parameter and the
     /// empty string "" marker (initial state fetching) and the "now" marker.
     /// It need not support resuming from a specific point.
-    #[prost(bytes="vec", tag="2")]
+    #[prost(bytes = "vec", tag = "2")]
     pub resume_marker: ::prost::alloc::vec::Vec<u8>,
 }
 /// A batch of Change messages.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ChangeBatch {
     /// A list of Change messages.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub changes: ::prost::alloc::vec::Vec<Change>,
 }
 /// A Change indicates the most recent state of an element.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Change {
     /// Name of the element, interpreted relative to the entity's actual
     /// name. "" refers to the entity itself. The element name is a valid
     /// UTF-8 string.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub element: ::prost::alloc::string::String,
     /// The state of the `element`.
-    #[prost(enumeration="change::State", tag="2")]
+    #[prost(enumeration = "change::State", tag = "2")]
     pub state: i32,
     /// The actual change data. This field is present only when `state() == EXISTS`
     /// or `state() == ERROR`. Please see
     /// \[google.protobuf.Any][google.protobuf.Any\] about how to use the Any type.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub data: ::core::option::Option<::prost_types::Any>,
     /// If present, provides a compact representation of all the messages that have
     /// been received by the caller for the given entity, e.g., it could be a
     /// sequence number or a multi-part timestamp/version vector. This marker can
     /// be provided in the Request message, allowing the caller to resume the
     /// stream watching at a specific point without fetching the initial state.
-    #[prost(bytes="vec", tag="4")]
+    #[prost(bytes = "vec", tag = "4")]
     pub resume_marker: ::prost::alloc::vec::Vec<u8>,
     /// If true, this Change is followed by more Changes that are in the same group
     /// as this Change.
-    #[prost(bool, tag="5")]
+    #[prost(bool, tag = "5")]
     pub continued: bool,
 }
 /// Nested message and enum types in `Change`.
 pub mod change {
     /// A reported value can be in one of the following states:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// The element exists and its full value is included in data.
@@ -124,6 +137,16 @@ pub mod change {
                 State::DoesNotExist => "DOES_NOT_EXIST",
                 State::InitialStateSkipped => "INITIAL_STATE_SKIPPED",
                 State::Error => "ERROR",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "EXISTS" => Some(Self::Exists),
+                "DOES_NOT_EXIST" => Some(Self::DoesNotExist),
+                "INITIAL_STATE_SKIPPED" => Some(Self::InitialStateSkipped),
+                "ERROR" => Some(Self::Error),
+                _ => None,
             }
         }
     }

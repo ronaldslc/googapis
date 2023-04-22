@@ -1,11 +1,12 @@
 /// An individual endpoint that provides a
 /// \[service][google.cloud.servicedirectory.v1beta1.Service\]. The service must
 /// already exist to create an endpoint.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Endpoint {
     /// Immutable. The resource name for the endpoint in the format
     /// `projects/*/locations/*/namespaces/*/services/*/endpoints/*`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. An IPv4 or IPv6 address. Service Directory rejects bad addresses like:
     ///
@@ -16,10 +17,10 @@ pub struct Endpoint {
     /// *   `\[::1\]:8080`
     ///
     /// Limited to 45 characters.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub address: ::prost::alloc::string::String,
     /// Optional. Service Directory rejects values outside of `[0, 65535]`.
-    #[prost(int32, tag="3")]
+    #[prost(int32, tag = "3")]
     pub port: i32,
     /// Optional. Metadata for the endpoint. This data can be consumed by service
     /// clients.
@@ -45,8 +46,11 @@ pub struct Endpoint {
     /// Note: This field is equivalent to the `annotations` field in the v1 API.
     /// They have the same syntax and read/write to the same location in Service
     /// Directory.
-    #[prost(map="string, string", tag="4")]
-    pub metadata: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "4")]
+    pub metadata: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Immutable. The Google Compute Engine network (VPC) of the endpoint in the format
     /// `projects/<project number>/locations/global/networks/*`.
     ///
@@ -54,24 +58,25 @@ pub struct Endpoint {
     /// Incorrectly formatted networks are rejected, but no other validation
     /// is performed on this field (ex. network or project existence, reachability,
     /// or permissions).
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub network: ::prost::alloc::string::String,
     /// Output only. The timestamp when the endpoint was created.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The timestamp when the endpoint was last updated.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// An individual service. A service contains a name and optional metadata.
 /// A service must exist before
 /// \[endpoints][google.cloud.servicedirectory.v1beta1.Endpoint\] can be
 /// added to it.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Service {
     /// Immutable. The resource name for the service in the format
     /// `projects/*/locations/*/namespaces/*/services/*`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. Metadata for the service. This data can be consumed by service
     /// clients.
@@ -97,33 +102,37 @@ pub struct Service {
     /// Note: This field is equivalent to the `annotations` field in the v1 API.
     /// They have the same syntax and read/write to the same location in Service
     /// Directory.
-    #[prost(map="string, string", tag="2")]
-    pub metadata: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "2")]
+    pub metadata: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Output only. Endpoints associated with this service. Returned on
     /// \[LookupService.ResolveService][google.cloud.servicedirectory.v1beta1.LookupService.ResolveService\]. Control plane clients should use
     /// \[RegistrationService.ListEndpoints][google.cloud.servicedirectory.v1beta1.RegistrationService.ListEndpoints\].
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub endpoints: ::prost::alloc::vec::Vec<Endpoint>,
     /// Output only. The timestamp when the service was created.
-    #[prost(message, optional, tag="6")]
+    #[prost(message, optional, tag = "6")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The timestamp when the service was last updated. Note: endpoints being
     /// created/deleted/updated within the service are not considered service
     /// updates for the purpose of this timestamp.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// The request message for \[LookupService.ResolveService][google.cloud.servicedirectory.v1beta1.LookupService.ResolveService\].
 /// Looks up a service by its name, returns the service and its endpoints.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResolveServiceRequest {
     /// Required. The name of the service to resolve.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. The maximum number of endpoints to return. Defaults to 25. Maximum is 100.
     /// If a value less than one is specified, the Default is used.
     /// If a value greater than the Maximum is specified, the Maximum is used.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub max_endpoints: i32,
     /// Optional. The filter applied to the endpoints of the resolved service.
     ///
@@ -158,13 +167,14 @@ pub struct ResolveServiceRequest {
     ///
     /// For more information about filtering, see
     /// [API Filtering](<https://aip.dev/160>).
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub endpoint_filter: ::prost::alloc::string::String,
 }
 /// The response message for \[LookupService.ResolveService][google.cloud.servicedirectory.v1beta1.LookupService.ResolveService\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ResolveServiceResponse {
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub service: ::core::option::Option<Service>,
 }
 /// Generated client implementations.
@@ -253,30 +263,35 @@ pub mod lookup_service_client {
 /// A container for \[services][google.cloud.servicedirectory.v1beta1.Service\].
 /// Namespaces allow administrators to group services together and define
 /// permissions for a collection of services.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Namespace {
     /// Immutable. The resource name for the namespace in the format
     /// `projects/*/locations/*/namespaces/*`.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. Resource labels associated with this namespace.
     /// No more than 64 user labels can be associated with a given resource. Label
     /// keys and values can be no longer than 63 characters.
-    #[prost(map="string, string", tag="2")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "2")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Output only. The timestamp when the namespace was created.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The timestamp when the namespace was last updated.
-    #[prost(message, optional, tag="5")]
+    #[prost(message, optional, tag = "5")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// The request message for \[RegistrationService.CreateNamespace][google.cloud.servicedirectory.v1beta1.RegistrationService.CreateNamespace\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateNamespaceRequest {
     /// Required. The resource name of the project and location the namespace
     /// will be created in.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The Resource ID must be 1-63 characters long, and comply with
     /// <a href="<https://www.ietf.org/rfc/rfc1035.txt"> target="_blank">RFC1035</a>.
@@ -285,24 +300,25 @@ pub struct CreateNamespaceRequest {
     /// character must be a lowercase letter, and all following characters must
     /// be a dash, lowercase letter, or digit, except the last character, which
     /// cannot be a dash.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub namespace_id: ::prost::alloc::string::String,
     /// Required. A namespace with initial fields set.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub namespace: ::core::option::Option<Namespace>,
 }
 /// The request message for \[RegistrationService.ListNamespaces][google.cloud.servicedirectory.v1beta1.RegistrationService.ListNamespaces\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListNamespacesRequest {
     /// Required. The resource name of the project and location whose namespaces you'd like
     /// to list.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The maximum number of items to return.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. The next_page_token value returned from a previous List request, if any.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The filter to list results by.
     ///
@@ -331,7 +347,7 @@ pub struct ListNamespacesRequest {
     ///
     /// For more information about filtering, see
     /// [API Filtering](<https://aip.dev/160>).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. The order to list results by.
     ///
@@ -343,49 +359,54 @@ pub struct ListNamespacesRequest {
     ///
     /// Note that an empty `order_by` string results in default order, which is
     /// order by `name` in ascending order.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub order_by: ::prost::alloc::string::String,
 }
 /// The response message for \[RegistrationService.ListNamespaces][google.cloud.servicedirectory.v1beta1.RegistrationService.ListNamespaces\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListNamespacesResponse {
     /// The list of namespaces.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub namespaces: ::prost::alloc::vec::Vec<Namespace>,
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.GetNamespace][google.cloud.servicedirectory.v1beta1.RegistrationService.GetNamespace\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetNamespaceRequest {
     /// Required. The name of the namespace to retrieve.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.UpdateNamespace][google.cloud.servicedirectory.v1beta1.RegistrationService.UpdateNamespace\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateNamespaceRequest {
     /// Required. The updated namespace.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub namespace: ::core::option::Option<Namespace>,
     /// Required. List of fields to be updated in this request.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The request message for \[RegistrationService.DeleteNamespace][google.cloud.servicedirectory.v1beta1.RegistrationService.DeleteNamespace\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteNamespaceRequest {
     /// Required. The name of the namespace to delete.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.CreateService][google.cloud.servicedirectory.v1beta1.RegistrationService.CreateService\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateServiceRequest {
     /// Required. The resource name of the namespace this service will belong to.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The Resource ID must be 1-63 characters long, and comply with
     /// <a href="<https://www.ietf.org/rfc/rfc1035.txt"> target="_blank">RFC1035</a>.
@@ -394,25 +415,26 @@ pub struct CreateServiceRequest {
     /// character must be a lowercase letter, and all following characters must
     /// be a dash, lowercase letter, or digit, except the last character, which
     /// cannot be a dash.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub service_id: ::prost::alloc::string::String,
     /// Required. A service  with initial fields set.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub service: ::core::option::Option<Service>,
 }
 /// The request message for \[RegistrationService.ListServices][google.cloud.servicedirectory.v1beta1.RegistrationService.ListServices\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListServicesRequest {
     /// Required. The resource name of the namespace whose services you'd
     /// like to list.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The maximum number of items to return.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. The next_page_token value returned from a previous List request,
     /// if any.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The filter to list results by.
     ///
@@ -444,7 +466,7 @@ pub struct ListServicesRequest {
     ///
     /// For more information about filtering, see
     /// [API Filtering](<https://aip.dev/160>).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. The order to list results by.
     ///
@@ -456,51 +478,56 @@ pub struct ListServicesRequest {
     ///
     /// Note that an empty `order_by` string results in default order, which is
     /// order by `name` in ascending order.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub order_by: ::prost::alloc::string::String,
 }
 /// The response message for \[RegistrationService.ListServices][google.cloud.servicedirectory.v1beta1.RegistrationService.ListServices\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListServicesResponse {
     /// The list of services.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub services: ::prost::alloc::vec::Vec<Service>,
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.GetService][google.cloud.servicedirectory.v1beta1.RegistrationService.GetService\].
 /// This should not be used for looking up a service. Insead, use the `resolve`
 /// method as it contains all endpoints and associated metadata.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetServiceRequest {
     /// Required. The name of the service to get.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.UpdateService][google.cloud.servicedirectory.v1beta1.RegistrationService.UpdateService\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateServiceRequest {
     /// Required. The updated service.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub service: ::core::option::Option<Service>,
     /// Required. List of fields to be updated in this request.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The request message for \[RegistrationService.DeleteService][google.cloud.servicedirectory.v1beta1.RegistrationService.DeleteService\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteServiceRequest {
     /// Required. The name of the service to delete.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.CreateEndpoint][google.cloud.servicedirectory.v1beta1.RegistrationService.CreateEndpoint\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateEndpointRequest {
     /// Required. The resource name of the service that this endpoint provides.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The Resource ID must be 1-63 characters long, and comply with
     /// <a href="<https://www.ietf.org/rfc/rfc1035.txt"> target="_blank">RFC1035</a>.
@@ -509,25 +536,26 @@ pub struct CreateEndpointRequest {
     /// character must be a lowercase letter, and all following characters must
     /// be a dash, lowercase letter, or digit, except the last character, which
     /// cannot be a dash.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub endpoint_id: ::prost::alloc::string::String,
     /// Required. A endpoint with initial fields set.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub endpoint: ::core::option::Option<Endpoint>,
 }
 /// The request message for \[RegistrationService.ListEndpoints][google.cloud.servicedirectory.v1beta1.RegistrationService.ListEndpoints\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEndpointsRequest {
     /// Required. The resource name of the service whose endpoints you'd like to
     /// list.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Optional. The maximum number of items to return.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Optional. The next_page_token value returned from a previous List request,
     /// if any.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. The filter to list results by.
     ///
@@ -562,7 +590,7 @@ pub struct ListEndpointsRequest {
     ///
     /// For more information about filtering, see
     /// [API Filtering](<https://aip.dev/160>).
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub filter: ::prost::alloc::string::String,
     /// Optional. The order to list results by.
     ///
@@ -574,44 +602,48 @@ pub struct ListEndpointsRequest {
     ///
     /// Note that an empty `order_by` string results in default order, which is
     /// order by `name` in ascending order.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub order_by: ::prost::alloc::string::String,
 }
 /// The response message for \[RegistrationService.ListEndpoints][google.cloud.servicedirectory.v1beta1.RegistrationService.ListEndpoints\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListEndpointsResponse {
     /// The list of endpoints.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub endpoints: ::prost::alloc::vec::Vec<Endpoint>,
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.GetEndpoint][google.cloud.servicedirectory.v1beta1.RegistrationService.GetEndpoint\].
 /// This should not be used to lookup endpoints at runtime. Instead, use
 /// the `resolve` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetEndpointRequest {
     /// Required. The name of the endpoint to get.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// The request message for \[RegistrationService.UpdateEndpoint][google.cloud.servicedirectory.v1beta1.RegistrationService.UpdateEndpoint\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateEndpointRequest {
     /// Required. The updated endpoint.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub endpoint: ::core::option::Option<Endpoint>,
     /// Required. List of fields to be updated in this request.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
 }
 /// The request message for \[RegistrationService.DeleteEndpoint][google.cloud.servicedirectory.v1beta1.RegistrationService.DeleteEndpoint\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteEndpointRequest {
     /// Required. The name of the endpoint to delete.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Generated client implementations.

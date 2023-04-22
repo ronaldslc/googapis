@@ -1,52 +1,64 @@
 /// A running instance of a \[Workflow][google.cloud.workflows.v1beta.Workflow\].
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Execution {
     /// Output only. The resource name of the execution.
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Output only. Marks the beginning of execution.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub start_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Marks the end of execution, successful or not.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. Current state of the execution.
-    #[prost(enumeration="execution::State", tag="4")]
+    #[prost(enumeration = "execution::State", tag = "4")]
     pub state: i32,
     /// Input parameters of the execution represented as a JSON string.
     /// The size limit is 32KB.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub argument: ::prost::alloc::string::String,
     /// Output only. Output of the execution represented as a JSON string. The
     /// value can only be present if the execution's state is `SUCCEEDED`.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub result: ::prost::alloc::string::String,
     /// Output only. The error which caused the execution to finish prematurely.
     /// The value is only present if the execution's state is `FAILED`
     /// or `CANCELLED`.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub error: ::core::option::Option<execution::Error>,
     /// Output only. Revision of the workflow this execution is using.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub workflow_revision_id: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `Execution`.
 pub mod execution {
     /// Error describes why the execution was abnormally terminated.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
     pub struct Error {
         /// Error payload returned by the execution, represented as a JSON string.
-        #[prost(string, tag="1")]
+        #[prost(string, tag = "1")]
         pub payload: ::prost::alloc::string::String,
         /// Human readable error context, helpful for debugging purposes.
-        #[prost(string, tag="2")]
+        #[prost(string, tag = "2")]
         pub context: ::prost::alloc::string::String,
     }
     /// Describes the current state of the execution. More states may be added
     /// in the future.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// Invalid state.
@@ -74,87 +86,103 @@ pub mod execution {
                 State::Cancelled => "CANCELLED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ACTIVE" => Some(Self::Active),
+                "SUCCEEDED" => Some(Self::Succeeded),
+                "FAILED" => Some(Self::Failed),
+                "CANCELLED" => Some(Self::Cancelled),
+                _ => None,
+            }
+        }
     }
 }
 /// Request for the
 /// \[ListExecutions][google.cloud.workflows.executions.v1beta.Executions.ListExecutions\]
 /// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListExecutionsRequest {
     /// Required. Name of the workflow for which the executions should be listed.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Maximum number of executions to return per call.
     /// Max supported value depends on the selected Execution view: it's 10000 for
     /// BASIC and 100 for FULL. The default value used if the field is not
     /// specified is 100, regardless of the selected view. Values greater than
     /// the max value will be coerced down to it.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// A page token, received from a previous `ListExecutions` call.
     /// Provide this to retrieve the subsequent page.
     ///
     /// When paginating, all other parameters provided to `ListExecutions` must
     /// match the call that provided the page token.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Optional. A view defining which fields should be filled in the returned executions.
     /// The API will default to the BASIC view.
-    #[prost(enumeration="ExecutionView", tag="4")]
+    #[prost(enumeration = "ExecutionView", tag = "4")]
     pub view: i32,
 }
 /// Response for the
 /// \[ListExecutions][google.cloud.workflows.executions.v1beta.Executions.ListExecutions\]
 /// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListExecutionsResponse {
     /// The executions which match the request.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub executions: ::prost::alloc::vec::Vec<Execution>,
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request for the
 /// \[CreateExecution][google.cloud.workflows.executions.v1beta.Executions.CreateExecution\]
 /// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateExecutionRequest {
     /// Required. Name of the workflow for which an execution should be created.
     /// Format: projects/{project}/locations/{location}/workflows/{workflow}
     /// The latest revision of the workflow will be used.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. Execution to be created.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub execution: ::core::option::Option<Execution>,
 }
 /// Request for the
 /// \[GetExecution][google.cloud.workflows.executions.v1beta.Executions.GetExecution\]
 /// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetExecutionRequest {
     /// Required. Name of the execution to be retrieved.
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Optional. A view defining which fields should be filled in the returned execution.
     /// The API will default to the FULL view.
-    #[prost(enumeration="ExecutionView", tag="2")]
+    #[prost(enumeration = "ExecutionView", tag = "2")]
     pub view: i32,
 }
 /// Request for the
 /// \[CancelExecution][google.cloud.workflows.executions.v1beta.Executions.CancelExecution\]
 /// method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CancelExecutionRequest {
     /// Required. Name of the execution to be cancelled.
     /// Format:
     /// projects/{project}/locations/{location}/workflows/{workflow}/executions/{execution}
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Defines possible views for execution resource.
@@ -180,6 +208,15 @@ impl ExecutionView {
             ExecutionView::Unspecified => "EXECUTION_VIEW_UNSPECIFIED",
             ExecutionView::Basic => "BASIC",
             ExecutionView::Full => "FULL",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "EXECUTION_VIEW_UNSPECIFIED" => Some(Self::Unspecified),
+            "BASIC" => Some(Self::Basic),
+            "FULL" => Some(Self::Full),
+            _ => None,
         }
     }
 }

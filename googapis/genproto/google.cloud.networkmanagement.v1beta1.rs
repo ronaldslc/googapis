@@ -9,13 +9,14 @@
 ///    |---------------------Trace----------------------|
 ///    Step1(State) Step2(State) ---  StepN(State(final))
 /// ```
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Trace {
     /// Derived from the source and destination endpoints definition specified by
     /// user request, and validated by the data plane model.
     /// If there are multiple traces starting from different source locations, then
     /// the endpoint_info may be different between traces.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub endpoint_info: ::core::option::Option<EndpointInfo>,
     /// A trace of a test contains multiple steps from the initial state to the
     /// final state (delivered, dropped, forwarded, or aborted).
@@ -23,38 +24,52 @@ pub struct Trace {
     /// The steps are ordered by the processing sequence within the simulated
     /// network state machine. It is critical to preserve the order of the steps
     /// and avoid reordering or sorting them.
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag = "2")]
     pub steps: ::prost::alloc::vec::Vec<Step>,
 }
 /// A simulated forwarding path is composed of multiple steps.
 /// Each step has a well-defined state and an associated configuration.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Step {
     /// A description of the step. Usually this is a summary of the state.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub description: ::prost::alloc::string::String,
     /// Each step is in one of the pre-defined states.
-    #[prost(enumeration="step::State", tag="2")]
+    #[prost(enumeration = "step::State", tag = "2")]
     pub state: i32,
     /// This is a step that leads to the final state Drop.
-    #[prost(bool, tag="3")]
+    #[prost(bool, tag = "3")]
     pub causes_drop: bool,
     /// Project ID that contains the configuration this step is validating.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub project_id: ::prost::alloc::string::String,
     /// Configuration or metadata associated with each step.
     /// The configuration is filtered based on viewer's permission. If a viewer
     /// has no permission to view the configuration in this step, for non-final
     /// states a special state is populated (VIEWER_PERMISSION_MISSING), and for
     /// final state the configuration is cleared.
-    #[prost(oneof="step::StepInfo", tags="5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19")]
+    #[prost(
+        oneof = "step::StepInfo",
+        tags = "5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19"
+    )]
     pub step_info: ::core::option::Option<step::StepInfo>,
 }
 /// Nested message and enum types in `Step`.
 pub mod step {
     /// Type of states that are defined in the network state machine.
     /// Each step in the packet trace is in a specific state.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum State {
         /// Unspecified state.
@@ -147,150 +162,199 @@ pub mod step {
                 State::ViewerPermissionMissing => "VIEWER_PERMISSION_MISSING",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "START_FROM_INSTANCE" => Some(Self::StartFromInstance),
+                "START_FROM_INTERNET" => Some(Self::StartFromInternet),
+                "START_FROM_PRIVATE_NETWORK" => Some(Self::StartFromPrivateNetwork),
+                "START_FROM_GKE_MASTER" => Some(Self::StartFromGkeMaster),
+                "START_FROM_CLOUD_SQL_INSTANCE" => Some(Self::StartFromCloudSqlInstance),
+                "APPLY_INGRESS_FIREWALL_RULE" => Some(Self::ApplyIngressFirewallRule),
+                "APPLY_EGRESS_FIREWALL_RULE" => Some(Self::ApplyEgressFirewallRule),
+                "APPLY_ROUTE" => Some(Self::ApplyRoute),
+                "APPLY_FORWARDING_RULE" => Some(Self::ApplyForwardingRule),
+                "SPOOFING_APPROVED" => Some(Self::SpoofingApproved),
+                "ARRIVE_AT_INSTANCE" => Some(Self::ArriveAtInstance),
+                "ARRIVE_AT_INTERNAL_LOAD_BALANCER" => {
+                    Some(Self::ArriveAtInternalLoadBalancer)
+                }
+                "ARRIVE_AT_EXTERNAL_LOAD_BALANCER" => {
+                    Some(Self::ArriveAtExternalLoadBalancer)
+                }
+                "ARRIVE_AT_VPN_GATEWAY" => Some(Self::ArriveAtVpnGateway),
+                "ARRIVE_AT_VPN_TUNNEL" => Some(Self::ArriveAtVpnTunnel),
+                "NAT" => Some(Self::Nat),
+                "PROXY_CONNECTION" => Some(Self::ProxyConnection),
+                "DELIVER" => Some(Self::Deliver),
+                "DROP" => Some(Self::Drop),
+                "FORWARD" => Some(Self::Forward),
+                "ABORT" => Some(Self::Abort),
+                "VIEWER_PERMISSION_MISSING" => Some(Self::ViewerPermissionMissing),
+                _ => None,
+            }
+        }
     }
     /// Configuration or metadata associated with each step.
     /// The configuration is filtered based on viewer's permission. If a viewer
     /// has no permission to view the configuration in this step, for non-final
     /// states a special state is populated (VIEWER_PERMISSION_MISSING), and for
     /// final state the configuration is cleared.
+    #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum StepInfo {
         /// Display information of a Compute Engine instance.
-        #[prost(message, tag="5")]
+        #[prost(message, tag = "5")]
         Instance(super::InstanceInfo),
         /// Display information of a Compute Engine firewall rule.
-        #[prost(message, tag="6")]
+        #[prost(message, tag = "6")]
         Firewall(super::FirewallInfo),
         /// Display information of a Compute Engine route.
-        #[prost(message, tag="7")]
+        #[prost(message, tag = "7")]
         Route(super::RouteInfo),
         /// Display information of the source and destination under analysis.
         /// The endpoint information in an intermediate state may differ with the
         /// initial input, as it might be modified by state like NAT,
         /// or Connection Proxy.
-        #[prost(message, tag="8")]
+        #[prost(message, tag = "8")]
         Endpoint(super::EndpointInfo),
         /// Display information of a Compute Engine forwarding rule.
-        #[prost(message, tag="9")]
+        #[prost(message, tag = "9")]
         ForwardingRule(super::ForwardingRuleInfo),
         /// Display information of a Compute Engine VPN gateway.
-        #[prost(message, tag="10")]
+        #[prost(message, tag = "10")]
         VpnGateway(super::VpnGatewayInfo),
         /// Display information of a Compute Engine VPN tunnel.
-        #[prost(message, tag="11")]
+        #[prost(message, tag = "11")]
         VpnTunnel(super::VpnTunnelInfo),
         /// Display information of the final state "deliver" and reason.
-        #[prost(message, tag="12")]
+        #[prost(message, tag = "12")]
         Deliver(super::DeliverInfo),
         /// Display information of the final state "forward" and reason.
-        #[prost(message, tag="13")]
+        #[prost(message, tag = "13")]
         Forward(super::ForwardInfo),
         /// Display information of the final state "abort" and reason.
-        #[prost(message, tag="14")]
+        #[prost(message, tag = "14")]
         Abort(super::AbortInfo),
         /// Display information of the final state "drop" and reason.
-        #[prost(message, tag="15")]
+        #[prost(message, tag = "15")]
         Drop(super::DropInfo),
         /// Display information of the load balancers.
-        #[prost(message, tag="16")]
+        #[prost(message, tag = "16")]
         LoadBalancer(super::LoadBalancerInfo),
         /// Display information of a Google Cloud network.
-        #[prost(message, tag="17")]
+        #[prost(message, tag = "17")]
         Network(super::NetworkInfo),
         /// Display information of a Google Kubernetes Engine cluster master.
-        #[prost(message, tag="18")]
+        #[prost(message, tag = "18")]
         GkeMaster(super::GkeMasterInfo),
         /// Display information of a Cloud SQL instance.
-        #[prost(message, tag="19")]
+        #[prost(message, tag = "19")]
         CloudSqlInstance(super::CloudSqlInstanceInfo),
     }
 }
 /// For display only. Metadata associated with a Compute Engine instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct InstanceInfo {
     /// Name of a Compute Engine instance.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a Compute Engine instance.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// Name of the network interface of a Compute Engine instance.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub interface: ::prost::alloc::string::String,
     /// URI of a Compute Engine network.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub network_uri: ::prost::alloc::string::String,
     /// Internal IP address of the network interface.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub internal_ip: ::prost::alloc::string::String,
     /// External IP address of the network interface.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub external_ip: ::prost::alloc::string::String,
     /// Network tags configured on the instance.
-    #[prost(string, repeated, tag="7")]
+    #[prost(string, repeated, tag = "7")]
     pub network_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Service account authorized for the instance.
     #[deprecated]
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub service_account: ::prost::alloc::string::String,
 }
 /// For display only. Metadata associated with a Compute Engine network.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct NetworkInfo {
     /// Name of a Compute Engine network.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a Compute Engine network.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// The IP range that matches the test.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub matched_ip_range: ::prost::alloc::string::String,
 }
 /// For display only. Metadata associated with a VPC firewall rule, an implied
 /// VPC firewall rule, or a hierarchical firewall policy rule.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct FirewallInfo {
     /// The display name of the VPC firewall rule. This field is not applicable
     /// to hierarchical firewall policy rules.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// The URI of the VPC firewall rule. This field is not applicable to
     /// implied firewall rules or hierarchical firewall policy rules.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// Possible values: INGRESS, EGRESS
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub direction: ::prost::alloc::string::String,
     /// Possible values: ALLOW, DENY
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub action: ::prost::alloc::string::String,
     /// The priority of the firewall rule.
-    #[prost(int32, tag="5")]
+    #[prost(int32, tag = "5")]
     pub priority: i32,
     /// The URI of the VPC network that the firewall rule is associated with.
     /// This field is not applicable to hierarchical firewall policy rules.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub network_uri: ::prost::alloc::string::String,
     /// The target tags defined by the VPC firewall rule. This field is not
     /// applicable to hierarchical firewall policy rules.
-    #[prost(string, repeated, tag="7")]
+    #[prost(string, repeated, tag = "7")]
     pub target_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// The target service accounts specified by the firewall rule.
-    #[prost(string, repeated, tag="8")]
-    pub target_service_accounts: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "8")]
+    pub target_service_accounts: ::prost::alloc::vec::Vec<
+        ::prost::alloc::string::String,
+    >,
     /// The hierarchical firewall policy that this rule is associated with.
     /// This field is not applicable to VPC firewall rules.
-    #[prost(string, tag="9")]
+    #[prost(string, tag = "9")]
     pub policy: ::prost::alloc::string::String,
     /// The firewall rule's type.
-    #[prost(enumeration="firewall_info::FirewallRuleType", tag="10")]
+    #[prost(enumeration = "firewall_info::FirewallRuleType", tag = "10")]
     pub firewall_rule_type: i32,
 }
 /// Nested message and enum types in `FirewallInfo`.
 pub mod firewall_info {
     /// The firewall rule's type.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum FirewallRuleType {
         /// Unspecified type.
@@ -316,51 +380,76 @@ pub mod firewall_info {
         pub fn as_str_name(&self) -> &'static str {
             match self {
                 FirewallRuleType::Unspecified => "FIREWALL_RULE_TYPE_UNSPECIFIED",
-                FirewallRuleType::HierarchicalFirewallPolicyRule => "HIERARCHICAL_FIREWALL_POLICY_RULE",
+                FirewallRuleType::HierarchicalFirewallPolicyRule => {
+                    "HIERARCHICAL_FIREWALL_POLICY_RULE"
+                }
                 FirewallRuleType::VpcFirewallRule => "VPC_FIREWALL_RULE",
                 FirewallRuleType::ImpliedVpcFirewallRule => "IMPLIED_VPC_FIREWALL_RULE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "FIREWALL_RULE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "HIERARCHICAL_FIREWALL_POLICY_RULE" => {
+                    Some(Self::HierarchicalFirewallPolicyRule)
+                }
+                "VPC_FIREWALL_RULE" => Some(Self::VpcFirewallRule),
+                "IMPLIED_VPC_FIREWALL_RULE" => Some(Self::ImpliedVpcFirewallRule),
+                _ => None,
             }
         }
     }
 }
 /// For display only. Metadata associated with a Compute Engine route.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RouteInfo {
     /// Type of route.
-    #[prost(enumeration="route_info::RouteType", tag="8")]
+    #[prost(enumeration = "route_info::RouteType", tag = "8")]
     pub route_type: i32,
     /// Type of next hop.
-    #[prost(enumeration="route_info::NextHopType", tag="9")]
+    #[prost(enumeration = "route_info::NextHopType", tag = "9")]
     pub next_hop_type: i32,
     /// Name of a Compute Engine route.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a Compute Engine route.
     /// Dynamic route from cloud router does not have a URI.
     /// Advertised route from Google Cloud VPC to on-premises network also does
     /// not have a URI.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// Destination IP range of the route.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub dest_ip_range: ::prost::alloc::string::String,
     /// Next hop of the route.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub next_hop: ::prost::alloc::string::String,
     /// URI of a Compute Engine network.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub network_uri: ::prost::alloc::string::String,
     /// Priority of the route.
-    #[prost(int32, tag="6")]
+    #[prost(int32, tag = "6")]
     pub priority: i32,
     /// Instance tags of the route.
-    #[prost(string, repeated, tag="7")]
+    #[prost(string, repeated, tag = "7")]
     pub instance_tags: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Nested message and enum types in `RouteInfo`.
 pub mod route_info {
     /// Type of route:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum RouteType {
         /// Unspecified type. Default value.
@@ -395,9 +484,32 @@ pub mod route_info {
                 RouteType::PeeringDynamic => "PEERING_DYNAMIC",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ROUTE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SUBNET" => Some(Self::Subnet),
+                "STATIC" => Some(Self::Static),
+                "DYNAMIC" => Some(Self::Dynamic),
+                "PEERING_SUBNET" => Some(Self::PeeringSubnet),
+                "PEERING_STATIC" => Some(Self::PeeringStatic),
+                "PEERING_DYNAMIC" => Some(Self::PeeringDynamic),
+                _ => None,
+            }
+        }
     }
     /// Type of next hop:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum NextHopType {
         /// Unspecified type. Default value.
@@ -447,56 +559,85 @@ pub mod route_info {
                 NextHopType::NextHopIlb => "NEXT_HOP_ILB",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "NEXT_HOP_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "NEXT_HOP_IP" => Some(Self::NextHopIp),
+                "NEXT_HOP_INSTANCE" => Some(Self::NextHopInstance),
+                "NEXT_HOP_NETWORK" => Some(Self::NextHopNetwork),
+                "NEXT_HOP_PEERING" => Some(Self::NextHopPeering),
+                "NEXT_HOP_INTERCONNECT" => Some(Self::NextHopInterconnect),
+                "NEXT_HOP_VPN_TUNNEL" => Some(Self::NextHopVpnTunnel),
+                "NEXT_HOP_VPN_GATEWAY" => Some(Self::NextHopVpnGateway),
+                "NEXT_HOP_INTERNET_GATEWAY" => Some(Self::NextHopInternetGateway),
+                "NEXT_HOP_BLACKHOLE" => Some(Self::NextHopBlackhole),
+                "NEXT_HOP_ILB" => Some(Self::NextHopIlb),
+                _ => None,
+            }
+        }
     }
 }
 /// For display only. Metadata associated with a Compute Engine forwarding rule.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ForwardingRuleInfo {
     /// Name of a Compute Engine forwarding rule.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a Compute Engine forwarding rule.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// Protocol defined in the forwarding rule that matches the test.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub matched_protocol: ::prost::alloc::string::String,
     /// Port range defined in the forwarding rule that matches the test.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub matched_port_range: ::prost::alloc::string::String,
     /// VIP of the forwarding rule.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub vip: ::prost::alloc::string::String,
     /// Target type of the forwarding rule.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub target: ::prost::alloc::string::String,
     /// Network URI. Only valid for Internal Load Balancer.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub network_uri: ::prost::alloc::string::String,
 }
 /// For display only. Metadata associated with a load balancer.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoadBalancerInfo {
     /// Type of the load balancer.
-    #[prost(enumeration="load_balancer_info::LoadBalancerType", tag="1")]
+    #[prost(enumeration = "load_balancer_info::LoadBalancerType", tag = "1")]
     pub load_balancer_type: i32,
     /// URI of the health check for the load balancer.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub health_check_uri: ::prost::alloc::string::String,
     /// Information for the loadbalancer backends.
-    #[prost(message, repeated, tag="3")]
+    #[prost(message, repeated, tag = "3")]
     pub backends: ::prost::alloc::vec::Vec<LoadBalancerBackend>,
     /// Type of load balancer's backend configuration.
-    #[prost(enumeration="load_balancer_info::BackendType", tag="4")]
+    #[prost(enumeration = "load_balancer_info::BackendType", tag = "4")]
     pub backend_type: i32,
     /// Backend configuration URI.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub backend_uri: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `LoadBalancerInfo`.
 pub mod load_balancer_info {
     /// The type definition for a load balancer:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum LoadBalancerType {
         /// Type is unspecified.
@@ -527,9 +668,31 @@ pub mod load_balancer_info {
                 LoadBalancerType::SslProxy => "SSL_PROXY",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "LOAD_BALANCER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "INTERNAL_TCP_UDP" => Some(Self::InternalTcpUdp),
+                "NETWORK_TCP_UDP" => Some(Self::NetworkTcpUdp),
+                "HTTP_PROXY" => Some(Self::HttpProxy),
+                "TCP_PROXY" => Some(Self::TcpProxy),
+                "SSL_PROXY" => Some(Self::SslProxy),
+                _ => None,
+            }
+        }
     }
     /// The type definition for a load balancer backend configuration:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum BackendType {
         /// Type is unspecified.
@@ -551,31 +714,55 @@ pub mod load_balancer_info {
                 BackendType::TargetPool => "TARGET_POOL",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "BACKEND_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "BACKEND_SERVICE" => Some(Self::BackendService),
+                "TARGET_POOL" => Some(Self::TargetPool),
+                _ => None,
+            }
+        }
     }
 }
 /// For display only. Metadata associated with a specific load balancer backend.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LoadBalancerBackend {
     /// Name of a Compute Engine instance or network endpoint.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a Compute Engine instance or network endpoint.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// State of the health check firewall configuration.
-    #[prost(enumeration="load_balancer_backend::HealthCheckFirewallState", tag="3")]
+    #[prost(enumeration = "load_balancer_backend::HealthCheckFirewallState", tag = "3")]
     pub health_check_firewall_state: i32,
     /// A list of firewall rule URIs allowing probes from health check IP ranges.
-    #[prost(string, repeated, tag="4")]
-    pub health_check_allowing_firewall_rules: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "4")]
+    pub health_check_allowing_firewall_rules: ::prost::alloc::vec::Vec<
+        ::prost::alloc::string::String,
+    >,
     /// A list of firewall rule URIs blocking probes from health check IP ranges.
-    #[prost(string, repeated, tag="5")]
-    pub health_check_blocking_firewall_rules: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, repeated, tag = "5")]
+    pub health_check_blocking_firewall_rules: ::prost::alloc::vec::Vec<
+        ::prost::alloc::string::String,
+    >,
 }
 /// Nested message and enum types in `LoadBalancerBackend`.
 pub mod load_balancer_backend {
     /// State of a health check firewall configuration:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum HealthCheckFirewallState {
         /// State is unspecified. Default state if not populated.
@@ -597,73 +784,96 @@ pub mod load_balancer_backend {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                HealthCheckFirewallState::Unspecified => "HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED",
+                HealthCheckFirewallState::Unspecified => {
+                    "HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED"
+                }
                 HealthCheckFirewallState::Configured => "CONFIGURED",
                 HealthCheckFirewallState::Misconfigured => "MISCONFIGURED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "HEALTH_CHECK_FIREWALL_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CONFIGURED" => Some(Self::Configured),
+                "MISCONFIGURED" => Some(Self::Misconfigured),
+                _ => None,
             }
         }
     }
 }
 /// For display only. Metadata associated with a Compute Engine VPN gateway.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VpnGatewayInfo {
     /// Name of a VPN gateway.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a VPN gateway.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// URI of a Compute Engine network where the VPN gateway is configured.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub network_uri: ::prost::alloc::string::String,
     /// IP address of the VPN gateway.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub ip_address: ::prost::alloc::string::String,
     /// A VPN tunnel that is associated with this VPN gateway.
     /// There may be multiple VPN tunnels configured on a VPN gateway, and only
     /// the one relevant to the test is displayed.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub vpn_tunnel_uri: ::prost::alloc::string::String,
     /// Name of a Google Cloud region where this VPN gateway is configured.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub region: ::prost::alloc::string::String,
 }
 /// For display only. Metadata associated with a Compute Engine VPN tunnel.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct VpnTunnelInfo {
     /// Name of a VPN tunnel.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a VPN tunnel.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// URI of the VPN gateway at local end of the tunnel.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub source_gateway: ::prost::alloc::string::String,
     /// URI of a VPN gateway at remote end of the tunnel.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub remote_gateway: ::prost::alloc::string::String,
     /// Remote VPN gateway's IP address.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub remote_gateway_ip: ::prost::alloc::string::String,
     /// Local VPN gateway's IP address.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub source_gateway_ip: ::prost::alloc::string::String,
     /// URI of a Compute Engine network where the VPN tunnel is configured.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub network_uri: ::prost::alloc::string::String,
     /// Name of a Google Cloud region where this VPN tunnel is configured.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub region: ::prost::alloc::string::String,
     /// Type of the routing policy.
-    #[prost(enumeration="vpn_tunnel_info::RoutingType", tag="9")]
+    #[prost(enumeration = "vpn_tunnel_info::RoutingType", tag = "9")]
     pub routing_type: i32,
 }
 /// Nested message and enum types in `VpnTunnelInfo`.
 pub mod vpn_tunnel_info {
     /// Types of VPN routing policy. For details, refer to [Networks and Tunnel
     /// routing](<https://cloud.google.com/network-connectivity/docs/vpn/concepts/choosing-networks-routing/>).
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum RoutingType {
         /// Unspecified type. Default value.
@@ -688,49 +898,71 @@ pub mod vpn_tunnel_info {
                 RoutingType::Dynamic => "DYNAMIC",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ROUTING_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "ROUTE_BASED" => Some(Self::RouteBased),
+                "POLICY_BASED" => Some(Self::PolicyBased),
+                "DYNAMIC" => Some(Self::Dynamic),
+                _ => None,
+            }
+        }
     }
 }
 /// For display only. The specification of the endpoints for the test.
 /// EndpointInfo is derived from source and destination Endpoint and validated
 /// by the backend data plane model.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct EndpointInfo {
     /// Source IP address.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub source_ip: ::prost::alloc::string::String,
     /// Destination IP address.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub destination_ip: ::prost::alloc::string::String,
     /// IP protocol in string format, for example: "TCP", "UDP", "ICMP".
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub protocol: ::prost::alloc::string::String,
     /// Source port. Only valid when protocol is TCP or UDP.
-    #[prost(int32, tag="4")]
+    #[prost(int32, tag = "4")]
     pub source_port: i32,
     /// Destination port. Only valid when protocol is TCP or UDP.
-    #[prost(int32, tag="5")]
+    #[prost(int32, tag = "5")]
     pub destination_port: i32,
     /// URI of the network where this packet originates from.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub source_network_uri: ::prost::alloc::string::String,
     /// URI of the network where this packet is sent to.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub destination_network_uri: ::prost::alloc::string::String,
 }
 /// Details of the final state "deliver" and associated resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeliverInfo {
     /// Target type where the packet is delivered to.
-    #[prost(enumeration="deliver_info::Target", tag="1")]
+    #[prost(enumeration = "deliver_info::Target", tag = "1")]
     pub target: i32,
     /// URI of the resource that the packet is delivered to.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub resource_uri: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `DeliverInfo`.
 pub mod deliver_info {
     /// Deliver target types:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Target {
         /// Target not specified.
@@ -761,22 +993,45 @@ pub mod deliver_info {
                 Target::CloudSqlInstance => "CLOUD_SQL_INSTANCE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TARGET_UNSPECIFIED" => Some(Self::Unspecified),
+                "INSTANCE" => Some(Self::Instance),
+                "INTERNET" => Some(Self::Internet),
+                "GOOGLE_API" => Some(Self::GoogleApi),
+                "GKE_MASTER" => Some(Self::GkeMaster),
+                "CLOUD_SQL_INSTANCE" => Some(Self::CloudSqlInstance),
+                _ => None,
+            }
+        }
     }
 }
 /// Details of the final state "forward" and associated resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ForwardInfo {
     /// Target type where this packet is forwarded to.
-    #[prost(enumeration="forward_info::Target", tag="1")]
+    #[prost(enumeration = "forward_info::Target", tag = "1")]
     pub target: i32,
     /// URI of the resource that the packet is forwarded to.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub resource_uri: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `ForwardInfo`.
 pub mod forward_info {
     /// Forward target types.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Target {
         /// Target not specified.
@@ -810,22 +1065,48 @@ pub mod forward_info {
                 Target::CloudSqlInstance => "CLOUD_SQL_INSTANCE",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TARGET_UNSPECIFIED" => Some(Self::Unspecified),
+                "PEERING_VPC" => Some(Self::PeeringVpc),
+                "VPN_GATEWAY" => Some(Self::VpnGateway),
+                "INTERCONNECT" => Some(Self::Interconnect),
+                "GKE_MASTER" => Some(Self::GkeMaster),
+                "IMPORTED_CUSTOM_ROUTE_NEXT_HOP" => {
+                    Some(Self::ImportedCustomRouteNextHop)
+                }
+                "CLOUD_SQL_INSTANCE" => Some(Self::CloudSqlInstance),
+                _ => None,
+            }
+        }
     }
 }
 /// Details of the final state "abort" and associated resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AbortInfo {
     /// Causes that the analysis is aborted.
-    #[prost(enumeration="abort_info::Cause", tag="1")]
+    #[prost(enumeration = "abort_info::Cause", tag = "1")]
     pub cause: i32,
     /// URI of the resource that caused the abort.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub resource_uri: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `AbortInfo`.
 pub mod abort_info {
     /// Abort cause types:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Cause {
         /// Cause is unspecified.
@@ -898,22 +1179,58 @@ pub mod abort_info {
                 Cause::MismatchedDestinationNetwork => "MISMATCHED_DESTINATION_NETWORK",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CAUSE_UNSPECIFIED" => Some(Self::Unspecified),
+                "UNKNOWN_NETWORK" => Some(Self::UnknownNetwork),
+                "UNKNOWN_IP" => Some(Self::UnknownIp),
+                "UNKNOWN_PROJECT" => Some(Self::UnknownProject),
+                "PERMISSION_DENIED" => Some(Self::PermissionDenied),
+                "NO_SOURCE_LOCATION" => Some(Self::NoSourceLocation),
+                "INVALID_ARGUMENT" => Some(Self::InvalidArgument),
+                "NO_EXTERNAL_IP" => Some(Self::NoExternalIp),
+                "UNINTENDED_DESTINATION" => Some(Self::UnintendedDestination),
+                "TRACE_TOO_LONG" => Some(Self::TraceTooLong),
+                "INTERNAL_ERROR" => Some(Self::InternalError),
+                "SOURCE_ENDPOINT_NOT_FOUND" => Some(Self::SourceEndpointNotFound),
+                "MISMATCHED_SOURCE_NETWORK" => Some(Self::MismatchedSourceNetwork),
+                "DESTINATION_ENDPOINT_NOT_FOUND" => {
+                    Some(Self::DestinationEndpointNotFound)
+                }
+                "MISMATCHED_DESTINATION_NETWORK" => {
+                    Some(Self::MismatchedDestinationNetwork)
+                }
+                _ => None,
+            }
+        }
     }
 }
 /// Details of the final state "drop" and associated resource.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DropInfo {
     /// Cause that the packet is dropped.
-    #[prost(enumeration="drop_info::Cause", tag="1")]
+    #[prost(enumeration = "drop_info::Cause", tag = "1")]
     pub cause: i32,
     /// URI of the resource that caused the drop.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub resource_uri: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `DropInfo`.
 pub mod drop_info {
     /// Drop cause types:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Cause {
         /// Cause is unspecified.
@@ -1005,74 +1322,127 @@ pub mod drop_info {
                 Cause::RouteBlackhole => "ROUTE_BLACKHOLE",
                 Cause::RouteWrongNetwork => "ROUTE_WRONG_NETWORK",
                 Cause::PrivateTrafficToInternet => "PRIVATE_TRAFFIC_TO_INTERNET",
-                Cause::PrivateGoogleAccessDisallowed => "PRIVATE_GOOGLE_ACCESS_DISALLOWED",
+                Cause::PrivateGoogleAccessDisallowed => {
+                    "PRIVATE_GOOGLE_ACCESS_DISALLOWED"
+                }
                 Cause::NoExternalAddress => "NO_EXTERNAL_ADDRESS",
                 Cause::UnknownInternalAddress => "UNKNOWN_INTERNAL_ADDRESS",
                 Cause::ForwardingRuleMismatch => "FORWARDING_RULE_MISMATCH",
                 Cause::ForwardingRuleNoInstances => "FORWARDING_RULE_NO_INSTANCES",
-                Cause::FirewallBlockingLoadBalancerBackendHealthCheck => "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK",
+                Cause::FirewallBlockingLoadBalancerBackendHealthCheck => {
+                    "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK"
+                }
                 Cause::InstanceNotRunning => "INSTANCE_NOT_RUNNING",
                 Cause::TrafficTypeBlocked => "TRAFFIC_TYPE_BLOCKED",
                 Cause::GkeMasterUnauthorizedAccess => "GKE_MASTER_UNAUTHORIZED_ACCESS",
-                Cause::CloudSqlInstanceUnauthorizedAccess => "CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS",
+                Cause::CloudSqlInstanceUnauthorizedAccess => {
+                    "CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS"
+                }
                 Cause::DroppedInsideGkeService => "DROPPED_INSIDE_GKE_SERVICE",
                 Cause::DroppedInsideCloudSqlService => "DROPPED_INSIDE_CLOUD_SQL_SERVICE",
-                Cause::GoogleManagedServiceNoPeering => "GOOGLE_MANAGED_SERVICE_NO_PEERING",
+                Cause::GoogleManagedServiceNoPeering => {
+                    "GOOGLE_MANAGED_SERVICE_NO_PEERING"
+                }
                 Cause::CloudSqlInstanceNoIpAddress => "CLOUD_SQL_INSTANCE_NO_IP_ADDRESS",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "CAUSE_UNSPECIFIED" => Some(Self::Unspecified),
+                "UNKNOWN_EXTERNAL_ADDRESS" => Some(Self::UnknownExternalAddress),
+                "FOREIGN_IP_DISALLOWED" => Some(Self::ForeignIpDisallowed),
+                "FIREWALL_RULE" => Some(Self::FirewallRule),
+                "NO_ROUTE" => Some(Self::NoRoute),
+                "ROUTE_BLACKHOLE" => Some(Self::RouteBlackhole),
+                "ROUTE_WRONG_NETWORK" => Some(Self::RouteWrongNetwork),
+                "PRIVATE_TRAFFIC_TO_INTERNET" => Some(Self::PrivateTrafficToInternet),
+                "PRIVATE_GOOGLE_ACCESS_DISALLOWED" => {
+                    Some(Self::PrivateGoogleAccessDisallowed)
+                }
+                "NO_EXTERNAL_ADDRESS" => Some(Self::NoExternalAddress),
+                "UNKNOWN_INTERNAL_ADDRESS" => Some(Self::UnknownInternalAddress),
+                "FORWARDING_RULE_MISMATCH" => Some(Self::ForwardingRuleMismatch),
+                "FORWARDING_RULE_NO_INSTANCES" => Some(Self::ForwardingRuleNoInstances),
+                "FIREWALL_BLOCKING_LOAD_BALANCER_BACKEND_HEALTH_CHECK" => {
+                    Some(Self::FirewallBlockingLoadBalancerBackendHealthCheck)
+                }
+                "INSTANCE_NOT_RUNNING" => Some(Self::InstanceNotRunning),
+                "TRAFFIC_TYPE_BLOCKED" => Some(Self::TrafficTypeBlocked),
+                "GKE_MASTER_UNAUTHORIZED_ACCESS" => {
+                    Some(Self::GkeMasterUnauthorizedAccess)
+                }
+                "CLOUD_SQL_INSTANCE_UNAUTHORIZED_ACCESS" => {
+                    Some(Self::CloudSqlInstanceUnauthorizedAccess)
+                }
+                "DROPPED_INSIDE_GKE_SERVICE" => Some(Self::DroppedInsideGkeService),
+                "DROPPED_INSIDE_CLOUD_SQL_SERVICE" => {
+                    Some(Self::DroppedInsideCloudSqlService)
+                }
+                "GOOGLE_MANAGED_SERVICE_NO_PEERING" => {
+                    Some(Self::GoogleManagedServiceNoPeering)
+                }
+                "CLOUD_SQL_INSTANCE_NO_IP_ADDRESS" => {
+                    Some(Self::CloudSqlInstanceNoIpAddress)
+                }
+                _ => None,
             }
         }
     }
 }
 /// For display only. Metadata associated with a Google Kubernetes Engine (GKE)
 /// cluster master.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GkeMasterInfo {
     /// URI of a GKE cluster.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub cluster_uri: ::prost::alloc::string::String,
     /// URI of a GKE cluster network.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub cluster_network_uri: ::prost::alloc::string::String,
     /// Internal IP address of a GKE cluster master.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub internal_ip: ::prost::alloc::string::String,
     /// External IP address of a GKE cluster master.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub external_ip: ::prost::alloc::string::String,
 }
 /// For display only. Metadata associated with a Cloud SQL instance.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CloudSqlInstanceInfo {
     /// Name of a Cloud SQL instance.
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub display_name: ::prost::alloc::string::String,
     /// URI of a Cloud SQL instance.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub uri: ::prost::alloc::string::String,
     /// URI of a Cloud SQL instance network or empty string if the instance does
     /// not have one.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub network_uri: ::prost::alloc::string::String,
     /// Internal IP address of a Cloud SQL instance.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub internal_ip: ::prost::alloc::string::String,
     /// External IP address of a Cloud SQL instance.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub external_ip: ::prost::alloc::string::String,
     /// Region in which the Cloud SQL instance is running.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub region: ::prost::alloc::string::String,
 }
 /// A Connectivity Test for a network reachability analysis.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ConnectivityTest {
     /// Required. Unique name of the resource using the form:
     ///      `projects/{project_id}/locations/global/connectivityTests/{test}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// The user-supplied description of the Connectivity Test.
     /// Maximum of 512 characters.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub description: ::prost::alloc::string::String,
     /// Required. Source specification of the Connectivity Test.
     ///
@@ -1096,7 +1466,7 @@ pub struct ConnectivityTest {
     /// A reachability analysis proceeds even if the source location is
     /// ambiguous. However, the test result may include endpoints that you don't
     /// intend to test.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub source: ::core::option::Option<Endpoint>,
     /// Required. Destination specification of the Connectivity Test.
     ///
@@ -1116,69 +1486,73 @@ pub struct ConnectivityTest {
     /// A reachability analysis proceeds even if the destination location is
     /// ambiguous. However, the result can include endpoints that you don't
     /// intend to test.
-    #[prost(message, optional, tag="4")]
+    #[prost(message, optional, tag = "4")]
     pub destination: ::core::option::Option<Endpoint>,
     /// IP Protocol of the test. When not provided, "TCP" is assumed.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub protocol: ::prost::alloc::string::String,
     /// Other projects that may be relevant for reachability analysis.
     /// This is applicable to scenarios where a test can cross project boundaries.
-    #[prost(string, repeated, tag="6")]
+    #[prost(string, repeated, tag = "6")]
     pub related_projects: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// Output only. The display name of a Connectivity Test.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub display_name: ::prost::alloc::string::String,
     /// Resource labels to represent user-provided metadata.
-    #[prost(map="string, string", tag="8")]
-    pub labels: ::std::collections::HashMap<::prost::alloc::string::String, ::prost::alloc::string::String>,
+    #[prost(map = "string, string", tag = "8")]
+    pub labels: ::std::collections::HashMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
     /// Output only. The time the test was created.
-    #[prost(message, optional, tag="10")]
+    #[prost(message, optional, tag = "10")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The time the test's configuration was updated.
-    #[prost(message, optional, tag="11")]
+    #[prost(message, optional, tag = "11")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Output only. The reachability details of this test from the latest run.
     /// The details are updated when creating a new test, updating an
     /// existing test, or triggering a one-time rerun of an existing test.
-    #[prost(message, optional, tag="12")]
+    #[prost(message, optional, tag = "12")]
     pub reachability_details: ::core::option::Option<ReachabilityDetails>,
     /// Output only. The probing details of this test from the latest run, present for
     /// applicable tests only. The details are updated when creating a new test,
     /// updating an existing test, or triggering a one-time rerun of an existing
     /// test.
-    #[prost(message, optional, tag="14")]
+    #[prost(message, optional, tag = "14")]
     pub probing_details: ::core::option::Option<ProbingDetails>,
 }
 /// Source or destination of the Connectivity Test.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Endpoint {
     /// The IP address of the endpoint, which can be an external or internal IP.
     /// An IPv6 address is only allowed when the test's destination is a
     /// [global load balancer
     /// VIP](<https://cloud.google.com/load-balancing/docs/load-balancing-overview>).
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub ip_address: ::prost::alloc::string::String,
     /// The IP protocol port of the endpoint.
     /// Only applicable when protocol is TCP or UDP.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub port: i32,
     /// A Compute Engine instance URI.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub instance: ::prost::alloc::string::String,
     /// A cluster URI for [Google Kubernetes Engine
     /// master](<https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture>).
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub gke_master_cluster: ::prost::alloc::string::String,
     /// A [Cloud SQL](<https://cloud.google.com/sql>) instance URI.
-    #[prost(string, tag="8")]
+    #[prost(string, tag = "8")]
     pub cloud_sql_instance: ::prost::alloc::string::String,
     /// A Compute Engine network URI.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub network: ::prost::alloc::string::String,
     /// Type of the network where the endpoint is located.
     /// Applicable only to source endpoint, as destination network type can be
     /// inferred from the source.
-    #[prost(enumeration="endpoint::NetworkType", tag="5")]
+    #[prost(enumeration = "endpoint::NetworkType", tag = "5")]
     pub network_type: i32,
     /// Project ID where the endpoint is located.
     /// The Project ID can be derived from the URI if you provide a VM instance or
@@ -1189,14 +1563,24 @@ pub struct Endpoint {
     /// 2. When you are using Shared VPC and the IP address that you provide is
     /// from the service project. In this case, the network that the IP address
     /// resides in is defined in the host project.
-    #[prost(string, tag="6")]
+    #[prost(string, tag = "6")]
     pub project_id: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `Endpoint`.
 pub mod endpoint {
     /// The type definition of an endpoint's network. Use one of the
     /// following choices:
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum NetworkType {
         /// Default type if unspecified.
@@ -1222,30 +1606,50 @@ pub mod endpoint {
                 NetworkType::NonGcpNetwork => "NON_GCP_NETWORK",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "NETWORK_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "GCP_NETWORK" => Some(Self::GcpNetwork),
+                "NON_GCP_NETWORK" => Some(Self::NonGcpNetwork),
+                _ => None,
+            }
+        }
     }
 }
 /// Results of the configuration analysis from the last run of the test.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ReachabilityDetails {
     /// The overall result of the test's configuration analysis.
-    #[prost(enumeration="reachability_details::Result", tag="1")]
+    #[prost(enumeration = "reachability_details::Result", tag = "1")]
     pub result: i32,
     /// The time of the configuration analysis.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub verify_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The details of a failure or a cancellation of reachability analysis.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub error: ::core::option::Option<super::super::super::rpc::Status>,
     /// Result may contain a list of traces if a test has multiple possible
     /// paths in the network, such as when destination endpoint is a load balancer
     /// with multiple backends.
-    #[prost(message, repeated, tag="5")]
+    #[prost(message, repeated, tag = "5")]
     pub traces: ::prost::alloc::vec::Vec<Trace>,
 }
 /// Nested message and enum types in `ReachabilityDetails`.
 pub mod reachability_details {
     /// The overall result of the test's configuration analysis.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum Result {
         /// No result was specified.
@@ -1289,61 +1693,85 @@ pub mod reachability_details {
                 Result::Undetermined => "UNDETERMINED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "RESULT_UNSPECIFIED" => Some(Self::Unspecified),
+                "REACHABLE" => Some(Self::Reachable),
+                "UNREACHABLE" => Some(Self::Unreachable),
+                "AMBIGUOUS" => Some(Self::Ambiguous),
+                "UNDETERMINED" => Some(Self::Undetermined),
+                _ => None,
+            }
+        }
     }
 }
 /// Latency percentile rank and value.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LatencyPercentile {
     /// Percentage of samples this data point applies to.
-    #[prost(int32, tag="1")]
+    #[prost(int32, tag = "1")]
     pub percent: i32,
     /// percent-th percentile of latency observed, in microseconds.
     /// Fraction of percent/100 of samples have latency lower or
     /// equal to the value of this field.
-    #[prost(int64, tag="2")]
+    #[prost(int64, tag = "2")]
     pub latency_micros: i64,
 }
 /// Describes measured latency distribution.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct LatencyDistribution {
     /// Representative latency percentiles.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub latency_percentiles: ::prost::alloc::vec::Vec<LatencyPercentile>,
 }
 /// Results of active probing from the last run of the test.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ProbingDetails {
     /// The overall result of active probing.
-    #[prost(enumeration="probing_details::ProbingResult", tag="1")]
+    #[prost(enumeration = "probing_details::ProbingResult", tag = "1")]
     pub result: i32,
     /// The time that reachability was assessed through active probing.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub verify_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Details about an internal failure or the cancellation of active probing.
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub error: ::core::option::Option<super::super::super::rpc::Status>,
     /// The reason probing was aborted.
-    #[prost(enumeration="probing_details::ProbingAbortCause", tag="4")]
+    #[prost(enumeration = "probing_details::ProbingAbortCause", tag = "4")]
     pub abort_cause: i32,
     /// Number of probes sent.
-    #[prost(int32, tag="5")]
+    #[prost(int32, tag = "5")]
     pub sent_probe_count: i32,
     /// Number of probes that reached the destination.
-    #[prost(int32, tag="6")]
+    #[prost(int32, tag = "6")]
     pub successful_probe_count: i32,
     /// The source and destination endpoints derived from the test input and used
     /// for active probing.
-    #[prost(message, optional, tag="7")]
+    #[prost(message, optional, tag = "7")]
     pub endpoint_info: ::core::option::Option<EndpointInfo>,
     /// Latency as measured by active probing in one direction:
     /// from the source to the destination endpoint.
-    #[prost(message, optional, tag="8")]
+    #[prost(message, optional, tag = "8")]
     pub probing_latency: ::core::option::Option<LatencyDistribution>,
 }
 /// Nested message and enum types in `ProbingDetails`.
 pub mod probing_details {
     /// Overall probing result of the test.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ProbingResult {
         /// No result was specified.
@@ -1375,9 +1803,30 @@ pub mod probing_details {
                 ProbingResult::Undetermined => "UNDETERMINED",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "PROBING_RESULT_UNSPECIFIED" => Some(Self::Unspecified),
+                "REACHABLE" => Some(Self::Reachable),
+                "UNREACHABLE" => Some(Self::Unreachable),
+                "REACHABILITY_INCONSISTENT" => Some(Self::ReachabilityInconsistent),
+                "UNDETERMINED" => Some(Self::Undetermined),
+                _ => None,
+            }
+        }
     }
     /// Abort cause types.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum ProbingAbortCause {
         /// No reason was specified.
@@ -1400,20 +1849,30 @@ pub mod probing_details {
                 ProbingAbortCause::NoSourceLocation => "NO_SOURCE_LOCATION",
             }
         }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "PROBING_ABORT_CAUSE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PERMISSION_DENIED" => Some(Self::PermissionDenied),
+                "NO_SOURCE_LOCATION" => Some(Self::NoSourceLocation),
+                _ => None,
+            }
+        }
     }
 }
 /// Request for the `ListConnectivityTests` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConnectivityTestsRequest {
     /// Required. The parent resource of the Connectivity Tests:
     ///      `projects/{project_id}/locations/global`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Number of `ConnectivityTests` to return.
-    #[prost(int32, tag="2")]
+    #[prost(int32, tag = "2")]
     pub page_size: i32,
     /// Page token from an earlier query, as returned in `next_page_token`.
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub page_token: ::prost::alloc::string::String,
     /// Lists the `ConnectivityTests` that match the filter expression. A filter
     /// expression filters the resources listed in the response. The expression
@@ -1433,39 +1892,42 @@ pub struct ListConnectivityTestsRequest {
     ///      labels.foo:*
     ///    - Resources that have a key called `foo` whose value is `bar`
     ///      labels.foo = bar
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub filter: ::prost::alloc::string::String,
     /// Field to use to sort the list.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub order_by: ::prost::alloc::string::String,
 }
 /// Response for the `ListConnectivityTests` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ListConnectivityTestsResponse {
     /// List of Connectivity Tests.
-    #[prost(message, repeated, tag="1")]
+    #[prost(message, repeated, tag = "1")]
     pub resources: ::prost::alloc::vec::Vec<ConnectivityTest>,
     /// Page token to fetch the next set of Connectivity Tests.
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub next_page_token: ::prost::alloc::string::String,
     /// Locations that could not be reached (when querying all locations with `-`).
-    #[prost(string, repeated, tag="3")]
+    #[prost(string, repeated, tag = "3")]
     pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Request for the `GetConnectivityTest` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct GetConnectivityTestRequest {
     /// Required. `ConnectivityTest` resource name using the form:
     ///      `projects/{project_id}/locations/global/connectivityTests/{test_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for the `CreateConnectivityTest` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CreateConnectivityTestRequest {
     /// Required. The parent resource of the Connectivity Test to create:
     ///      `projects/{project_id}/locations/global`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
     /// Required. The logical name of the Connectivity Test in your project
     /// with the following restrictions:
@@ -1475,63 +1937,67 @@ pub struct CreateConnectivityTestRequest {
     /// * Must be between 1-40 characters.
     /// * Must end with a number or a letter.
     /// * Must be unique within the customer project
-    #[prost(string, tag="2")]
+    #[prost(string, tag = "2")]
     pub test_id: ::prost::alloc::string::String,
     /// Required. A `ConnectivityTest` resource
-    #[prost(message, optional, tag="3")]
+    #[prost(message, optional, tag = "3")]
     pub resource: ::core::option::Option<ConnectivityTest>,
 }
 /// Request for the `UpdateConnectivityTest` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UpdateConnectivityTestRequest {
     /// Required. Mask of fields to update. At least one path must be supplied in
     /// this field.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     /// Required. Only fields specified in update_mask are updated.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub resource: ::core::option::Option<ConnectivityTest>,
 }
 /// Request for the `DeleteConnectivityTest` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct DeleteConnectivityTestRequest {
     /// Required. Connectivity Test resource name using the form:
     ///      `projects/{project_id}/locations/global/connectivityTests/{test_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Request for the `RerunConnectivityTest` method.
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct RerunConnectivityTestRequest {
     /// Required. Connectivity Test resource name using the form:
     ///      `projects/{project_id}/locations/global/connectivityTests/{test_id}`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
 /// Metadata describing an \[Operation][google.longrunning.Operation\]
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OperationMetadata {
     /// The time the operation was created.
-    #[prost(message, optional, tag="1")]
+    #[prost(message, optional, tag = "1")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
     /// The time the operation finished running.
-    #[prost(message, optional, tag="2")]
+    #[prost(message, optional, tag = "2")]
     pub end_time: ::core::option::Option<::prost_types::Timestamp>,
     /// Target of the operation - for example
     /// projects/project-1/locations/global/connectivityTests/test-1
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub target: ::prost::alloc::string::String,
     /// Name of the verb executed by the operation.
-    #[prost(string, tag="4")]
+    #[prost(string, tag = "4")]
     pub verb: ::prost::alloc::string::String,
     /// Human-readable status of the operation, if any.
-    #[prost(string, tag="5")]
+    #[prost(string, tag = "5")]
     pub status_detail: ::prost::alloc::string::String,
     /// Specifies if cancellation was requested for the operation.
-    #[prost(bool, tag="6")]
+    #[prost(bool, tag = "6")]
     pub cancel_requested: bool,
     /// API version.
-    #[prost(string, tag="7")]
+    #[prost(string, tag = "7")]
     pub api_version: ::prost::alloc::string::String,
 }
 /// Generated client implementations.

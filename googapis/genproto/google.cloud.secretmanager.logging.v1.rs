@@ -1,21 +1,32 @@
 /// Logged event relating to a specific secret
+#[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SecretEvent {
     /// Resource name of the secret in the format `projects/*/secrets/*`
-    #[prost(string, tag="1")]
+    #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Type of event that is being logged for the secret
-    #[prost(enumeration="secret_event::EventType", tag="2")]
+    #[prost(enumeration = "secret_event::EventType", tag = "2")]
     pub r#type: i32,
     /// Human readable message describing the event
-    #[prost(string, tag="3")]
+    #[prost(string, tag = "3")]
     pub log_message: ::prost::alloc::string::String,
 }
 /// Nested message and enum types in `SecretEvent`.
 pub mod secret_event {
     /// Describes the type of event that is being logged. All logs have exactly one
     /// EventType.
-    #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
     #[repr(i32)]
     pub enum EventType {
         /// An unrecognized event type. Should never be used.
@@ -56,6 +67,21 @@ pub mod secret_event {
                 EventType::Expired => "EXPIRED",
                 EventType::TopicNotFound => "TOPIC_NOT_FOUND",
                 EventType::TopicPermissionDenied => "TOPIC_PERMISSION_DENIED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "EVENT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "EXPIRES_IN_30_DAYS" => Some(Self::ExpiresIn30Days),
+                "EXPIRES_IN_7_DAYS" => Some(Self::ExpiresIn7Days),
+                "EXPIRES_IN_1_DAY" => Some(Self::ExpiresIn1Day),
+                "EXPIRES_IN_6_HOURS" => Some(Self::ExpiresIn6Hours),
+                "EXPIRES_IN_1_HOUR" => Some(Self::ExpiresIn1Hour),
+                "EXPIRED" => Some(Self::Expired),
+                "TOPIC_NOT_FOUND" => Some(Self::TopicNotFound),
+                "TOPIC_PERMISSION_DENIED" => Some(Self::TopicPermissionDenied),
+                _ => None,
             }
         }
     }
